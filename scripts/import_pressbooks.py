@@ -31,6 +31,33 @@ HERE = os.path.dirname(os.path.abspath(__file__))
 ROOT = os.path.dirname(HERE)
 CONTENT = os.path.join(ROOT, "content")
 
+RENUM = {}        # old (registry) chapter number -> new number, from book.json "renumber"
+
+
+def renumber(t):
+    """Translate chapter/exercise/figure numbers from the export's (registry) numbering to the
+    book's current order. One pass, so 10->12 and 12->10 cannot chain."""
+    if not RENUM or not t:
+        return t
+    def f_ch(m):
+        n = int(m.group(2))
+        return m.group(1) + str(RENUM.get(n, n))
+    t = re.sub(r"(\b(?:Chapters?|Ch\.)(?:\s|&nbsp;|\u00a0)+)(\d{1,2})\b", f_ch, t)
+    def f_ex(m):
+        n = int(m.group(2))
+        return m.group(1) + str(RENUM.get(n, n)) + m.group(3)
+    t = re.sub(r"(\b(?:Exercises?|Figure) )(\d{1,2})(\.\d)", f_ex, t)
+    t = re.sub(r"(#ex-)(\d{1,2})(-\d)", lambda m: m.group(1) + str(RENUM.get(int(m.group(2)), int(m.group(2)))) + m.group(3), t)
+    return t
+
+
+def renumber_blocks(blocks):
+    for b in blocks:
+        b.md = renumber(b.md)
+        b.title = renumber(b.title)
+    return blocks
+
+
 ID_MAP = {}       # pressbooks div id -> relative url from a depth-1 page (ch-N/, appendices/, front/)
 LOG = []          # (kind, where, what)
 ARCHIVE = []      # (where, title, reason, text)
@@ -389,7 +416,7 @@ def load_rtp(docx):
         if cur is None:
             notes.append(p)
             continue
-        chapters[cur]["paras"].append(p)
+        chapters[cur]["paras"].append(p)   # renumbered later, once RENUM is known
     return chapters, notes
 
 
@@ -435,7 +462,7 @@ def rtp_section(n, data):
 # --------------------------------------------------------------------------------------
 def embed_md(e):
     attrs = 'module="%s" title="%s" height="%s"' % (e["module"], e["title"].replace('"', "'"), e.get("height", 760))
-    blurb = e.get("blurb", "")
+    blurb = renumber(e.get("blurb", ""))
     return "::: {.interactive %s}\n%s\n:::" % (attrs, blurb)
 
 
@@ -519,6 +546,7 @@ def apply_plan(n, secs, plan, where):
 def assemble_chapter(n, secs, plan, rtp):
     """Return the final markdown for chapter n."""
     where = "ch%02d" % n
+    old_n = plan["old_n"]
     # pull RTP section out
     rtp_i = None
     for i, s in enumerate(secs):
@@ -539,7 +567,7 @@ def assemble_chapter(n, secs, plan, rtp):
     if practice:
         blurbs = "\n\n".join(embed_md(e) for e in practice)
         tail.append("## Practice Online\n\n" + blurbs)
-    rtp_md, _notes = rtp_section(n, rtp[n])
+    rtp_md, _notes = rtp_section(n, rtp[old_n])
     tail.append(rtp_md)
     body = "\n\n".join(s.md() for s in secs if s.md().strip())
     # the first Section (no title) holds the intro; level 0 -> no heading
@@ -588,6 +616,25 @@ def ch1_custom(secs, plan, where):
     return secs
 
 
+def sort_h(md):
+    """Appendix H: keep the preamble, order the '## Chapter N' sections by the (renumbered) N."""
+    parts = re.split(r"(?m)^(?=## Chapter \d+\s*$)", md)
+    head, secs = parts[0], parts[1:]
+    secs.sort(key=lambda x: int(re.match(r"## Chapter (\d+)", x).group(1)))
+    log("renumbered", "appendix-h", "sections re-sorted into the new chapter order")
+    return head + "".join(s if s.endswith("\n\n") else s.rstrip("\n") + "\n\n" for s in secs)
+
+
+def sort_i(md):
+    """Appendix I: paragraphs that start '**Chapter N \u2014 after ...' sorted by N."""
+    paras = re.split(r"\n\s*\n", md.strip())
+    head = [p for p in paras if not re.match(r"\*\*Chapter \d+", p)]
+    ents = [p for p in paras if re.match(r"\*\*Chapter \d+", p)]
+    ents.sort(key=lambda p: int(re.match(r"\*\*Chapter (\d+)", p).group(1)))
+    log("renumbered", "appendix-i", "entries re-sorted into the new chapter order")
+    return "\n\n".join(head + ents) + "\n"
+
+
 # --------------------------------------------------------------------------------------
 # Main
 # --------------------------------------------------------------------------------------
@@ -605,6 +652,9 @@ def main():
     book = json.load(open(os.path.join(ROOT, "book.json"), encoding="utf-8"))
     root = lxml.html.parse(args.xhtml).getroot()
     rtp, rtp_top_notes = load_rtp(args.rtp)
+    RENUM.update({int(k): v for k, v in book.get("renumber", {}).items()})
+    for _k in rtp:
+        rtp[_k]["paras"] = [renumber(x) for x in rtp[_k]["paras"]]
     for c_ in book["chapters"]:
         ID_MAP[c_["source_id"]] = "../ch-%d/index.html" % c_["n"]
     for a_ in book["appendices"]:
@@ -622,7 +672,7 @@ def main():
     # ---- front matter
     for fm in book["front"]:
         d = divs[fm["source_id"]]
-        blocks = convert_children(ugc(d), {})
+        blocks = renumber_blocks(convert_children(ugc(d), {}))
         secs = build_sections(blocks, fm["slug"])
         md = "\n\n".join(s.md() for s in secs if s.md().strip())
         write(os.path.join(CONTENT, "front", fm["slug"] + ".md"), fix_text(md, fm["slug"]) + "\n")
@@ -632,7 +682,7 @@ def main():
         d = divs.get(pt["source_id"])
         if d is None:
             d = next(x for x in root.iter("div") if x.get("id") == pt["source_id"])
-        blocks = convert_children(ugc(d), {})
+        blocks = renumber_blocks(convert_children(ugc(d), {}))
         secs = build_sections(blocks, "part-" + pt["id"])
         md = "\n\n".join(s.md() for s in secs if s.md().strip())
         write(os.path.join(CONTENT, "front", "part-%s.md" % pt["id"].lower()), fix_text(md, "part-" + pt["id"]) + "\n")
@@ -642,7 +692,7 @@ def main():
         n = ch["n"]
         where = "ch%02d" % n
         d = divs[ch["source_id"]]
-        blocks = convert_children(ugc(d), {})
+        blocks = renumber_blocks(convert_children(ugc(d), {}))
         # drop the stray figure-label placeholder paragraph bookkeeping happens in apply_plan
         secs = build_sections(blocks, where)
         # flatten the first untitled section: the chapter intro
@@ -660,10 +710,14 @@ def main():
         if ap_.get("skip_import"):
             continue
         d = divs[ap_["source_id"]]
-        blocks = convert_children(ugc(d), {})
+        blocks = renumber_blocks(convert_children(ugc(d), {}))
         secs = build_sections(blocks, ap_["slug"])
         md = "\n\n".join(s.md() for s in secs if s.md().strip())
         md = fix_text(md, ap_["slug"])
+        if ap_["slug"] == "h":
+            md = sort_h(md)
+        if ap_["slug"] == "i":
+            md = sort_i(md)
         emb = [e for e in ap_.get("embeds", [])]
         if emb:
             # put the interactive right after the opening paragraph(s) before the first heading
@@ -674,7 +728,7 @@ def main():
 
     # superseded duplicate sample-answers appendix: archive, do not build
     dup = divs["back-matter-sample-answers-for-the-reviewing-through-practice-exercises"]
-    blocks = convert_children(ugc(dup), {})
+    blocks = renumber_blocks(convert_children(ugc(dup), {}))
     secs = build_sections(blocks, "dup-sample-answers")
     write(os.path.join(CONTENT, "_archive", "superseded-unlettered-sample-answers-appendix.md"),
           "<!-- The Pressbooks export contains TWO sample-answer appendices: this unlettered one and Appendix H. "

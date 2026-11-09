@@ -25,7 +25,7 @@ A DOJ rule on removing barriers in existing facilities, read from the authority 
 
 ## How to Engage With the Source
 
-**Read in context, starting with the statute.** Begin with the authority note, because the enabling statute sets the limits of what the agency can require. Then read the Federal Register preamble for the agency’s own explanation of the regulation’s meaning. Check for case law interpreting the regulation (via citators) and for agency guidance interpreting it (Chapter 13 covers this in depth). Taken together these sources give you a complete interpretive picture; any one alone is partial.
+**Read in context, starting with the statute.** Begin with the authority note, because the enabling statute sets the limits of what the agency can require. Then read the Federal Register preamble for the agency’s own explanation of the regulation’s meaning. Check for case law interpreting the regulation (via citators) and for agency guidance interpreting it (Chapter 11 covers this in depth). Taken together these sources give you a complete interpretive picture; any one alone is partial.
 
 **Read the operative language precisely.** “Shall” and “must” create mandatory obligations. “May” grants discretion. “Should” signals a recommendation. Courts enforce these distinctions, so they are worth slowing down for.
 

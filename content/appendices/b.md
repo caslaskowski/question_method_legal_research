@@ -17,7 +17,7 @@ A real Arizona Supreme Court opinion, Markowitz v. Arizona Parks Board, read for
 
 **Issue(s).** The legal question or questions the court has to decide. Sometimes the issue is stated outright (“The question before us is whether . . .”). Sometimes you have to infer it from the discussion. Identifying the issue is one of the most important reading skills you will build, and it is the court’s version of Step 1 of the Question Method.
 
-**Holding(s).** The court’s answer to the issue, and the part with precedential effect. When you record a case in your Research Log, the holding belongs at the center of your “What I Found” entry.
+**Holding(s).** The court’s answer to the issue, and the part with precedential effect. When you record a case in your Research Log, the holding belongs at the center of your Findings entry.
 
 **Reasoning.** The court’s explanation of why it reached its holding. This is where the analytical work happens, and it is what you will use most often in your own writing. A holding gives you the rule; the reasoning shows you how the court applied it. Two cases can reach the same holding through different reasoning, and the reasoning is what tells you which case is more useful for your facts.
 

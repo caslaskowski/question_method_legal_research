@@ -35,6 +35,19 @@ body.shell main, body.shell #main { padding-top: 8px; }
 """
 
 
+RENUM = {}
+
+
+def renumber_text(t):
+    """The standalone site uses the original (registry) chapter numbers; the book has moved
+    Legislative History and Advanced Administrative to the front of Part II. Translate the
+    chapter labels that readers see inside the embedded modules."""
+    if not RENUM:
+        return t
+    return re.sub(r"(\b(?:Chapters?|Ch\.)(?:\s|&nbsp;|\\u00a0|\u00a0)*)(\d{1,2})\b",
+                  lambda m: m.group(1) + str(RENUM.get(int(m.group(2)), int(m.group(2)))), t)
+
+
 def module_dirs(book):
     """Every distinct vendored directory the book's embeds point at."""
     dirs = {}
@@ -95,7 +108,8 @@ def rewrite_html(path, kept_dirs):
         # chapter overview -> book chapter page
         mch = re.match(r"^ch-(\d+)(/|$)", target)
         if mch:
-            return '%s=%s%sch-%s/index.html%s target="_top"' % (attr, q, to_book, mch.group(1), q)
+            newn = RENUM.get(int(mch.group(1)), int(mch.group(1)))
+            return '%s=%s%sch-%d/index.html%s target="_top"' % (attr, q, to_book, newn, q)
         if top in ("toolkit",):
             return '%s=%s%sdownloads/index.html%s target="_top"' % (attr, q, to_book, q)
         if top in ("appendices",):
@@ -115,6 +129,7 @@ def main():
     with open(os.path.join(ROOT, "book.json"), encoding="utf-8") as f:
         book = json.load(f)
 
+    RENUM.update({int(k): v for k, v in book.get("renumber", {}).items()})
     os.makedirs(OUT, exist_ok=True)
     dirs = module_dirs(book)
     print("vendoring %d module directories" % len(dirs))
@@ -136,6 +151,19 @@ def main():
             if fn.endswith(".html"):
                 rewrite_html(os.path.join(dp, fn), dirs)
                 n += 1
+    # chapter labels inside the modules follow the book's numbering
+    nrenum = 0
+    for d in dirs:
+        for dp, _dn, fns in os.walk(os.path.join(OUT, d)):
+            for fn in fns:
+                if fn.endswith((".html", ".js", ".json")):
+                    fp = os.path.join(dp, fn)
+                    t = open(fp, encoding="utf-8").read()
+                    t2 = renumber_text(t)
+                    if t2 != t:
+                        open(fp, "w", encoding="utf-8").write(t2)
+                        nrenum += 1
+    print("renumbered chapter labels in %d module files" % nrenum)
     # provenance stamp
     try:
         import subprocess

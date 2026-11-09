@@ -76,7 +76,8 @@
      "height": 820,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 1
   },
   {
    "n": 2,
@@ -98,7 +99,8 @@
      "startswith": "Sample database framework showing",
      "reason": "caption for Figure 2.1; the Database Interface Explorer replaces the static screenshot"
     }
-   ]
+   ],
+   "old_n": 2
   },
   {
    "n": 3,
@@ -135,7 +137,8 @@
      "keep_md": "@CH3_DEMO_KEEP@",
      "lead_md": "Legal arguments are built by answering questions. Take a real paragraph from a federal opinion and turn each sentence back into the research question it answers."
     }
-   ]
+   ],
+   "old_n": 3
   },
   {
    "n": 4,
@@ -158,7 +161,8 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 4
   },
   {
    "n": 5,
@@ -174,7 +178,8 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 5
   },
   {
    "n": 6,
@@ -190,7 +195,8 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 6
   },
   {
    "n": 7,
@@ -206,7 +212,8 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 7
   },
   {
    "n": 8,
@@ -222,7 +229,8 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 8
   },
   {
    "n": 9,
@@ -245,43 +253,12 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 9
   },
   {
    "n": 10,
    "slug": "ch-10",
-   "title": "Ethics and Professional Responsibility in Legal Research",
-   "part": "II",
-   "source_id": "chapter-ethics-and-professional-responsibility-in-legal-research",
-   "embeds": [
-    {
-     "module": "ch-10/catch-the-fabricated-citation/index.html",
-     "title": "Catch the Fabricated Citation",
-     "blurb": "A short brief, eight citations, one closed database. Retrieve each authority — or discover it does not exist — then classify it: supports, does not support, negatively treated, or fabricated. Feedback names the verification step that catches each failure.",
-     "height": 780,
-     "place": "practice"
-    }
-   ]
-  },
-  {
-   "n": 11,
-   "slug": "ch-11",
-   "title": "Dockets and Court Document Research",
-   "part": "II",
-   "source_id": "chapter-dockets-and-court-document-research",
-   "embeds": [
-    {
-     "module": "ch-11/read-the-docket/index.html",
-     "title": "Read the Docket",
-     "blurb": "A fictional federal docket, entry by entry — including the two genuinely unintuitive features: newest-first ordering and the multi-part entry where one motion hides five documents.",
-     "height": 780,
-     "after": "Understanding a Docket"
-    }
-   ]
-  },
-  {
-   "n": 12,
-   "slug": "ch-12",
    "title": "Legislative History Research",
    "part": "II",
    "source_id": "chapter-legislative-history-research",
@@ -293,11 +270,12 @@
      "height": 860,
      "after": "The Most Important Sources and Their Weight"
     }
-   ]
+   ],
+   "old_n": 12
   },
   {
-   "n": 13,
-   "slug": "ch-13",
+   "n": 11,
+   "slug": "ch-11",
    "title": "Advanced Administrative Research",
    "part": "II",
    "source_id": "chapter-advanced-administrative-research",
@@ -309,7 +287,42 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 13
+  },
+  {
+   "n": 12,
+   "slug": "ch-12",
+   "title": "Ethics and Professional Responsibility in Legal Research",
+   "part": "II",
+   "source_id": "chapter-ethics-and-professional-responsibility-in-legal-research",
+   "embeds": [
+    {
+     "module": "ch-10/catch-the-fabricated-citation/index.html",
+     "title": "Catch the Fabricated Citation",
+     "blurb": "A short brief, eight citations, one closed database. Retrieve each authority — or discover it does not exist — then classify it: supports, does not support, negatively treated, or fabricated. Feedback names the verification step that catches each failure.",
+     "height": 780,
+     "place": "practice"
+    }
+   ],
+   "old_n": 10
+  },
+  {
+   "n": 13,
+   "slug": "ch-13",
+   "title": "Dockets and Court Document Research",
+   "part": "II",
+   "source_id": "chapter-dockets-and-court-document-research",
+   "embeds": [
+    {
+     "module": "ch-11/read-the-docket/index.html",
+     "title": "Read the Docket",
+     "blurb": "A fictional federal docket, entry by entry — including the two genuinely unintuitive features: newest-first ordering and the multi-part entry where one motion hides five documents.",
+     "height": 780,
+     "after": "Understanding a Docket"
+    }
+   ],
+   "old_n": 11
   },
   {
    "n": 14,
@@ -325,7 +338,8 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 14
   },
   {
    "n": 15,
@@ -348,7 +362,8 @@
      "height": 860,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 15
   },
   {
    "n": 16,
@@ -364,7 +379,8 @@
      "height": 780,
      "place": "practice"
     }
-   ]
+   ],
+   "old_n": 16
   },
   {
    "n": 17,
@@ -373,7 +389,8 @@
    "part": "II",
    "source_id": "chapter-research-for-legal-scholarship",
    "embeds": [],
-   "append_md_file": "content/extras/ch17-scholarship-checklist.md"
+   "append_md_file": "content/extras/ch17-scholarship-checklist.md",
+   "old_n": 17
   }
  ],
  "appendices": [
@@ -512,5 +529,11 @@
    "desc": "The ten-step method from Chapter 17 for seminar papers, notes, and comments.",
    "use": "Run it when the paper is assigned, and again before submission."
   }
- ]
+ ],
+ "renumber": {
+  "12": 10,
+  "13": 11,
+  "10": 12,
+  "11": 13
+ }
 }

@@ -18,6 +18,10 @@ A static, GitHub Pages–ready edition of the textbook with interactive exercise
 | `scripts/` | `import_pressbooks.py` (one-time import), `sync_interactives.py` (vendor the modules). |
 | `build.py` | Builds the site from `content/` and checks it. |
 
+## Chapter numbering
+
+Part II runs 10 Legislative History, 11 Advanced Administrative Research, 12 Ethics, 13 Dockets, 14 Practice-Specific, 15 GenAI, 16 NextGen, 17 Scholarship. The Pressbooks export and the interactive repo use an older order for 10 to 13 (`old_n` in `book.json`). The importer and the sync script translate the numbers readers see; module directories under `interactives/` keep their original names.
+
 ## Build
 
 Needs Python 3.8+ and [pandoc](https://pandoc.org) 2.14 or newer.

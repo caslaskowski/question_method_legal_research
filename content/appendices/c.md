@@ -17,7 +17,7 @@ Arizona's occupational-disease statute, read for one question at a time: navigat
 
 **Cross-References.** Statutes refer to other sections constantly. Each cross-reference incorporates additional rules, so follow every one rather than reading a section in isolation.
 
-**History and Credits.** Found at the end of the statutory text or in the annotations, the history notes tell you when the section was enacted and how it has been amended over time. They also supply the Public Law number and Statutes at Large citation you will need if an ambiguity sends you into legislative history research (Chapter 12).
+**History and Credits.** Found at the end of the statutory text or in the annotations, the history notes tell you when the section was enacted and how it has been amended over time. They also supply the Public Law number and Statutes at Large citation you will need if an ambiguity sends you into legislative history research (Chapter 10).
 
 *[\[Figure C.1\]]{.flag} Vertical stack of connected boxes showing a statutory chapter’s structure: Scope/Applicability, Definitions, General Rule, Specific Obligations, Exceptions, Enforcement/Penalties, Effective Date.*
 
@@ -38,6 +38,6 @@ Arizona's occupational-disease statute, read for one question at a time: navigat
 
 **Spot ambiguity and turn it into your next question.** Finding ambiguity is not a failure of your research; it is a core research skill. Common types include undefined terms, vague standards (“reasonable,” “substantial,” “undue,” “appropriate”), terms of art whose legal meaning differs from everyday meaning, structural ambiguity where the grammar allows more than one reading, and scope ambiguity about what falls inside or outside the statute. Each ambiguity becomes a distinct next question pointing to a distinct source.
 
-**Confirm the law by going outside the text.** When you hit an ambiguity, ask: Have courts in your jurisdiction interpreted this term? Does the legislative history address it (Chapter 12)? Has the implementing agency issued guidance or regulations interpreting it (Chapters 7 and 13)? Each is a separate next question. Then make sure the statute is current; statutory text changes, so confirm you are reading the version in force for your matter.
+**Confirm the law by going outside the text.** When you hit an ambiguity, ask: Have courts in your jurisdiction interpreted this term? Does the legislative history address it (Chapter 10)? Has the implementing agency issued guidance or regulations interpreting it (Chapters 7 and 13)? Each is a separate next question. Then make sure the statute is current; statutory text changes, so confirm you are reading the version in force for your matter.
 
 *\[NextGen Bar Exam Note\] Ambiguity spotting is a named competency in the NextGen Bar Exam’s Foundational Skills Group C. See Chapter 16.*

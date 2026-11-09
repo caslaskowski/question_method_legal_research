@@ -216,10 +216,10 @@
                 <details class="mm-ch">
                   <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
                   <ul class="modmenu-mods">
-                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
-                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Duties Behind the Research</a></li>
                   <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
-                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">The Duty Calls</a></li>
                   </ul>
                 </details>
               </li>
@@ -227,9 +227,9 @@
                 <details class="mm-ch">
                   <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
                   <ul class="modmenu-mods">
-                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
                   <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
-                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Pull the Right Paper</a></li>
                   </ul>
                 </details>
               </li>
@@ -237,9 +237,9 @@
                 <details class="mm-ch">
                   <summary><span class="cn">12</span> Legislative History Research</summary>
                   <ul class="modmenu-mods">
-                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
                   <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
-                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Weigh the History</a></li>
                   </ul>
                 </details>
               </li>
@@ -247,8 +247,8 @@
                 <details class="mm-ch">
                   <summary><span class="cn">13</span> Advanced Administrative Research</summary>
                   <ul class="modmenu-mods">
-                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
-                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Beyond the Rule</a></li>
                   <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
                   </ul>
                 </details>
@@ -342,7 +342,7 @@
   <div class="pagewrap">
     <h1>Verify the AI&rsquo;s Work</h1>
     <p class="lede">Below is what a general-purpose AI tool returns when a researcher asks it a legal question: fluent, organized, confident, and cited. Some of it is right. Some of it is subtly wrong. Some of it does not exist. Your job is the framework&rsquo;s second step, run six times &mdash; and then the judgment the framework builds to: <em>how much of this answer actually survives?</em></p>
-    <div class="howto"><b>How to use this:</b> the framework strip below tracks where you are. Step 1 is done for you &mdash; read the question the researcher asked. Your work is <b>Step 2</b>: click each citation in the answer, <b>retrieve</b> it from the closed database (or determine it isn&rsquo;t there), and <b>classify</b> it. When all six are verified, Steps 3 and 4 ask what survived and what comes next. The database is the same fictional universe from Chapter&nbsp;10 &mdash; including its trap.</div>
+    <div class="howto"><b>How to use this:</b> the framework strip below tracks where you are. Step 1 is done for you &mdash; read the question the researcher asked. Your work is <b>Step 2</b>: click each citation in the answer, <b>retrieve</b> it from the closed database (or determine it isn&rsquo;t there), and <b>classify</b> it. When all six are verified, Steps 3 and 4 ask what survived and what comes next. The database is the same fictional universe from Chapter&nbsp;12 &mdash; including its trap.</div>
 
     <div class="fstrip" aria-label="The four-step framework">
       <div class="fchip" id="fc1"><span class="n">1</span> Ask one small, precise question <span style="color:#2e6b34;font-weight:700;">\u2713 done</span></div>
@@ -402,7 +402,7 @@
   "use strict";
   var el = QM.el;
 
-  /* the same closed database as Chapter 10 — everything fictional, incl. the near-miss trap */
+  /* the same closed database as Chapter 12 — everything fictional, incl. the near-miss trap */
   var DB = [
     { id:"marsh",   name:"Marsh v. Golden Rentals",
       ex:"A residential landlord must keep a rental fit to live in, and that duty includes providing adequate heat during the cold months." },
@@ -478,7 +478,7 @@
       var box2 = el("div", { class: "donebox" });
       box2.appendChild(el("p", { class: "stephead" }, ["Step 4 \u00b7 Let the answer hand you the next question"]));
       box2.appendChild(el("p", {}, ["The verified answer leaves the real question open: what remedies DOES the law give, and on what conditions? Your own verification already surfaced the lead \u2014 Okafor, sitting in the database, holding that a tenant may repair-and-deduct or withhold after written notice. The next cycle starts there: \u201cWhat must a tenant do before withholding rent?\u201d \u2014 asked of real authority this time."]));
-      box2.appendChild(el("div", { class: "ethics", html: "<b>The ethical overlay (Chapter 10):</b> competence requires understanding that this tool fabricates; candor prohibits filing what you have not verified \u2014 the courts that sanctioned lawyers for AI-invented citations treated \u201cthe machine wrote it\u201d as no defense; and a supervisor is responsible for a subordinate\u2019s unverified AI work. The framework you just ran is how all three duties get satisfied." }));
+      box2.appendChild(el("div", { class: "ethics", html: "<b>The ethical overlay (Chapter 12):</b> competence requires understanding that this tool fabricates; candor prohibits filing what you have not verified \u2014 the courts that sanctioned lawyers for AI-invented citations treated \u201cthe machine wrote it\u201d as no defense; and a supervisor is responsible for a subordinate\u2019s unverified AI work. The framework you just ran is how all three duties get satisfied." }));
       wk.appendChild(box2);
       if (window.ExportReflect) ExportReflect.log("Framework complete", "Steps 3\u20134 \u2014 verified remainder identified");
     });

@@ -62,14 +62,13 @@ A passing entry, run on the standard question from the chain above:
 |---|---|
 | Research Question | What standard governs a school’s control over a school-sponsored student newspaper? |
 | Question Type | Focusing |
-| Source Consulted | Hazelwood Sch. Dist. v. Kuhlmeier, \[database\], \[date accessed\] |
-| What I Found | A school may regulate school-sponsored expression so long as its action is reasonably related to legitimate pedagogical concerns. |
-| How This Answers My Question | Fully answers the standard question; the standard’s two working parts (school-sponsored, legitimate pedagogical concerns) are not yet applied. |
-| Citation | Hazelwood Sch. Dist. v. Kuhlmeier, 484 U.S. 260 (1988) |
+| Method | Lead from the map: read the opinion the encyclopedia entry named, in \[database\], \[date accessed\]. |
+| Findings | Fully answers the standard question. A school may regulate school-sponsored expression so long as its action is reasonably related to legitimate pedagogical concerns. The standard’s two working parts (school-sponsored, legitimate pedagogical concerns) are not yet applied. |
+| Source Consulted | *Hazelwood Sch. Dist. v. Kuhlmeier*, 484 U.S. 260 (1988) |
 | Next Question | What makes a publication “school-sponsored” under that standard? |
 | Notes | Opinion also addresses forum analysis and distinguishes the personal-expression line of cases; both logged as later questions, not folded into this answer. |
 
-Watch what the What I Found field refuses to do: the opinion offered the whole landscape, and the entry took only what the question asked. The forum analysis and the distinction from the personal-expression cases went to Notes as later questions. That refusal is the scoping discipline, and the Next Question following visibly from What I Found is the chain discipline. An entry that fails either one is the entry to rerun.
+Watch what the Findings field refuses to do: the opinion offered the whole landscape, and the entry took only what the question asked. The forum analysis and the distinction from the personal-expression cases went to Notes as later questions. That refusal is the scoping discipline, and the Next Question following visibly from Findings is the chain discipline. An entry that fails either one is the entry to rerun.
 
 ### Exercise 3.4 — Draft the First Question
 
@@ -111,7 +110,7 @@ Maps vary with the assigned statute, so here is the standard modeled on the ADA�
 
 ### Exercise 6.2 — Annotations Are Pathways
 
-Two passing entries, case names bracketed because they depend on your statute and your annotated code’s editors: Entry one. Research Question: how have courts interpreted \[the key term\] in this section? Source: annotated code, Notes of Decisions under the section. What I Found: the annotation describes \[Case A, full citation as given\] as addressing \[the point the editor’s squib claims\]. How This Answers My Question: lead only; the annotation is an editor’s summary and the case is unread. Next Question: does \[Case A\] actually hold what the annotation claims? Entry two runs the same form on \[Case B\]. The pass condition sits in one field: How This Answers My Question says *lead*, and What I Found attributes the claim to the annotation, not to the case. An entry stating what the case *held* exceeded the exercise, because all you possess is what an editor said about it, and the gap between those two things is the reason the verification question exists.
+Two passing entries, case names bracketed because they depend on your statute and your annotated code’s editors: Entry one. Research Question: how have courts interpreted \[the key term\] in this section? Method: annotated code, Notes of Decisions under the section. Findings: lead only. The annotation describes \[Case A, full citation as given\] as addressing \[the point the editor’s squib claims\]; the annotation is an editor’s summary and the case is unread. Source Consulted: \[Case A, full citation as given\]. Next Question: does \[Case A\] actually hold what the annotation claims? Entry two runs the same form on \[Case B\]. The pass condition sits in one field: Findings opens with *lead only* and attributes the claim to the annotation, not to the case. An entry stating what the case *held* exceeded the exercise, because all you possess is what an editor said about it, and the gap between those two things is the reason the verification question exists.
 
 ### Exercise 6.3 — The Chapter 6 Drill
 
@@ -161,59 +160,59 @@ A passing closure record, run on any finished exercise: the final sweep document
 
 ## Chapter 10
 
-### Exercise 10.1 — The Sanctions Autopsy
-
-The rebuilt table, from the opinion’s own account \[supply pincites from your reading\]: Failure one, counsel relied on an older decision without conducting research beyond it; rule, the duty of competence, Rule 1.1, which demands the current, controlling answer; preventing step, the citator update in the closing-out protocol, which exists to catch law that has moved. Failure two, counsel did not reread the cases cited in the most recent controlling appellate decision on the issue; rule, again 1.1, competence in reading and synthesizing, not just locating; preventing step, the read-before-you-cite check, because an unread case is an unverified claim. Where your table and the chapter’s differ, apply the exercise’s own diagnostic: a failure you caught that the chapter’s table generalized over is good reading; a failure you attributed that the opinion does not support is the autopsy catching *you*, which is the more valuable lesson of the two.
-
-### Exercise 10.2 — The Adverse-Authority Question
-
-A passing entry, modeled on the store-duty drill: Research Question: what controlling authority in our state cuts against the conclusion that the store owed no duty \[or owed a duty, whichever your chain reached\]? Question Type: Focusing, adversarial posture. Source Consulted: \[database\], with the searches listed as run, including the terms aimed at the opposite conclusion, not just your own conclusion restated. What I Found: \[the adverse authorities located, or “none located”\]. How This Answers My Question: \[addressed how, or empty result stands\]. Both outcomes pass, with one condition: the searches appear in the entry. An empty result logged with its searches is Rule 3.3 compliance in miniature; an empty log is the thing the rule refuses to accept.
-
-### Exercise 10.3 — The Verification Pass
-
-Three sample lines showing the form; a full log has one line per source: *Hazelwood Sch. Dist. v. Kuhlmeier*, 484 U.S. 260 (1988) \| verified in \[database\] \| citator: \[status and any flags, with the flagged points checked against the propositions you cite it for\] \| \[date\]. \[Your state’s statute\] \| current text confirmed against \[the official code\], through-date \[recorded\] \| pending amendments: \[checked\] \| \[date\]. \[The regulation\] \| eCFR, current through \[date shown\] \| citator: \[status\] \| \[date\]. Every line carries a status and a date, because the log’s professional function, the one Rules 5.1 and 5.3 give it, depends on a reviewer being able to see not just that you checked but when.
-
-## Chapter 11
-
-### Exercise 11.1 — Read the Docket
-
-Entry numbers vary by case, and the case must be recent enough to live in the electronic filing era, which is why the exercise says so; a passing answer’s standard is the recognition method: Complaint, \[entry number\], recognized as the earliest substantive filing, plaintiff as filer, labeled as a complaint or petition. Dispositive motion and brief, \[entry number\], recognized by the motion’s label (to dismiss, for summary judgment), the filer, and the supporting memorandum docketed with or beside it. Resolving order, \[entry number\], recognized as a court-entered document, after briefing concluded, whose text line disposes of the motion. One line each on the recognition, and, where the docket text alone failed you and a document had to be opened, that failure noted, because on a metered system each open is money, and the log-reading skill is the skill of not paying for what the log already says.
-
-### Exercise 11.2 — The Brief Autopsy
-
-For whichever brief you located, the three harvested authorities: \[as cited in the brief, full citations\]. The verification entry on the one you chose: The brief’s claim, quoted or pincited as the brief made it: \[the brief’s characterization\]. The source’s own words, quoted or pincited from your reading of the primary authority: \[what it actually says\]. Verdict: \[supported; supported but overstated; or unsupported\], with one sentence on the gap if there is one. The pass condition is structural: both sides on the page. A verdict without the brief’s language *and* the source’s language is an impression, and an impression about a characterization is how the error you are checking for reproduces itself.
-
-### Exercise 11.3 — The Rules Ladder
-
-A passing ladder for whichever district you chose, numbers bracketed because they are the exercise: Rung one, the governing Federal Rule, and note that for many filing mechanics the federal rule is silent on the number you went looking for; silence recorded is a finding, because it tells you which rung actually supplies the rule. Rung two, the district’s local rule, \[cited\], supplying \[the page or word limit\], found on the court’s website. Rung three, the assigned judge’s standing order, \[cited or “none”\], and where one exists it typically tightens or adds: \[the delta\]. The self-check’s test is the delta: if two rungs say the same thing, reread, because local rules and standing orders exist to add or tighten, and the delta is what a filer gets sanctioned for missing. Where the judge has no standing order on the point, “none” recorded is a passing third rung; an empty rung known is knowledge.
-
-## Chapter 12
-
-### Exercise 12.1 — The Entry Ticket
+### Exercise 10.1 — The Entry Ticket
 
 Both passing shapes, modeled. The ticket earned: “The statute is ambiguous as to \[the term\]: the text does not define it, the definitions section \[cited\] omits it, the interpreting cases \[cited or ‘none located after the searches listed’\] have not resolved it, and no regulation \[checked where\] supplies content. Documented: text read; definitions checked; case search \[terms, database, date\]; regulatory check \[where\].” The record stays closed: “The term is resolved by \[the definitions section § \_\_ / the controlling decision cited\]; the legislative record stays closed, and the research proceeds in \[that source\].” The failing shape is the one the self-check named: a completed ambiguity sentence sitting on an empty documentation list. An undocumented ambiguity claim is just an unread statute, and courts committed to plain meaning will treat it as exactly that.
 
-### Exercise 12.2 — The Credit-Line Drill
+### Exercise 10.2 — The Credit-Line Drill
 
 For the ADA, the identifier set the sources yield: Public Law number, Pub. L. No. 101-336; Statutes at Large, 104 Stat. 327; enactment year, 1990; bill number, S. 933; Congress, the 101st. The compiled-history check: compiled legislative histories for the ADA exist in \[the compiled-history sources this chapter listed; record which one you located and what it collects\]. The chapter printed these answers, and the exercise was producing them from the credit line and Congress.gov rather than from the page; the step that cannot be skipped, even with everything else right, is the compiled-history check, because on a public law this significant, someone has already assembled the record, and building your own first is the most expensive way to learn that.
 
-### Exercise 12.3 — Rank the Record
+### Exercise 10.3 — Rank the Record
 
 A passing ranking, with the ADA’s committee report as the anchor: (1) the committee report passage, H.R. Rep. No. 101-485, pt. \[\_\_\], at \[\_\_\] (1990), highest weight, because it is the drafting committee’s collective explanation and the document courts cite most; (2) the bill-version change, \[described, with the versions compared\], moderate weight, because deliberate language change is evidence of intent even though it speaks without explaining itself; (3) the floor statement, \[speaker and citation\], variable and here lowest, unless the speaker was a sponsor or floor manager, in which case it may climb past the bill version, and with the check the self-check required: whether the statement was actually spoken on the floor or merely inserted into the Record, because an inserted statement carries reduced weight. One sentence each; and if your order differed, the sentences are where the disagreement becomes visible and fixable.
 
-## Chapter 13
+## Chapter 11
 
-### Exercise 13.1 — Binding or Guidance?
+### Exercise 11.1 — Binding or Guidance?
 
-Three passing entries, compressed to their load-bearing fields: (1) 29 C.F.R. Part 1605, the framework itself; Authority Level: binding regulation, promulgated with the force of law. (2) The EEOC guidance document you located \[the compliance-manual section or enforcement guidance on religious discrimination, cited as the agency publishes it\]; Authority Level: persuasive guidance, influential in enforcement, weighed under *Skidmore* in proportion to its thoroughness, not binding on anyone. (3) The adjudication decision \[a decision applying the framework to facts, located through the agency’s decisions database, or the substitute agency’s decision your instructor designated, logged identically\]; Authority Level: binding within the agency’s own process, subject to judicial review, and the most detailed application of the framework available. The pass condition is the field itself, completed and unhedged on all three, because the entry with a blank authority level is the entry that later walks into an outline dressed as the rule.
+Three passing entries, compressed to their load-bearing fields: (1) 29 C.F.R. Part 1605, the framework itself; Findings open with the authority level: binding regulation, promulgated with the force of law. (2) The EEOC guidance document you located \[the compliance-manual section or enforcement guidance on religious discrimination, cited as the agency publishes it\]; Findings open: persuasive guidance, influential in enforcement, weighed under *Skidmore* in proportion to its thoroughness, not binding on anyone. (3) The adjudication decision \[a decision applying the framework to facts, located through the agency’s decisions database, or the substitute agency’s decision your instructor designated, logged identically\]; Findings open: binding within the agency’s own process, subject to judicial review, and the most detailed application of the framework available. The pass condition is the opening of the Findings field, with the authority level stated and unhedged on all three, because the entry with no authority level is the entry that later walks into an outline dressed as the rule.
 
-### Exercise 13.2 — The Vague-Term Drill
+### Exercise 11.2 — The Vague-Term Drill
 
 A passing run, on the term the regulation genuinely leaves open: the term, \[for instance, what accommodation is “reasonable,” or when hardship becomes “undue”\]; the practical definition, \[what the agency’s materials say the term requires in operation, with the source cited, and note that research here would also surface whether courts have recently reshaped the standard, which the agency’s materials may lag\]; the product that answered, \[the compliance manual, an opinion letter, or an adjudication\], with the mapping sentence: a what-does-this-mean-in-operation question pointed at interpretive guidance, exactly as this chapter’s question-to-product mapping said it would. The self-check’s trap door: if the CFR text itself answered you, the term was not vague enough, and the drill only works where the regulation runs out, because that running-out is the entry point to this whole chapter.
 
-### Exercise 13.3 — The Post-Loper Bright Check
+### Exercise 11.3 — The Post-Loper Bright Check
 
 A passing note, form modeled, findings bracketed: “Courts addressing \[the guidance document\] have \[cited it under *Skidmore* for persuasive weight / declined to follow it on the ground that it exceeds the regulation / not addressed it, per the searches listed\]. Searches: \[citator run on the document where supported; terms-and-connectors search pairing the document’s name with the regulation, database, date\].” The standard the self-check set: a reader should be able to place the document on the correct side of the line between legally required and the agency’s preference without reading anything else, and after *Loper Bright* the placement carries more consequence, because the agency’s own view of its statute no longer settles the question for a court.
+
+## Chapter 12
+
+### Exercise 12.1 — The Sanctions Autopsy
+
+The rebuilt table, from the opinion’s own account \[supply pincites from your reading\]: Failure one, counsel relied on an older decision without conducting research beyond it; rule, the duty of competence, Rule 1.1, which demands the current, controlling answer; preventing step, the citator update in the closing-out protocol, which exists to catch law that has moved. Failure two, counsel did not reread the cases cited in the most recent controlling appellate decision on the issue; rule, again 1.1, competence in reading and synthesizing, not just locating; preventing step, the read-before-you-cite check, because an unread case is an unverified claim. Where your table and the chapter’s differ, apply the exercise’s own diagnostic: a failure you caught that the chapter’s table generalized over is good reading; a failure you attributed that the opinion does not support is the autopsy catching *you*, which is the more valuable lesson of the two.
+
+### Exercise 12.2 — The Adverse-Authority Question
+
+A passing entry, modeled on the store-duty drill: Research Question: what controlling authority in our state cuts against the conclusion that the store owed no duty \[or owed a duty, whichever your chain reached\]? Question Type: Focusing, adversarial posture. Method: \[database\], with the searches listed as run, including the terms aimed at the opposite conclusion, not just your own conclusion restated. Findings: \[the adverse authorities located, or “none located,” in which case the empty result stands\]. Source Consulted: \[citations for any adverse authority located\]. Both outcomes pass, with one condition: the searches appear in the entry. An empty result logged with its searches is Rule 3.3 compliance in miniature; an empty log is the thing the rule refuses to accept.
+
+### Exercise 12.3 — The Verification Pass
+
+Three sample lines showing the form; a full log has one line per source: *Hazelwood Sch. Dist. v. Kuhlmeier*, 484 U.S. 260 (1988) \| verified in \[database\] \| citator: \[status and any flags, with the flagged points checked against the propositions you cite it for\] \| \[date\]. \[Your state’s statute\] \| current text confirmed against \[the official code\], through-date \[recorded\] \| pending amendments: \[checked\] \| \[date\]. \[The regulation\] \| eCFR, current through \[date shown\] \| citator: \[status\] \| \[date\]. Every line carries a status and a date, because the log’s professional function, the one Rules 5.1 and 5.3 give it, depends on a reviewer being able to see not just that you checked but when.
+
+## Chapter 13
+
+### Exercise 13.1 — Read the Docket
+
+Entry numbers vary by case, and the case must be recent enough to live in the electronic filing era, which is why the exercise says so; a passing answer’s standard is the recognition method: Complaint, \[entry number\], recognized as the earliest substantive filing, plaintiff as filer, labeled as a complaint or petition. Dispositive motion and brief, \[entry number\], recognized by the motion’s label (to dismiss, for summary judgment), the filer, and the supporting memorandum docketed with or beside it. Resolving order, \[entry number\], recognized as a court-entered document, after briefing concluded, whose text line disposes of the motion. One line each on the recognition, and, where the docket text alone failed you and a document had to be opened, that failure noted, because on a metered system each open is money, and the log-reading skill is the skill of not paying for what the log already says.
+
+### Exercise 13.2 — The Brief Autopsy
+
+For whichever brief you located, the three harvested authorities: \[as cited in the brief, full citations\]. The verification entry on the one you chose: The brief’s claim, quoted or pincited as the brief made it: \[the brief’s characterization\]. The source’s own words, quoted or pincited from your reading of the primary authority: \[what it actually says\]. Verdict: \[supported; supported but overstated; or unsupported\], with one sentence on the gap if there is one. The pass condition is structural: both sides on the page. A verdict without the brief’s language *and* the source’s language is an impression, and an impression about a characterization is how the error you are checking for reproduces itself.
+
+### Exercise 13.3 — The Rules Ladder
+
+A passing ladder for whichever district you chose, numbers bracketed because they are the exercise: Rung one, the governing Federal Rule, and note that for many filing mechanics the federal rule is silent on the number you went looking for; silence recorded is a finding, because it tells you which rung actually supplies the rule. Rung two, the district’s local rule, \[cited\], supplying \[the page or word limit\], found on the court’s website. Rung three, the assigned judge’s standing order, \[cited or “none”\], and where one exists it typically tightens or adds: \[the delta\]. The self-check’s test is the delta: if two rungs say the same thing, reread, because local rules and standing orders exist to add or tighten, and the delta is what a filer gets sanctioned for missing. Where the judge has no standing order on the point, “none” recorded is a passing third rung; an empty rung known is knowledge.
 
 ## Chapter 14
 
@@ -255,7 +254,7 @@ A passing ten-minute breakdown, entirely from the provided list. Macro question:
 
 ### Exercise 17.1 — Seed the Inventory
 
-Five sample entries in the passing form, each a question a text left open, each with its provenance; treat the substantive claims as leads to confirm, exactly as you would your own: (1) From the Chapter 5 work: does the school-sponsored-speech standard govern student media at public colleges and universities, a question on which authorities divide \[confirm the current state of the division\]? Found: flagged in the secondary reading around the case. (2) From Chapter 13: how much persuasive weight does informal agency guidance retain now that courts interpret statutes without deferring to agencies, a boundary the overruling decision left open? Found: the open edge this book’s own Chapter 13 discussion walks up to. (3) From the drone capstone: how do the traditional property and privacy doctrines the capstone surfaced apply to systematic aerial observation from navigable airspace \[confirm what remains unresolved\]? Found: the state-law overlay the capstone’s walkthrough marks as residual. (4) From Chapter 6: when a strict consent statute meets an interstate call, whose law governs the recording, a question the single-state drill deliberately walled off? Found: the drill’s own boundary, noted in my log. (5) From Chapter 15: courts and bars are still building disclosure and verification rules for AI-assisted filings; which approaches are emerging, and what should the rule be? Found: the chapter’s own observation that the rules are developing. What all five share, and what “AI and copyright” lacks, is a source that left the question open and a question shape a thesis could answer.
+Five sample entries in the passing form, each a question a text left open, each with its provenance; treat the substantive claims as leads to confirm, exactly as you would your own: (1) From the Chapter 5 work: does the school-sponsored-speech standard govern student media at public colleges and universities, a question on which authorities divide \[confirm the current state of the division\]? Found: flagged in the secondary reading around the case. (2) From Chapter 11: how much persuasive weight does informal agency guidance retain now that courts interpret statutes without deferring to agencies, a boundary the overruling decision left open? Found: the open edge this book’s own Chapter 11 discussion walks up to. (3) From the drone capstone: how do the traditional property and privacy doctrines the capstone surfaced apply to systematic aerial observation from navigable airspace \[confirm what remains unresolved\]? Found: the state-law overlay the capstone’s walkthrough marks as residual. (4) From Chapter 6: when a strict consent statute meets an interstate call, whose law governs the recording, a question the single-state drill deliberately walled off? Found: the drill’s own boundary, noted in my log. (5) From Chapter 15: courts and bars are still building disclosure and verification rules for AI-assisted filings; which approaches are emerging, and what should the rule be? Found: the chapter’s own observation that the rules are developing. What all five share, and what “AI and copyright” lacks, is a source that left the question open and a question shape a thesis could answer.
 
 ### Exercise 17.2 — The One-Hour Check
 
@@ -264,3 +263,5 @@ A passing record, on candidate two \[illustrative\]: Searches run, with the dist
 ### Exercise 17.3 — The Question-Form Outline
 
 The five passing lines, on the surviving candidate \[illustrative\]: I. Framework: what role did agency guidance play in statutory interpretation before the change, and under what doctrine? II. Problem: what has the overruling decision unsettled about the weight courts owe that guidance now? III. Critique: why do the emerging lower-court answers fail to give regulated parties, agencies, or courts a workable rule? IV. Proposal: what framework should govern the persuasive weight of agency guidance, and why would it serve all three audiences better? Plus the interdisciplinary line: the public administration and political science literature on agency expertise and its institutional value, which lives in JSTOR’s political science journals and *Public Administration Review*. Each heading is answerable, which means each section can be finished, and finished sections are the whole trick. A subject area is a shelf. This is a paper, started.
+
+
