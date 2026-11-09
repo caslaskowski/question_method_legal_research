@@ -1,0 +1,583 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Catch the Fabricated Citation — Ch. 10 · Ethics and Professional Responsibility in Legal Research</title>
+<meta name="description" content="A short brief, eight citations, one closed database. Retrieve each authority — or discover it does not exist — then classify it. Feedback names the verification step that catches each failure.">
+<!--shell:head:start-->
+<link rel="preload" href="../../assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/archivo-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<!--shell:head:end-->
+<style>
+  .pagewrap{margin:0 auto;padding:26px 28px 10px;max-width:1200px;}
+  .lede{font-size:1.06rem;line-height:1.65;color:var(--ink-soft);margin:6px 0 14px;}
+  .howto{background:var(--panel);border:1px solid var(--rule-strong);border-left:4px solid var(--flame);border-radius:8px;padding:12px 16px;font-size:.94rem;margin:0 0 22px;}
+  .scoreline{font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;color:var(--ink-soft);margin:0 0 14px;}
+
+  .grid{display:grid;grid-template-columns:minmax(0,1.15fr) minmax(0,1fr);gap:24px;align-items:start;}
+  @media (max-width:940px){.grid{grid-template-columns:1fr;}}
+
+  /* ---- the brief ---- */
+  .brief{background:#fff;border:1px solid var(--rule-strong);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;}
+  .brief-tag{display:block;background:var(--flame);border-bottom:1px solid var(--flame-deep);font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:7px 16px;}
+  .brief-body{padding:18px 22px 22px;font-family:"Newsreader",Georgia,serif;font-size:.98rem;line-height:1.7;color:#222;}
+  .brief-body h3{font-size:.9rem;font-family:var(--sans);letter-spacing:.06em;text-transform:uppercase;margin:0 0 12px;}
+  .brief-body p{margin:0 0 12px;}
+  .citebtn{font:inherit;font-style:italic;color:var(--flame);background:none;border:0;border-bottom:1.5px dotted var(--flame);padding:0 1px;cursor:pointer;line-height:inherit;text-align:left;}
+  .citebtn:hover{background:rgba(199,62,29,.08);border-bottom-style:solid;}
+  .citebtn:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+  .citebtn[aria-current="true"]{background:rgba(199,62,29,.12);border-bottom-style:solid;}
+  .citebtn.v-good{color:#2e6b34;border-bottom-color:#2e6b34;}
+  .citebtn.v-bad{color:#8a1c00;border-bottom-color:#8a1c00;background:#f6e2dc;}
+  .citebtn .mark{font-family:var(--sans);font-style:normal;font-size:.72em;vertical-align:super;}
+
+  /* ---- work panel ---- */
+  .work{position:sticky;top:14px;background:var(--panel);border:1.5px solid var(--rule-strong);border-radius:10px;padding:16px 18px;}
+  @media (max-width:940px){.work{position:static;}}
+  .work h2{font-family:var(--mono);font-size:.72rem;letter-spacing:.12em;text-transform:uppercase;color:var(--flame);margin:0 0 8px;}
+  .work .body{font-size:.9rem;line-height:1.6;}
+  .work .body p{margin:0 0 10px;}
+  .curcite{font-family:"Newsreader",Georgia,serif;font-style:italic;border-left:3px solid var(--flame);padding:2px 0 2px 11px;margin:0 0 10px;font-size:.95rem;}
+  .stephead{font-size:.8rem;color:var(--ink-soft);margin:0 0 8px;}
+  .stephead b{color:var(--flame);}
+  .dblist{display:flex;flex-direction:column;gap:6px;margin:0 0 4px;}
+  .dbrow{font:inherit;font-size:.85rem;text-align:left;background:#fff;border:1px solid var(--rule-strong);border-radius:7px;padding:8px 11px;cursor:pointer;line-height:1.4;}
+  .dbrow:hover{border-color:var(--flame);}
+  .dbrow:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+  .dbrow i{color:var(--ink);}
+  .dbrow .flag{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:1px 7px;margin-left:6px;}
+  .flag.neg{background:#f6e2dc;color:#8a1c00;border:1px solid #c98;}
+  .dbrow.notfound{border-style:dashed;color:var(--ink-soft);}
+  .excerpt{background:#fff;border:1px solid var(--rule);border-radius:7px;padding:10px 13px;font-size:.86rem;line-height:1.6;margin:0 0 10px;}
+  .excerpt .ecite{font-family:var(--mono);font-size:.68rem;color:var(--ink-soft);display:block;margin:0 0 5px;}
+  .opts{display:flex;flex-direction:column;gap:7px;margin:0 0 4px;}
+  .opt{font:inherit;font-size:.85rem;text-align:left;background:#fff;border:1px solid var(--rule-strong);border-radius:7px;padding:8px 11px;cursor:pointer;}
+  .opt:hover{border-color:var(--flame);}
+  .opt:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+  .opt[disabled]{cursor:default;opacity:.9;}
+  .opt.good{border-color:#2e6b34;background:#e5efe0;}
+  .opt.bad{border-color:var(--flame);background:#f6e2dc;}
+  .fb{font-size:.88rem;line-height:1.6;color:var(--ink-soft);border-left:3px solid var(--rule-strong);padding:2px 0 2px 11px;margin:8px 0 10px;}
+  .fb.good{border-left-color:#2e6b34;}
+  .fb.bad{border-left-color:var(--flame);}
+  .exbtn{font:inherit;font-size:.84rem;font-weight:600;background:#fff;border:1.5px solid var(--flame);color:var(--flame);border-radius:7px;padding:7px 12px;cursor:pointer;}
+  .exbtn:hover{background:rgba(199,62,29,.08);}
+  .exbtn:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+  .donebox{background:#fff;border:1px solid var(--rule-strong);border-radius:8px;padding:12px 14px;}
+  .donebox .big{font-family:var(--mono);font-size:1.2rem;color:var(--flame);margin:2px 0 6px;}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+  }
+</style>
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body class="shell">
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html" aria-current="page">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-10/index.html" target="_top">Ch. 10</a>
+      <a class="pn-link pn-title on" href="index.html">Catch the Fabricated Citation</a>
+      <a class="pn-link" href="checks.html">Your record</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+
+<main id="main">
+  <div class="pagewrap">
+    <h1>Catch the Fabricated Citation</h1>
+    <p class="lede">Courts have sanctioned lawyers for filing briefs whose citations turned out not to exist &mdash; fluent, confident, and hollow. The duty of competence makes verification your job, and verification is mechanical: retrieve the source, read it for the proposition, check its treatment. This exercise makes you run those steps eight times &mdash; and two of these citations will not survive them.</p>
+    <div class="howto"><b>How to use this:</b> the brief on the left cites eight authorities (all fictional, in this site&rsquo;s demonstration universe). Click a citation, then work the panel on the right: <b>retrieve</b> it from the closed database &mdash; or determine it isn&rsquo;t there &mdash; then <b>classify</b> it. Watch for the near-miss case name in the database; retrieval means matching the citation, not the vibe.</div>
+
+    <p class="scoreline" id="tally">0 of 8 citations verified</p>
+
+    <div class="grid">
+      <article class="brief" aria-label="Demonstration brief excerpt (fictional)">
+        <span class="brief-tag">Demonstration &mdash; fictional brief &amp; fictional authorities</span>
+        <div class="brief-body">
+          <h3>Argument &mdash; Tenant&rsquo;s Motion (excerpt)</h3>
+          <p>A residential landlord owes the tenant a duty to keep the premises fit for habitation, and that duty includes the supply of heat. <button class="citebtn" data-c="0" type="button"><span class="ct">Marsh v. Golden Rentals</span><span class="mark" aria-hidden="true"></span></button> Once heat fails, the landlord must restore it within a reasonable time, <button class="citebtn" data-c="1" type="button"><span class="ct">Tinsley v. Vista Prop. Mgmt.</span><span class="mark" aria-hidden="true"></span></button> and that clock begins to run when the tenant gives the landlord notice of the failure. <button class="citebtn" data-c="2" type="button"><span class="ct">Vann v. Copper Sky Mgmt.</span><span class="mark" aria-hidden="true"></span></button></p>
+          <p>Where the landlord does not repair, the tenant may repair and deduct the cost, or withhold rent after giving written notice. <button class="citebtn" data-c="3" type="button"><span class="ct">Okafor v. Canyon Ridge Apartments</span><span class="mark" aria-hidden="true"></span></button> Indeed, a tenant may withhold rent <em>without any prior notice</em> to the landlord. <button class="citebtn" data-c="4" type="button"><span class="ct">Prewitt v. Stonegate LLC</span><span class="mark" aria-hidden="true"></span></button></p>
+          <p>Damages are not limited to lost rental value: emotional-distress damages are routinely available for any habitability breach. <button class="citebtn" data-c="5" type="button"><span class="ct">Delgado v. Mesa Verde Rentals</span><span class="mark" aria-hidden="true"></span></button> The tenant is further entitled to attorney&rsquo;s fees as of right, <button class="citebtn" data-c="6" type="button"><span class="ct">Brennerman v. Sunview Estates</span><span class="mark" aria-hidden="true"></span></button> and to a statutory penalty of $250 per day of inadequate heat. <button class="citebtn" data-c="7" type="button"><span class="ct">Cole v. Desert Palm Props.</span><span class="mark" aria-hidden="true"></span></button></p>
+        </div>
+      </article>
+
+      <aside class="work" aria-label="Verification panel">
+        <h2>Verify the citation</h2>
+        <div class="body" id="wk" role="status" aria-live="polite"></div>
+      </aside>
+    </div>
+
+    
+  </div>
+</main>
+
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-10/index.html" target="_top">Ch. 10 · Ethics and Professional Responsibility in Legal Research</a></p>
+  <p class="modnav-verified">Authorities verified as of 2026-07-10. The law changes — run the method, don’t trust the module.</p>
+  <p class="modnav-next"><a href="checks.html"><span class="dir">Next</span> Your record <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+
+<script src="../../js/lib.js"></script>
+<script src="../../js/export-reflect.js"></script>
+<script>
+(function(){
+  if (window.ExportReflect) ExportReflect.collect({ module: "Catch the Fabricated Citation", chapter: "Chapter 10 \u2014 Ethics and Professional Responsibility in Legal Research", session: "qm_er_catch_the_fabricated_citation" });
+
+  "use strict";
+  var el = QM.el;
+
+  /* the closed database — everything fictional, incl. one near-miss name trap */
+  var DB = [
+    { id:"marsh",   name:"Marsh v. Golden Rentals",
+      ex:"A residential landlord must keep a rental fit to live in, and that duty includes providing adequate heat during the cold months." },
+    { id:"bram",    name:"Bram v. Golden Rentals Mgmt.",
+      ex:"A commercial lessee assumes responsibility for HVAC maintenance where the lease so provides. [A commercial-lease case \u2014 different party, different rule.]" },
+    { id:"tinsley", name:"Tinsley v. Vista Prop. Mgmt.",
+      ex:"Once a landlord has notice of a heating failure, repairs must be made within a reasonable time, measured by the season and the availability of repair." },
+    { id:"vann",    name:"Vann v. Copper Sky Mgmt.",
+      ex:"The reasonable-time clock begins when the tenant notifies the landlord of the defect; a landlord cannot be faulted for a failure it has not been told about." },
+    { id:"okafor",  name:"Okafor v. Canyon Ridge Apartments",
+      ex:"A tenant faced with an unrepaired habitability defect may repair and deduct, or may withhold rent \u2014 but only after written notice and a reasonable opportunity to cure. To the extent Prewitt v. Stonegate LLC permitted withholding without notice, it is disapproved." },
+    { id:"prewitt", name:"Prewitt v. Stonegate LLC", neg:true,
+      ex:"[Older decision] A tenant may withhold rent upon a heating failure without prior notice to the landlord. \u26a0 Negative treatment: disapproved by Okafor v. Canyon Ridge Apartments." },
+    { id:"delgado", name:"Delgado v. Mesa Verde Rentals",
+      ex:"Damages for a habitability breach are generally limited to the loss in rental value; emotional-distress damages require egregious conduct, and are not available as a matter of course." }
+  ];
+  var NOT_FOUND = "__none__";
+
+  /* the eight citations: expected retrieval + correct classification */
+  var CLASSES = [
+    "Real \u2014 supports the proposition",
+    "Real \u2014 does not support it as cited",
+    "Real \u2014 negatively treated",
+    "Fabricated \u2014 no such case"
+  ];
+  var CITES = [
+    { name:"Marsh v. Golden Rentals", db:"marsh", cls:0,
+      why:"Retrieved and read, Marsh says what the brief says it says. That is what verification confirming looks like \u2014 and note you had to pass over the near-miss, Bram v. Golden Rentals Mgmt., a different case entirely.",
+      catch:"the retrieve-and-read step" },
+    { name:"Tinsley v. Vista Prop. Mgmt.", db:"tinsley", cls:0,
+      why:"Tinsley supports the reasonable-time proposition squarely.", catch:"the retrieve-and-read step" },
+    { name:"Vann v. Copper Sky Mgmt.", db:"vann", cls:0,
+      why:"Vann supports the notice-starts-the-clock proposition.", catch:"the retrieve-and-read step" },
+    { name:"Okafor v. Canyon Ridge Apartments", db:"okafor", cls:0,
+      why:"Okafor supports the remedies proposition \u2014 and while you were in it, its text quietly told you something about the brief's NEXT citation. Verification pays compound interest.",
+      catch:"the retrieve-and-read step" },
+    { name:"Prewitt v. Stonegate LLC", db:"prewitt", cls:2,
+      why:"Prewitt exists and once said exactly this \u2014 and Okafor disapproved it. A case that still sits in the database, word for word, can no longer carry the proposition. This is the failure the citator step exists to catch: existence is not validity.",
+      catch:"the citator step" },
+    { name:"Delgado v. Mesa Verde Rentals", db:"delgado", cls:1,
+      why:"Delgado is real \u2014 and it says close to the opposite of what the brief claims: damages are generally LIMITED to rental value, with emotional distress only for egregious conduct. This is the subtler, more dangerous failure: the cite retrieves fine, the flag is clean, and only reading the case for the proposition catches it.",
+      catch:"reading the source for the proposition \u2014 not just retrieving it" },
+    { name:"Brennerman v. Sunview Estates", db:NOT_FOUND, cls:3,
+      why:"A plausible name, a confident sentence \u2014 and nothing in the database. This is the hallmark of a fabricated citation: it reads perfectly and retrieves nothing. Retrieval is the step that catches it, which is why retrieval is never optional.",
+      catch:"the retrieval step" },
+    { name:"Cole v. Desert Palm Props.", db:NOT_FOUND, cls:3,
+      why:"Also nothing. Two fabrications in one short brief \u2014 which is roughly what happened in the sanctions cases that made this exercise necessary: multiple invented authorities, filed with the court, caught only when someone finally tried to retrieve them.",
+      catch:"the retrieval step" }
+  ];
+
+  var wk = document.getElementById("wk"), tally = document.getElementById("tally");
+  var state = CITES.map(function(){ return { done:false, right:null }; });
+  var cur = -1, stage = 0, doneN = 0, rightN = 0;
+
+  function idle() {
+    wk.innerHTML = "";
+    wk.appendChild(el("p", {}, [doneN
+      ? "Pick another citation in the brief \u2014 " + (8 - doneN) + " left."
+      : "Click any citation in the brief to begin. Verification order is yours; a careful reader often starts with the claims that sound best."]));
+  }
+  function finale() {
+    wk.innerHTML = "";
+    var box = el("div", { class: "donebox" });
+    box.appendChild(el("p", { class: "stephead" }, ["All eight verified"]));
+    box.appendChild(el("div", { class: "big" }, [rightN + " / 8 classified correctly"]));
+    box.appendChild(el("p", { style: "font-size:.88rem;line-height:1.6;margin:0;" }, [
+      "The three catches, in one brief: fabrication (caught by retrieval), a real case cited for the opposite of its holding (caught only by reading), and a real case that no longer holds (caught by the citator). Competence is running all three steps \u2014 every citation, every time. Add a reflection below and download your verification log."]));
+    wk.appendChild(box);
+    if (window.ExportReflect) ExportReflect.log("Final score", rightN + " / 8");
+  }
+
+  function startCite(i) {
+    cur = i; stage = 1;
+    document.querySelectorAll(".citebtn").forEach(function (b, bi) {
+      b.setAttribute("aria-current", String(bi === i));
+    });
+    var C = CITES[i];
+    wk.innerHTML = "";
+    wk.appendChild(el("p", { class: "stephead" }, ["Citation " + (i + 1) + " of 8" + (state[i].done ? " \u00b7 already verified" : "")]));
+    wk.appendChild(el("p", { class: "curcite" }, [C.name]));
+    if (state[i].done) {
+      wk.appendChild(el("p", {}, ["You classified this one " + (state[i].right ? "correctly" : "incorrectly") + ". Pick an unverified citation in the brief."]));
+      return;
+    }
+    wk.appendChild(el("p", { class: "stephead", html: "<b>Step 1 \u00b7 Retrieve:</b> find this case in the database \u2014 or determine it isn't there." }));
+    var list = el("div", { class: "dblist", role: "group", "aria-label": "Database results" });
+    DB.forEach(function (d) {
+      var row = el("button", { class: "dbrow", type: "button" }, []);
+      row.appendChild(el("i", {}, [d.name]));
+      if (d.neg) row.appendChild(el("span", { class: "flag neg" }, ["negative treatment"]));
+      row.addEventListener("click", function(){ retrieve(d.id, row); });
+      list.appendChild(row);
+    });
+    var nf = el("button", { class: "dbrow notfound", type: "button" }, ["\u2205 No such case in the database"]);
+    nf.addEventListener("click", function(){ retrieve(NOT_FOUND, nf); });
+    list.appendChild(nf);
+    wk.appendChild(list);
+    wk.appendChild(QM.live(el("div", { class: "fb", id: "wkfb", hidden: "" })));
+  }
+
+  function fbMsg(html, good) {
+    var n = document.getElementById("wkfb");
+    n.hidden = false;
+    n.className = "fb" + (good ? " good" : " bad");
+    n.innerHTML = "";
+    window.setTimeout(function(){ n.innerHTML = html; }, 30);
+  }
+
+  function retrieve(pick, row) {
+    if (stage !== 1) return;
+    var C = CITES[cur];
+    if (pick === C.db) {
+      stage = 2;
+      if (window.ExportReflect) ExportReflect.log("Cite " + (cur + 1) + " retrieval", pick === NOT_FOUND ? "correctly found absent" : "retrieved");
+      classify(pick);
+    } else if (pick === NOT_FOUND) {
+      fbMsg("Look again \u2014 it is in there. \u201cNot found\u201d is a conclusion you reach after matching every entry against the citation, and one entry matches.");
+      if (window.ExportReflect) ExportReflect.log("Cite " + (cur + 1) + " retrieval", "wrongly called absent");
+    } else {
+      var picked = DB.filter(function(d){ return d.id === pick; })[0];
+      var trap = (pick === "bram" && C.db === "marsh");
+      fbMsg(trap
+        ? "Close \u2014 but <i>Bram v. Golden Rentals Mgmt.</i> is not <i>Marsh v. Golden Rentals</i>. A near-miss name is how sloppy retrieval launders a bad cite; match the citation, not the vibe."
+        : "That entry is <i>" + picked.name + "</i> \u2014 not the citation you are verifying. Match the case name exactly.");
+      if (window.ExportReflect) ExportReflect.log("Cite " + (cur + 1) + " retrieval", "mismatched \u2014 picked " + picked.name);
+    }
+  }
+
+  function classify(pick) {
+    var C = CITES[cur];
+    var rest = el("div", {});
+    if (pick !== NOT_FOUND) {
+      var d = DB.filter(function(x){ return x.id === pick; })[0];
+      var exc = el("div", { class: "excerpt" });
+      exc.appendChild(el("span", { class: "ecite" }, [d.name + " \u2014 retrieved (fictional)"]));
+      exc.appendChild(el("span", {}, [d.ex]));
+      rest.appendChild(exc);
+    } else {
+      rest.appendChild(el("div", { class: "excerpt" }, [
+        el("span", { class: "ecite" }, ["Search complete"]),
+        el("span", {}, ["No case by this name in the database \u2014 by name, by party, or by any nearby spelling."])]));
+    }
+    rest.appendChild(el("p", { class: "stephead", html: "<b>Step 2 \u00b7 Classify</b> \u2014 read what you retrieved against what the brief claims:" }));
+    var opts = el("div", { class: "opts", role: "group", "aria-label": "Classification" });
+    var lock = false;
+    CLASSES.forEach(function (t, ci) {
+      var b = el("button", { class: "opt", type: "button" }, [t]);
+      b.addEventListener("click", function () {
+        if (lock) return;
+        lock = true;
+        var ok = ci === C.cls;
+        opts.querySelectorAll(".opt").forEach(function (x, xi) {
+          x.disabled = true;
+          if (xi === C.cls) x.classList.add("good");
+          else if (xi === ci) x.classList.add("bad");
+        });
+        state[cur].done = true; state[cur].right = ok;
+        doneN++; if (ok) rightN++;
+        tally.textContent = doneN + " of 8 citations verified \u00b7 " + rightN + " classified correctly";
+        var chip = document.querySelectorAll(".citebtn")[cur];
+        chip.classList.add(C.cls === 0 ? "v-good" : "v-bad");
+        chip.querySelector(".mark").textContent = C.cls === 0 ? " \u2713" : " \u2717";
+        fbMsg((ok ? "Right. " : "Not quite \u2014 the correct call is \u201c" + CLASSES[C.cls] + ".\u201d ") + C.why +
+              " <b>The catch:</b> " + C.catch + ".", ok);
+        if (window.ExportReflect) ExportReflect.log("Cite " + (cur + 1) + " \u2014 " + C.name,
+          (ok ? "correct: " : "incorrect \u2014 chose \u201c" + CLASSES[ci] + "\u201d; answer: ") + CLASSES[C.cls]);
+        var next = el("button", { class: "exbtn", type: "button", style: "margin-top:8px;" },
+          [doneN < 8 ? "Next citation \u2192" : "Finish \u2192"]);
+        next.addEventListener("click", function () {
+          if (doneN >= 8) { finale(); return; }
+          var ni = state.findIndex(function (s) { return !s.done; });
+          startCite(ni);
+        });
+        rest.appendChild(next);
+      });
+      opts.appendChild(b);
+    });
+    rest.appendChild(opts);
+    var fbn = document.getElementById("wkfb");
+    fbn.parentNode.insertBefore(rest, fbn);
+    fbn.hidden = true;
+  }
+
+  document.querySelectorAll(".citebtn").forEach(function (b, i) {
+    b.addEventListener("click", function () { startCite(i); });
+  });
+  idle();
+
+  
+})();
+</script>
+</body>
+</html>

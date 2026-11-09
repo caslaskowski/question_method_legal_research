@@ -1,0 +1,548 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Case Law Practice — Ch. 5 · Case Law Research</title>
+<meta name="description" content="Assemble a defensible set of cases for a client matter, tell holding from dictum, and decide whether a flagged case is still good law for your point.">
+<style>
+:root{--paper:#eeeeee;--paper-2:#e6e6e6;--panel:#f6f6f4;--ink:#262622;--ink-soft:#54534d;--ink-faint:#6b6a62;
+--rule:#cfcfcf;--rule-strong:#b6b6b6;--flame:#135169;--flame-deep:#0d3d50;--flame-tint:#dcebf2;--callout:#f5efe0;--radius:4px;
+--q1:#0072B2;--q1-tint:#dceaf4;--q2:#1a8f6f;--q2-tint:#d8efe7;--q3:#d55e00;--q3-tint:#f7e3d5;--q4:#a8478b;--q4-tint:#f1e2ec;
+--display:"Archivo","Helvetica Neue",Arial,sans-serif;--sans:"Archivo","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--serif:"Newsreader",Georgia,serif;
+--shadow:0 1px 2px rgba(20,20,18,.05),0 6px 22px rgba(20,20,18,.07);--shadow-lg:0 2px 6px rgba(20,20,18,.07),0 20px 50px rgba(20,20,18,.12);--maxw:1120px;}
+</style>
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<style>
+.lede{font-size:1.12rem;color:var(--ink-soft);}
+.howto{margin:18px 0 26px;padding:14px 18px;border-left:4px solid var(--flame);background:var(--callout);border-radius:0 var(--radius) var(--radius) 0;font-size:.96rem;color:var(--ink);}
+.howto b{color:var(--flame-deep);}
+.partkick{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--flame);margin:34px 0 0;}
+.parthead{margin:2px 0 6px;font-size:1.45rem;border-bottom:1.5px solid var(--ink);padding-bottom:7px;}
+.scenario{font-size:.98rem;color:var(--ink-soft);margin:0 0 14px;}
+.scenario b{color:var(--ink);}
+.need{display:inline-flex;align-items:center;gap:6px;margin:0 6px;}
+.sq{display:inline-block;width:13px;height:13px;border-radius:3px;vertical-align:middle;}
+.sq.q1{background:var(--q1);} .sq.q2{background:var(--q2);} .sq.q3{background:var(--q3);} .sq.q4{background:var(--q4);}
+
+/* case cards */
+.cases{display:grid;grid-template-columns:repeat(auto-fill,minmax(280px,1fr));gap:12px;margin:0 0 16px;}
+.ccard{border:1.5px solid var(--rule-strong);border-radius:9px;background:#fff;padding:13px 14px;display:flex;flex-direction:column;gap:8px;}
+.ccard.picked{border-color:var(--ink);box-shadow:inset 0 0 0 1px var(--ink);}
+.ccard .nm{font-weight:700;font-size:.96rem;}
+.ccard .meta{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);}
+.ccard .row{display:flex;align-items:center;justify-content:space-between;gap:8px;flex-wrap:wrap;}
+.ccard .squares{display:flex;gap:4px;align-items:center;}
+.ccard .squares .lbl{font-family:var(--mono);font-size:.62rem;color:var(--ink-faint);margin-right:2px;}
+.status{font-family:var(--sans);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:2px 8px;border:1.5px solid;}
+.status.ok{color:#1f6f4f;background:#e7f1ec;border-color:#1f6f4f;}
+.status.bad{color:#8a0100;background:var(--callout);border-color:#8a0100;}
+.status.warn{color:#7a5b00;background:#f4eddb;border-color:#b9912a;}
+.addbtn{font:inherit;font-size:.82rem;font-weight:600;border:1.5px solid var(--rule-strong);background:#fff;color:var(--ink);border-radius:7px;padding:7px 11px;cursor:pointer;}
+.addbtn:hover{border-color:var(--flame);color:var(--flame);}
+.addbtn:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+.addbtn[aria-pressed="true"]{background:var(--ink);color:#fff;border-color:var(--ink);}
+.verdict{margin-top:4px;border-top:1px dashed var(--rule);padding-top:8px;font-size:.86rem;line-height:1.5;color:var(--ink-soft);}
+.verdict[hidden]{display:none;}
+.vbadge{display:inline-block;font-family:var(--sans);font-size:.62rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:2px 8px;border:1.5px solid currentColor;margin-bottom:5px;}
+.v-strong{color:#1f6f4f;} .v-persuasive{color:var(--q1);} .v-weak{color:#7a5b00;} .v-offissue{color:var(--ink-faint);} .v-bad{color:#8a0100;} .v-check{color:#7a5b00;}
+
+.controls{display:flex;gap:10px;flex-wrap:wrap;margin:4px 0 0;}
+.modelset{margin:16px 0 0;padding:13px 16px;border:1px solid var(--rule-strong);border-left:4px solid #1f6f4f;background:#e7f1ec;border-radius:0 var(--radius) var(--radius) 0;font-size:.93rem;color:var(--ink);}
+.modelset[hidden]{display:none;}
+.modelset b{color:#1f6f4f;}
+
+/* MC */
+.item{border:1px solid var(--rule-strong);border-radius:8px;background:#fff;box-shadow:var(--shadow);margin:0 0 14px;overflow:hidden;}
+.item-tag{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;}
+.item-body{padding:15px 17px 17px;}
+.passage{font-family:var(--serif);font-size:1.06rem;line-height:1.6;color:var(--ink);background:var(--panel);border-radius:6px;padding:11px 14px;margin:0 0 12px;}
+.q-stem{font-weight:700;font-size:1rem;margin:0 0 11px;}
+.opts{display:flex;flex-direction:column;gap:9px;}
+.opt{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;font:inherit;font-size:.96rem;color:var(--ink);background:#fff;border:1.5px solid var(--rule-strong);border-radius:7px;padding:11px 13px;cursor:pointer;}
+.opt:hover{border-color:var(--flame);background:var(--flame-tint);}
+.opt:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+.opt .dot{flex:0 0 auto;width:18px;height:18px;border-radius:50%;border:2px solid var(--ink-faint);margin-top:1px;}
+.opt[aria-checked="true"]{border-color:var(--ink);background:var(--panel);}
+.opt[aria-checked="true"] .dot{border-color:var(--flame);background:radial-gradient(circle at center,var(--flame) 0 5px,transparent 5px);}
+.verdicts{margin:13px 0 0;border-top:1px dashed var(--rule-strong);padding-top:11px;}
+.verdicts[hidden]{display:none;}
+.vh{font-family:var(--sans);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);margin:0 0 9px;}
+.v{display:flex;gap:11px;align-items:flex-start;margin:0 0 10px;font-size:.91rem;line-height:1.5;color:var(--ink-soft);}
+.v .badge{flex:0 0 auto;font-family:var(--sans);font-size:.64rem;font-weight:700;text-transform:uppercase;letter-spacing:.04em;border-radius:999px;padding:3px 9px;border:1.5px solid currentColor;white-space:nowrap;margin-top:1px;}
+.v.correct .badge{color:#1f6f4f;background:#e7f1ec;} .v.incorrect .badge{color:#8a0100;background:#f1dedd;}
+.v .vtxt b{color:var(--ink);}
+.v.pick{background:var(--callout);border-radius:6px;padding:7px 10px;margin:0 -10px 10px;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+#export-slot{margin-top:30px;}
+</style>
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body class="shell">
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html" aria-current="page">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-5/index.html" target="_top">Ch. 5</a>
+      <a class="pn-link pn-title on" href="index.html">Case Law Practice</a>
+      <a class="pn-link" href="checks.html">Your record</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+
+<main id="main">
+  <div class="wrap ch-wrap">
+    <a class="cs-back" href="../../../index.html" target="_top">&larr; All modules</a>
+    <p class="ch-eyebrow">Chapter 5 · Practice</p>
+    <h1>Case Law Practice</h1>
+    <p class="lede">Three judgment calls every case researcher makes: which cases are worth citing, what part of an opinion actually binds, and whether a case is still good law for your point.</p>
+    <div class="howto">Nothing here is scored or saved. Each part rewards thinking it through, then reading why &mdash; case selection especially has more than one defensible answer.</div>
+
+    <!-- ===== Part 1 ===== -->
+    <p class="partkick">Part 1</p>
+    <h2 class="parthead">Build the set</h2>
+    <p class="scenario">Your client is a tenant in the <b>State of Franklin</b> whose landlord won&rsquo;t fix the heat. You need authority for two questions: <span class="need"><span class="sq q1"></span> <b>Q1</b> &mdash; is there a duty to provide heat?</span> and <span class="need"><span class="sq q3"></span> <b>Q3</b> &mdash; what remedies does the tenant have?</span> Tap the cases you&rsquo;d cite, then reveal the weighing. The colored squares show which questions each case covers, so you can triage without reading every opinion.</p>
+
+    <div class="cases" id="cases"></div>
+    <div class="controls">
+      <button class="btn" id="set-reveal" type="button">Show the weighing</button>
+      <button class="pill" id="set-reset" type="button">Reset</button>
+    </div>
+    <div class="modelset" id="modelset" role="status" aria-live="polite" hidden></div>
+
+    <!-- ===== Part 2 ===== -->
+    <p class="partkick">Part 2</p>
+    <h2 class="parthead">Holding or dictum?</h2>
+    <p class="scenario">Only the <b>holding</b> &mdash; what the court had to decide to resolve the case &mdash; carries precedential weight. <b>Dictum</b> is everything the court says along the way that it didn&rsquo;t need to decide. For each passage from a (fictional) opinion, which is it?</p>
+    <div id="hd-items"></div>
+
+    <!-- ===== Part 3 ===== -->
+    <p class="partkick">Part 3</p>
+    <h2 class="parthead">Still good law?</h2>
+    <p class="scenario">A citator flag is a prompt to investigate, not a verdict. The rule is the same each time: <b>read the citing opinion</b> and ask whether the treatment actually touches the point you&rsquo;re citing for.</p>
+    <div id="gl-items"></div>
+
+    
+  </div>
+</main>
+
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-5/index.html" target="_top">Ch. 5 · Case Law Research</a></p>
+  <p class="modnav-next"><a href="checks.html"><span class="dir">Next</span> Your record <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+
+<script src="../../js/export-reflect.js"></script>
+<script>
+(function(){
+  if (window.ExportReflect) ExportReflect.collect({ module: "Case Law Practice", chapter: "Chapter 5 — Case Law Research", session: "qm_er_case_practice" });
+  "use strict";
+
+  /* ============ PART 1: build the set ============ */
+  var CAND=[
+    {id:"marsh", nm:"Marsh v. Glenwood Apartments", meta:"Franklin Supreme Court · 2009", status:["ok","Good law"], covers:[1,2],
+     verdict:"strong", model:true, why:"Binding statewide and the foundational duty case \u2014 your anchor for Q1."},
+    {id:"tinsley", nm:"Tinsley v. Rowan Property Mgmt.", meta:"Franklin Court of Appeals · 2014", status:["ok","Good law"], covers:[3],
+     verdict:"strong", model:true, why:"Binding intermediate-appellate authority directly on the remedies question (Q3)."},
+    {id:"pruitt", nm:"Pruitt v. Maple Court", meta:"Franklin District (trial) Court · 2022", status:["ok","Good law"], covers:[1,3],
+     verdict:"weak", model:false, why:"A trial court on issues the appellate courts have already settled. Trial opinions carry little precedential weight \u2014 cite Marsh and Tinsley instead."},
+    {id:"hargrove", nm:"Hargrove v. Sunset Props.", meta:"Bordovia Supreme Court (another state) · 2018", status:["ok","Good law"], covers:[1,3],
+     verdict:"persuasive", model:false, why:"On point, but from another jurisdiction \u2014 persuasive only. Worth keeping for a novel sub-question or if Franklin were silent, but here you have binding Franklin cases, so it\u2019s a back-up, not a lead."},
+    {id:"calder", nm:"Calder v. Westgate", meta:"Franklin Supreme Court · 1998", status:["bad","Overruled by Marsh"], covers:[1],
+     verdict:"bad", model:false, why:"Overruled. Do not cite it for the rule \u2014 Marsh superseded it. It survives only as history."},
+    {id:"reyes", nm:"Reyes v. Halsted", meta:"Franklin Court of Appeals · 2020", status:["warn","Unpublished"], covers:[3],
+     verdict:"check", model:false, why:"Non-precedential. Many courts limit or forbid citing unpublished opinions \u2014 check your court\u2019s rule, and prefer a published case (Tinsley) that says the same thing."},
+    {id:"okafor", nm:"Okafor v. Birchwood LLC", meta:"Franklin Court of Appeals · 2019", status:["ok","Good law"], covers:[4],
+     verdict:"offissue", model:false, why:"Good law and binding \u2014 but it answers the damages question (Q4), not the duty or remedy you need now. Keep it in your back pocket if damages arise."}
+  ];
+  var VB={strong:["v-strong","Strong \u2014 use it"],persuasive:["v-persuasive","Persuasive only"],weak:["v-weak","Weaker \u2014 skip"],
+          offissue:["v-offissue","Off-issue"],bad:["v-bad","Bad law"],check:["v-check","Check citability"]};
+  var picked={}, casesEl=document.getElementById("cases");
+  CAND.forEach(function(c){
+    var card=document.createElement("div"); card.className="ccard"; card.id="cc-"+c.id;
+    var squares=c.covers.map(function(q){return '<span class="sq q'+q+'" title="Covers Q'+q+'" aria-label="covers Q'+q+'"></span>';}).join("");
+    card.innerHTML='<div class="nm">'+c.nm+'</div><div class="meta">'+c.meta+'</div>'+
+      '<div class="row"><span class="squares"><span class="lbl">covers</span>'+squares+'</span>'+
+      '<span class="status '+c.status[0]+'">'+c.status[1]+'</span></div>'+
+      '<div class="row"><button class="addbtn" type="button" aria-pressed="false" data-id="'+c.id+'">Add to my set</button></div>'+
+      '<div class="verdict" role="status" aria-live="polite" hidden id="cv-'+c.id+'"></div>';
+    casesEl.appendChild(card);
+  });
+  casesEl.addEventListener("click",function(e){
+    var b=e.target.closest(".addbtn"); if(!b) return;
+    var id=b.dataset.id, on=b.getAttribute("aria-pressed")==="true";
+    b.setAttribute("aria-pressed",on?"false":"true"); b.textContent=on?"Add to my set":"In my set \u2713";
+    document.getElementById("cc-"+id).classList.toggle("picked",!on);
+    if(on) delete picked[id]; else picked[id]=true;
+  });
+  document.getElementById("set-reveal").addEventListener("click",function(){
+    CAND.forEach(function(c){
+      var v=document.getElementById("cv-"+c.id), b=VB[c.verdict];
+      v.innerHTML='<span class="vbadge '+b[0]+'">'+b[1]+'</span><br>'+c.why+(picked[c.id]?' <b>(in your set)</b>':'');
+      v.hidden=false;
+    });
+    var ms=document.getElementById("modelset");
+    ms.innerHTML='<b>A tight, defensible set:</b> Marsh (Q1, binding, foundational) + Tinsley (Q3, binding appellate). Both are on point and good law. The rest are persuasive-only, redundant of higher authority, off-issue, or no longer good law \u2014 useful to know about, but not what you lead with here.';
+    ms.hidden=false;
+    if(window.ExportReflect){
+      var sel=Object.keys(picked).map(function(id){return CAND.filter(function(c){return c.id===id;})[0].nm;});
+      ExportReflect.log("Built a case set", sel.length?sel.join(" | "):"none selected");
+    }
+  });
+  document.getElementById("set-reset").addEventListener("click",function(){
+    picked={};
+    casesEl.querySelectorAll(".addbtn").forEach(function(b){ b.setAttribute("aria-pressed","false"); b.textContent="Add to my set"; });
+    casesEl.querySelectorAll(".ccard").forEach(function(c){ c.classList.remove("picked"); });
+    casesEl.querySelectorAll(".verdict").forEach(function(v){ v.hidden=true; });
+    document.getElementById("modelset").hidden=true;
+  });
+
+  /* ============ shared MC engine (reveal all rationale) ============ */
+  var BADGE={correct:["\u2713","Correct"],incorrect:["\u2717","Not quite"]};
+  function mcItem(host, tag, passage, stem, options, logLabel){
+    var wrap=document.createElement("div"); wrap.className="item";
+    var sid="mc"+Math.random().toString(36).slice(2,7);
+    wrap.innerHTML='<p class="item-tag">'+tag+'</p><div class="item-body">'+
+      (passage?'<p class="passage">'+passage+'</p>':'')+
+      '<p class="q-stem" id="'+sid+'">'+stem+'</p>'+
+      '<div class="opts" role="radiogroup" aria-labelledby="'+sid+'"></div>'+
+      '<div class="verdicts" role="status" aria-live="polite" hidden></div></div>';
+    host.appendChild(wrap);
+    var optsEl=wrap.querySelector(".opts"), verdictsEl=wrap.querySelector(".verdicts"), els=[], answered=false;
+    options.forEach(function(o,i){
+      var b=document.createElement("button"); b.className="opt"; b.type="button"; b.setAttribute("role","radio");
+      b.setAttribute("aria-checked","false"); b.tabIndex=i===0?0:-1; b.dataset.i=i;
+      b.innerHTML='<span class="dot" aria-hidden="true"></span><span>'+o.text+'</span>';
+      optsEl.appendChild(b); els.push(b);
+    });
+    function reveal(pick){
+      verdictsEl.innerHTML='<p class="vh">The reasoning</p>'+options.map(function(o,i){
+        var cls=o.correct?"correct":"incorrect", bd=BADGE[cls];
+        return '<div class="v '+cls+(i===pick?' pick':'')+'"><span class="badge">'+bd[0]+' '+bd[1]+'</span>'+
+          '<span class="vtxt"><b>'+o.text+'</b>'+(i===pick?' (your pick)':'')+'<br>'+o.why+'</span></div>';
+      }).join("");
+      verdictsEl.hidden=false;
+    }
+    function choose(b){
+      var i=+b.dataset.i;
+      els.forEach(function(x){ var on=x===b; x.setAttribute("aria-checked",on?"true":"false"); x.tabIndex=on?0:-1; });
+      reveal(i);
+      if(!answered){ answered=true; if(window.ExportReflect) ExportReflect.log(logLabel, options[i].text+" ["+(options[i].correct?"correct":"not quite")+"]"); }
+    }
+    optsEl.addEventListener("click",function(e){ var b=e.target.closest(".opt"); if(b) choose(b); });
+    optsEl.addEventListener("keydown",function(e){
+      var i=els.indexOf(document.activeElement); if(i<0) return; var n=null;
+      if(e.key==="ArrowDown"||e.key==="ArrowRight") n=(i+1)%els.length;
+      else if(e.key==="ArrowUp"||e.key==="ArrowLeft") n=(i-1+els.length)%els.length;
+      else if(e.key===" "||e.key==="Enter"){ e.preventDefault(); choose(els[i]); return; }
+      if(n!==null){ e.preventDefault(); els[n].focus(); choose(els[n]); }
+    });
+  }
+
+  /* Part 2: holding or dictum */
+  var hd=document.getElementById("hd-items");
+  function HD(passage, holdingCorrect, whyH, whyD){
+    return {passage:passage, options:[
+      {text:"Holding", correct:holdingCorrect, why:whyH},
+      {text:"Dictum", correct:!holdingCorrect, why:whyD}
+    ]};
+  }
+  [
+    HD("\u201cBecause the landlord failed to repair the heat within a reasonable time, we hold the tenant was entitled to withhold rent.\u201d", true,
+      "Holding \u2014 it resolves the dispositive issue the court actually had to decide; this is what binds later courts.",
+      "Not dictum \u2014 the court needed this to dispose of the case, so it carries precedential weight."),
+    HD("\u201cWe note that a landlord who acts in bad faith might also face punitive damages, though no such claim is before us.\u201d", false,
+      "Not a holding \u2014 the court flags it expressly says no such claim is before it, so the statement decides nothing.",
+      "Dictum \u2014 an aside the court didn\u2019t need to decide. Persuasive at most; it doesn\u2019t bind."),
+    HD("\u201cThe landlord argues oral notice was insufficient. We reject that argument: where the landlord has actual knowledge, written notice is not required.\u201d", true,
+      "Holding \u2014 it resolves an argument actually raised and necessary to the outcome.",
+      "Not dictum \u2014 the court had to decide the notice question to reach its result.")
+  ].forEach(function(it,i){
+    mcItem(hd, "Passage "+(i+1), it.passage, "Holding or dictum?", it.options, "Holding/dictum "+(i+1));
+  });
+
+  /* Part 3: still good law */
+  var gl=document.getElementById("gl-items");
+  mcItem(gl, "Citator \u2014 red flag", null,
+    "<b>Case X</b> carries a red flag. Reading the citing opinion, you find a higher court <b>reversed X on its damages holding</b> \u2014 but you\u2019re citing X for its <b>duty holding</b>, which the citing court left untouched. What do you do?",
+    [
+      {text:"Read the citing opinion, then cite X for its duty holding \u2014 noting the partial history.", correct:true,
+       why:"Right. A flag isn\u2019t wholesale. The reversal touched damages, not the duty point you need; cite X for the surviving holding and signal the history."},
+      {text:"Drop X entirely \u2014 a red flag means it\u2019s no longer good law for anything.", correct:false,
+       why:"Too blunt. Negative treatment is often partial; the duty holding here is intact. The flag tells you to look, not to discard."},
+      {text:"Cite X for the duty holding and ignore the flag.", correct:false,
+       why:"You can\u2019t ignore it. You only know the duty holding survived because you read the citing opinion \u2014 skipping that step is how people cite reversed law."}
+    ], "Good law \u2014 red flag");
+  mcItem(gl, "Citator \u2014 yellow flag", null,
+    "<b>Case Y</b> has a yellow flag because a later case <b>distinguished</b> it on different facts. Your client\u2019s facts look like <em>Y\u2019s</em>, and you want to cite Y for the same proposition. What do you do?",
+    [
+      {text:"Read the distinguishing case; if it turned on different facts, Y still supports your on-point use.", correct:true,
+       why:"Right. Distinguishing on other facts doesn\u2019t weaken Y where your facts match Y\u2019s. Confirm by reading the citing case, then cite with confidence."},
+      {text:"Avoid Y \u2014 any flag is disqualifying.", correct:false,
+       why:"No. A flag marks treatment worth checking, not a death sentence. A case distinguished on other facts can be perfectly good for your facts."},
+      {text:"A yellow flag means Y was overruled, so don\u2019t use it.", correct:false,
+       why:"A yellow flag signals caution or negative treatment (often distinguishing) \u2014 not that the case was overruled. Read it to see what actually happened."}
+    ], "Good law \u2014 yellow flag");
+
+  
+})();
+</script>
+</body>
+</html>

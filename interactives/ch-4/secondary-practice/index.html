@@ -1,0 +1,605 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Secondary Sources Practice — Ch. 4 · Secondary Sources Research</title>
+<meta name="description" content="Run one research question through the full cycle — pick the source, mine the footnote, follow it to primary authority — then practice judging when to trust a secondary source and when to leave it.">
+<style>
+:root{--paper:#eeeeee;--paper-2:#e6e6e6;--panel:#f6f6f4;--ink:#262622;--ink-soft:#54534d;--ink-faint:#6b6a62;
+--rule:#cfcfcf;--rule-strong:#b6b6b6;--flame:#135169;--flame-deep:#0d3d50;--flame-tint:#dcebf2;--callout:#f5efe0;
+--statute:#8a0100;--regulation:#2f6d56;--case:#28406b;--case-tint:#dde2ed;--radius:4px;
+--display:"Archivo","Helvetica Neue",Arial,sans-serif;--sans:"Archivo","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--serif:"Newsreader",Georgia,serif;
+--shadow:0 1px 2px rgba(20,20,18,.05),0 6px 22px rgba(20,20,18,.07);--shadow-lg:0 2px 6px rgba(20,20,18,.07),0 20px 50px rgba(20,20,18,.12);--maxw:1120px;}
+</style>
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<style>
+.lede{font-size:1.12rem;color:var(--ink-soft);}
+.howto{margin:18px 0 26px;padding:14px 18px;border-left:4px solid var(--flame);background:var(--callout);
+  border-radius:0 var(--radius) var(--radius) 0;font-size:.96rem;color:var(--ink);}
+.howto b{color:var(--flame-deep);}
+.parthead{margin:34px 0 6px;font-size:1.5rem;border-bottom:1.5px solid var(--ink);padding-bottom:7px;}
+.partkick{font-family:var(--mono);font-size:.7rem;letter-spacing:.1em;text-transform:uppercase;color:var(--flame);margin:0;}
+
+.stage{border:1px solid var(--rule-strong);border-radius:8px;background:#fff;box-shadow:var(--shadow);margin:0 0 16px;overflow:hidden;}
+.stage[hidden]{display:none;}
+.stage-tag{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;}
+.stage-body{padding:16px 18px 18px;}
+.scenario{font-size:.98rem;color:var(--ink-soft);margin:0 0 12px;}
+.q-stem{font-weight:700;font-size:1.02rem;margin:0 0 12px;}
+
+.opts{display:flex;flex-direction:column;gap:9px;}
+.opt{display:flex;align-items:flex-start;gap:11px;width:100%;text-align:left;font:inherit;font-size:.97rem;color:var(--ink);
+  background:#fff;border:1.5px solid var(--rule-strong);border-radius:7px;padding:12px 14px;cursor:pointer;}
+.opt:hover{border-color:var(--flame);background:var(--flame-tint);}
+.opt:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+.opt .dot{flex:0 0 auto;width:19px;height:19px;border-radius:50%;border:2px solid var(--ink-faint);margin-top:1px;display:grid;place-items:center;}
+.opt[aria-checked="true"],.opt[aria-pressed="true"]{border-color:var(--ink);background:var(--panel);}
+.opt[aria-checked="true"] .dot::after,.opt[aria-pressed="true"] .dot.cb::after{content:"";width:9px;height:9px;border-radius:50%;background:var(--flame);}
+.opt .dot.cb{border-radius:4px;}
+.opt[aria-pressed="true"] .dot.cb{background:var(--flame);border-color:var(--flame);}
+.opt[aria-pressed="true"] .dot.cb::after{content:"\2713";color:#fff;font-size:.8rem;font-weight:700;background:none;width:auto;height:auto;}
+
+.verdicts{margin:14px 0 0;border-top:1px dashed var(--rule-strong);padding-top:12px;}
+.verdicts[hidden]{display:none;}
+.vh{font-family:var(--sans);font-size:.7rem;font-weight:700;text-transform:uppercase;letter-spacing:.1em;color:var(--ink-faint);margin:0 0 10px;}
+.v{display:flex;gap:11px;align-items:flex-start;margin:0 0 11px;font-size:.92rem;line-height:1.5;color:var(--ink-soft);}
+.v .badge{flex:0 0 auto;font-family:var(--sans);font-size:.66rem;font-weight:700;text-transform:uppercase;letter-spacing:.05em;
+  border-radius:999px;padding:3px 9px;border:1.5px solid currentColor;white-space:nowrap;margin-top:1px;}
+.v.strong .badge,.v.correct .badge{color:#1f6f4f;background:#e7f1ec;}
+.v.workable .badge{color:#7a5b00;background:#f4eddb;}
+.v.weak .badge,.v.incorrect .badge{color:#8a0100;background:#f1dedd;}
+.v .vtxt b{color:var(--ink);}
+.v.pick{background:var(--callout);border-radius:6px;padding:8px 10px;margin:0 -10px 11px;}
+
+.continue{margin:14px 0 0;}
+.continue[hidden]{display:none;}
+
+/* footnote excerpt (stage 2) */
+.source{border:1px solid var(--rule);border-radius:8px;background:var(--panel);overflow:hidden;margin:6px 0 12px;}
+.source-toc{background:#fff;border-bottom:1px solid var(--rule);padding:8px 14px;font-family:var(--mono);font-size:.72rem;color:var(--ink-faint);}
+.source-toc b{color:var(--ink);}
+.source-body{padding:16px 18px;font-family:var(--serif);font-size:1.1rem;line-height:1.8;color:var(--ink);}
+.sent.correct{background:#fff6d6;box-shadow:inset 0 0 0 1.5px #d9b53a;border-radius:4px;}
+.fn{font-family:var(--sans);font-size:.62em;font-weight:700;vertical-align:super;line-height:0;color:var(--flame);
+  background:var(--callout);border:1.5px solid var(--flame);border-radius:5px;padding:1px 5px;margin-left:2px;cursor:pointer;}
+.fn:hover{background:var(--flame);color:#fff;}
+.fn:focus-visible{outline:3px solid var(--ink);outline-offset:2px;}
+.fn.correct{background:var(--regulation);border-color:var(--regulation);color:#fff;}
+
+.feedback{margin:6px 0 0;padding:12px 15px;border-radius:8px;font-size:.93rem;line-height:1.5;}
+.feedback[hidden]{display:none;}
+.feedback.good{background:#e7f1ec;border:1px solid var(--regulation);color:var(--ink);}
+.feedback.try{background:var(--callout);border:1px solid var(--flame);color:var(--ink);}
+.pivot-note{margin:0;padding:14px 16px;background:var(--case-tint);border-left:4px solid var(--case);border-radius:0 var(--radius) var(--radius) 0;font-size:.96rem;color:var(--ink);}
+.pivot-note b{color:var(--case);}
+
+.item{border:1px solid var(--rule-strong);border-radius:8px;background:#fff;box-shadow:var(--shadow);margin:0 0 16px;overflow:hidden;}
+.item-tag{background:var(--ink);color:#fff;font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;padding:7px 16px;}
+.item-body{padding:16px 18px 18px;}
+.btn[disabled]{opacity:.5;cursor:not-allowed;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+#export-slot{margin-top:30px;}
+</style>
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body class="shell">
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html" aria-current="page">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-4/index.html" target="_top">Ch. 4</a>
+      <a class="pn-link pn-title on" href="index.html">Secondary Sources Practice</a>
+      <a class="pn-link" href="checks.html">Your record</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+
+<main id="main">
+  <div class="wrap ch-wrap">
+    <a class="cs-back" href="../../../index.html" target="_top">&larr; All modules</a>
+    <p class="ch-eyebrow">Chapter 4 · Practice</p>
+    <h1>Secondary Sources Practice</h1>
+    <p class="lede">Two parts. First, run one research question through the whole cycle &mdash; pick the source, mine its footnote, follow it to primary authority. Then practice the judgment calls: when a source is worth trusting, and when it&rsquo;s time to leave it.</p>
+    <div class="howto">Nothing here is scored, and nothing is saved. Several questions have more than one defensible answer; pick one, then read why each option works or doesn&rsquo;t.</div>
+
+    <!-- ===================== PART 1 ===================== -->
+    <p class="partkick">Part 1</p>
+    <h2 class="parthead">The full cycle, on one problem</h2>
+
+    <div class="stage" id="s1">
+      <p class="stage-tag">Step 1 of 3 &middot; Pick your source</p>
+      <div class="stage-body">
+        <p class="scenario">A tenant&rsquo;s apartment has had no heat for three weeks and the landlord won&rsquo;t fix it. You&rsquo;ve never researched landlord-tenant law in this state.</p>
+        <p class="q-stem" id="s1-stem">What&rsquo;s your first move?</p>
+        <div class="opts" id="s1-opts" role="radiogroup" aria-labelledby="s1-stem"></div>
+        <div class="verdicts" id="s1-verdicts" hidden></div>
+        <div class="continue" id="s1-continue" hidden><button class="btn" id="s1-next" type="button">Continue &rarr;</button></div>
+      </div>
+    </div>
+
+    <div class="stage" id="s2" hidden>
+      <p class="stage-tag">Step 2 of 3 &middot; Mine the footnote</p>
+      <div class="stage-body">
+        <p class="scenario">Good call. You open the state encyclopedia and land on the right section. Now read for your question and click the <b>footnote</b> on the sentence that answers it.</p>
+        <p class="q-stem">Does the landlord have a duty to provide heat &mdash; and where does it come from?</p>
+        <div class="source" aria-label="Fictional encyclopedia entry (illustrative)">
+          <div class="source-toc"><b>State Jurisprudence</b> &rsaquo; Landlord &amp; Tenant &rsaquo; Habitability &rsaquo; Heat <span class="pill" style="float:right;font-size:.6rem;">Fictional</span></div>
+          <div class="source-body" id="s2-body"></div>
+        </div>
+        <div class="feedback" id="s2-fb" role="status" aria-live="polite" hidden></div>
+      </div>
+    </div>
+
+    <div class="stage" id="s3" hidden>
+      <p class="stage-tag">Step 3 of 3 &middot; Follow it out</p>
+      <div class="stage-body">
+        <p class="pivot-note">That footnote is your bridge. It cites <i>Marsh v. Glenwood Apartments</i> &mdash; primary authority. Your next question, <b>&ldquo;how long is a &lsquo;reasonable time&rsquo; to repair?&rdquo;</b>, is a <b>focusing question</b>, and focusing questions are answered by primary authority. You&rsquo;ve done what a secondary source is for: it oriented you, framed the rule, and handed you the case. Now you leave it behind and read the law.</p>
+        <p style="font-size:.92rem;color:var(--ink-soft);margin:12px 0 0;">That&rsquo;s the whole cycle: <b>match &rarr; mine &rarr; follow &rarr; leave.</b></p>
+      </div>
+    </div>
+
+    <!-- ===================== PART 2 ===================== -->
+    <p class="partkick">Part 2</p>
+    <h2 class="parthead">Trust &amp; timing</h2>
+    <p style="color:var(--ink-soft);margin:0 0 16px;">Knowing <em>which</em> source to use is half of it. The other half is judging whether to trust what you found, and noticing when a source has stopped being useful.</p>
+
+    <div id="items"></div>
+
+    
+  </div>
+</main>
+
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-4/index.html" target="_top">Ch. 4 · Secondary Sources Research</a></p>
+  <p class="modnav-next"><a href="checks.html"><span class="dir">Next</span> Your record <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+
+<script src="../../js/export-reflect.js"></script>
+<script>
+(function(){
+  if (window.ExportReflect) ExportReflect.collect({ module: "Secondary Sources Practice", chapter: "Chapter 4 — Secondary Sources Research", session: "qm_er_secondary_practice" });
+  "use strict";
+  var BADGE={strong:["\u2713","Strong move"],workable:["\u223c","Workable"],weak:["\u2717","Weak move"],
+             correct:["\u2713","Correct use"],incorrect:["\u2717","Not this"]};
+
+  /* ---------- single-select MC with reveal-all-rationale ---------- */
+  function mcRadio(optsEl, verdictsEl, opts, onFirst){
+    var els=[], answered=false;
+    opts.forEach(function(o,i){
+      var b=document.createElement("button");
+      b.className="opt"; b.type="button"; b.setAttribute("role","radio"); b.setAttribute("aria-checked","false");
+      b.tabIndex=i===0?0:-1; b.dataset.i=i;
+      b.innerHTML='<span class="dot" aria-hidden="true"></span><span>'+o.text+'</span>';
+      optsEl.appendChild(b); els.push(b);
+    });
+    function reveal(pick){
+      verdictsEl.innerHTML='<p class="vh">Why each option works \u2014 or doesn\u2019t</p>'+opts.map(function(o,i){
+        var bd=BADGE[o.verdict];
+        return '<div class="v '+o.verdict+(i===pick?' pick':'')+'"><span class="badge">'+bd[0]+' '+bd[1]+'</span>'+
+          '<span class="vtxt"><b>'+o.text+'</b>'+(i===pick?' (your pick)':'')+'<br>'+o.why+'</span></div>';
+      }).join("");
+      verdictsEl.hidden=false;
+    }
+    function choose(b){
+      var i=+b.dataset.i;
+      els.forEach(function(x){ var on=x===b; x.setAttribute("aria-checked",on?"true":"false"); x.tabIndex=on?0:-1; });
+      reveal(i);
+      if(!answered){ answered=true; if(onFirst) onFirst(opts[i]); }
+    }
+    optsEl.addEventListener("click",function(e){ var b=e.target.closest(".opt"); if(b) choose(b); });
+    optsEl.addEventListener("keydown",function(e){
+      var i=els.indexOf(document.activeElement); if(i<0) return; var n=null;
+      if(e.key==="ArrowDown"||e.key==="ArrowRight") n=(i+1)%els.length;
+      else if(e.key==="ArrowUp"||e.key==="ArrowLeft") n=(i-1+els.length)%els.length;
+      else if(e.key==="Home") n=0; else if(e.key==="End") n=els.length-1;
+      else if(e.key===" "||e.key==="Enter"){ e.preventDefault(); choose(els[i]); return; }
+      if(n!==null){ e.preventDefault(); els[n].focus(); choose(els[n]); }
+    });
+  }
+
+  /* ===================== PART 1 ===================== */
+  /* Step 1: source pick */
+  mcRadio(document.getElementById("s1-opts"), document.getElementById("s1-verdicts"), [
+    {text:"A state legal encyclopedia (e.g., the state Jurisprudence set).", verdict:"strong",
+     why:"The right first move for a no-clue start \u2014 it gives the framework and the leading citations fast, without drowning you in depth you don\u2019t need yet."},
+    {text:"A multi-volume treatise on landlord-tenant law.", verdict:"workable",
+     why:"It\u2019ll get you there, but it\u2019s heavier than a first orientation needs. Reach for it once you know the topic and want to understand the doctrine deeply."},
+    {text:"An ALR annotation surveying habitability cases nationwide.", verdict:"workable",
+     why:"Great later, when you have a specific point and want to see how courts across jurisdictions treat it. Premature as your very first move."},
+    {text:"A landlord-tenant practice guide.", verdict:"workable",
+     why:"Useful when you\u2019re ready to actually file or send a notice. It gives procedure, not the governing rule you need to find first."}
+  ], function(opt){
+    document.getElementById("s1-continue").hidden=false;
+    if(window.ExportReflect) ExportReflect.log("Full cycle \u2014 picked a source", opt.text+" ["+BADGE[opt.verdict][1]+"]");
+  });
+  document.getElementById("s1-next").addEventListener("click",function(){
+    var s2=document.getElementById("s2"); s2.hidden=false; this.disabled=true;
+    s2.scrollIntoView({behavior:"smooth",block:"start"});
+  });
+
+  /* Step 2: footnote mine */
+  var SENTS=[
+    {fn:1, text:"A residential landlord has a duty to keep the premises fit for habitation, which courts have held includes providing adequate heat during cold months."},
+    {fn:2, text:"Where the landlord fails to make a required repair within a reasonable time after notice, the tenant may have several remedies."}
+  ];
+  var FN_TARGET=1;
+  document.getElementById("s2-body").innerHTML=SENTS.map(function(s){
+    return '<span class="sent" id="ps-'+s.fn+'">'+s.text+'<sup><button class="fn" type="button" data-fn="'+s.fn+'" aria-label="Footnote '+s.fn+'">'+s.fn+'</button></sup></span> ';
+  }).join("");
+  var s2solved=false;
+  document.getElementById("s2-body").addEventListener("click",function(e){
+    var b=e.target.closest(".fn"); if(!b) return;
+    var fn=+b.getAttribute("data-fn"); var fbk=document.getElementById("s2-fb");
+    if(fn===FN_TARGET){
+      document.getElementById("ps-"+FN_TARGET).classList.add("correct"); b.classList.add("correct");
+      fbk.className="feedback good"; fbk.hidden=false;
+      fbk.innerHTML="Right \u2014 that sentence states the duty, and its footnote cites the case that established it.";
+      if(!s2solved){ s2solved=true; if(window.ExportReflect) ExportReflect.log("Full cycle \u2014 mined the footnote","picked the correct footnote");
+        var s3=document.getElementById("s3"); s3.hidden=false; setTimeout(function(){ s3.scrollIntoView({behavior:"smooth",block:"start"}); },250); }
+    } else {
+      fbk.className="feedback try"; fbk.hidden=false;
+      fbk.innerHTML="That sentence is about <i>remedies</i> after a breach \u2014 a different question. Which sentence states the <b>duty</b> itself?";
+    }
+  });
+
+  /* ===================== PART 2: Trust & Timing ===================== */
+  var itemsEl=document.getElementById("items");
+
+  function addRadioItem(tag, scenario, stem, options, logLabel){
+    var wrap=document.createElement("div"); wrap.className="item";
+    var sid="it"+(itemsEl.children.length+1);
+    wrap.innerHTML='<p class="item-tag">'+tag+'</p><div class="item-body">'+
+      (scenario?'<p class="scenario">'+scenario+'</p>':'')+
+      '<p class="q-stem" id="'+sid+'-stem">'+stem+'</p>'+
+      '<div class="opts" role="radiogroup" aria-labelledby="'+sid+'-stem"></div>'+
+      '<div class="verdicts" hidden></div></div>';
+    itemsEl.appendChild(wrap);
+    mcRadio(wrap.querySelector(".opts"), wrap.querySelector(".verdicts"), options, function(opt){
+      if(window.ExportReflect) ExportReflect.log(logLabel, opt.text+" ["+BADGE[opt.verdict][1]+"]");
+    });
+  }
+
+  /* (a) Wikipedia / orientation */
+  addRadioItem("Item A \u2014 the orientation tool",
+    "A partner mentions the \u201cDMCA\u201d and you have no idea what it is.",
+    "Is Wikipedia an appropriate place to look?",
+    [
+      {text:"Yes \u2014 to learn what the acronym means and which statute it points to, so you can start real research.", verdict:"strong",
+       why:"This is pure orientation \u2014 the very first Question Method move when you don\u2019t even have the vocabulary yet. Wikipedia is about as exploratory as exploratory gets: it helps you figure out how to start thinking about the research."},
+      {text:"Yes \u2014 and you can cite it in your memo for the definition.", verdict:"weak",
+       why:"Never. It\u2019s unvetted and isn\u2019t authority. Use it to find the real terms and the statute, then define them from a vetted source."},
+      {text:"No \u2014 never use Wikipedia for anything in legal research.", verdict:"weak",
+       why:"Too absolute. It\u2019s genuinely useful for orientation and search terms; the line is that you don\u2019t answer your question or rest authority on it."},
+      {text:"Yes \u2014 read it closely and rely on its explanation as your answer.", verdict:"weak",
+       why:"It\u2019s a starting point, not the answer. Move from it to vetted secondary sources and then to the primary law."}
+    ], "Trust & Timing A (Wikipedia)");
+
+  /* (b) out-of-date annotation */
+  addRadioItem("Item B \u2014 currency",
+    "You find an ALR annotation that is exactly on point \u2014 but it was last updated in 2009.",
+    "What do you do?",
+    [
+      {text:"Use its framework, but treat its cases as possibly stale \u2014 check for newer authority and updates before relying on anything.", verdict:"strong",
+       why:"Right. ALR coverage is selective and an old annotation can miss years of developments. The framing may still help; the currency is what you verify."},
+      {text:"Rely on it as written \u2014 ALR is authoritative.", verdict:"weak",
+       why:"Two problems: it\u2019s secondary (not authority at all), and it\u2019s years out of date. Trusting it as-is is exactly the currency trap."},
+      {text:"Throw it out \u2014 anything from 2009 is useless.", verdict:"weak",
+       why:"An understandable overcorrection \u2014 the organizing framework and the older cases can still orient you; the habit to build is confirming what\u2019s current before you rely. (Review Ch. 4 on how secondary sources age.)"},
+      {text:"Cite the annotation in your brief to save time.", verdict:"weak",
+       why:"Don\u2019t cite the secondary source. Follow its footnotes to the primary authority and cite that \u2014 after checking it\u2019s still good law."}
+    ], "Trust & Timing B (stale annotation)");
+
+  /* (c) Restatement select-all */
+  (function(){
+    var wrap=document.createElement("div"); wrap.className="item";
+    wrap.innerHTML='<p class="item-tag">Item C \u2014 a stretch: the adopted Restatement</p><div class="item-body">'+
+      '<p class="scenario">A state supreme court opinion adopts &sect; 90 of the Restatement (Second) of Contracts.</p>'+
+      '<p class="q-stem" id="itc-stem">Given that, how might you use the Restatement in your own research and writing? <b>Select all that apply</b>, then show the reasoning.</p>'+
+      '<div class="opts" id="itc-opts" role="group" aria-labelledby="itc-stem"></div>'+
+      '<div class="continue"><button class="btn" id="itc-check" type="button">Show the reasoning</button></div>'+
+      '<div class="verdicts" id="itc-verdicts" hidden></div></div>';
+    itemsEl.appendChild(wrap);
+    var OPTS=[
+      {text:"Read its comments and illustrations to understand the rule\u2019s reasoning and how it applies.", correct:true,
+       why:"Yes \u2014 the comments and illustrations are where a Restatement explains itself; this is core to understanding the doctrine."},
+      {text:"Follow its appended case citations to find other courts that adopted or applied the provision.", correct:true,
+       why:"Yes \u2014 the Reporter\u2019s Notes are a citation trail to primary authority across jurisdictions."},
+      {text:"Check whether this is the majority rule nationally.", correct:true,
+       why:"Yes \u2014 gauging the majority rule is exactly what a Restatement is good for."},
+      {text:"Cite it in your brief to introduce the rule.", correct:false,
+       why:"This is the trap. Now that a binding case has adopted the rule, you state the rule on the authority of that case \u2014 leading with the Restatement puts a secondary source where on-point primary authority belongs."},
+      {text:"Cite it in your brief to augment the rule explanation in the case.", correct:true,
+       why:"Legitimate \u2014 cite the case for the rule, then add the section\u2019s comments to enrich how the rule is explained or applied. That\u2019s the rare, proper place for a secondary cite in a brief."},
+      {text:"Cite it on its own as binding authority, since it reads like a statute.", correct:false,
+       why:"No \u2014 a Restatement never binds on its own. Only the court\u2019s adoption gave it force here, and the thing that binds is the opinion."},
+      {text:"Treat its statement of the rule as the final answer and skip reading the court\u2019s opinion.", correct:false,
+       why:"No \u2014 it\u2019s the map, not the destination. The opinion is the law; read it."}
+    ];
+    var optsEl=document.getElementById("itc-opts"), picked={};
+    OPTS.forEach(function(o,i){
+      var b=document.createElement("button"); b.className="opt"; b.type="button"; b.setAttribute("aria-pressed","false"); b.dataset.i=i;
+      b.innerHTML='<span class="dot cb" aria-hidden="true"></span><span>'+o.text+'</span>';
+      b.addEventListener("click",function(){ var on=b.getAttribute("aria-pressed")==="true"; b.setAttribute("aria-pressed",on?"false":"true"); if(on)delete picked[i]; else picked[i]=true; });
+      optsEl.appendChild(b);
+    });
+    document.getElementById("itc-check").addEventListener("click",function(){
+      var v=document.getElementById("itc-verdicts");
+      v.innerHTML='<p class="vh">The reasoning, option by option</p>'+OPTS.map(function(o,i){
+        var cls=o.correct?"correct":"incorrect", bd=BADGE[cls];
+        var chose=!!picked[i];
+        return '<div class="v '+cls+(chose?' pick':'')+'"><span class="badge">'+bd[0]+' '+bd[1]+'</span>'+
+          '<span class="vtxt"><b>'+o.text+'</b>'+(chose?' (you selected)':'')+'<br>'+o.why+'</span></div>';
+      }).join("");
+      v.hidden=false; this.disabled=true;
+      if(window.ExportReflect){
+        var chosen=OPTS.filter(function(o,i){return picked[i];}).map(function(o){return o.text;});
+        ExportReflect.log("Trust & Timing C (adopted Restatement)", "selected: "+(chosen.length?chosen.join(" | "):"none"));
+      }
+    });
+  })();
+
+  /* ===================== export ===================== */
+  
+})();
+</script>
+</body>
+</html>

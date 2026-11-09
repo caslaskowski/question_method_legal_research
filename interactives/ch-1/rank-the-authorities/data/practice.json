@@ -1,0 +1,37 @@
+{
+  "eyebrow": "Chapter 1 · Foundations of Legal Authority",
+  "title": "Applying the Hierarchy",
+  "intro": "Knowing the structure is half the job; the other half is using it under pressure. Three quick drills sharpen the core distinctions, the ranking exercise makes you order a full stack of authorities, and the courts exercise tests whether you can place any court in its system. Your work on every page is collected locally; come back here to download one submission file.",
+  "nav": [
+    {
+      "page": "drill.html?type=primary-secondary",
+      "kicker": "Drill",
+      "label": "Primary vs. Secondary",
+      "blurb": "Is it the law, or is it about the law? Rapid-fire calls on the distinction everything else builds on."
+    },
+    {
+      "page": "drill.html?type=binding-persuasive",
+      "kicker": "Drill",
+      "label": "Binding vs. Persuasive",
+      "blurb": "Same source, different courtrooms. Decide what binds and what merely persuades — and why the forum decides."
+    },
+    {
+      "page": "drill.html?type=statute-common",
+      "kicker": "Drill",
+      "label": "Statute vs. Common Law",
+      "blurb": "Who made the rule — the legislature or the courts — and which one governs when they meet."
+    },
+    {
+      "page": "rank.html",
+      "kicker": "Exercise",
+      "label": "Rank the Authorities",
+      "blurb": "A full stack of sources for one forum. Put them in controlling order and defend every placement."
+    },
+    {
+      "page": "courts.html",
+      "kicker": "Exercise",
+      "label": "Courts & Reporters",
+      "blurb": "Name the court above, the court below, and where its decisions are published — for the federal system and the states you’ll meet most."
+    }
+  ]
+}

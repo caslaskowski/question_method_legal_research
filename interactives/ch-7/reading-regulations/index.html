@@ -1,0 +1,664 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Read a Regulation — Ch. 7 · Regulations and Administrative Research</title>
+<meta name="description" content="Read a federal regulation for one question at a time: start with the authority note, check the Part's definitions, read the operative verb, navigate the CFR by its table of contents, and know when the answer lives in the Federal Register instead.">
+<!--
+  Implements: Appendix D (How to Read a Regulation) with Chapter 7 (Regulations and Administrative Research).
+  Regulatory text: 28 C.F.R. part 36 (DOJ, ADA Title III) — public domain. § 36.304(a)–(c) reproduced
+  (examples and priorities condensed where marked); § 36.104 definitions condensed; § 36.305 described
+  by its subject, not quoted. Authority note per the Part. Verified 2026-09-14.
+-->
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<link rel="stylesheet" href="../../assets/readsource.css">
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body class="shell">
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html" aria-current="page">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html" aria-current="page"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-7/index.html" target="_top">Ch. 7</a>
+      <a class="pn-link pn-title on" href="index.html">How to Read a Regulation</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+
+<main id="main">
+  <div class="wrap ch-wrap">
+    <a class="cs-back" href="../../../index.html" target="_top">&larr; All modules</a>
+    <p class="ch-eyebrow">Chapter 7 · Appendix D</p>
+    <h1>How to Read a Regulation</h1>
+    <p class="lede">A regulation is where a statute&rsquo;s command gets specific. You read it much like a statute, with two differences: you start one step earlier, with the authority that lets the agency speak at all, and you finish by asking whether the codified text is the whole story, because the agency&rsquo;s own explanation of its rule was never codified.</p>
+
+    <section class="primer" aria-labelledby="primer-h">
+      <h2 id="primer-h">Before you read</h2>
+      <p><b>The situation.</b> Your client owns a small neighborhood restaurant in a building put up in the 1960s. A single six-inch step separates the sidewalk from the front door. A customer who uses a wheelchair has written to say she cannot get in, and has asked what the restaurant intends to do. Your client wants to know whether the law requires a change to a building that has stood this way for sixty years, and what happens if a ramp turns out to be impossible.</p>
+      <p><b>The source.</b> The Department of Justice&rsquo;s regulations implementing Title III of the Americans with Disabilities Act, 28 C.F.R. part 36. Congress wrote the statute; the agency wrote the rules that put it into practice.</p>
+      <dl>
+        <dt>C.F.R.</dt><dd>The Code of Federal Regulations: agency rules arranged by subject, the way a code arranges statutes. Title, then Part, then Section.</dd>
+        <dt>Federal Register</dt><dd>The daily government publication where a rule first appears, together with the agency&rsquo;s explanation of it. The explanation is never codified, so it lives only here.</dd>
+        <dt>Authority note</dt><dd>The line citing the statute that empowers the agency. A rule can never reach further than the statute that authorized it.</dd>
+        <dt>Public accommodation</dt><dd>A private business open to the public that the ADA covers. The statute lists categories; the regulation defines the term.</dd>
+      </dl>
+    </section>
+
+    <div class="modebar">
+      <label for="readmode">I&rsquo;m reading to&hellip;</label>
+      <select id="readmode" aria-label="Choose your reading purpose"></select>
+      <p class="modenote" id="modenote" role="status" aria-live="polite"></p>
+    </div>
+
+    <section class="steps" id="engagewrap" aria-label="How to engage with a regulation">
+      <h2>How to engage with a regulation</h2>
+      <ol id="engage"></ol>
+    </section>
+
+    <aside class="qcallout" id="qcallout" aria-label="The question you are holding" hidden></aside>
+
+    <div class="casegrid">
+      <div>
+        <section class="viewer" aria-label="Code of Federal Regulations viewer">
+          <nav class="crumbs" id="crumbs" aria-label="You are here"></nav>
+          <div class="vbody" id="vbody" tabindex="-1"></div>
+        </section>
+      </div>
+
+      <div class="sidecol">
+        <aside class="info" id="info" aria-live="polite" tabindex="-1">
+          <p class="ik">Reading guide</p>
+          <h2>Name the parts</h2>
+          <p>Click any underlined part of the regulation and its explanation appears here. The dark buttons navigate the CFR the way you navigated the Code.</p>
+        </aside>
+        <div class="wkpanel" aria-label="Work the page" id="wkpanel" hidden>
+          <h2>Work the page</h2>
+          <div id="wkbody"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="weighnote"><b>Regulations change often.</b> Confirm you are reading the current version in the eCFR, check the List of CFR Sections Affected and the Federal Register for recent amendments, and run a citator for decisions interpreting the rule. Stopping at the codified text is the commonest regulatory research error.</p>
+
+    <div id="log-slot"></div>
+    <div id="export-slot"></div>
+  </div>
+</main>
+
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-7/index.html" target="_top">Ch. 7 · Regulations and Administrative Research</a></p>
+  <p class="modnav-verified">Authorities verified as of 2026-09-14. The law changes — run the method, don’t trust the module.</p>
+  <p class="modnav-next"><a href="../../ch-7/regulation-practice/index.html"><span class="dir">Next module</span> Regulations Practice <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+
+<script src="../../js/lib.js"></script>
+<script src="../../js/export-reflect.js"></script>
+<script src="../../js/research-log.js"></script>
+<script src="../../js/readsource.js"></script>
+<script>
+(function(){
+  "use strict";
+
+  var COMPONENTS = {
+    partheading:{ ik:"Part of the regulation", h:"Part heading",
+      p:["The heading names the subject of the whole Part and is how you orient yourself in the CFR.",
+         "The CFR nests like a code: <strong>Title 28</strong> (Judicial Administration) \u2192 <strong>Chapter I</strong> (Department of Justice) \u2192 <strong>Part 36</strong> \u2192 <strong>Subpart</strong> \u2192 <strong>Section</strong>. The table of contents shows that structure at a glance."],
+      go:{ label:"Open the Part 36 table of contents", to:"toc" } },
+    authority:{ ik:"Part of the regulation", h:"Authority note",
+      p:["This cites the statute that <em>empowers</em> the agency to issue these rules: the ADA\u2019s public accommodations provisions, 42 U.S.C. 12181\u201312189, together with the general grants in 28 U.S.C. 509 and 510.",
+         "It is your link back to the enabling law and the outer boundary of the agency\u2019s power. A regulation cannot reach beyond what its statute authorizes, so a rule that seems to go further is itself a research question."],
+      tie:"Start here. If the statute does not cover your client, no rule under it does either." },
+    source:{ ik:"Part of the regulation", h:"Source note",
+      p:["This cites the <em>Federal Register</em> issues where the rule was published and last amended. It is your pathway off the codified page.",
+         "Follow it when you want the agency\u2019s own explanation of the rule, the <strong>preamble</strong>, which lives in the Federal Register and is never codified."],
+      go:{ label:"CFR and the Federal Register, compared", to:"comparison" } },
+    heading:{ ik:"Part of the regulation", h:"Section number and heading",
+      p:["\u00a7 36.304 tells you exactly where the rule sits; the heading describes its subject, here the removal of barriers.",
+         "As with a statute\u2019s heading, treat it as a locator rather than the operative command."] },
+    operative:{ ik:"How to engage", h:"Read the verb",
+      p:["This is the operative rule. Read the verb: <strong>shall</strong> or <strong>must</strong> create an obligation; <strong>may</strong> grants discretion; <strong>should</strong> signals a recommendation.",
+         "\u201cShall remove architectural barriers \u2026 where such removal is readily achievable\u201d is a command with a condition attached. Both halves matter: the duty is real, and its reach is set by a standard defined elsewhere."] },
+    term:{ ik:"The load-bearing term", h:"\u201creadily achievable\u201d",
+      p:["The whole obligation turns on this phrase, and the rule gives you a compressed gloss on the spot: easily accomplishable and able to be carried out without much difficulty or expense.",
+         "A gloss inside the operative text is not a substitute for the definition. Check whether the Part defines the term, because the definition carries the factors a court will actually apply."],
+      go:{ label:"Open the definitions (\u00a7 36.104)", to:"definitions" } },
+    examples:{ ik:"How to engage", h:"Examples and priorities",
+      p:["Paragraph (b) lists examples of barrier removal and says the list is not exhaustive. Paragraph (c) sets an order of priorities and says a public accommodation is <em>urged</em> to follow it.",
+         "Notice the difference in force. An example list tells you what the rule contemplates without limiting it. A paragraph that urges rather than requires is guidance inside a binding rule, so read the verbs one at a time rather than treating the section as uniformly mandatory."] },
+    defentry:{ ik:"The definition", h:"The defined term",
+      p:["A regulatory definition controls over ordinary meaning, exactly as a statutory one does, and it is fixed for the whole Part rather than section by section.",
+         "Definitions in this Part build on the statute\u2019s categories. The agency fills in detail; it cannot exceed the grant in the authority note."] },
+    factors:{ ik:"The definition\u2019s factors", h:"What makes removal \u201creadily achievable\u201d",
+      p:["The definition supplies factors rather than a number: the nature and cost of the action; the overall financial resources of the site involved, the number of employees, and the effect on expenses and resources; the resources of the covered entity as a whole and the size, number, type, and location of its facilities; and the type of operation, including the composition and structure of the workforce.",
+         "Factors are sibling questions. Each applies to your client\u2019s facts, and no single one decides. A standard like this is also a signal: what the text leaves open, the agency\u2019s guidance and the courts fill in."],
+      warn:"Condensed here. Read the full definition, and the parallel statutory definition at 42 U.S.C. \u00a7 12181(9), before you rely on the factors." }
+  };
+
+  var NODES = {
+    regulation:{
+      crumbs:["CFR","Title 28","Ch. I (DOJ)","Part 36","Subpart C","\u00a7 36.304"],
+      kick:"Code of Federal Regulations \u00b7 regulatory text",
+      title:"\u00a7 36.304 Removal of barriers",
+      cite:"28 C.F.R. \u00a7 36.304. Paragraph (a) reproduced in full; the example list in (b) and the priorities in (c) condensed.",
+      hint:{ ik:"Reading guide", h:"Name the parts",
+        p:"Click any underlined part and its explanation appears here. Work in a researcher\u2019s order: authority first, then the definitions the rule depends on, then the operative text." },
+      render:function(){
+        return '<div class="cmprow">'+
+          '<button class="cmpitem" data-comp="partheading" data-ans="partheading" data-label="Part heading"><span class="lab">Part heading</span> Part 36 &mdash; Nondiscrimination on the Basis of Disability by Public Accommodations and in Commercial Facilities</button>'+
+          '<button class="cmpitem" data-comp="authority" data-ans="authority" data-label="Authority note"><span class="lab">Authority</span> 42 U.S.C. 12181&ndash;12189; 28 U.S.C. 509, 510 &mdash; the statute that empowers these rules</button>'+
+          '<button class="cmpitem src" data-comp="source" data-ans="source" data-label="Source note"><span class="lab">Source</span> 56 FR 35544, July 26, 1991, as amended at 75 FR 56236, Sept. 15, 2010</button>'+
+          '<button class="cmpitem" data-comp="heading" data-ans="heading" data-label="Section number and heading"><span class="lab">Section</span> \u00a7 36.304 Removal of barriers &mdash; (a) General</button>'+
+          '</div>'+
+          '<div class="stat">'+
+            '<span class="sub"><b>(a) General.</b> A public accommodation <button class="cmp must" data-comp="operative" data-ans="operative" data-label="The operative command">shall remove architectural barriers in existing facilities, including communication barriers that are structural in nature, where such removal is</button> <button class="cmp xref" data-comp="term" data-ans="term" data-label="The load-bearing term">readily achievable, i.e., easily accomplishable and able to be carried out without much difficulty or expense</button>.</span>'+
+          '</div>'+
+          '<div class="stat">'+
+            '<button class="subbtn" data-comp="examples" data-ans="examples" data-label="Examples and priorities"><span class="lab">(b)</span> <b>Examples.</b> Examples of steps to remove barriers include, but are not limited to: installing ramps; making curb cuts in sidewalks and entrances; repositioning shelves; rearranging tables, chairs, vending machines, display racks and other furniture; widening doors; installing accessible door hardware; and other listed measures. <i>(list condensed)</i></button>'+
+            '<button class="subbtn" data-comp="examples" data-ans="examples" data-label="Examples and priorities"><span class="lab">(c)</span> <b>Priorities.</b> A public accommodation is urged to comply in accordance with an order of priorities, of which the first is providing access to the place of public accommodation from public sidewalks, parking, or public transportation \u2014 for example, installing an entrance ramp, widening entrances, and providing accessible parking. <i>(condensed)</i></button>'+
+          '</div>'+
+          '<div class="nav-actions">'+
+            '<button class="goact" data-go="definitions">Open the definitions (\u00a7 36.104)</button>'+
+            '<button class="goact ghost" data-go="toc">Part 36 table of contents</button>'+
+            '<button class="goact ghost" data-go="comparison">CFR and the Federal Register</button>'+
+          '</div>';
+      }
+    },
+
+    toc:{
+      crumbs:["CFR","Title 28","Ch. I (DOJ)","Part 36","Contents"],
+      kick:"Table of contents \u00b7 navigate the CFR",
+      title:"Part 36 \u2014 Public Accommodations (ADA Title III)",
+      cite:"The CFR nests by subject, like a code. The role label tells you what kind of answer each subpart holds.",
+      hint:{ ik:"Reading guide", h:"Navigate by structure",
+        p:"Drill from the Part down to the subpart that matches your question. A question about what a word means lives in <strong>Definitions</strong>; a question about what a business must do lives in <strong>Specific Requirements</strong>; a question about exact measurements lives in the <strong>Standards</strong>." },
+      render:function(){
+        var rows=[
+          ["Subpart A","General \u2014 purpose, and the definitions (\u00a7 36.104)","Definitions","definitions"],
+          ["Subpart B","General Requirements \u2014 the broad prohibitions on discrimination","General rule",null],
+          ["\u00a7 36.302","Modifications in policies, practices, or procedures","Specific obligations",null],
+          ["\u00a7 36.304","Removal of barriers \u2014 existing facilities","Specific obligations","regulation"],
+          ["\u00a7 36.305","Alternatives to barrier removal","Specific obligations","alternatives"],
+          ["Subpart D","New Construction and Alterations \u2014 adopts the 2010 ADA Standards","Design standards","standards"],
+          ["Subpart E","Enforcement \u2014 complaints, investigations, remedies","Enforcement",null],
+          ["Appendix","2010 ADA Standards for Accessible Design \u2014 tables and figures","Standards","standards"]
+        ];
+        return '<div class="hier"><b>Title 28</b> Judicial Administration &nbsp;\u203a&nbsp; <b>Chapter I</b> Department of Justice &nbsp;\u203a&nbsp; <b>Part 36</b> &nbsp;\u203a&nbsp; <b>Subpart</b> &nbsp;\u203a&nbsp; <b>Section</b></div>'+
+        '<ul class="toclist">'+rows.map(function(r){
+          var go = r[3] ? ' data-go="'+r[3]+'"' : '';
+          var ans = ' data-ans="toc:'+r[0].replace(/\s|\u00a7/g,"")+'" data-label="'+r[0]+' in the contents"';
+          return '<li><button class="tocrow"'+go+ans+'><span class="sec">'+r[0]+'</span><span class="ti">'+r[1]+(r[3]?' <span style="color:var(--flame);font-weight:600">\u2192</span>':'')+'</span><span class="role">'+r[2]+'</span></button></li>';
+        }).join("")+'</ul>'+
+        '<div class="nav-actions"><button class="goact ghost" data-go="regulation">\u2190 Back to \u00a7 36.304</button></div>';
+      }
+    },
+
+    definitions:{
+      crumbs:["CFR","Part 36","Subpart A","\u00a7 36.104"],
+      kick:"Definitions \u00b7 condensed",
+      title:"\u00a7 36.104 Definitions",
+      cite:"28 C.F.R. \u00a7 36.104, condensed. Definitions are fixed for the whole Part and control over ordinary meaning.",
+      hint:{ ik:"Reading guide", h:"Definitions control",
+        p:"A defined term means what the regulation says it means. Notice that these definitions lean on the statute: the categories of covered business come from the ADA itself, and the \u201creadily achievable\u201d factors track the statutory definition." },
+      render:function(){
+        return '<div class="deflist">'+
+          '<p class="d"><button class="cmp" data-comp="defentry" data-ans="def-place" data-label="Definition: place of public accommodation"><b>Place of public accommodation.</b> A facility operated by a private entity whose operations affect commerce and that falls within one of the categories listed in the ADA \u2014 among them restaurants, bars, and other establishments serving food or drink.</button></p>'+
+          '<p class="d"><button class="cmp" data-comp="defentry" data-ans="def-pa" data-label="Definition: public accommodation"><b>Public accommodation.</b> A private entity that owns, leases (or leases to), or operates a place of public accommodation.</button></p>'+
+          '<p class="d"><button class="cmp xref" data-comp="factors" data-ans="def-ra" data-label="Definition: readily achievable"><b>Readily achievable.</b> Easily accomplishable and able to be carried out without much difficulty or expense, judged by factors including the nature and cost of the action; the overall financial resources of the site, the number of employees, and the effect on expenses and resources; the resources of the covered entity as a whole and the size, number, type, and location of its facilities; and the type of operation and the composition and structure of its workforce.</button></p>'+
+          '<p class="d"><button class="cmp" data-comp="defentry" data-ans="def-undue" data-label="Definition: undue burden"><b>Undue burden.</b> Significant difficulty or expense \u2014 a different and higher threshold, used by other sections of this Part.</button></p>'+
+          '</div>'+
+          '<div class="sidenote"><b>Read the neighbors.</b> \u201cReadily achievable\u201d and \u201cundue burden\u201d sit next to each other and sound alike, but they belong to different obligations in this Part. Confusing them is how a memo ends up applying the wrong threshold to the right facts.</div>'+
+          '<div class="nav-actions"><button class="goact ghost" data-go="regulation">\u2190 Back to \u00a7 36.304</button><button class="goact ghost" data-go="toc">Table of contents</button></div>';
+      }
+    },
+
+    alternatives:{
+      crumbs:["CFR","Part 36","Subpart C","\u00a7 36.305"],
+      kick:"Neighboring section \u00b7 described",
+      title:"\u00a7 36.305 Alternatives to barrier removal",
+      cite:"28 C.F.R. \u00a7 36.305, described by its subject rather than quoted.",
+      hint:{ ik:"Reading guide", h:"The section next door",
+        p:"You reached this by reading the table of contents rather than by following a cross-reference. Sections are arranged by subject, so the section that answers \u201cwhat if the duty cannot be met\u201d usually sits immediately after the one that imposes it." },
+      render:function(){
+        return '<div class="stat">'+
+          '<span class="sub">Where a public accommodation demonstrates that removing a barrier is not readily achievable, this section requires it to make its goods and services available through <b>alternative methods</b>, if those alternatives are themselves readily achievable. The section gives examples of such alternatives. <i>(described, not quoted)</i></span>'+
+          '</div>'+
+          '<div class="sidenote"><b>Structure answered this one.</b> Nothing in \u00a7 36.304 told you to come here. You found it because the table of contents puts the fallback obligation beside the primary one \u2014 which is why reading a section in its structure is part of reading the section.</div>'+
+          '<div class="nav-actions"><button class="goact ghost" data-go="regulation">\u2190 Back to \u00a7 36.304</button><button class="goact ghost" data-go="toc">Table of contents</button></div>';
+      }
+    },
+
+    standards:{
+      crumbs:["CFR","Part 36","Subpart D / Appendix","2010 Standards"],
+      kick:"Design standards \u00b7 force of law",
+      title:"2010 ADA Standards for Accessible Design",
+      cite:"Adopted by Subpart D and set out in the appendix as tables and figures carrying the force of law.",
+      hint:{ ik:"Reading guide", h:"A design standard",
+        p:"Here the rules stop describing goals and start giving numbers. Tables and figures are part of the regulation, not illustrations you can skip." },
+      render:function(){
+        return '<p style="font-family:var(--serif);font-size:1.02rem;line-height:1.7;">The Standards translate general duties into exact, buildable requirements \u2014 slopes, clearances, landings \u2014 set out in numbered tables and figures.</p>'+
+        '<p style="font-size:.92rem;color:var(--ink-soft);">That makes them a <strong>design standard</strong>: they tell you precisely what to build. A <strong>performance standard</strong> states an outcome and leaves the method open. Which kind you are reading decides what compliance looks like. Standards like these also often incorporate outside technical standards by reference, which then carry the same force as the regulation.</p>'+
+        '<div class="nav-actions"><button class="goact ghost" data-go="toc">\u2190 Table of contents</button><button class="goact ghost" data-go="regulation">\u2190 Back to \u00a7 36.304</button></div>';
+      }
+    },
+
+    comparison:{
+      crumbs:["Source note","CFR and the Federal Register"],
+      kick:"Where regulations live \u00b7 conceptual",
+      title:"The CFR and the Federal Register",
+      cite:"Two publications, one body of law. Knowing which to open is a base-level research skill.",
+      hint:{ ik:"Reading guide", h:"One current, one historical",
+        p:"The same split you know from statutes and session laws shows up here. Read the two cards, then remember the analogy." },
+      render:function(){
+        return '<div class="whenrow">'+
+          '<div class="whencard cfr"><h4>Go to the CFR when\u2026</h4><p>you need the operative rule as it stands today. The CFR is the official, current, subject-arranged compilation \u2014 your default for what the law requires right now.</p></div>'+
+          '<div class="whencard fr"><h4>Go to the Federal Register when\u2026</h4><p>you need the agency\u2019s explanation, the comments it answered, the effective dates, or the history of an amendment. The preamble is published here and never codified, so an interpretive question often ends up in this volume.</p></div>'+
+          '</div>'+
+          '<p style="font-size:.9rem;color:var(--ink-soft);">The source note on the rule is the bridge between them: it gives the Federal Register citation for the original rule and each amendment.</p>'+
+          '<div class="nav-actions"><button class="goact ghost" data-go="regulation">\u2190 Back to \u00a7 36.304</button></div>';
+      }
+    }
+  };
+
+  var V = ReadSource.viewer({ crumbsId:"crumbs", bodyId:"vbody", infoId:"info", nodes:NODES, components:COMPONENTS });
+
+  var CHAIN = [
+    { q:"A federal agency wrote this rule. What law lets it impose anything on my client\u2019s restaurant?", type:"Focusing",
+      targets:["authority"],
+      hint:"Find the line that cites the statute behind the Part. Click it.",
+      why:"The authority note anchors the regulation to its enabling statute, and a rule can never reach beyond that statute.",
+      miss:{ source:"the source note points to where the rule was published and amended, not to the power behind it.",
+             partheading:"the heading names the subject; the power comes from the statute in the authority note.",
+             operative:"that is the command. You are asking what allows the agency to issue a command at all.",
+             heading:"the section number and heading locate the rule; they do not supply its authority." },
+      found:"The Part rests on the ADA\u2019s public accommodations provisions, 42 U.S.C. \u00a7\u00a7 12181\u201312189, together with the Attorney General\u2019s general authority at 28 U.S.C. \u00a7\u00a7 509 and 510. The rules implement that statute and cannot exceed it.",
+      cite:"28 C.F.R. pt. 36 (authority note)",
+      logNotes:"Enabling statute: ADA Title III, 42 U.S.C. \u00a7\u00a7 12181-12189. Any rule that seems to exceed it is itself a research question.",
+      next:{ q:"Is a restaurant the kind of business these rules cover?", type:"Definitional",
+             inSource:true, why:"The Part defines its own terms at \u00a7 36.104, and \u201cplace of public accommodation\u201d is one of them. A regulatory definition controls over your assumptions.",
+             whyNotGo:"Check the table of contents: Subpart A holds the definitions. The term is defined inside this Part.",
+             continueLabel:"Open the definitions and check" } },
+
+    { q:"Is a restaurant the kind of business these rules cover?", type:"Definitional",
+      targets:["def-place","def-pa"],
+      hint:"You are in \u00a7 36.104. Click the definition that decides whether the restaurant is covered.",
+      why:"A facility in one of the ADA\u2019s listed categories, operated by a private entity affecting commerce, is a place of public accommodation; the entity operating it is the public accommodation.",
+      miss:{ "def-ra":"that defines the standard for how much a business must do. First establish that the rules reach your client at all.",
+             "def-undue":"a different threshold used by other sections. Not the coverage question.",
+             authority:"you answered that one \u2014 it told you which statute empowers the rules, not whom they cover." },
+      found:"Yes. A restaurant is within the ADA\u2019s listed categories of covered facilities, so a private entity operating one is a public accommodation subject to this Part.",
+      cite:"28 C.F.R. \u00a7 36.104 (definitions), tracking 42 U.S.C. \u00a7 12181(7)",
+      logType:"Definitional",
+      logNotes:"Coverage established. Note that the regulation's categories come from the statute \u2014 the agency fills in detail, it does not expand the list.",
+      next:{ q:"Does the rule require anything about a step at the entrance of a building that already exists?", type:"Focusing",
+             inSource:true, why:"\u00a7 36.304 is titled \u201cRemoval of barriers\u201d and its general paragraph speaks to existing facilities. Read the operative text.",
+             whyNotGo:"The section you started in is about existing facilities. Read its command before looking elsewhere.",
+             continueLabel:"Back to \u00a7 36.304 and read the command" } },
+
+    { q:"Does the rule require anything about a step at the entrance of a building that already exists?", type:"Focusing",
+      targets:["operative"],
+      hint:"Read paragraph (a) and click the command itself.",
+      why:"The verb carries the obligation, and the clause around it sets the condition on it.",
+      miss:{ term:"you found the condition on the duty. Click the command it attaches to first \u2014 then the standard is your next question.",
+             examples:"examples show what removal can look like once you know a duty exists.",
+             heading:"the heading names the subject; the command is in paragraph (a).",
+             "def-ra":"the definition explains the standard; the duty is stated in \u00a7 36.304(a)." },
+      found:"Yes. A public accommodation <em>shall</em> remove architectural barriers in existing facilities, including structural communication barriers, where removal is readily achievable. The duty is mandatory; its reach is bounded by that standard.",
+      cite:"28 C.F.R. \u00a7 36.304(a)",
+      caveat:"The rule glosses the standard on the spot \u2014 easily accomplishable and without much difficulty or expense \u2014 but a gloss in the operative text is not the definition. Definitions are set for the whole Part.",
+      logNotes:"Duty is mandatory (\u201cshall\u201d) but conditioned. Examples in (b) include installing ramps and widening entrances; priorities in (c) urge entrance access first, and \u201curged\u201d is not \u201crequired.\u201d",
+      next:{ q:"What does \u201creadily achievable\u201d actually require of a business this size?", type:"Definitional",
+             inSource:true, why:"The Part defines the term at \u00a7 36.104, and the definition carries the factors a court applies rather than the one-line gloss.",
+             whyNotGo:"The definition is in this Part, in Subpart A. Read it before going outside the regulation.",
+             continueLabel:"Open \u00a7 36.104 and read the definition" } },
+
+    { q:"What does \u201creadily achievable\u201d actually require of a business this size?", type:"Definitional",
+      targets:["def-ra"],
+      hint:"Click the definition of the standard.",
+      why:"The definition supplies factors rather than a threshold figure.",
+      miss:{ "def-undue":"close in sound, different in law: that is the higher threshold used by other obligations in this Part.",
+             "def-place":"that answered coverage.",
+             operative:"the command states the duty and names the standard; the standard is defined here." },
+      found:"It is judged by factors, not by a number: the nature and cost of the action; the site\u2019s overall financial resources, employee count, and the effect on expenses and resources; the resources of the entity as a whole and the size, number, type, and location of its facilities; and the type of operation and the structure of its workforce. Each factor applies to your client\u2019s facts and none decides alone.",
+      cite:"28 C.F.R. \u00a7 36.104 (condensed); cf. 42 U.S.C. \u00a7 12181(9)",
+      caveat:"Facts that were background a moment ago now matter: the restaurant\u2019s size, its revenue, whether the owner has other locations, and what a compliant ramp would cost at this entrance. Relevance arrived with the factors.",
+      logNotes:"Factors are sibling questions. Compare with \u201cundue burden\u201d (significant difficulty or expense), a different threshold used elsewhere in the Part.",
+      next:{ q:"If a ramp turns out not to be readily achievable, is the restaurant simply excused?", type:"Focusing",
+             inSource:true, why:"Nothing in \u00a7 36.304 says so, but the Part is arranged by subject: open the table of contents and look at what sits immediately after the barrier-removal section.",
+             whyNotGo:"Before you leave the CFR, look at the structure. A fallback obligation usually sits beside the duty it backs up.",
+             continueLabel:"Open the table of contents and look next door" } },
+
+    { q:"If a ramp turns out not to be readily achievable, is the restaurant simply excused?", type:"Focusing",
+      targets:["toc:36.305","toc:SubpartC"],
+      hint:"In the table of contents, click the section that sits next to \u00a7 36.304.",
+      why:"The Part puts the fallback obligation immediately after the primary one.",
+      miss:{ "toc:SubpartD":"design standards tell you what a compliant ramp looks like, not what to do when you cannot build one.",
+             "toc:SubpartA":"definitions gave you the standard already.",
+             "toc:36.302":"that section is about modifying policies and practices, not physical barriers.",
+             "toc:SubpartE":"enforcement tells you what happens in a complaint, not what the business owes.",
+             "toc:36.304":"that is the section you came from; the answer is the one after it.",
+             "toc:SubpartB":"the general prohibitions, one level up from your question." },
+      found:"No. Where barrier removal is not readily achievable, \u00a7 36.305 requires the business to make its goods and services available through alternative methods that are themselves readily achievable, and it gives examples of what those can look like.",
+      cite:"28 C.F.R. \u00a7 36.305",
+      caveat:"No cross-reference sent you here. You found it by reading the section in its structure, which is why \u201copen the table of contents\u201d is a reading step and not just a navigation habit.",
+      logNotes:"Fallback duty exists; alternatives must themselves be readily achievable. Confirm the current text and examples in the eCFR.",
+      next:{ q:"How much cost counts as \u201cmuch difficulty or expense\u201d for a restaurant like this one?", type:"Application",
+             inSource:false, why:"The codified text gives factors and stops. The agency\u2019s own explanation of how it meant the standard to work was published in the Federal Register preamble and never codified, and courts applying the factors to particular businesses are the other half of the answer. That is a question for the preamble, agency guidance, and case law.",
+             sourceHint:"Federal Register preamble and DOJ guidance, then case law",
+             whyNotStay:"Read \u00a7 36.304 and the definition once more. Neither gives a figure or a worked example \u2014 they give factors. Rereading a factor list will not turn it into a threshold." } }
+  ];
+
+  ReadSource.init({
+    module:"How to Read a Regulation", chapter:"Chapter 7 \u2014 Regulations and Administrative Research / Appendix D", session:"qm_er_reading_regulations",
+    answerMode:"questions",
+    source:"28 C.F.R. pt. 36 \u2014 regulation",
+    rootNote:"Your client asked a practical question; this is its legal form. You start with the authority note, because a rule you cannot trace to a statute is a rule you cannot rely on.",
+    idleText:"You arrive holding a question. Start with the authority, check the definitions the rule depends on, read the operative verb, and use the Part\u2019s structure when the section itself does not answer you. Anatomy clicks pause while a question is open.",
+    closing:"Five questions answered inside the CFR and one logged for the Federal Register. Notice the last move: the codified text was complete and still did not finish the job, because the agency\u2019s explanation of its own standard was never codified.",
+    onStepStart:function(step, i){ var GO = ["regulation","definitions","regulation","definitions","toc"]; if (GO[i]) V.go(GO[i]); },
+    onModeChange:function(v){ if (v !== "questions") V.go("regulation"); },
+    modes:[
+      { value:"explore", label:"Explore the anatomy",
+        note:"<b>Explore:</b> click each part of the regulation \u2014 authority note, source note, operative text, defined terms, examples and priorities \u2014 to learn its job. The dark buttons navigate the CFR.",
+        steps:[
+          "<b>Click each part</b> and read what it is doing: authority note, operative text, definitions, source note.",
+          "<b>Find the statute this rule implements.</b> No authority, no rule.",
+          "<b>Read the operative text like a statute.</b> Verbs, conditions, defined terms \u2014 the same care applies.",
+          "<b>Notice the verbs that are not commands.</b> A paragraph that <em>urges</em> sits inside a binding rule without binding anyone."
+        ] },
+      { value:"class", label:"Reading for class",
+        note:"<b>Reading for class:</b> read in full and trace the regulation back to its enabling statute.",
+        steps:[
+          "<b>Note the citation</b> and the enabling statute it rests on.",
+          "<b>Be ready to say what the rule adds to the statute.</b>",
+          "<b>Mark where the rule\u2019s definitions differ from the statute\u2019s</b> \u2014 that difference is usually the discussion.",
+          "<b>Note what the text leaves to judgment</b> and how you would argue it either way."
+        ] },
+      { value:"questions", label:"Reading for your questions",
+        note:"<b>Reading for your questions:</b> you arrive holding a question, and the callout above the viewer keeps it in front of you. Authority, definitions, operative text, then structure \u2014 and log the question the codified text cannot answer. The <b>Work the page</b> panel runs the chain.",
+        steps:[
+          "<b>Start with the authority note.</b> Confirm the rule rests on a statute, and that the statute reaches your client.",
+          "<b>Check the Part\u2019s definitions.</b> Regulatory terms are fixed Part-wide, not section by section.",
+          "<b>Read the operative text for your rule</b> \u2014 the verb and the condition attached to it.",
+          "<b>Use the structure when the section stops short.</b> The table of contents puts related duties next to each other.",
+          "<b>Follow the source note to the Federal Register</b> when the standard is unclear, and confirm currency in the eCFR before you rely on any of it."
+        ] }
+    ],
+    chain: CHAIN
+  });
+
+  V.go("regulation");
+
+  if (window.ResearchLog) ResearchLog.mount({ parent: document.getElementById("log-slot") });
+  if (window.ExportReflect) ExportReflect.mount(document.getElementById("export-slot"), {
+    module:"How to Read a Regulation", chapter:"Chapter 7 \u2014 Regulations and Administrative Research / Appendix D", session:"qm_er_reading_regulations",
+    intro:"Your record lists the sections you opened, the parts you inspected, the questions you answered, and your stay-or-go decisions.",
+    prompts:[
+      "Why start with the authority note rather than the operative text?",
+      "One question was answered by the Part\u2019s structure rather than by any cross-reference. How did you find it?",
+      "The last question could not be answered from the codified text. Where would you go, and what would you expect to find there?"
+    ]
+  });
+  if (window.QM && QM.storageNotice) QM.storageNotice({ keys:["qm_research_log_v1","qm_rs_handoff"], parent: document.getElementById("export-slot") });
+})();
+</script>
+</body>
+</html>

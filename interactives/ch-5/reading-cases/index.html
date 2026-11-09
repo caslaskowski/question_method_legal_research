@@ -1,0 +1,580 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How to Read a Case — Ch. 5 · Case Law Research</title>
+<meta name="description" content="Read a real Arizona Supreme Court opinion, Markowitz v. Arizona Parks Board, two ways: for class, and for one research question at a time — finding the part that answers it, logging what it answers, and deciding whether the next question is here or in a different source.">
+<!--
+  Implements: Appendix B (How to Read a Case) with Chapter 5 (Case Law Research).
+  Source: Markowitz v. Arizona Parks Board, 146 Ariz. 352, 706 P.2d 364 (1985) — public-domain
+  judicial text, elided for teaching; every omission is marked. No editorial headnotes are shown.
+  The citator panel is SIMPLIFIED FOR TEACHING and says so on the page: the treatment it reports is
+  the real statutory change (A.R.S. § 12-2505, comparative fault); it is not a live KeyCite/Shepard's.
+  Authorities verified 2026-09-14 (see registry).
+-->
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<link rel="stylesheet" href="../../assets/readsource.css">
+<style>
+.el{font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);}
+.part .ptext.conc{font-size:.96rem;}
+</style>
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body class="shell">
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html" aria-current="page">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html" aria-current="page"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-5/index.html" target="_top">Ch. 5</a>
+      <a class="pn-link pn-title on" href="index.html">How to Read a Case</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+
+<main id="main">
+  <div class="wrap ch-wrap">
+    <a class="cs-back" href="../../../index.html" target="_top">&larr; All modules</a>
+    <p class="ch-eyebrow">Chapter 5 · Appendix B</p>
+    <h1>How to Read a Case</h1>
+    <p class="lede">You do not read an opinion front to back like a story. You read the caption first, because the court and the jurisdiction tell you whether the case can bind you, and then you read for the parts that answer the question you brought. The same opinion reads differently for class than it does for a research question. This page lets you do both, on a real Arizona Supreme Court opinion.</p>
+
+    <section class="primer" aria-labelledby="primer-h">
+      <h2 id="primer-h">Before you read</h2>
+      <p><b>The situation.</b> Your client&rsquo;s sixteen-year-old was hurt at a state-run lake recreation area. A well-worn path led to a rock ledge above a swimming cove; there were no signs anywhere in the park; the ledge gave way under her. Your supervising attorney wants one thing answered first: <em>does the State even owe park visitors a duty of care?</em> The secondary source you read (Appendix A) pointed you to this case for that question.</p>
+      <p><b>The case.</b> In 1975 a fifteen-year-old dove from a cliff into a cove at Lake Havasu, struck a shallow ledge, and was paralyzed. No signs prohibited diving. The State won without a trial on the theory that it owed him no duty. The Arizona Supreme Court took the case to explain what &ldquo;duty&rdquo; means.</p>
+      <dl>
+        <dt>Invitee</dt><dd>Someone on land by the possessor&rsquo;s invitation, for a purpose the possessor holds the land open for. A park visitor is the standard example. The law owes invitees the most care.</dd>
+        <dt>Possessor</dt><dd>Whoever controls the land, not only whoever owns it. Here the United States owned the lake area and leased it to Arizona, so the State was the possessor.</dd>
+        <dt>Duty vs. breach</dt><dd><em>Duty</em> asks whether the defendant owed this plaintiff any obligation of care at all; a judge decides it. <em>Breach</em> asks whether the defendant&rsquo;s conduct fell short of reasonable care; a jury usually decides it.</dd>
+        <dt>Summary judgment</dt><dd>A ruling without a trial because, the court concludes, no facts are in dispute and the law decides the case. When it is reversed, the case goes back for trial.</dd>
+      </dl>
+    </section>
+
+    <div class="modebar">
+      <label for="readmode">I&rsquo;m reading to&hellip;</label>
+      <select id="readmode" aria-label="Choose your reading purpose"></select>
+      <p class="modenote" id="modenote" role="status" aria-live="polite"></p>
+    </div>
+
+    <section class="steps" id="engagewrap" aria-label="How to engage with an opinion">
+      <h2>How to engage with an opinion</h2>
+      <ol id="engage"></ol>
+    </section>
+
+    <aside class="qcallout" id="qcallout" aria-label="The question you are holding" hidden></aside>
+
+    <div class="casegrid">
+      <div>
+        <article class="doc" aria-label="Elided opinion of Markowitz v. Arizona Parks Board">
+          <div class="doc-top"><span>Elided for teaching &middot; public-domain opinion text</span><span><span class="el">[&hellip;]</span> marks omitted text</span></div>
+          <div class="doc-body" id="opinion"></div>
+        </article>
+
+        <section class="citator" id="citator" aria-labelledby="cit-h">
+          <h2 id="cit-h">Citator report <small>(simplified for teaching)</small></h2>
+          <p><span class="sig">Caution &middot; later statutory change</span> Treatment: the opinion&rsquo;s discussion of the plaintiff&rsquo;s own fault speaks in terms of <em>contributory negligence</em>. Arizona now applies comparative fault by statute, A.R.S. &sect;&nbsp;12-2505: the plaintiff&rsquo;s fault reduces recovery in proportion rather than barring it.</p>
+          <p class="tx">A signal attaches to the case. Reliance attaches to a holding. Before you rely on any part of an opinion, read the treatment against the question you are holding: does it reach <em>that</em> holding, or a different one?</p>
+          <p>This panel is illustrative. It shows how a treatment note is read against a question; it is not a live KeyCite or Shepard&rsquo;s result. Run the real citator before you rely on the case.</p>
+        </section>
+      </div>
+
+      <div class="sidecol">
+        <aside class="info" id="info" aria-live="polite" tabindex="-1">
+          <p class="ik">Tap a part</p>
+          <h2>The anatomy of an opinion</h2>
+          <p>Select any labeled section of <em>Markowitz</em> on the left and its explanation appears here: what the part is, and how a researcher reads it.</p>
+        </aside>
+        <div class="wkpanel" aria-label="Work the page" id="wkpanel" hidden>
+          <h2>Work the page</h2>
+          <div id="wkbody"></div>
+        </div>
+      </div>
+    </div>
+
+    <p class="weighnote"><b>Would you cite it?</b> <em>Markowitz</em> is an Arizona Supreme Court decision, en banc: it binds every Arizona court. That settles weight. Whether it is still good law on the point you need is a separate check, and the citator panel above shows why the two questions are asked separately.</p>
+
+    <div id="log-slot"></div>
+    <div id="export-slot"></div>
+  </div>
+</main>
+
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-5/index.html" target="_top">Ch. 5 · Case Law Research</a></p>
+  <p class="modnav-verified">Authorities verified as of 2026-09-14. The law changes — run the method, don’t trust the module.</p>
+  <p class="modnav-next"><a href="../../../ch-5/index.html" target="_top"><span class="dir">Next module</span> Run the Citator <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+
+<script src="../../js/lib.js"></script>
+<script src="../../js/export-reflect.js"></script>
+<script src="../../js/research-log.js"></script>
+<script src="../../js/readsource.js"></script>
+<script>
+(function(){
+  "use strict";
+  var EL = '<span class="el" aria-label="text omitted">[\u2026]</span>';
+  function plain(s){ return s.replace(/&mdash;/g,"\u2014").replace(/&rsquo;/g,"\u2019"); }
+
+  /* ------------------------------------------------------------------ the opinion (elided) */
+  var PARTS = [
+    { key:"caption", label:"Caption", cls:"cap",
+      text:"Ruth MARKOWITZ and David Lee Markowitz, Plaintiffs-Appellants, v. ARIZONA PARKS BOARD and State of Arizona, Defendants-Appellees. &mdash; Supreme Court of Arizona, En Banc &mdash; No. 18033-PR &mdash; 146 Ariz. 352, 706 P.2d 364 &mdash; September 5, 1985. Feldman, Justice; Holohan, Chief Justice, specially concurring.",
+      info:"The case name, court, date, and citation. Read it first: an en banc decision of the Arizona Supreme Court binds every court in Arizona. That one line tells you whether the rest of the opinion is worth a close read at all. The parallel citation (Ariz. and P.2d) gives you two places to find the same text." },
+    { key:"history", label:"Procedural history",
+      text:"Ruth Markowitz (plaintiff) brought this action on behalf of her son, David Lee Markowitz (David) to recover for injuries sustained by David as a result of a dive into Lake Havasu. Lake Havasu Recreation Area is owned by the United States government and leased by it to the state of Arizona. "+EL+" The state, the only defendant remaining, moved for summary judgment, primarily claiming that it had breached no duty owed to David. The trial court granted summary judgment in favor of the state and the court of appeals affirmed, one judge concurring specially and the other judge dissenting. "+EL+" We granted review to again examine the theory of duty.",
+      info:"How the case reached this court. The State won summary judgment on a &ldquo;no duty&rdquo; theory and the court of appeals affirmed, with a split panel. The posture matters twice: the supreme court views the facts in the light most favorable to David, and it says it took the case specifically to clarify duty. That sentence tells you the opinion will state the rule broadly." },
+    { key:"facts", label:"Facts",
+      text:"In June of 1975, David, then fifteen years of age, went to Lake Havasu with a group of friends. The group camped at a site known as &ldquo;Three Dunes&rdquo; "+EL+" On the third day, one of David&rsquo;s friends swam and dived in a cove not directly visible from the campsite and located approximately sixty yards away. "+EL+" David had not seen the cove before. Without entering the water to check its depth, he climbed the path toward what looked to him to be a diving spot. No signs prohibiting diving or warnings of any kind were posted in the area or at the park entrances. David described the path leading to the diving spot on the cliff as &ldquo;well worn.&rdquo; From the diving spot he looked down, saw the cove and noticed that there were about fifteen people swimming and wading in the water below. The person in front of him made a &ldquo;flat&rdquo; dive and swam away unharmed. David then dived from the same spot and hit his head on a shallow ledge or sandbar below the surface. As a result of the injury sustained he is permanently paralyzed. "+EL+" He admitted in his deposition that he was aware at the time of the accident that one should check the depth of water before diving into it. "+EL+" He stated, however, that he would not have dived in the cove if he had seen a sign warning of dangerous diving conditions at this area, or if he had seen a sign at the entrance indicating that diving was prohibited in all areas of the park.",
+      info:"The events, as the court chose to tell them. Courts include the facts that bear on the legal question, so watch which ones return later: the well-worn path, the absence of any sign, the fifteen swimmers below, David&rsquo;s admission that he knew to check depth, and his statement that a sign would have stopped him. Each of those is used in the duty, negligence, or causation discussion. Facts that reappear in the analysis are the candidates for dispositive facts." },
+    { key:"issue", label:"Issue", q:true,
+      text:"The first question presented, therefore, is whether the state as a possessor of land is under any duty of care with respect to the safety of those it has invited to use the particular parcel of state land.",
+      info:"The court&rsquo;s own statement of the question: the court&rsquo;s version of Step 1 of the Question Method. Notice how it is framed. Not &ldquo;must the State post signs,&rdquo; but whether the State owes <em>any</em> duty to those it invites. The court spends the preceding paragraphs explaining why the narrower framing was the court of appeals&rsquo; mistake.",
+      tie:"An opinion often decides several questions. This one decides duty, then negligence, then causation, each with its own answer. That is why one case can pay for several of your questions at once." },
+    { key:"duty-reject", label:"Reasoning &mdash; why the court of appeals was wrong on duty",
+      text:"As the court of appeals notes, a negligence action may be maintained only if there is a duty or obligation, recognized by law, which requires the defendant to conform to a particular standard of conduct in order to protect others against unreasonable risks of harm. "+EL+" In the present case, the court of appeals held that the state owed no duty to David because &ldquo;the natural environment did not present an unreasonable risk of harm,&rdquo; and because the danger was open and obvious. "+EL+" We disagree with the application of this concept to the present case. It may be a valid observation where the injury has occurred in areas to which the public is neither invited nor expected. But such reasoning is unpersuasive in the present context because the defendant invited and indeed encouraged David and others to come to a parcel of land specifically dedicated to extensive public use and enjoyment. The difficulties involved in taking steps directed toward the safety of the public in natural environments is certainly one factor to consider in determining whether the standard of care has been breached, but we cannot posit a rule of law that the state is relieved from all duty to those invited to use particular portions of public land, no matter what the hazard, simply because the state&rsquo;s parks are large and their terrain often inhospitable. "+EL+" We have previously explained that we disapprove of attempts to equate the concept of duty with specific details of conduct. <i>Coburn v. City of Tucson</i>, 143 Ariz. 50, 52, 691 P.2d 1078, 1080 (1984). "+EL+" These details of conduct bear upon the issue of whether the defendant who does have a duty has breached the applicable standard of care and not whether such a standard of care exists in the first instance.",
+      info:"Before the court states its own rule, it takes apart the lower court&rsquo;s. That is common, and it is a trap for a researcher in a hurry: the first paragraphs that mention &ldquo;duty&rdquo; are describing the position the court is about to reject. Read for the turn (&ldquo;We disagree&rdquo;) and for what the court says duty is <em>not</em>: it is not a list of specific precautions." },
+    { key:"duty-holding", label:"Holding &mdash; duty", q:true,
+      text:"Arizona recognizes that a possessor of land &ldquo;is under an affirmative duty&rdquo; to use reasonable care to make the premises safe for use by invitees. <i>Tribe v. Shell Oil Co.</i>, 133 Ariz. 517, 519, 652 P.2d 1040, 1042 (1982). In the case of invitees, the law generally recognizes that this standard of reasonable care includes an obligation to discover and correct or warn of hazards which the possessor should reasonably foresee as endangering an invitee. Restatement (Second) of Torts &sect; 343 "+EL+" The parties agree that David was an &ldquo;invitee&rdquo; on state land and that the state was the possessor of that land. That relationship imposes an obligation to take reasonable precautions for David&rsquo;s safety. The physical circumstances involving size, length of shoreline and nature of terrain affect the determination of what is reasonable, not the existence of a duty to protect the safety of users of the park. "+EL+" When the government invites citizens onto public land &mdash; and this opinion has no application to areas where the public is not invited &mdash; it is under a duty to take some precautions to avoid injury to those invited.",
+      info:"The court&rsquo;s answer to the issue, and the part with precedential force. Read the rule and the limit on it in the same breath: the duty runs to invitees on land the public is invited to use, and the opinion says it has no application where the public is not invited. Notice too that the court borrows the rule from <i>Tribe v. Shell Oil</i> and cites the Restatement. Both are addresses for your next questions, if you have them." },
+    { key:"obvious", label:"Reasoning &mdash; open and obvious dangers",
+      text:"The court of appeals also based its conclusion regarding the lack of duty on the fact that &ldquo;water of unknown depth&rdquo; was a known or open and obvious danger. "+EL+" Again, the possibility that the defect or hazard is &ldquo;open and obvious&rdquo; is a factor to be considered in determining whether the possessor&rsquo;s failure to remedy the hazard or provide a warning was unreasonable and therefore breached the standard of care; it is not a factor to be used in determining the very existence of the duty which is a precondition for the exercise of the standard of care. "+EL+" Although a land possessor is under a duty to his invitees, he is not ordinarily found negligent for injuries to those invitees from conditions which are open and obvious, nor for those which are known to the invitee. <i>Tribe v. Shell Oil Co.</i>, 133 Ariz. at 519, 652 P.2d at 1042. Again, this is because it may often be said that the possessor is not negligent for failing to protect the invitee from dangers which are obvious to the latter. It is not because there is no duty. Thus, where the possessor should foresee that the condition is dangerous despite its open and obvious nature, neither the obvious nature nor the plaintiff&rsquo;s knowledge of the danger is conclusive. <i>Id.</i>, citing Restatement (Second) of Torts &sect; 343A comment f "+EL+" Further, when the possessor is a governmental entity it has a &ldquo;special reason to anticipate that the public, pursuing a right of entry and use to which they are entitled,&rdquo; may expose themselves to &ldquo;known or obvious dangers&rdquo; rather than forego the right of use. "+EL+" In addition, &ldquo;an invitee may anticipate that the premises are reasonably safe for his intended use.&rdquo;",
+      info:"A second rule, answering a second question: what does it mean that the danger was obvious? The court moves the whole &ldquo;open and obvious&rdquo; idea from the duty box into the breach box, and then qualifies it: obviousness is not conclusive where harm should be foreseen anyway. Watch the citation to <i>Tribe</i> again. If your next question is how the open-and-obvious rule works on a specific hazard, <i>Tribe</i> is the case the court is telling you to read." },
+    { key:"principles", label:"Reasoning &mdash; the framework, summarized",
+      text:"Our opinions in <i>Tribe</i>, <i>Coburn</i>, and <i>Beach</i> have evidently failed to clarify our views of the duty problem. We therefore summarize the relevant principles. <b>1.</b> The question of duty is decided by the court. The question is whether the relationship of the parties was such that the defendant was under an obligation to use some care to avoid or prevent injury to the plaintiff. If the answer is no, the defendant is not liable even though he may have acted negligently in light of the foreseeable risks. "+EL+" In the context of this case, therefore, the concept of duty is not a question of whether the danger was natural, artificial, obvious or whether the defendant should have searched for, warned of or removed the danger or have taken any other particular action. The question is whether defendant was responsible to take any precaution for the safety of David or other invitees. Would the state have been liable even if the park ranger, knowing of the hazard, had sat on the rock, watched David get ready to dive and said nothing? Those who would answer that question in the negative find no duty. To those who would answer affirmatively "+EL+" the question is was there a breach of the duty? <b>2.</b> If there is a duty, then the law requires that the defendant conform to a standard of care. In negligence cases that is usually &ldquo;reasonable care under the circumstances,&rdquo; "+EL+" It is here, in determining whether the defendant acted reasonably or negligently, that the law concerns itself with specifics of defendant&rsquo;s conduct. "+EL+" What is reasonable on the one hand or negligent on the other will depend on the circumstances &mdash; was the danger open and obvious, was it natural or artificial, was the park small or large, was the area often used or remote and inaccessible? Were precautions easy to take or difficult and expensive? All these are factors which determine the reasonableness of the defendant&rsquo;s conduct; they are questions of negligence, not duty. "+EL+" One may say as a matter of law that the government would not be negligent in failing to post a sign warning visitors to the Grand Canyon that it is a long way to the bottom "+EL+" Under different circumstances &mdash; where, for instance, the government knows of soft, unstable earth at a viewpoint &mdash; reasonable people might differ on whether the government was negligent for failing to post a sign",
+      info:"The court pauses to restate its framework in numbered principles, with a thought experiment (the ranger on the rock) and a pair of examples (the Grand Canyon rim). Passages like this are gold for class and for an exploratory question, because they lay out the structure of the doctrine. For a focusing question they are background: the operative answers are in the holdings before and the application after.",
+      tie:"The factor list here (obvious or hidden, natural or artificial, large or small, often used or remote, cheap or costly to fix) is a set of sibling questions for a later application step. Log the list; do not chase each factor now." },
+    { key:"negligence", label:"Reasoning &mdash; negligence (breach) on these facts",
+      text:"The test for whether conduct is negligent is whether there is a foreseeable risk of injury from the conduct. "+EL+" Therefore, the general rule to be applied is that where reasonable people could differ as to whether the danger of some injury is foreseeable, the question of negligence is one of fact for a jury to decide. "+EL+" We do not believe that it can be said in this case that all reasonable people would agree that danger was unforeseeable or that the state had taken reasonable precautions to obviate the danger. The evidence indicates that the cove attracted swimmers, that it was used often and at different times in the day and was located no more than 200 yards from a designated park campsite. "+EL+" There was also evidence that park rangers patrolled the lake every few days and visited the campsite daily to collect fees. From these facts, one might reasonably conclude that the possessor of the property should have inspected the areas which were openly used for swimming and related activities in order to discover dangerous conditions, and either remove them or give warning of their existence. "+EL+" On the other hand, the finder of fact might conclude that given the nature of the park and its terrain it would not be reasonably feasible for the state to inspect even a location such as the cove in question for hidden dangers. "+EL+" Alternatively the fact finder might conclude that although it was unreasonable to expect the state to inspect for and warn of dangers, the concept of reasonable care would require it to post signs to warn park visitors that no such inspections were being made and that diving was therefore prohibited at any place. Many conclusions as to what is &ldquo;reasonable care&rdquo; are possible under the fact situation presented by this case. We believe that none is applicable as a matter of law.",
+      info:"Now the court applies the standard to the record and declines to decide it. This is where dispositive-fact reading pays: the cove&rsquo;s frequent use, its 200 yards from a campsite, and the rangers&rsquo; daily visits are the facts that make the jury question live. If your client&rsquo;s park is remote and unpatrolled, these are the facts you would compare. A court saying &ldquo;reasonable people could differ&rdquo; is an answer, just not a rule." },
+    { key:"causation", label:"Reasoning &mdash; proximate cause and the plaintiff&rsquo;s knowledge",
+      text:"The court of appeals also held that even if the state had breached a duty owed to David it could not be held liable because its negligence was not the proximate cause of David&rsquo;s injury. "+EL+" The opinion of the court of appeals noted that David had admitted that he was aware of the danger of diving into shallow water and was also aware of the danger of diving into water of unknown depth. The court concluded, therefore, that the lack of a warning sign giving David &ldquo;information he already knew was not a cause of [David&rsquo;s] injuries.&rdquo; "+EL+" We disagree. "+EL+" Certainly, reasonable persons could find that if adequate warning had been given, David would have seen the sign and would have avoided diving. "+EL+" It is one thing to know that it is dangerous to dive in shallow water. One may dive with such knowledge, thinking that the water is not shallow. It is quite different to dive knowing that the water actually is shallow. The issues raised by David&rsquo;s admissions with regard to knowledge of general danger are really matters of contributory negligence. "+EL+" Proximate cause may be found even where the defendant&rsquo;s act or failure to act is not the sole cause of injury. "+EL+" Questions of contributory negligence are always for the jury under our constitution, and are not a proper subject for summary adjudication. Ariz. Const. art. 18, &sect; 5 "+EL+" A contributory negligence issue cannot be taken from the jury by the simple expedient of calling it an issue of causation. "+EL+" One could say that David&rsquo;s dive, with knowledge of inherent, general risk may be contributory negligence. This is a jury question in Arizona. One cannot say, however, that defendant&rsquo;s failure to discover and remedy the danger or give warning was not a cause of the dive and the consequent injury.",
+      info:"A third question, a third answer. The court separates general knowledge (diving into unknown water is risky) from specific knowledge (this water is shallow), holds that the missing warning can still be a cause, and sends the plaintiff&rsquo;s own fault to the jury as contributory negligence. Notice the vocabulary: contributory negligence. That word dates the passage. Arizona has since adopted comparative fault by statute, which is exactly the kind of change a citator surfaces.",
+      warn:"Read this section for what it decides (causation; fault is for the jury), not for how fault affects recovery. That second point is governed today by A.R.S. &sect; 12-2505, enacted after this case." },
+    { key:"disposition", label:"Disposition",
+      text:"We conclude, therefore, that the trial court and the court of appeals incorrectly decided the issues of duty and proximate cause. The concurring opinion incorrectly concluded that there was insufficient evidence to create a question of fact on the issue of negligence. We agree with the dissent that there is duty and there are questions of fact on the issue of negligence and proximate cause. The summary judgment granted by the trial court is reversed. The opinion of the court of appeals is vacated. The case is remanded for further proceedings.",
+      info:"What the court orders. Reversed and remanded means the State did not win; a jury gets the case. The disposition tells you who won this round, not what rule decided it. For that, go back to the holdings." },
+    { key:"concurrence", label:"Special concurrence", cls:"conc",
+      text:"HOLOHAN, Chief Justice, specially concurring. Although I concur with most of the majority opinion, I do not concur with the rationale about &ldquo;duty.&rdquo; In <i>Coburn v. City of Tucson</i> "+EL+" this court retreated from the concept that duty could be defined in terms of specific types of conduct, and the court adopted the broad notion of duty. Contrary to the position of the majority, I believe that it is good policy whenever possible to define duty in specific terms. There is enough vagueness in the law of negligence, and efforts to define duty in terms that are understandable and easily applied should be encouraged. "+EL+" Subject to the above reservations, I concur in the majority opinion.",
+      info:"A justice who agrees with the result but not all of the reasoning. A concurrence is not the holding and binds no one; it tells you where the court&rsquo;s own members see the doctrine as unsettled. For class, this is the discussion prompt. For research, it is a flag that the duty framework has critics a later court might listen to." }
+  ];
+
+  var op = document.getElementById("opinion");
+  PARTS.forEach(function(p,i){
+    var b = document.createElement("button");
+    b.className = "part" + (p.q ? " q" : "");
+    b.type = "button"; b.dataset.i = i; b.dataset.ans = p.key;
+    b.setAttribute("aria-label", plain(p.label) + ". Activate to read what this part is, or to answer the open question with it.");
+    b.innerHTML = '<span class="plabel">'+p.label+'</span><span class="hint" aria-hidden="true">what\u2019s this?</span>'+
+      '<span class="ptext '+(p.cls||"")+'">'+p.text+'</span>';
+    op.appendChild(b);
+  });
+
+  var info = document.getElementById("info");
+  function show(i){
+    var p = PARTS[i];
+    if (ReadSource.answer(p.key, plain(p.label))) return;
+    Array.prototype.forEach.call(op.querySelectorAll(".part"), function(x){ x.classList.toggle("active", +x.dataset.i===i); });
+    var html = '<p class="ik">'+(p.q ? "Issue or holding \u2014 the court\u2019s question and its answer" : "Part of the opinion")+'</p><h2>'+p.label+'</h2><p>'+p.info+'</p>';
+    if (p.tie) html += '<p class="tie">'+p.tie+'</p>';
+    if (p.warn) html += '<p class="warn">'+p.warn+'</p>';
+    info.innerHTML = html; info.focus();
+    if (window.ExportReflect) ExportReflect.log("Inspected a part of the opinion", plain(p.label));
+  }
+  op.addEventListener("click", function(e){ var b = e.target.closest(".part"); if (b) show(+b.dataset.i); });
+
+  /* ------------------------------------------------------------------ the chain */
+  var CITE = "Markowitz v. Ariz. Parks Bd., 146 Ariz. 352, 706 P.2d 364 (1985)";
+  var handoff = null;
+  try { handoff = JSON.parse(localStorage.getItem("qm_rs_handoff") || "null"); } catch (e) {}
+  var rootNote = (handoff && handoff.to === "reading-cases")
+    ? "This question came out of your reading of the encyclopedia entry (Appendix A); its footnote handed you this case."
+    : "Handed to you by the secondary source you read first (Appendix A). If you skipped it, this is still your starting question.";
+
+  var CHAIN = [
+    { q:"Does the State, as the operator of a public park, owe any duty of care to the people it invites to use it?", type:"Focusing",
+      targets:["duty-holding"],
+      hint:"Find the part where the court states its own rule on duty and applies it to the State. Click it.",
+      why:"This is the court\u2019s answer to the issue it framed \u2014 the holding on duty.",
+      miss:{ issue:"the issue states the question; you are after its answer.",
+             "duty-reject":"here the court is taking apart the court of appeals\u2019 reasoning. Its own rule comes in the paragraph after \u2014 keep reading.",
+             principles:"the summary restates the framework in general terms; the answer on these facts is stated in the holding that precedes it.",
+             obvious:"that paragraph answers a different question \u2014 what it means that the danger was obvious. Hold yours.",
+             caption:"the caption tells you who is speaking and whether it binds you. Necessary first, but it doesn\u2019t answer the question.",
+             facts:"the facts don\u2019t state the rule; they are what the rule gets applied to.",
+             disposition:"the disposition says who won this round, not what duty the State owes." },
+      found:"<b>Yes.</b> A possessor of land is under an affirmative duty to use reasonable care to make the premises safe for invitees, which includes discovering and correcting or warning of hazards the possessor should reasonably foresee. When the government invites the public onto a parcel of public land, it owes that duty to the people it invites. The park\u2019s size and terrain bear on what is <em>reasonable</em>, not on whether a duty exists. (The opinion says it does not reach land where the public is not invited.)",
+      cite: CITE + ", at 355\u201357",
+      logNotes:"Rule borrowed from Tribe v. Shell Oil Co., 133 Ariz. 517 (1982), and Restatement (Second) of Torts \u00a7 343. Duty question decided by the court; details of conduct go to breach.",
+      next:{ q:"Does the danger being open and obvious mean the park owed no duty at all?", type:"Focusing",
+             inSource:true, why:"The court takes up exactly that argument next: the court of appeals had relied on \u201cwater of unknown depth\u201d being an obvious danger. The paragraph on open and obvious dangers answers it.",
+             whyNotGo:"Scan the labels once more. There is a section on open and obvious dangers, and the State\u2019s obviousness argument is what the court of appeals relied on. It is here." } },
+
+    { q:"Does the danger being open and obvious mean the park owed no duty at all?", type:"Focusing",
+      targets:["obvious"],
+      hint:"Find the passage that says what an open and obvious danger does to the analysis. Click it.",
+      why:"The court moves obviousness from the duty question to the breach question, then qualifies it.",
+      miss:{ principles:"close \u2014 the summary restates the point, but the court works it out first in the paragraph answering the court of appeals. Read that one for the rule.",
+             negligence:"that section applies the standard to the facts; the rule about obviousness is stated earlier.",
+             "duty-holding":"that answered your last question. Obviousness gets its own treatment.",
+             causation:"the plaintiff\u2019s knowledge comes up there, but as a causation and fault problem, not as the open-and-obvious rule." },
+      found:"<b>No.</b> Whether a hazard is open and obvious bears on <em>breach</em> \u2014 whether failing to fix it or warn of it was unreasonable \u2014 not on whether a duty exists. A possessor is not ordinarily negligent for injuries from conditions that are obvious to or known by the invitee, but where the possessor should foresee harm despite the obviousness, neither the obviousness nor the visitor\u2019s knowledge is conclusive. A government possessor has special reason to expect the public to use land it is entitled to use even in the face of known dangers.",
+      cite: CITE + ", at 355\u201356",
+      logNotes:"Cites Tribe v. Shell Oil Co. and Restatement (Second) of Torts \u00a7 343A cmt. f. If the next question is how open-and-obvious works on a specific hazard, Tribe is the case this opinion points to.",
+      next:{ q:"What must a park operator actually do to satisfy the duty \u2014 inspect and warn everywhere?", type:"Focusing",
+             inSource:true, why:"Two parts of the opinion speak to it: the numbered framework names the factors, and the negligence section applies them to this park. Read them for what the court decided and for what it left to the jury.",
+             whyNotGo:"Look at the labels again \u2014 there is a negligence section and a summary of the framework. The court says a good deal about what reasonable care requires of a park, even if it stops short of a rule." } },
+
+    { q:"What must a park operator actually do to satisfy the duty \u2014 inspect and warn everywhere?", type:"Focusing",
+      targets:["negligence","principles"],
+      hint:"Find where the court says what reasonable care requires of the State on these facts. Click it.",
+      why:"Reasonable care is applied to the record here, and the court names the factors that drive it.",
+      miss:{ "duty-holding":"the holding says a duty exists and that terrain bears on reasonableness; the content of reasonable care is worked out later.",
+             obvious:"that paragraph answers the obviousness question; what reasonable care requires is in the framework and the negligence section.",
+             causation:"causation asks whether the missing warning caused the dive, not what care was owed.",
+             disposition:"the result, not the reasoning." },
+      found:"<b>The court does not fix a rule.</b> Reasonable care depends on the circumstances: whether the danger was open and obvious, natural or artificial; whether the park was small or large; whether the area was often used or remote; whether precautions were easy or expensive. On this record \u2014 a cove used often, about 200 yards from a designated campsite, in a park that rangers patrolled every few days \u2014 reasonable people could conclude that the State should have inspected and warned, or that inspection was not feasible, or that at least a general no-diving sign was required. None controls as a matter of law, so the question went to the jury.",
+      cite: CITE + ", at 356\u201358",
+      caveat:"Notice what the source did not do: it answered with factors and \u201creasonable people could differ,\u201d not with a rule. That is a real answer. Your log entry records the factors; a later application question can go looking for cases where those factors were applied to a park like your client\u2019s.",
+      logNotes:"Factors: obvious/hidden; natural/artificial; small/large; often used/remote; cheap/costly precautions. The public\u2019s right to use the land is itself a factor (Restatement \u00a7 343A(2)). Jury question on this record.",
+      next:{ q:"The visitor admitted knowing that diving into water of unknown depth is dangerous. Does that break the causal link between the missing warning and the injury?", type:"Focusing",
+             inSource:true, why:"The court of appeals held exactly that, and the supreme court answers it in the proximate cause section.",
+             whyNotGo:"There is a labeled section on proximate cause and the plaintiff\u2019s knowledge. The court answers this one directly." } },
+
+    { q:"The visitor admitted knowing that diving into water of unknown depth is dangerous. Does that break the causal link between the missing warning and the injury?", type:"Focusing",
+      targets:["causation"],
+      hint:"Find where the court separates what the visitor knew in general from what a warning would have told him. Click it.",
+      why:"The court distinguishes general knowledge from specific knowledge and sends the fault question to the jury.",
+      miss:{ facts:"the admission is stated in the facts, but what it means legally is decided in the causation section.",
+             obvious:"the visitor\u2019s knowledge appears there too, but as a factor on breach. Causation is treated separately.",
+             negligence:"that section is about the State\u2019s conduct, not about what the visitor knew." },
+      found:"<b>No.</b> Knowing that a kind of danger exists is different from knowing that this water is shallow. A visitor who would have heeded a specific warning can still show that its absence caused the dive, and a defendant\u2019s omission need not be the sole cause. The visitor\u2019s general knowledge goes to his own fault, which the Arizona Constitution reserves for the jury; a fault question cannot be taken from the jury by relabeling it causation.",
+      cite: CITE + ", at 358\u201359",
+      logNotes:"CURRENCY: the plaintiff-fault discussion speaks of contributory negligence (1985). Arizona now applies comparative fault, A.R.S. \u00a7 12-2505. Do not rely on Markowitz for how the visitor\u2019s fault affects recovery.",
+      next:{ q:"How does the visitor\u2019s own fault affect what they can recover?", type:"Focusing",
+             inSource:false, why:"Markowitz says only that the fault question belongs to the jury. What a finding of fault does to the recovery is not decided here, and the citator note tells you the law on that point changed after 1985. A.R.S. \u00a7 12-2505 is where that question lives \u2014 a statute, not this case.",
+             sourceHint:"A.R.S. \u00a7 12-2505 (comparative fault) \u2014 a statute, not this case",
+             whyNotStay:"Read the causation section once more: it says the fault question goes to the jury, and stops. It never says what a finding of fault does to the recovery. Staying would mean reading a 1985 case for a rule the legislature rewrote afterward.",
+             continueLabel:"Logged. One more check before you rely on this case" } },
+
+    { q:"The citator flags this case. Does the flagged treatment reach the answers you took from it?", type:"", kind:"choice",
+      prompt:"Read the citator panel under the opinion, then decide.",
+      options:[
+        { label:"Yes \u2014 a flagged case can\u2019t be relied on for anything", ok:false,
+          why:"a signal attaches to the case; reliance attaches to a holding. The flagged point is the plaintiff-fault discussion. Your duty and open-and-obvious answers rest on different reasoning that Arizona courts continue to follow. Match the treatment to the question you held." },
+        { label:"No \u2014 the treatment is about plaintiff fault, not the duty or open-and-obvious holdings I relied on", ok:true,
+          why:"Comparative fault replaced contributory negligence, so the causation section\u2019s fault discussion is stale; the duty framework and the open-and-obvious rule are untouched. Record the limit in your Notes so you never reach for this case on a fault question." },
+        { label:"I can\u2019t tell without reading the citing decisions", ok:false,
+          why:"a sound instinct in general \u2014 a signal is a reminder to read the citing opinions, not a verdict. Here the treatment note names the change and it is statutory: A.R.S. \u00a7 12-2505. Ask whether that change touches duty or obviousness. It doesn\u2019t." }
+      ],
+      found:"The flag reaches the plaintiff-fault discussion only. Duty and the open-and-obvious rule stand \u2014 and you now know one question this case must never be cited for.",
+      cite:"A.R.S. \u00a7 12-2505; citator report (simplified for teaching)",
+      logType:"Focusing",
+      logNotes:"Validation: Markowitz good for duty and open-and-obvious; NOT for effect of plaintiff fault (superseded by comparative fault statute)." }
+  ];
+
+  ReadSource.init({
+    module:"How to Read a Case", chapter:"Chapter 5 \u2014 Case Law Research / Appendix B", session:"qm_er_reading_cases",
+    answerMode:"answer",
+    source:"Markowitz v. Ariz. Parks Bd. (Ariz. 1985) \u2014 case",
+    rootNote: rootNote,
+    idleText:"You arrive holding one question. Read the caption, jump to the part that answers you, write the answer down, and let it hand you the next question. When a question arrives that this case does not answer, say so and log it for the source that will. Anatomy clicks pause while a question is open.",
+    closing:"You came with one question and leave with four answered, one logged for a statute, and a validation note that keeps you from ever citing this case for the wrong point. That is one case, read once, for what it could give.",
+    modes:[
+      { value:"explore", label:"Explore the anatomy",
+        note:"<b>Explore:</b> click each part of the opinion to learn what it is and how a researcher reads it.",
+        steps:[] },
+      { value:"class", label:"Reading for class",
+        note:"<b>Reading for class:</b> you are reading to engage the whole opinion critically, not to hunt one answer. Work the steps below in order: orient first, then pull out what is easy, then wrestle with what is hard. Every part of the opinion earns attention, including the concurrence.",
+        steps:[
+          "<b>Place the case in context.</b> Where does it sit in your syllabus and the casebook\u2019s table of contents? That placement tells you what the case is there to teach \u2014 here, the concept of duty.",
+          "<b>Look for organizational clues.</b> How long is it? Are there headings (Facts, Duty, Negligence, Proximate Cause)? Is there a concurrence or dissent?",
+          "<b>Skim for textual clues.</b> Watch for signal phrases: \u201cWe disagree,\u201d \u201cwe therefore summarize the relevant principles,\u201d \u201cthe question is.\u201d",
+          "<b>Pull out the easy details</b> \u2014 parties, facts, procedural posture, disposition. Knowing the result before the close read gives the whole read focus.",
+          "<b>Flesh out the complex details</b> \u2014 the issue, the rules, the reasoning, and why the chief justice would define duty differently."
+        ] },
+      { value:"answer", label:"Reading for an answer",
+        note:"<b>Reading for an answer:</b> the Question Method read. You arrive holding a question, and the callout above the opinion keeps it in front of you. Read only as much as it takes to answer it, log what answers you, and decide whether your next question is in this case or somewhere else. The <b>Work the page</b> panel runs the chain.",
+        steps:[
+          "<b>Check the caption first.</b> Jurisdiction and court level decide whether this case can bind you \u2014 before you spend a minute more.",
+          "<b>Go to the part that answers your question.</b> Issue and holding first; the reasoning only as far as your question needs.",
+          "<b>Read the reasoning for the dispositive facts</b> \u2014 the facts the court relied on, which you will compare to your client\u2019s.",
+          "<b>Write down what answers you; log the rest.</b> The opinion will answer questions you have not asked yet. Note them; do not chase them.",
+          "<b>Decide: stay or go.</b> Is your next question answered here, or does it need a different source? Then run a citator before you rely on anything."
+        ] }
+    ],
+    chain: CHAIN
+  });
+
+  if (window.ResearchLog) ResearchLog.mount({ parent: document.getElementById("log-slot") });
+  if (window.ExportReflect) ExportReflect.mount(document.getElementById("export-slot"), {
+    module:"How to Read a Case", chapter:"Chapter 5 \u2014 Case Law Research / Appendix B", session:"qm_er_reading_cases",
+    intro:"Your record lists the parts you inspected, the questions you answered from the opinion, and your stay-or-go decisions.",
+    prompts:[
+      "Which part of the opinion did you expect to answer the first question, and where did the answer actually turn out to be?",
+      "One question in the chain was not answered by this case. How did you decide that, and what would you look at next?",
+      "What surprised you about reading the same opinion for class and then for a single question?"
+    ]
+  });
+  if (window.QM && QM.storageNotice) QM.storageNotice({ keys:["qm_research_log_v1","qm_rs_handoff"], parent: document.getElementById("export-slot") });
+})();
+</script>
+</body>
+</html>

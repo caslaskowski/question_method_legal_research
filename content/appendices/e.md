@@ -1,0 +1,235 @@
+This appendix holds the model chains and answers for the single-source drills in Chapters 4 through 8. The scenarios live in their chapters; the walkthroughs live here, so you cannot read the answer by accident while you are supposed to be attempting it. Come here in two situations. If you are stuck, read just far enough to get unstuck, then go back and finish your own chain. If you are done, compare your chain to the model, one question at a time.
+
+Your questions will not match the model’s word for word, and they should not. What matters is whether each of your questions was earned by the answer before it. Where your chain diverged from the model’s, ask which version can point to the stated answer that produced its next question. Divergence can be a good sign. A question that arrived from nowhere is the thing to fix.
+
+A note on the answers. The answers here are scoped to their questions. Where the governing law is settled, they anchor to real authority; where a specific number, holding, or citation would go, you will see brackets. Confirm every anchored authority and fill every bracket against current primary law before you rely on any of this. The citations illustrate the method. They do not substitute for your own verification, and each walkthrough ends with a short reminder of what to check.
+
+## The Chapter 4 Drill: Where Do I Even Start?
+
+Check your chain against this walkthrough one question at a time.
+
+**Why this is a secondary-source-only exercise.** This is the one source type that earns a single-source drill honestly, because mapping an unfamiliar landscape is what secondary sources are for. You begin with no legal vocabulary at all, and the whole task is to acquire it, see the structure of the area, and collect the citations a later researcher will follow. The drill ends at the boundary the method draws between secondary and primary authority: the moment your next question can only be answered by a case or a statute, you have reached the edge of this exercise.
+
+**Where the researcher’s knowledge starts.** No vocabulary. She knows the words “fired” and “social media” and nothing else legal. So the first move is acquisition: a plain-language search whose only job is to surface the terms of art. After that, the questions run exploratory, then foundational, then survey, all inside secondary sources.
+
+**Q1. Can an employer fire someone for what they posted on social media?** *(Definitional / orientation, general search)*
+
+*Answer:* A plain-language search surfaces the governing default and its name: most U.S. employment is “at-will,” meaning either side may end the relationship for almost any reason, including something the employee posted, unless an exception applies. The search also signals that exceptions and “protected activity” exist.
+
+*The student now has the term “at-will” and can query a legal encyclopedia. The next question asks what that doctrine actually holds.*
+
+**Q2. What is the at-will employment doctrine?** *(Exploratory, no-clue: legal encyclopedia)*
+
+*Answer:* An encyclopedia entry confirms at-will as the default and lists the commonly recognized exceptions at a high level: a public-policy exception, an implied-contract exception, and in some states an implied covenant of good faith and fair dealing. It also flags that separate bodies of law protect certain employee activity regardless of at-will status, and it cites primary authority for each.
+
+*The question was broad, so a landscape answer fits, and the student records the whole landscape. Several threads now appear; the next move is to get the structure of the most promising one.*
+
+**Q3. What does the public-policy exception to at-will employment require?** *(Foundational exploratory: treatise)*
+
+*Answer:* A treatise lays out the structure: the discharge must violate a clear public policy, often one rooted in a statute or a constitutional provision, and jurisdictions sort the qualifying situations into categories such as refusing to commit an illegal act, exercising a statutory right, or reporting wrongdoing. It cites the leading cases.
+
+*The student now has the doctrinal structure but not whether this state recognizes it. That is a survey question. The treatise also confirmed the encyclopedia’s hint that a separate law may protect certain activity regardless of at-will, which becomes a sibling thread.*
+
+**\*Relevance discovered:** Only now do two facts matter. The post concerned unpaid overtime, a wage right, which maps onto the public-policy exception. And the post criticized a manager about pay, which maps onto the separate “protected activity” thread. Note these facts now, because the law just revealed they bear on the rule.\*
+
+**Q4. How does this state treat the public-policy exception?** *(Survey: ALR annotation, 50-state survey, or state encyclopedia)*
+
+*Answer:* A survey tool shows where the state falls, whether it recognizes the exception at all and whether it reads it narrowly or broadly, and it collects the in-state cases.
+
+*If the state recognizes the exception, the next question, whether this firing fits, is an application question answerable only by the primary cases. Record the citations and stop the thread here; that work belongs to Chapter 5.*
+
+**Q5. Is there a separate law that protects employees who complain together about wages or working conditions?** *(Foundational / definitional, sibling: labor-law secondary source)*
+
+*Answer:* A labor-law secondary source surfaces the term of art: “protected concerted activity” under the National Labor Relations Act. It explains that the protection can reach even non-union private employees, names the agency that enforces it, and adds the caveat that it generally protects collective rather than purely individual complaints. It cites the governing statute and leading decisions.
+
+*Whether one employee’s solo post qualifies is a focusing question for the statute and the cases, out of scope here. Record the citations.*
+
+**Closure.** Practical, and by design. The secondary sources have handed the team the governing framework, the at-will default plus the two exceptions the facts implicate, told you which threads the facts touch, and supplied the primary-authority citations to chase next. Every remaining question is a focusing or application question that requires primary authority, which is the work of Chapters 5 and 6. For this exercise, that boundary is the right place to stop. Note what remains open so the next researcher can pick it up.
+
+**What this drill builds.** Choosing the right secondary source for the question in hand, reading for breadth rather than depth, letting facts become relevant as the doctrine reveals them, and recognizing the secondary-to-primary boundary as the natural end of the orientation phase, not a failure to finish.
+
+**Before you rely on it.** The doctrines named here, at-will employment, the public-policy and implied-contract exceptions, and protected concerted activity under the National Labor Relations Act, are well-established framing concepts, but their scope varies sharply by state. Treat every label as a lead to verify in your jurisdiction, not a settled rule.
+
+## The Chapter 5 Drill: Did the Store Owe a Duty?
+
+Check your chain against this walkthrough one question at a time.
+
+**Why this is a case-law-only exercise.** The existence and scope of a common-law duty of care is built by courts, decision by decision, not set out in a statute or a regulation. So a duty question like this one is a pure case-law exercise. The attorney has supplied the vocabulary you would otherwise get from a secondary source, the claim is negligence and the contested element is duty, which lets you drill the case-law moves in isolation: find the leading decision, read it for the rule, then test the client’s facts against analogous cases.
+
+**Where the researcher’s knowledge starts.** Firm grip on the entry point. You have the framing and the terms duty and negligence. So you start with a focusing question rather than an exploratory one.
+
+**Q1. Under our state’s law, does a business owe its customers a duty to protect them from the criminal acts of third parties on its premises?** *(Focusing)*
+
+*Answer:* Locating the leading state appellate decision (through headnotes, a topic-and-key-number search, and a citator) reveals the general rule and its exception: ordinarily there is no duty to protect another from a third party’s criminal conduct, but courts recognize an exception when a special relationship exists, such as business and customer, and the harm was foreseeable. \[Confirm the state’s exact formulation in the leading case.\]
+
+*The duty turns on two requirements the answer just surfaced: a special relationship and foreseeability. The business-customer relationship appears to satisfy the first, so foreseeability is the live question. Deepen into it.*
+
+**Q2. What makes a third party’s criminal act foreseeable enough to create this duty?** *(Focusing, deeper)*
+
+*Answer:* Case law reveals that courts measure foreseeability through one of several recognized approaches, and that states differ: a specific-harm rule, a prior-similar-incidents test, a totality-of-the-circumstances test, and a balancing approach. The student identifies which one the state’s leading case adopts. \[Confirm which test governs.\]
+
+**\*Relevance discovered:** Suppose the state follows the prior-similar-incidents test. Then whether earlier crimes occurred at or near this store, and how similar, how recent, and how numerous they were, suddenly matters, facts you had no reason to gather until the test revealed them. Had the state used the totality test instead, a broader set of facts would matter: neighborhood crime, lighting, the nature of the business. Note the facts the chosen test makes relevant.\*
+
+**Q3. Under that test, were there enough similar prior crimes at this location to make the assault foreseeable?** *(Application, fact-finding)*
+
+*Answer:* The student finds state decisions applying the test to comparable facts and compares them to the client’s facts, identifying which facts the courts treated as dispositive: the number, proximity, recency, and similarity of any prior incidents.
+
+*If the analogous cases line up one way, the duty question resolves. If they split or are distinguishable, deepen into the closest analog.*
+
+**Q4. How have courts treated stores with this client’s specific fact pattern, for example a single, unrelated prior theft in a low-crime area?** *(Application, fact-finding, deeper)*
+
+*Answer:* The student locates the most factually analogous decisions, pins down which facts each court treated as outcome-determinative, and distinguishes the cases that cut the other way.
+
+**\*Precision trap:** A search will surface cases on an employer’s duty to its employees, or a landlord’s duty to tenants. Those involve a different special relationship and a different line of authority. The precise question, a business owner’s duty to a customer, lets you set them aside rather than chase them.\*
+
+**Closure.** Analytical. The case law establishes the general no-duty rule, the special-relationship exception, the foreseeability test the state follows, and how analogous cases apply it to the client’s facts. Every question is answered or identified as genuinely close, all within case law, and you can now state whether a duty likely existed. Whether the store then breached that duty, and questions of causation and damages, are separate elements, but the attorney asked only about duty, so you have reached closure on the assigned question. Flag the remaining elements as out of scope.
+
+**What this drill builds.** Moving from a focusing question to fact-driven application, identifying the dispositive facts in an opinion and comparing them to a client’s facts, distinguishing adverse authority, and using a precisely scoped question to discard the wrong line of cases. These are the named case-law competencies the chapter teaches.
+
+**Before you rely on it.** The general no-duty rule, the special-relationship exception, and the four foreseeability approaches are well-established categories, but which approach a given state follows, and how its courts apply it, is jurisdiction-specific. Verify the controlling test and the analogous cases in your jurisdiction.
+
+## The Chapter 6 Drill: Can the Podcaster Record the Call?
+
+Check your chain against this walkthrough one question at a time.
+
+**Why this is a statutes-only exercise.** The client’s core question, whether recording without notice is lawful, is answered by the text of a single statutory scheme. The attorney has pointed you to it, so you can drill the statutory-reading moves in isolation: read the operative prohibition precisely, check the definitions section that controls its key term, scan for exceptions, find the penalty provision, and spot the one ambiguity that would send a later researcher outside the text.
+
+**Where the researcher’s knowledge starts.** Firm grip on the entry point. You are pointed to the statute, even if you do not yet know the phrase “all-party consent.” The statute’s own definitions will supply the vocabulary, so you start with a focusing question.
+
+**Q1. Under California law, may a person record a phone conversation without the other party’s consent?** *(Focusing)*
+
+*Answer:* Locating the provision in the annotated Penal Code (from the attorney’s pointer, or through the code’s finding aids) reveals California’s all-party-consent rule: Penal Code section 632 prohibits intentionally recording a “confidential communication” without the consent of all parties to it. \[Read section 632 for the exact prohibition and its mental-state requirement.\]
+
+*The prohibition turns on a defined term, “confidential communication,” and on “consent.” Check the definitions before going further.*
+
+**Q2. What counts as a confidential communication under the statute?** *(Definitional, statute’s definitions section)*
+
+*Answer:* Scanning the chapter’s section headings turns up the definitions within the same chapter, and they resolve the term: research reveals it turns on whether a party had an objectively reasonable expectation that the conversation was not being overheard or recorded, which excludes conversations held where the parties could reasonably expect to be overheard. \[Confirm the statutory definition’s exact wording.\]
+
+*Two things follow. Whether this call is confidential is now the crux, and it depends on the source’s reasonable expectation, a fact that becomes relevant here. And the phrase reasonable expectation is a standard the text does not fully resolve, which is an ambiguity to flag.*
+
+**\*Relevance discovered:** The call is a one-on-one phone interview, a private exchange, which bears directly on whether the source reasonably expected it not to be recorded. Note this fact now, because the definition is what made it matter.\*
+
+**Q3. Does the statute contain any exception that covers recording for journalism, or recording one’s own conversation?** *(Focusing, sibling: read in context for exceptions)*
+
+*Answer:* Reading the surrounding provisions reveals the structure of exceptions, such as carve-outs allowing a party to record in order to gather evidence of certain crimes. Research reveals whether any listed exception covers routine journalistic recording; generally there is no blanket journalism exception. \[Read the exception provisions and confirm none fits these facts.\]
+
+*If no exception applies, the all-party-consent rule controls, and the only remaining uncertainty is the confidential-communication standard.*
+
+**Q4. Does the statute set a penalty for a violation?** *(Focusing, sibling: enforcement and penalty provision)*
+
+*Answer:* The penalty provision in the same chapter specifies the consequences of a violation, which research reveals includes the nature of the liability the client would face. \[Read the penalty provision for the exact consequence.\]
+
+**\*Ambiguity, and where it points:** Whether a particular phone interview is a confidential communication, that is, whether the source had a reasonable expectation against recording, is a standard the text does not fully resolve. Under this chapter’s discipline, that ambiguity becomes the next question, and it points outside the statute: how have California courts interpreted confidential communication on facts like these? That is a focusing question for case law and possibly agency guidance, out of scope for this statute-only drill. Record it.\*
+
+**\*Currency check:** Before relying on the statute, confirm the version in force using the historical and amendment notes and a citator. Statutory text changes, and the language that governs your client is the language that was in effect for the relevant events.\*
+
+**Closure.** Practical, and by design. The statute answers the client’s core question: California requires all-party consent to record a confidential phone conversation, no listed exception covers routine journalistic recording, and the statute specifies the penalty. The one genuine ambiguity, whether these facts make the call confidential, is identified and flagged as the next question, which requires case law. For a statute-only exercise, that is closure. The statute has given everything it can, and the remaining question belongs to a different source.
+
+**What this drill builds.** Reading a section in context rather than in isolation, treating the definitions section as controlling, scanning the structure for exceptions and the penalty provision, and turning an ambiguity into a precisely aimed next question instead of a dead end. These are the named statutory competencies the chapter teaches.
+
+**Before you rely on it.** California’s all-party-consent rule and the confidential-communication concept under Penal Code section 632 are well established at the level used here, but the exact operative language, the available exceptions, and the penalty are details to read and confirm in the current code, along with the version in force for your client’s events.
+
+## The Chapter 7 Drill: Does the Roofer Need Fall Protection?
+
+Check your chain against this walkthrough one question at a time.
+
+**Why this is a regulations-only exercise.** The operative requirement here lives in the Code of Federal Regulations. The enabling statute sets the agency’s authority, but the height triggers, the accepted systems, and the technical specifications are in the regulation. So this is a regulation-only drill, and you practice reading a CFR section in full: the authority note that links it to its statute, the definitions section that controls its terms, the operative shall and must, the exceptions and thresholds, any incorporation of an outside standard, and the currency check the chapter stresses above all others.
+
+**Where the researcher’s knowledge starts.** Firm grip on the entry point. You are pointed to the OSHA construction regulations, though you may not yet know the specific part. Locating it is the first move, so you start with a focusing question. Notice, too, that the client’s ask bundles three questions, whether protection is required, at what height, and what counts as acceptable, and the method takes them one at a time, starting with the trigger.
+
+**Q1. At what height do OSHA’s construction regulations require an employer to provide fall protection?** *(Focusing)*
+
+*Answer:* Browsing the CFR’s structure, Title 29, then the construction standards at Part 1926, then the part’s table of contents, reveals that fall protection sits in Subpart M, with the duty provision at section 1926.501: employers must provide fall protection for employees working at heights of six feet or more above a lower level. \[Read section 1926.501 for the exact trigger and the surfaces it covers.\]
+
+*At twenty feet the requirement is plainly triggered. The next questions are what counts as acceptable protection, and whether any exception changes the picture. Deepen, then check siblings.*
+
+**Q2. What forms of fall protection does the regulation accept?** *(Focusing, deeper)*
+
+*Answer:* The criteria-and-practices provision, section 1926.502, specifies the accepted systems, among them guardrail systems, safety net systems, and personal fall arrest systems, each with detailed performance criteria. \[Read section 1926.502 for the systems and their specifications.\]
+
+*Which system the client must or may use can depend on the type of roof and on feasibility, so check whether the regulation defines those terms.*
+
+**Q3. How does the regulation define the roof and surface categories that determine which system applies?** *(Definitional, regulation’s definitions section)*
+
+*Answer:* The Subpart’s definitions section, section 1926.500(b), defines the operative terms, such as low-slope roof, steep roof, unprotected sides and edges, and lower level. Regulatory definitions control over ordinary meaning, so read them rather than assuming. \[Read the definitions.\]
+
+**\*Relevance discovered:** The slope and edge configuration of this particular roof determine which systems are required or merely allowed. You now need the roof’s slope, low-slope or steep, a fact you had no reason to gather until the definitions revealed it controls the answer.\*
+
+**Q4. Does the regulation provide any exception or alternative for residential construction?** *(Focusing, sibling: exceptions and alternative provisions)*
+
+*Answer:* Research reveals whether the regulation allows an alternative for residential work when conventional systems are infeasible, for example a written, site-specific fall-protection plan under a provision such as section 1926.502(k), and the conditions for using it. \[Read the residential and alternative provisions and their conditions.\]
+
+*If an alternative applies, it carries its own requirements, a written plan and a showing of infeasibility. If not, the standard systems govern.*
+
+**Q5. What statute authorizes these regulations?** *(Focusing: authority note)*
+
+*Answer:* The authority note for Part 1926 cites the enabling statute, the Occupational Safety and Health Act, which confirms the regulation’s basis and its outer limits. \[Check the authority note.\]
+
+*A regulation confirmed against its statute can still be out of date. The last question is the one the chapter stresses above all others.*
+
+**Q6. Am I reading the current version of these provisions?** *(Currency check)*
+
+*Answer:* The student confirms currency using the eCFR, the List of CFR Sections Affected, and a citator, because regulations are amended frequently. \[Run the full currency check.\]
+
+**\*Incorporation by reference:** Some OSHA provisions incorporate outside consensus standards, such as ANSI standards, by reference. An incorporated standard carries the force of law even though its text never appears in the CFR. If a relevant criterion points to one, “what does the incorporated standard require?” is a real next question, not a detail to skip.\*
+
+**Closure.** Practical and analytical. The regulation answers the client’s question: fall protection is required at six feet, so yes at twenty; the regulation specifies the acceptable systems, defines the surface categories that determine which one applies, provides a conditional alternative for residential work, and rests on the Occupational Safety and Health Act. The remaining factual input, this roof’s slope, is identified, and currency is confirmed. Whether a court has interpreted a particular term, or whether OSHA guidance addresses a wrinkle, would be the next questions, but they call for case law and agency guidance and so fall outside this regulation-only drill.
+
+**What this drill builds.** Tracing a regulation to its enabling statute through the authority note, treating the definitions section as controlling, reading operative language precisely, finding the conditional exception, following an incorporation by reference, and confirming currency, the step the chapter names as the most commonly skipped, and the most damaging to skip.
+
+**Before you rely on it.** The six-foot construction trigger and the Part 1926 Subpart M structure used here are well established, but the exact specifications, the conditions on the residential alternative, and any recent amendments must be read in the current eCFR. Regulations change often, so the currency check is not optional.
+
+## The Chapter 8 Capstone: The Drone Question
+
+This is the model for the capstone. Check your chain against it one question at a time, and pay particular attention to the moments where the model switches source types: those switches are the skill.
+
+**Why this is the capstone.** The single-source drills walled off one source at a time. This one tears the walls down. A real question like commercial drone photography is governed by an overlapping set of authorities, a federal statute, federal regulations, agency guidance, and a residual overlay of state law, and the skill this chapter teaches is moving fluidly among them while keeping a single question in view. Watch how each answer hands you a question pointed at a different source. That is the orientation step, restored.
+
+**Where the researcher’s knowledge starts.** No grip on the area, though you have the plain words drone and commercial. So you start in a secondary source, exploratory, to orient and acquire the vocabulary, exactly the step the single-source drills handed you for free.
+
+**Q1. What law governs flying a drone for commercial purposes?** *(Exploratory, no-clue: secondary source)*
+
+*Answer:* Orientation surfaces the landscape and the terms of art: commercial small-drone operation is regulated mainly by the Federal Aviation Administration under federal aviation law; the operative federal rules are known as Part 107; an operator generally needs a remote pilot certificate; and a separate overlay of state and local law addresses privacy and trespass. The source cites the governing statute and regulations.
+
+*The landscape names three threads: the federal statute that grants FAA authority, the Part 107 regulations, and the state-law overlay. Start at the source of federal authority and work toward the statute, then the regulation.*
+
+**Q2. What federal statute gives the FAA authority over commercial drones?** *(Focusing: statute)*
+
+*Answer:* Statutory research reveals that Congress gave the FAA authority over the national airspace and, through the FAA reauthorization legislation addressing unmanned aircraft systems, directed the agency to integrate small drones into that airspace. This establishes the FAA’s authority and the framework its regulations operate within. \[Confirm the specific authorizing provisions.\]
+
+*This confirms that the FAA may regulate and that the operative requirements live in its regulations. Move to the regulation.*
+
+**Q3. Under the FAA’s regulations, what must a commercial drone operator actually do?** *(Focusing: regulation)*
+
+*Answer:* The small-drone rules at 14 C.F.R. Part 107 set out the operative requirements: the operator must hold a remote pilot certificate, register the aircraft, and follow operational limits, for example restrictions on flying over people, beyond visual line of sight, at night, and in controlled airspace without authorization. \[Read Part 107 for certification, registration, and operational limits, and check the definitions.\]
+
+**\*Relevance discovered:** Whether the client will fly over people, near airports in controlled airspace, or at night now matters, because the regulation conditions its requirements on exactly those facts. Gather them.\*
+
+**Q4. Does the client’s planned operation fall within Part 107’s limits, or does it need a waiver or authorization?** *(Application: regulation and agency guidance)*
+
+*Answer:* Reading Part 107 together with FAA guidance reveals how the operational limits apply and the process for authorization or a waiver, for example airspace authorization to operate in controlled airspace. A currency check matters here, because the drone rules have evolved, including Remote ID requirements and rules on operations over people, so confirm the current version through the eCFR and FAA guidance. \[Apply the limits to the client’s facts and confirm currency.\]
+
+*The federal-compliance picture resolves. The remaining thread is the state-law exposure, a lateral move to a different body of law.*
+
+**Q5. What state or local law exposes the client to liability for photographing private property from the air?** *(Exploratory and focusing, lateral: statute and case law)*
+
+*Answer:* Research reveals a residual overlay: some states and localities have enacted drone-specific privacy or surveillance statutes, and general tort law, trespass and invasion of privacy, may apply to capturing images of people or private property. The law here is unsettled and varies by jurisdiction, and there is an open question about how far federal aviation law preempts state and local drone regulation. \[Identify the jurisdiction’s statutes and leading cases, and note the preemption question.\]
+
+*Whether this client’s operation creates exposure depends on the jurisdiction’s statutes and cases, which become focusing and application sub-questions.*
+
+**Q6. How does this state’s law treat aerial photography of private property?** *(Focusing: statute and case law)*
+
+*Answer:* Statutory and case-law research reveals the jurisdiction’s specific provisions and how its courts have applied trespass and privacy doctrines to overflight and aerial imaging. \[Confirm the state statutes and the analogous cases.\]
+
+*This resolves the residual exposure as far as current law allows, and surfaces where the law is genuinely open, on preemption and on novel privacy claims.*
+
+**Synthesis.** Your annotated outline now holds three things: the federal regulatory requirements from Part 107, certification, registration, operational limits, and the waiver process, grounded in the FAA’s statutory authority; the agency guidance and the currency confirmation; and the residual state-law privacy and trespass exposure together with the open preemption question. Each step’s next question pointed to a different source type: secondary to orient, statute for authority, regulation for the operative rules, guidance for application, statute and case law for the state overlay. That is multi-source research working as designed. You can now advise the client on what to do to fly legally and on what exposure remains.
+
+**Research-gap identification.** Distinguish the law is genuinely unsettled from I have not found the answer yet. The preemption of state drone laws and some novel privacy theories fall in the first category and get flagged as open questions. Anything in the second category sends you back to research. Confusing the two is how a researcher either stops short or chases a settled point as though it were open.
+
+**Closure.** Analytical. The federal compliance requirements are fully answered, the state-law exposure is mapped, and the genuinely open questions, preemption and untested privacy theories, are identified as open. A predictable counter-move is addressed along the way: a client who hopes to skip certification by claiming hobbyist status cannot, because the use is commercial. More research would only refine the wording. The Research Log documents the moves across source types and the closure decision, which is the record of your research judgment.
+
+**What this drill builds.** Threading a single question through the statute, the regulation, and the case law without losing the thread; letting facts become relevant as each source reveals what it needs; confirming currency where the law has recently moved; synthesizing several source types into one analysis; and separating a genuine gap in the law from a gap in your own research. These are the named competencies this capstone chapter teaches.
+
+**Before you rely on it.** The FAA’s authority, the Part 107 framework, the remote pilot certificate, and Remote ID are well established at the level used here, but the precise statutory authorities, the current operational rules, and every state’s drone and privacy law must be read against current primary law. The drone rules in particular have changed more than once, so the currency check carries real weight.

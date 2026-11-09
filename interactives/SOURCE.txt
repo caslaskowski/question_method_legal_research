@@ -1,0 +1,2 @@
+Vendored from caslaskowski/legal_research_interactive @ d9b61329a2e56bd14ea6956f82b0af2528b9d76c
+Do not hand-edit: re-run scripts/sync_interactives.py.

@@ -1,0 +1,1371 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Notice of Claim — Research Sandbox — Ch. 3 · The Question Method of Legal Research</title>
+<!--shell:head:start-->
+<link rel="preload" href="../../assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/archivo-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<!--shell:head:end-->
+<style>
+  :root{
+    /* legacy names aliased to the shared firebrand tokens (single source) */
+    --panel-2:var(--paper-2);
+    --link:var(--flame); --link-hover:var(--flame-deep);
+    --oxblood:var(--flame); --oxblood-soft:#1d80a2;
+    --amber:#7a5416; --amber-bg:#f1e3c2;
+    --green:#2f6d56; --green-bg:#dde9e2;
+    --serif:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --display:"Archivo","Helvetica Neue",Arial,sans-serif;
+    --mono:"IBM Plex Mono",ui-monospace,monospace;
+    --shadow:0 1px 0 rgba(0,0,0,.04),0 8px 30px -18px rgba(40,30,10,.45);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;height:100%}
+  body{
+    background:
+      radial-gradient(1100px 560px at 92% -10%, rgba(19,81,105,.05), transparent 62%) fixed,
+      var(--paper);
+    color:var(--ink); font-family:var(--serif); font-size:17px; line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  body::before{ /* subtle paper grain */
+    content:""; position:fixed; inset:0; pointer-events:none; z-index:0; opacity:.5;
+    background-image:radial-gradient(rgba(60,60,55,.04) 1px, transparent 1px);
+    background-size:4px 4px;
+  }
+  .app{position:relative; z-index:1; min-height:100%; display:flex; flex-direction:column}
+
+  /* ---------- top bar ---------- */
+  header.bar{
+    display:flex; align-items:center; gap:18px; flex-wrap:wrap;
+    padding:14px 22px; border-bottom:1.5px solid var(--rule-strong);
+    background:linear-gradient(180deg,#f3f3f1,#e9e9e7);
+    box-shadow:var(--shadow);
+  }
+  .brand{display:flex; align-items:baseline; gap:11px; margin-right:auto}
+  .mark{
+    font-family:var(--display); font-weight:600; font-size:23px; letter-spacing:.3px;
+    color:var(--ink); line-height:1;
+  }
+  .mark .dot{color:var(--oxblood)}
+  .tagline{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.16em; text-transform:uppercase}
+
+  .controls{display:flex; align-items:center; gap:10px; flex-wrap:wrap}
+  .seg{display:inline-flex; border:1.5px solid var(--rule-strong); border-radius:7px; overflow:hidden; background:var(--paper)}
+  .seg button{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.06em; text-transform:uppercase;
+    border:0; background:transparent; color:var(--ink-soft); padding:7px 12px; cursor:pointer;
+  }
+  .seg button.on{background:var(--ink); color:var(--paper)}
+  .btn{
+    font-family:var(--mono); font-size:11.5px; letter-spacing:.05em; text-transform:uppercase;
+    border:1.5px solid var(--rule-strong); background:var(--paper); color:var(--ink-soft);
+    padding:7px 12px; border-radius:7px; cursor:pointer;
+  }
+  .btn:hover{border-color:var(--ink-soft); color:var(--ink)}
+  .btn.accent{border-color:var(--oxblood); color:var(--oxblood)}
+  .btn.accent:hover{background:var(--oxblood); color:var(--paper)}
+
+  /* ---------- layout ---------- */
+  .shell{display:grid; grid-template-columns:262px 1fr; gap:0; flex:1; min-height:0}
+  nav.rail{
+    border-right:1.5px solid var(--rule-strong); padding:20px 16px 40px;
+    background:linear-gradient(180deg, rgba(236,228,210,.55), rgba(236,228,210,.15));
+  }
+  .rail h4{
+    font-family:var(--mono); font-size:10.5px; letter-spacing:.18em; text-transform:uppercase;
+    color:var(--ink-faint); margin:18px 6px 8px; font-weight:600;
+  }
+  .rail h4:first-child{margin-top:0}
+  .navitem{
+    display:block; width:100%; text-align:left; border:0; background:transparent; cursor:pointer;
+    font-family:var(--serif); font-size:15px; color:var(--ink-soft);
+    padding:8px 10px; border-radius:8px; line-height:1.35; border-left:2.5px solid transparent;
+  }
+  .navitem:hover{background:rgba(0,0,0,.04); color:var(--ink)}
+  .navitem.active{background:var(--paper); color:var(--ink); border-left-color:var(--oxblood); box-shadow:var(--shadow)}
+  .navitem .k{font-family:var(--mono); font-size:10px; color:var(--ink-faint); display:block; letter-spacing:.05em}
+
+  main.doc{padding:34px clamp(20px,5vw,68px) 90px; overflow-y:auto; max-width:none}
+  .docwrap{max-width:760px; margin:0 auto; animation:rise .32s ease both}
+  @keyframes rise{from{opacity:0; transform:translateY(8px)}to{opacity:1; transform:none}}
+
+  /* breadcrumb */
+  .crumbs{font-family:var(--mono); font-size:11px; color:var(--ink-faint); letter-spacing:.04em; margin-bottom:22px; display:flex; gap:8px; flex-wrap:wrap; align-items:center}
+  .crumbs button{font:inherit; color:var(--link); background:0; border:0; cursor:pointer; padding:0}
+  .crumbs button:hover{text-decoration:underline}
+  .crumbs .sep{color:var(--rule-strong)}
+
+  .kicker{font-family:var(--mono); font-size:11px; letter-spacing:.18em; text-transform:uppercase; color:var(--oxblood); margin-bottom:10px}
+  .doc h1{font-family:var(--display); font-weight:600; font-size:clamp(26px,3.4vw,36px); line-height:1.12; letter-spacing:-.01em; margin:0 0 6px}
+  .doc h2{font-family:var(--display); font-weight:600; font-size:21px; margin:30px 0 6px}
+  .cite-line{font-family:var(--mono); font-size:12px; color:var(--ink-faint); margin-bottom:24px; padding-bottom:18px; border-bottom:1px solid var(--rule)}
+  .doc p{margin:0 0 16px}
+  .lead{font-size:inherit}
+  .doc ol,.doc ul{margin:0 0 16px; padding-left:1.3em}
+  .doc li{margin:6px 0}
+  .statute-text{
+    background:var(--panel); border:1px solid var(--rule); border-left:3px solid var(--ink-soft);
+    padding:20px 24px; border-radius:4px; font-size:16px; margin:0 0 22px;
+  }
+
+  /* source links inside documents */
+  a.src{color:var(--link); text-decoration:none; border-bottom:1.5px solid rgba(47,82,73,.3); cursor:pointer; font-weight:500}
+  a.src:hover{color:var(--link-hover); border-bottom-color:var(--link-hover)}
+  a.ext{color:var(--ink-soft); border-bottom:1.5px dashed var(--rule-strong); cursor:pointer}
+  a.ext:hover{color:var(--oxblood); border-bottom-color:var(--oxblood-soft)}
+  mark.term{background:var(--amber-bg); color:#5e4410; padding:0 3px; border-radius:3px; font-weight:600; box-decoration-break:clone}
+
+  /* TOC + annotation rows */
+  .row{display:flex; gap:14px; align-items:baseline; padding:11px 14px; border:1px solid var(--rule); border-radius:8px; margin:8px 0; background:var(--paper); cursor:pointer; text-align:left; width:100%; font:inherit; color:var(--ink)}
+  .row:hover{border-color:var(--rule-strong); box-shadow:var(--shadow)}
+  .row .sec{font-family:var(--mono); font-size:12.5px; color:var(--ink-soft); min-width:96px}
+  .row .ttl{flex:1}
+  .row .tag{font-family:var(--mono); font-size:10px; letter-spacing:.08em; text-transform:uppercase; padding:3px 8px; border-radius:20px; white-space:nowrap}
+  .row.dead{opacity:.85}
+  .tag.dead{background:#e2e2e0; color:var(--ink-faint)}
+  .tag.live{background:var(--green-bg); color:var(--green)}
+  .tag.case{background:#e7ddec; color:#5a3d6b}
+  .tag.warn{background:var(--amber-bg); color:var(--amber)}
+
+  .callout{border:1px solid var(--rule-strong); border-left:3px solid var(--amber); background:var(--amber-bg); padding:14px 18px; border-radius:6px; margin:18px 0; font-size:15.5px}
+  .callout.dead{border-left-color:var(--ink-faint); background:#e7e7e5}
+  .callout .h{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--ink-soft); margin-bottom:4px}
+
+  /* guided hint */
+  .hint{display:none; border:1px dashed var(--green); background:var(--green-bg); border-radius:8px; padding:14px 18px; margin:0 0 26px; font-size:15.5px}
+  body.guided .hint{display:block; animation:rise .3s ease both}
+  .hint .h{font-family:var(--mono); font-size:11px; letter-spacing:.12em; text-transform:uppercase; color:var(--green); margin-bottom:5px; display:flex; gap:8px; align-items:center}
+
+  .question-ladder{display:none}
+  body.guided .question-ladder{display:block}
+
+  /* reflection */
+  .field{margin:0 0 22px}
+  .field label{display:block; font-family:var(--display); font-weight:600; font-size:17px; margin-bottom:8px}
+  .field .qnum{font-family:var(--mono); color:var(--oxblood); font-size:13px; margin-right:8px}
+  textarea{width:100%; min-height:84px; resize:vertical; font-family:var(--serif); font-size:16px; padding:12px 14px; border:1px solid var(--rule-strong); border-radius:8px; background:var(--paper); color:var(--ink)}
+  textarea:focus{outline:2px solid var(--link); border-color:var(--link)}
+
+  /* answer key gate */
+  .gate{max-width:420px; margin:40px auto; text-align:center}
+  .gate input{font-family:var(--mono); font-size:15px; padding:10px 14px; border:1.5px solid var(--rule-strong); border-radius:8px; width:100%; margin:14px 0; text-align:center}
+
+  /* log drawer */
+  .drawer{position:fixed; right:0; bottom:0; top:0; width:min(440px,92vw); background:var(--paper); border-left:1.5px solid var(--rule-strong); box-shadow:-12px 0 40px -20px rgba(0,0,0,.4); transform:translateX(100%); transition:transform .28s ease; z-index:40; display:flex; flex-direction:column}
+  .drawer.open{transform:none}
+  .drawer header{display:flex; align-items:center; gap:10px; padding:16px 18px; border-bottom:1.5px solid var(--rule-strong)}
+  .drawer header .t{font-family:var(--display); font-weight:600; font-size:18px; margin-right:auto}
+  .logbody{overflow-y:auto; padding:8px 0; flex:1; font-family:var(--mono); font-size:12px}
+  .logrow{display:grid; grid-template-columns:34px 60px 1fr; gap:8px; padding:7px 18px; border-bottom:1px solid var(--rule); color:var(--ink-soft)}
+  .logrow .seq{color:var(--ink-faint)}
+  .logrow .act{color:var(--oxblood)}
+  .logrow.act-outside .act{color:var(--amber)}
+  .drawer .foot{padding:14px 18px; border-top:1.5px solid var(--rule-strong); display:flex; gap:10px; flex-wrap:wrap}
+  .scrim{position:fixed; inset:0; background:rgba(30,22,8,.28); z-index:39; opacity:0; pointer-events:none; transition:opacity .28s}
+  .scrim.open{opacity:1; pointer-events:auto}
+
+  footer.foot{font-family:var(--mono); font-size:10.5px; color:var(--ink-faint); padding:14px 22px; border-top:1px solid var(--rule); letter-spacing:.04em}
+  .draftpill{display:inline-block; background:var(--oxblood); color:var(--paper); font-family:var(--mono); font-size:9.5px; letter-spacing:.14em; text-transform:uppercase; padding:3px 8px; border-radius:20px; vertical-align:middle; margin-left:8px}
+
+  @media (max-width:860px){
+    .shell{grid-template-columns:1fr}
+    nav.rail{display:none}
+  }
+
+  /* --- revision additions --- */
+  .excerpt{ border:1px solid var(--rule); border-left:3px solid var(--ink-soft); background:var(--panel); padding:4px 22px; border-radius:4px; margin:0 0 18px; }
+  .excerpt p{ margin:13px 0; font-size:15.5px; }
+  .quote{ border-left:3px solid var(--oxblood); background:#e9e9e7; padding:12px 16px; margin:8px 0 16px; border-radius:0 6px 6px 0; font-size:15.5px; }
+  .quote .qcite{ display:block; margin-top:9px; font-family:var(--mono); font-size:11.5px; color:var(--ink-soft); letter-spacing:.01em; }
+  .quote .qcite a.src{ border-bottom:0; }
+  .tag.crossref{ background:#dde3ec; color:#3b4a63; }
+  .callout .h{ display:block; }
+
+  .finish{ margin-top:16px; color:var(--ink-soft); }
+  .qlist{ margin:6px 0 12px 6px; padding-left:22px; list-style:lower-alpha; }
+  .qlist li{ margin:3px 0; color:var(--ink-soft); font-size:14.5px; }
+
+  p.citing{ font-family:var(--mono); font-size:12.5px; color:var(--oxblood); margin:4px 0 10px; line-height:1.5; }
+  .excerpt p.citing{ font-size:12.5px; }
+  p.citing .cl{ font-style:normal; letter-spacing:.02em; }
+  p.citing a.src{ color:var(--oxblood); border-bottom-color:rgba(122,30,30,.35); }
+  .crumblink{ background:none; border:0; padding:0; font:inherit; color:var(--ink-soft); cursor:pointer; }
+  .crumblink:hover{ color:var(--oxblood); text-decoration:underline; }
+  .loglink{ cursor:pointer; }
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;animation-iteration-count:1 !important;transition-duration:.01ms !important}
+  }
+</style>
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body>
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html" aria-current="page">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-3/index.html" target="_top">Ch. 3</a>
+      <a class="pn-link pn-title on" href="index.html">Notice of Claim — Research Sandbox</a>
+      <a class="pn-link" href="checks.html">Your record</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+<div class="app">
+  <header class="bar">
+    <div class="brand">
+      <span class="mark">Notice of Claim <span class="dot">·</span> Research Sandbox</span>
+      <span class="tagline">Closed Research Environment</span>
+    </div>
+    <div class="controls">
+      <div class="seg" id="modeSeg" title="Researcher's notes">
+        <button data-mode="guided">Notes on</button>
+        <button data-mode="open">Notes off</button>
+      </div>
+      <button class="btn" id="logBtn">Research Log</button>
+      <button class="btn" id="resetBtn">Reset</button>
+      <button class="btn accent" id="reflectBtn" data-go="reflection">Reflection ▸</button>
+    </div>
+  </header>
+
+  <div class="shell">
+    <nav class="rail" id="rail"><!-- built by JS --></nav>
+    <main class="doc" id="main"><!-- node renders here --></main>
+  </div>
+
+  <footer class="foot">
+    Closed research teaching module for the question method of legal research — statutes &amp; case excerpts are verbatim Arizona law (public record); annotations and the secondary source were written for this exercise.
+  </footer>
+</div>
+
+<!-- log drawer -->
+<div class="scrim" id="scrim"></div>
+<aside class="drawer" id="drawer" aria-hidden="true">
+  <header>
+    <span class="t">Research Log</span>
+    <button class="btn" id="closeLog">Close</button>
+  </header>
+  <div class="logbody" id="logBody"></div>
+  <div class="foot">
+    <button class="btn accent" id="expTxt">Export (.txt)</button>
+    <button class="btn" id="clearLog">Clear</button>
+  </div>
+</aside>
+
+<!-- =========================================================
+     CONTENT CORPUS  —  edit text here; structure is stable.
+     node types: secondary | statute | toc | definitions |
+                 annotations | case | reflection
+     link kinds in HTML: <a class="src" data-go="NODE_ID">  internal jump
+     ========================================================= -->
+<script id="corpus" type="application/json">
+{
+  "start": "introduction",
+  "nav": [
+    {
+      "group": "Start",
+      "items": [
+        {
+          "id": "introduction",
+          "label": "Home — The Question Method",
+          "kind": "Instructions"
+        }
+      ]
+    },
+    {
+      "group": "Secondary Sources",
+      "items": [
+        {
+          "id": "secondary",
+          "label": "Practice Commentary § 1213",
+          "kind": "4 AZ Causes of Action (fictional)"
+        }
+      ]
+    },
+    {
+      "group": "Statutes",
+      "items": [
+        {
+          "id": "statute",
+          "label": "A.R.S. § 12-821.01(A)",
+          "kind": "Notice of claim"
+        },
+        {
+          "id": "toc",
+          "label": "Article 2 — Table of Contents",
+          "kind": "§ 12-820 to 826"
+        },
+        {
+          "id": "definitions",
+          "label": "A.R.S. § 12-820",
+          "kind": "Definitions"
+        }
+      ]
+    },
+    {
+      "group": "Annotations",
+      "items": [
+        {
+          "id": "annotations",
+          "label": "Statutory Annotations",
+          "kind": "§ 12-821.01"
+        }
+      ]
+    },
+    {
+      "group": "Cases",
+      "items": [
+        {
+          "id": "case_havasupai",
+          "label": "Havasupai Tribe v. ABOR",
+          "kind": "220 Ariz. 214 (2008)"
+        },
+        {
+          "id": "case_donovan",
+          "label": "Donovan v. Yavapai CCCD",
+          "kind": "244 Ariz. 608 (2018)"
+        },
+        {
+          "id": "case_yahweh",
+          "label": "Yahweh v. City of Phoenix",
+          "kind": "243 Ariz. 21 (2017)"
+        },
+        {
+          "id": "case_deervalley",
+          "label": "Deer Valley USD v. Houser",
+          "kind": "214 Ariz. 293 (2007)"
+        }
+      ]
+    },
+    {
+      "group": "Wrap-up",
+      "items": [
+        {
+          "id": "reflection",
+          "label": "Reflection & Export",
+          "kind": "End of exercise"
+        }
+      ]
+    }
+  ],
+  "nodes": {
+    "introduction": {
+      "type": "intro",
+      "crumbs": [
+        "Home"
+      ],
+      "kicker": "Exercise Instructions",
+      "title": "The Question Method in Practice",
+      "cite": "N/a",
+      "body": "\n<p class=\"lead\">This exercise walks you through the <strong>question method</strong> of legal research inside a closed sandbox. The goal is to illustrate the question-method cycle — ask a question, consult a source, let the answer raise the next question — not to practice legal-database technique. Some steps are simplified compared with real practice; those lessons come later.</p>\n<p>You have already worked this doctrine from the other end. In your single-issue memo you evaluated the draft notice of claim for <strong>Jane Suffolk</strong> and decided whether it stated \"a specific amount for which the claim can be settled.\" Here you will retrace the research that produces that analysis: start from what Arizona requires before suing a public entity, and follow each answer to the next question until you reach the cases that define a specific amount.</p>\n<p>As you move, the sandbox records a <strong>research log</strong>. At the end you will export it, annotate it with your own commentary on each step, and submit it together with your reflection.</p>\n<div class=\"callout\"><span class=\"h\">Your privacy</span>Nothing you do here is sent anywhere or stored on a server. Your research log and reflection answers live only in this browser tab, on this device, and are erased when you close the tab or end your session. Use <strong>Export (.txt)</strong> to keep a copy before you leave.</div>\n<p><a class=\"src\" data-go=\"secondary\">Begin with the secondary source →</a></p>\n"
+    },
+    "secondary": {
+      "type": "secondary",
+      "crumbs": [
+        {
+          "t": "Secondary Sources",
+          "go": "secondary"
+        },
+        "Practice Commentary § 1213"
+      ],
+      "kicker": "Secondary Source · Practice Commentary",
+      "title": "§ 1213 · Claims Against Public Entities and Public Employees: Notice Requirements",
+      "cite": "Teaching note — fictional secondary source. Cite as Claims Against Public Entities and Public Employees: Notice Requirements, 4 AZ Causes of Action § 1213 (2021).",
+      "hint": "You are starting where most research starts: a secondary source. It orients you and points to the governing statute and the leading cases. Your first job is to find <em>what Arizona requires</em> before you can sue a public entity. In this case that is the statute. Always read the black-letter law before you see how courts have interpreted its language.",
+      "body": "<p class=\"lead\">Before a plaintiff may sue an Arizona public entity, a public school, or a public employee, the claimant must first serve a timely <strong>notice of claim</strong>. <a class=\"src\" data-go=\"statute\">A.R.S. § 12-821.01(A)</a>.</p>\n<p>A compliant notice must: (1) be filed with the person or persons authorized to accept service within 180 days after the cause of action accrues; (2) state facts sufficient to let the entity understand the basis on which liability is asserted; (3) state a specific amount for which the claim may be settled; and (4) state the facts supporting that amount. <em>Id.</em></p>\n<p>A notice that omits a settlement figure — or that hedges it — does not satisfy the statute. <em>See Deer Valley Unified Sch. Dist. No. 97 v. Houser</em>, 214 Ariz. 293 (2007).</p>\n<p>A single lump-sum settlement demand is permissible, even where the same notice is directed at more than one entity. <em>Donovan v. Yavapai Cnty. Cmty. Coll. Dist.</em>, 244 Ariz. 608 (App. 2018). By contrast, qualifying or open-ended language — figures introduced by words such as <em>approximately</em>, <em>no less than</em>, or <em>in excess of</em> — defeats the requirement and bars the action. <em>Deer Valley Unified Sch. Dist. No. 97 v. Houser</em>, 214 Ariz. 293 (2007).</p>"
+    },
+    "statute": {
+      "type": "statute",
+      "crumbs": [
+        {
+          "t": "Statutes",
+          "go": "statute"
+        },
+        "A.R.S. § 12-821.01"
+      ],
+      "kicker": "Arizona Revised Statutes · Verbatim",
+      "title": "§ 12-821.01. Authorization of claim against a public entity, public school or public employee",
+      "cite": "A.R.S. § 12-821.01(A) — statutory text (public record). Subsections (B)–(E) omitted in this exercise.",
+      "hint": "Read subsection (A) closely. The statute commands a <em>specific amount</em>, but watch for what it never does: it does not define that phrase. When a statute uses a term it does not define, two moves follow — check the article's <strong>definitions</strong> section, then check how courts have read it in the <strong>annotations</strong>.",
+      "body": "\n<div class=\"statute-text\"><strong>A.</strong> Persons who have claims against a public entity, public school or a public employee shall file claims with the person or persons authorized to accept service for the public entity, public school or public employee as set forth in the Arizona rules of civil procedure within one hundred eighty days after the cause of action accrues. The claim shall contain facts sufficient to permit the public entity, public school or public employee to understand the basis on which liability is claimed. The claim shall also contain <mark class=\"term\">a specific amount</mark> for which the claim can be settled and the facts supporting that amount. Any claim that is not filed within one hundred eighty days after the cause of action accrues is barred and no action may be maintained thereon.</div>\n<p>This section sits within Article 2 of Chapter 8. To see neighboring provisions, open the <a class=\"src\" data-go=\"toc\">Article 2 table of contents</a>.</p>\n"
+    },
+    "toc": {
+      "type": "toc",
+      "crumbs": [
+        {
+          "t": "Statutes",
+          "go": "statute"
+        },
+        "Article 2 — Table of Contents"
+      ],
+      "kicker": "Chapter 8 · Article 2",
+      "title": "Actions Against Public Entities or Public Employees",
+      "cite": "A.R.S. §§ 12-820 to 12-826 — section list (public record).",
+      "hint": "A table of contents is a navigation tool. Rather than run another search, it is often better to look within the article you are already in. You are looking for a definition of a term the statute left open. Which of these section titles would hold definitions? Be wary of titles that merely <em>contain</em> the word you want — § 12-823's title says \"Amount,\" but read what it is actually about.",
+      "rows": [
+        {
+          "sec": "§ 12-820",
+          "title": "Definitions",
+          "tag": "live",
+          "go": "definitions"
+        },
+        {
+          "sec": "§ 12-820.01",
+          "title": "Absolute Immunity",
+          "tag": "dead",
+          "go": "toc_dead_immunity"
+        },
+        {
+          "sec": "§ 12-820.02",
+          "title": "Qualified Immunity",
+          "tag": "dead",
+          "go": "toc_dead_immunity"
+        },
+        {
+          "sec": "§ 12-820.03",
+          "title": "Affirmative Defense; Resolution by Trial",
+          "tag": "dead",
+          "go": "toc_dead_immunity"
+        },
+        {
+          "sec": "§ 12-820.04",
+          "title": "Punitive and Exemplary Damages; Immunity",
+          "tag": "dead",
+          "go": "toc_dead_immunity"
+        },
+        {
+          "sec": "§ 12-821",
+          "title": "General Limitation; Public Employee",
+          "tag": "dead",
+          "go": "toc_dead_limitation"
+        },
+        {
+          "sec": "§ 12-821.01",
+          "title": "Authorization of Claim Against Public Entity, Public School or Public Employee",
+          "tag": "live",
+          "go": "statute"
+        },
+        {
+          "sec": "§ 12-822",
+          "title": "Change of Venue",
+          "tag": "dead",
+          "go": "toc_dead_generic"
+        },
+        {
+          "sec": "§ 12-823",
+          "title": "Judgment for Plaintiff; Amount; Interest and Costs",
+          "tag": "warn",
+          "go": "toc_dead_judgment"
+        },
+        {
+          "sec": "§ 12-826",
+          "title": "Report of Judgments to Legislature; Payment",
+          "tag": "dead",
+          "go": "toc_dead_generic"
+        }
+      ],
+      "hideTags": true
+    },
+    "toc_dead_immunity": {
+      "type": "deadend",
+      "crumbs": [
+        {
+          "t": "Statutes",
+          "go": "statute"
+        },
+        {
+          "t": "Article 2 — TOC",
+          "go": "toc"
+        },
+        "Immunity"
+      ],
+      "kicker": "Dead end",
+      "title": "Governmental immunity provisions",
+      "cite": "A.R.S. §§ 12-820.01 to 12-820.05",
+      "hint": "These sections are about <em>when a public entity can be held liable at all</em> — a different question from <em>how a notice of claim must state its amount</em>. Back out and keep looking.",
+      "body": "<div class=\"callout dead\"><span class=\"h\">Nothing useful here for your question</span>These provisions define and limit governmental immunity. They do not address what a notice of claim must contain or what counts as a \"specific amount.\"</div><p><a class=\"src\" data-go=\"toc\">← Return to the Article 2 table of contents</a></p>"
+    },
+    "toc_dead_limitation": {
+      "type": "deadend",
+      "crumbs": [
+        {
+          "t": "Statutes",
+          "go": "statute"
+        },
+        {
+          "t": "Article 2 — TOC",
+          "go": "toc"
+        },
+        "§ 12-821"
+      ],
+      "kicker": "Off point",
+      "title": "§ 12-821. General Limitation",
+      "cite": "A.R.S. § 12-821",
+      "hint": "This is the limitation period for bringing the action — a timing rule, not a content rule. Tempting, but it does not tell you what the settlement amount must look like.",
+      "body": "<div class=\"callout dead\"><span class=\"h\">Nothing useful here for your question</span>This section sets the deadline for filing suit. Your question is about the <em>content</em> of the notice of claim — specifically the amount — not about timing.</div><p><a class=\"src\" data-go=\"toc\">← Return to the Article 2 table of contents</a></p>"
+    },
+    "toc_dead_judgment": {
+      "type": "deadend",
+      "crumbs": [
+        {
+          "t": "Statutes",
+          "go": "statute"
+        },
+        {
+          "t": "Article 2 — TOC",
+          "go": "toc"
+        },
+        "§ 12-823"
+      ],
+      "kicker": "Looks relevant — read carefully",
+      "title": "§ 12-823. Judgment for Plaintiff; Amount; Interest and Costs",
+      "cite": "A.R.S. § 12-823",
+      "hint": "The title contains the word \"Amount,\" which is why it tempts you. But it governs the <em>amount of a judgment after trial</em>, not the amount a claimant must state in a pre-suit notice of claim. This is exactly the kind of false lead good researchers learn to reject.",
+      "body": "<div class=\"callout\"><span class=\"h\">Why this isn't your section</span>This provision concerns the amount, interest, and costs of a <em>judgment entered against a public entity</em> — the back end of a case. The notice-of-claim amount requirement is a <em>front-end</em> prerequisite found in § 12-821.01(A).</div><p><a class=\"src\" data-go=\"toc\">← Return to the table of contents</a> &nbsp;·&nbsp; <a class=\"src\" data-go=\"statute\">Go to § 12-821.01(A)</a></p>"
+    },
+    "toc_dead_generic": {
+      "type": "deadend",
+      "crumbs": [
+        {
+          "t": "Statutes",
+          "go": "statute"
+        },
+        "Article 2 — TOC"
+      ],
+      "kicker": "Dead end",
+      "title": "Not on point",
+      "cite": "",
+      "hint": "Venue and reporting provisions don't touch the specific-amount requirement.",
+      "body": "<div class=\"callout dead\"><span class=\"h\">Nothing useful here</span>This section does not address the notice-of-claim amount requirement.</div><p><a class=\"src\" data-go=\"toc\">← Return to the Article 2 table of contents</a></p>"
+    },
+    "definitions": {
+      "type": "definitions",
+      "crumbs": [
+        {
+          "t": "Statutes",
+          "go": "statute"
+        },
+        "§ 12-820 — Definitions"
+      ],
+      "kicker": "Arizona Revised Statutes · Verbatim",
+      "title": "§ 12-820. Definitions",
+      "cite": "A.R.S. § 12-820 — statutory text (public record).",
+      "hint": "Scan the defined terms. Is \"specific amount\" — or \"sum certain\" — among them? When the article that governs a requirement does not define the operative term, the meaning has to come from somewhere else: the courts.",
+      "body": "\n<p>In this article, unless the context otherwise requires:</p>\n<ol>\n<li><strong>\"Employee\"</strong> includes an officer, director, employee or servant, whether or not compensated or part time, who is authorized to perform any act or service, except that employee does not include an independent contractor. Employee includes noncompensated members of advisory boards appointed as provided by law and leased employees.</li>\n<li><strong>\"Injury\"</strong> means death, injury to a person, damage to or loss of property or any other injury that a person may suffer that would be actionable if inflicted by a private person.</li>\n<li><strong>\"Leased employee\"</strong> means a person providing services to a public entity under a lease agreement and is not an independent contractor or temporary employee.</li>\n<li><strong>\"Maintenance\"</strong> means the establishment or continuation in existence of facilities, highways, roads, streets, bridges or rights-of-way by a public entity and does not mean or refer to ordinary repair or upkeep.</li>\n<li><strong>\"Prisoner\"</strong> means a person incarcerated while awaiting sentence or while serving a sentence imposed by a court of law.</li>\n<li><strong>\"Public employee\"</strong> means an employee of a public entity.</li>\n<li><strong>\"Public entity\"</strong> includes this state and any political subdivision of this state.</li>\n<li><strong>\"State\"</strong> means this state and any state agency, board, commission or department.</li>\n</ol>\n<div class=\"callout dead\"><span class=\"h\">Note what is absent — where else might this be?</span>The article defines who and what is covered, but it does <em>not</em> define \"a specific amount\" or \"sum certain.\" The meaning of that phrase must come from the cases — which we reach through the statute's <strong>annotations</strong>. Annotations are editorial additions to a statute that collect the cases addressing particular topics. <a class=\"src\" data-go=\"annotations\">Open the Statutory Annotations →</a></div>\n"
+    },
+    "annotations": {
+      "type": "toc",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        "§ 12-821.01 Statutory Annotations"
+      ],
+      "kicker": "Statutory Annotations · § 12-821.01(A)",
+      "title": "How courts have construed the notice-of-claim requirements",
+      "cite": "Quotations are from the cited opinions; topics are organized for this exercise.",
+      "hint": "Annotations are organized by topic. You still have several questions to answer — the <em>purpose</em> of the rule, what <em>counts</em> as a specific amount, and what language <em>defeats</em> it. Pick the topic that matches the question you are on; not every topic will help.",
+      "rows": [
+        {
+          "sec": "Topic 1",
+          "title": "Construction and purpose",
+          "tag": "case",
+          "go": "ann_construction"
+        },
+        {
+          "sec": "Topic 2",
+          "title": "Immunity defenses",
+          "tag": "dead",
+          "go": "ann_dead_immunity"
+        },
+        {
+          "sec": "Topic 3",
+          "title": "Cause-of-action accrual",
+          "tag": "dead",
+          "go": "ann_accrual"
+        },
+        {
+          "sec": "Topic 4",
+          "title": "Notice, generally",
+          "tag": "case",
+          "go": "ann_notice"
+        },
+        {
+          "sec": "Topic 5",
+          "title": "Settlement offer",
+          "tag": "case",
+          "go": "ann_settlement"
+        },
+        {
+          "sec": "Topic 6",
+          "title": "Sufficiency of facts",
+          "tag": "crossref",
+          "go": "ann_facts"
+        },
+        {
+          "sec": "Topic 7",
+          "title": "Specific amount / sum certain",
+          "tag": "case",
+          "go": "ann_specific"
+        }
+      ],
+      "hideTags": true
+    },
+    "ann_construction": {
+      "type": "annotation",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        "Topic 1 — Construction & Purpose"
+      ],
+      "kicker": "Statutory Annotations · Topic 1",
+      "title": "Construction and purpose",
+      "cite": "Quotations are from the cited opinions.",
+      "hint": "Start here to see how a court reads the statute and why the requirement exists.",
+      "body": "<p><strong>How the statute is read.</strong></p>\n<div class=\"quote\">The notice of claim statute is clear and unequivocal. … This language unmistakably instructs claimants to include a particular and certain amount of money that, if agreed to by the government entity, will settle the claim.<span class=\"qcite\"><a class=\"src\" data-go=\"case_deervalley\">Deer Valley Unified Sch. Dist. No. 97 v. Houser</a>, 214 Ariz. 293, 296 ¶ 9, 152 P.3d 490, 493 (2007).</span></div>\n<p><strong>Why the requirement exists.</strong></p>\n<div class=\"quote\">The purpose of the statute is to provide the government entity with an opportunity to investigate the claim, assess its potential liability, reach a settlement prior to litigation, budget and plan.<span class=\"qcite\"><a class=\"src\" data-go=\"case_havasupai\">Havasupai Tribe v. Ariz. Bd. of Regents</a>, 220 Ariz. 214, 223 ¶ 30, 204 P.3d 1063, 1072 (App. 2008).</span></div>\n<p><a class=\"src\" data-go=\"annotations\">← Back to Statutory Annotations</a></p>"
+    },
+    "ann_dead_immunity": {
+      "type": "deadend",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        "Topic 2 — Immunity"
+      ],
+      "kicker": "Statutory Annotations · Topic 2",
+      "title": "Immunity defenses",
+      "cite": "",
+      "hint": "Immunity is about whether the entity can be liable at all, not about the notice's amount.",
+      "body": "<div class=\"callout dead\"><span class=\"h\">Nothing useful here for the amount question</span>These notes address governmental immunity defenses and do not bear on the specific-amount requirement.</div><p><a class=\"src\" data-go=\"annotations\">← Back to Statutory Annotations</a></p>"
+    },
+    "ann_accrual": {
+      "type": "deadend",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        "Topic 3 — Accrual"
+      ],
+      "kicker": "Statutory Annotations · Topic 3",
+      "title": "Cause-of-action accrual",
+      "cite": "",
+      "hint": "These notes are about <em>when</em> the claim period begins to run — useful in other disputes, but not for what makes an amount specific.",
+      "body": "<div class=\"callout dead\"><span class=\"h\">Nothing useful here for the amount question</span>The cases under this topic concern when a cause of action accrues and how the 180-day window is counted — a timing issue, not the content of the settlement demand.</div><p><a class=\"src\" data-go=\"annotations\">← Back to Statutory Annotations</a></p>"
+    },
+    "ann_notice": {
+      "type": "annotation",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        "Topic 4 — Notice"
+      ],
+      "kicker": "Statutory Annotations · Topic 4",
+      "title": "Notice, generally",
+      "cite": "Quotations are from the cited opinions.",
+      "hint": "A notice of claim is a real pre-suit step. Watch the difference between a litigation demand and a settlement offer — and be careful with cases that merely <em>mention</em> a notice of claim.",
+      "body": "<p>A notice of claim is a prerequisite to suit, and a litigation figure is not the same as a settlement offer.</p>\n<div class=\"quote\">Simply reciting the amount a claimant will demand in a complaint is insufficient to satisfy § 12-821.01, because such a statement does not express a willingness to accept a specific sum in settlement.<span class=\"qcite\"><a class=\"src\" data-go=\"case_yahweh\">Yahweh v. City of Phoenix</a>, 243 Ariz. 21, 23 ¶ 8, 400 P.3d 445, 447 (App. 2017).</span></div>\n<p>See also <em><a class=\"src\" data-go=\"case_abraham\">Abraham v. Ariz. Bd. of Regents</a></em>, No. 2 CA-CV 2024-0073 (Ariz. App. Jan. 6, 2025) (notice of claim in an action against the Board of Regents).</p>\n<p><a class=\"src\" data-go=\"annotations\">← Back to Statutory Annotations</a></p>"
+    },
+    "ann_settlement": {
+      "type": "annotation",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        "Topic 5 — Settlement Offer"
+      ],
+      "kicker": "Statutory Annotations · Topic 5",
+      "title": "Settlement offer",
+      "cite": "Quotations are from the cited opinions.",
+      "hint": "This topic answers what <em>counts</em> as a specific amount and what <em>defeats</em> it.",
+      "body": "<p><strong>What an offer must be.</strong></p>\n<div class=\"quote\">An offer is the manifestation of willingness to enter into a bargain, so made as to justify another person in understanding that his assent to that bargain is invited and will conclude it.<span class=\"qcite\"><a class=\"src\" data-go=\"case_yahweh\">Yahweh v. City of Phoenix</a>, 243 Ariz. 21, 23 ¶ 8, 400 P.3d 445, 447 (App. 2017) (quoting Restatement (Second) of Contracts § 24 (1981)).</span></div>\n<p><strong>What satisfies it.</strong></p>\n<div class=\"quote\">The offer that Donovan would “accept the sum of $450,000 as full and final settlement” established that sum as “a definite and exact amount” that Yavapai College could pay to “completely satisfy its liability.” … No more is required.<span class=\"qcite\"><a class=\"src\" data-go=\"case_donovan\">Donovan v. Yavapai Cnty. Cmty. Coll. Dist.</a>, 244 Ariz. 608, ¶ 9, 423 P.3d 403 (App. 2018).</span></div>\n<div class=\"quote\">The notice of claim statute does not require that the proffered settlement amount be objectively reasonable; it simply requires a statement of a specific settlement amount with supporting facts.<span class=\"qcite\"><a class=\"src\" data-go=\"case_donovan\">Donovan v. Yavapai Cnty. Cmty. Coll. Dist.</a>, 244 Ariz. 608, ¶ 10, 423 P.3d 403 (App. 2018).</span></div>\n<p><strong>What defeats it.</strong></p>\n<div class=\"quote\">The statement shows no intent to be bound; rather, it is an invitation to bargain for a yet-undefined settlement amount.<span class=\"qcite\"><a class=\"src\" data-go=\"case_yahweh\">Yahweh v. City of Phoenix</a>, 243 Ariz. 21, 24 ¶ 10, 400 P.3d 445, 448 (App. 2017).</span></div>\n<p><a class=\"src\" data-go=\"annotations\">← Back to Statutory Annotations</a></p>"
+    },
+    "ann_facts": {
+      "type": "annotation",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        "Topic 6 — Sufficiency of Facts"
+      ],
+      "kicker": "Statutory Annotations · Topic 6",
+      "title": "Sufficiency of facts",
+      "cite": "Cross-reference.",
+      "hint": "Often an annotation simply points you to a related topic instead of duplicating the cases. Follow the cross-reference.",
+      "body": "\n<div class=\"callout\"><span class=\"h\">Cross-reference</span>The decisions on whether a notice states sufficient \"facts supporting\" the amount are collected under <a class=\"src\" data-go=\"ann_specific\">Specific amount / sum certain</a>.</div>\n<p><a class=\"src\" data-go=\"annotations\">← Back to Statutory Annotations</a></p>\n"
+    },
+    "ann_specific": {
+      "type": "annotation",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        "Topic 7 — Specific Amount"
+      ],
+      "kicker": "Statutory Annotations · Topic 7",
+      "title": "Specific amount / sum certain",
+      "cite": "Quotations are from the cited opinions.",
+      "hint": "This is the heart of your research: the rule, the language that fails it, and how far the \"facts supporting\" requirement reaches.",
+      "body": "<p><strong>The rule.</strong></p>\n<div class=\"quote\">… [the statute] simply requires that claimants identify the specific amount for which they will settle and provide facts supporting that amount. Compliance with this statute is not difficult.<span class=\"qcite\"><a class=\"src\" data-go=\"case_deervalley\">Deer Valley Unified Sch. Dist. No. 97 v. Houser</a>, 214 Ariz. 293, 296 ¶ 9, 152 P.3d 490, 493 (2007).</span></div>\n<p><strong>Language that fails.</strong></p>\n<div class=\"quote\">McDonald's repeated use of qualifying language makes it impossible to ascertain the precise amount for which the District could have settled her claim.<span class=\"qcite\"><a class=\"src\" data-go=\"case_deervalley\">Deer Valley Unified Sch. Dist. No. 97 v. Houser</a>, 214 Ariz. 293, 297 ¶ 10, 152 P.3d 490, 494 (2007).</span></div>\n<p><strong>How far \"facts supporting\" reaches.</strong></p>\n<div class=\"quote\">… a notice may not be deemed invalid merely because the amount demanded is not objectively quantifiable.<span class=\"qcite\"><a class=\"src\" data-go=\"case_havasupai\">Havasupai Tribe v. Ariz. Bd. of Regents</a>, 220 Ariz. 214, 226 ¶ 45, 204 P.3d 1063, 1075 (App. 2008).</span></div>\n<p><a class=\"src\" data-go=\"annotations\">← Back to Statutory Annotations</a></p>"
+    },
+    "case_deervalley": {
+      "type": "case",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        {
+          "t": "Topic 7",
+          "go": "ann_specific"
+        },
+        "Deer Valley v. Houser"
+      ],
+      "kicker": "Primary authority · Arizona Supreme Court",
+      "title": "Deer Valley Unified School District No. 97 v. Houser",
+      "cite": "214 Ariz. 293, 152 P.3d 490 (2007).",
+      "hint": "You have reached a potential answer. Note the exact language the Court rejected — that is what makes an amount <em>non</em>-specific.",
+      "body": "\n<div class=\"excerpt\">\n<p><strong>¶ 1</strong>  Before initiating an action for damages against a public entity, a claimant must provide a notice of claim … Section 12-821.01.A requires … that a notice of claim include a specific amount for which the claim can be settled and the facts supporting that amount. … We hold that [the letter] does not [conform].</p>\n<p><strong>¶ 3</strong>  [McDonald's letter identified:] \"All economic damages … in an amount anticipated to be approximately $35,000.00 per year or more going forward over the next 18 years\"; \"Compensatory damages for emotional distress … in an amount no less than $300,000.00\"; [and] \"General damages … in an amount of no less than $200,000.00.\"</p>\n<p><strong>¶ 9</strong>  The notice of claim statute is clear and unequivocal. … This language unmistakably instructs claimants to include a particular and certain amount of money that, if agreed to by the government entity, will settle the claim. … Compliance with this statute is not difficult; the statute does not require that claimants reveal the amount that they will demand at trial if litigation ensues but simply requires that claimants identify the specific amount for which they will settle and provide facts supporting that amount.</p>\n<p class=\"citing\"><span class=\"cl\">Look at other cases that speak to this rule:</span> <a class=\"src\" data-go=\"case_yahweh\">Yahweh v. City of Phoenix</a>; <a class=\"src\" data-go=\"case_donovan\">Donovan v. Yavapai Cnty. Cmty. Coll. Dist.</a>; <a class=\"src\" data-go=\"case_havasupai\">Havasupai Tribe v. Ariz. Bd. of Regents</a>.</p>\n<p><strong>¶ 10</strong>  We agree … that McDonald's claim letter does not include a specific amount for which her claim can be settled. McDonald's repeated use of qualifying language makes it impossible to ascertain the precise amount for which the District could have settled her claim. …</p>\n<p><strong>¶ 11</strong>  … the amounts identified in McDonald's letter cannot be considered specific. By failing to state a specific amount that she would accept to settle her claims, McDonald failed to comply with that statutory requirement.</p>\n</div>\n<p><a class=\"src\" data-go=\"ann_specific\">← Back to Topic 7</a></p>\n<p class=\"finish\">Answered all the questions you have? <a class=\"src\" data-go=\"reflection\">Finish → Reflection &amp; export</a></p>\n"
+    },
+    "case_yahweh": {
+      "type": "case",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        {
+          "t": "Topic 5",
+          "go": "ann_settlement"
+        },
+        "Yahweh v. City of Phoenix"
+      ],
+      "kicker": "Primary authority · Arizona Court of Appeals",
+      "title": "Yahweh v. City of Phoenix",
+      "cite": "243 Ariz. 21, 400 P.3d 445 (App. 2017), review denied.",
+      "hint": "This sharpens the line between a real offer and an invitation to negotiate.",
+      "body": "\n<div class=\"excerpt\">\n<p><strong>¶ 1</strong>  … Because Yahweh's notice of claim did not include a sum-certain settlement offer as required by A.R.S. § 12-821.01, we affirm.</p>\n<p><strong>¶ 3</strong>  [The notice stated:] \"The Claimant will be bringing legal action … seeking damages for 1.5 million dollars … In order to obtain an agreeable resolution to this matter, contact his lawyer … promptly.\"</p>\n<p><strong>¶ 8</strong>  … Simply reciting the amount a claimant will demand in a complaint is insufficient to satisfy § 12-821.01, because such a statement does not express a willingness to accept a specific sum in settlement.</p>\n<p><strong>¶ 9</strong>  … While the NOC stated Yahweh would sue for $1.5 million for loss of projected earnings, it made no mention of the amount of damages he would seek for his Family Medical Leave Act claim. … there was no indication … demonstrating a willingness to settle all claims against the City for any stated amount.</p>\n<p><strong>¶ 10</strong>  … The statement shows no intent to be bound; rather, it is an invitation to bargain for a yet-undefined settlement amount.</p>\n</div>\n<p><a class=\"src\" data-go=\"ann_settlement\">← Back to Topic 5</a></p>\n<p class=\"finish\">Answered all the questions you have? <a class=\"src\" data-go=\"reflection\">Finish → Reflection &amp; export</a></p>\n"
+    },
+    "case_donovan": {
+      "type": "case",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        {
+          "t": "Topic 5",
+          "go": "ann_settlement"
+        },
+        "Donovan v. Yavapai CCCD"
+      ],
+      "kicker": "Primary authority · Arizona Court of Appeals",
+      "title": "Donovan v. Yavapai County Community College District",
+      "cite": "244 Ariz. 608, 423 P.3d 403 (App. 2018), review denied.",
+      "hint": "Your answer to what <em>satisfies</em> the requirement.",
+      "body": "\n<div class=\"excerpt\">\n<p><strong>¶ 1</strong>  … Donovan's notice of claim described multiple causes of action against multiple public entities but set forth only a single settlement amount — $450,000 … Because the notice of claim unequivocally set forth a definite and exact amount by which any of the entities could completely satisfy its liability, … the notice satisfied the statutory requirement of a \"specific amount for which the claim can be settled.\"</p>\n<p><strong>¶ 3</strong>  Donovan's letter stated that she would \"accept the sum of $450,000 as full and final settlement.\"</p>\n<p><strong>¶ 9</strong>  … the offer that Donovan would \"accept the sum of $450,000 as full and final settlement\" established that sum as \"a definite and exact amount\" that Yavapai College could pay to \"completely satisfy its liability.\" … No more is required.</p>\n<p><strong>¶ 10</strong>  The notice of claim statute does not require that the proffered settlement amount be objectively reasonable; it simply requires a statement of a specific settlement amount with supporting facts. …</p>\n</div>\n<p><a class=\"src\" data-go=\"ann_settlement\">← Back to Topic 5</a></p>\n<p class=\"finish\">Answered all the questions you have? <a class=\"src\" data-go=\"reflection\">Finish → Reflection &amp; export</a></p>\n"
+    },
+    "case_havasupai": {
+      "type": "case",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        {
+          "t": "Topic 7",
+          "go": "ann_specific"
+        },
+        "Havasupai Tribe v. ABOR"
+      ],
+      "kicker": "Primary authority · Arizona Court of Appeals",
+      "title": "Havasupai Tribe v. Arizona Board of Regents",
+      "cite": "220 Ariz. 214, 204 P.3d 1063 (App. 2008), review denied.",
+      "hint": "Understanding the purpose of a statute can help when you apply the rule to a particular set of facts. In what ways does this case help map out the bounds of what it means to provide a “specific amount” supported by facts?",
+      "body": "\n<div class=\"excerpt\">\n<p><strong>¶ 30</strong>  The purpose of the statute is to provide the government entity with an opportunity to investigate the claim, assess its potential liability, reach a settlement prior to litigation, budget and plan.</p>\n<p class=\"citing\"><span class=\"cl\">Look at other cases that speak to this rule:</span> <a class=\"src\" data-go=\"case_donovan\">Donovan v. Yavapai Cnty. Cmty. Coll. Dist.</a>.</p>\n<p><strong>¶ 39</strong>  … Section 12-821.01 says only that a claimant must provide \"the facts supporting\" the settlement demand; it does not say \"all the facts supporting\" the settlement demand or even \"all the known facts supporting\" the settlement demand.</p>\n<p><strong>¶ 45</strong>  … Because the purpose of the notice of claim required by A.R.S. § 12-821.01 is not to test the legal sufficiency of the claim or the damages alleged, a notice may not be deemed invalid merely because the amount demanded is not objectively quantifiable.</p>\n<p><strong>¶ 53</strong>  … the test is not whether a notice of claim contains facts that justify or prove the amount of the settlement demand. Nor is it whether the facts demonstrate that the settlement demand is reasonable. Instead, it is whether the notice of claim, read as a whole, provides facts supporting the settlement demand.</p>\n</div>\n<p><a class=\"src\" data-go=\"ann_specific\">← Back to Topic 7</a></p>\n<p class=\"finish\">Answered all the questions you have? <a class=\"src\" data-go=\"reflection\">Finish → Reflection &amp; export</a></p>\n"
+    },
+    "case_abraham": {
+      "type": "case",
+      "crumbs": [
+        {
+          "t": "Annotations",
+          "go": "annotations"
+        },
+        {
+          "t": "Topic 4",
+          "go": "ann_notice"
+        },
+        "Abraham v. ABOR"
+      ],
+      "kicker": "Primary authority · Arizona Court of Appeals, Div. 2",
+      "title": "Abraham v. Arizona Board of Regents",
+      "cite": "No. 2 CA-CV 2024-0073 (Ariz. App. Jan. 6, 2025).",
+      "hint": "Read why this one is here. It shares a party name with Havasupai and mentions a notice of claim — but it is a <em>public-records</em> case, and the statute surfaces only because the plaintiff never filed a notice. It never construes the \"specific amount\" requirement.",
+      "body": "\n<div class=\"excerpt\">\n<p><strong>¶ 1</strong>  Public records are entitled to a presumption of disclosure. … In this appeal, we address the scope of a trial court's review in special actions challenging the denial of a public records request …</p>\n<p><strong>¶ 3</strong>  On appeal, Abraham argues that the trial court improperly reviewed the university's withholding and redaction decisions for an abuse of discretion. He argues instead that de-novo review was required. …</p>\n<p><strong>¶ 7</strong>  ABOR moved to dismiss some of the claims. It also moved to dismiss Abraham's demand for money damages because Abraham had not filed a notice of claim. The trial court granted the motion in part, dismissing two claims and any claim for money damages other than attorney fees.</p>\n</div>\n<div class=\"callout\"><span class=\"h\">Why this is a dead end for your question</span>Abraham is about public-records review standards. The notice-of-claim statute appears only because the plaintiff sought money damages without ever filing a notice — the opinion never construes the \"specific amount\" requirement.</div>\n<p><a class=\"src\" data-go=\"ann_notice\">← Back to Topic 4</a></p>\n"
+    },
+    "reflection": {
+      "type": "reflection",
+      "crumbs": [
+        "Wrap-up",
+        "Reflection & Export"
+      ],
+      "kicker": "End of exercise",
+      "title": "Reflection",
+      "cite": "Your answers and your full click-path stay on this device. Export the file and submit it with your question document.",
+      "hint": "Reflect on your path below, then export your research log and submit it with your reflection.",
+      "questions": [
+        {
+          "q": "What did you find difficult in trying to develop research questions and find the answers to them?"
+        },
+        {
+          "q": "Were the additional cases that were not provided in your memo helpful? Why or why not?"
+        },
+        {
+          "q": "How did this process affect how you would have engaged with the materials from the memo?"
+        },
+        {
+          "q": "Did you ask and find answers to all of the questions below? Why or why not? Reflect on what you think this means for your future research efforts.",
+          "list": [
+            "What does Arizona require in order to file suit against a public entity?",
+            "What does A.R.S. § 12-821.01(A) say about the amount in a notice of claim?",
+            "What is the purpose of requiring a specific amount?",
+            "What is considered a specific amount?",
+            "What factors or language make the amount in a notice of claim non-specific?",
+            "What factors or language make the amount specific?"
+          ]
+        },
+        {
+          "q": "Reflect on your research log and comment on what you learned from this exercise about research methods."
+        }
+      ]
+    }
+  }
+}
+</script>
+
+<script>
+/* ============================================================
+   Lex·Sandbox — closed legal-research environment
+   Single-file static app. No backend. Safe for GitHub Pages.
+   Persistence: sessionStorage with in-memory fallback (degrades
+   gracefully in restricted preview frames).
+   ============================================================ */
+(function(){
+  "use strict";
+  const CORPUS = JSON.parse(document.getElementById("corpus").textContent);
+  const NODES = CORPUS.nodes;
+
+  /* ---- resilient storage ---- */
+  const mem = {};
+  const store = {
+    get(k){ try{ const v = sessionStorage.getItem(k); return v===null?(k in mem?mem[k]:null):v; }catch(e){ return k in mem?mem[k]:null; } },
+    set(k,v){ try{ sessionStorage.setItem(k,v); }catch(e){ mem[k]=v; } }
+  };
+
+  /* ---- session / mode ---- */
+  const params = new URLSearchParams(location.search);
+  const lockMode = params.get("lock")==="1";
+  let mode = params.get("mode") || store.get("ls_mode") || "guided";
+  if(mode!=="open" && mode!=="guided") mode="guided";
+
+  /* ---- log ---- */
+  let log = [];
+  try{ log = JSON.parse(store.get("ls_log")||"[]"); }catch(e){ log=[]; }
+  let lastTs = Date.now();
+
+  function record(action, to, from){
+    const now = Date.now();
+    // dwell is time spent on the PREVIOUS node before this action
+    const dwellMs = log.length ? (now - lastTs) : 0;
+    if(log.length){ log[log.length-1].dwellMs = dwellMs; }
+    log.push({
+      seq: log.length+1,
+      ts: new Date(now).toISOString(),
+      action: action,
+      node: to,
+      type: (NODES[to]&&NODES[to].type)||"unknown",
+      from: from||null,
+      mode: mode,
+      dwellMs: 0
+    });
+    lastTs = now;
+    store.set("ls_log", JSON.stringify(log));
+    renderLog();
+  }
+
+  /* ---- routing ---- */
+  function currentId(){
+    const h = location.hash.replace(/^#\/?/, "");
+    return NODES[h] ? h : CORPUS.start;
+  }
+  function go(id, viaLink){
+    if(!NODES[id]) id = CORPUS.start;
+    const from = currentId();
+    if("#/"+id !== location.hash){ location.hash = "/"+id; }
+    record(viaLink ? (id==="outside" ? "trap" : "follow") : "open", id, from);
+    render();
+  }
+
+  /* ---- rendering ---- */
+  const main = document.getElementById("main");
+  const rail = document.getElementById("rail");
+
+  function buildRail(){
+    let html = "";
+    CORPUS.nav.forEach(g=>{
+      html += `<h4>${g.group}</h4>`;
+      g.items.forEach(it=>{
+        html += `<button class="navitem" data-go="${it.id}">${it.label}<span class="k">${it.kind}</span></button>`;
+      });
+    });
+    rail.innerHTML = html;
+  }
+
+  function crumbHtml(arr){
+    if(!arr) return "";
+    const parts = arr.map((c,i)=>{
+      const label = (c && typeof c==="object") ? c.t : c;
+      const tgt   = (c && typeof c==="object") ? c.go : null;
+      if(i===arr.length-1) return `<span style="color:var(--ink)">${label}</span>`;
+      return (tgt ? `<button class="crumblink" data-go="${tgt}">${label}</button>` : `<span>${label}</span>`) + `<span class="sep">/</span>`;
+    });
+    return `<div class="crumbs"><button data-go="${CORPUS.start}">Start</button><span class="sep">/</span>${parts.join("")}</div>`;
+  }
+  function head(n){
+    return crumbHtml(n.crumbs)
+      + (n.kicker?`<div class="kicker">${n.kicker}</div>`:"")
+      + `<h1>${n.title}</h1>`
+      + (n.cite?`<div class="cite-line">${n.cite}</div>`:"")
+      + (n.hint?`<div class="hint"><div class="h">▸ Researcher's note</div>${n.hint}</div>`:"");
+  }
+
+  function renderRows(n){
+    const hide = !!n.hideTags;
+    return n.rows.map(r=>{
+      const tagtxt = {live:"open / on-path",dead:"dead end",case:"cases",warn:"read carefully",crossref:"cross-reference"}[r.tag]||r.tag;
+      const deadCls = (!hide && r.tag==='dead') ? 'dead' : '';
+      const pill = hide ? '' : `<span class="tag ${r.tag}">${tagtxt}</span>`;
+      return `<button class="row ${deadCls}" data-go="${r.go}">
+        <span class="sec">${r.sec}</span>
+        <span class="ttl">${r.title}</span>
+        ${pill}
+      </button>`;
+    }).join("");
+  }
+
+  function renderReflection(n){
+    let saved = {};
+    try{ saved = JSON.parse(store.get("ls_reflection")||"{}"); }catch(e){}
+    let html = head(n);
+    n.questions.forEach((qq,i)=>{
+      const val = (saved[i]||"").replace(/</g,"&lt;");
+      const list = qq.list ? `<ol class="qlist">${qq.list.map(li=>`<li>${li}</li>`).join("")}</ol>` : "";
+      html += `<div class="field">
+        <label><span class="qnum">Q${i+1}</span>${qq.q}</label>
+        ${list}
+        <textarea data-ref="${i}" placeholder="Your answer…">${val}</textarea>
+      </div>`;
+    });
+    html += `<div style="display:flex; gap:10px; flex-wrap:wrap; margin-top:8px">
+       <button class="btn accent" id="saveRef">Save answers</button>
+       <button class="btn accent" id="exportAll">Export submission (.txt)</button>
+       <button class="btn" data-go="annotations">Back to research</button>
+     </div>`;
+    return html;
+  }
+
+  function render(){
+    const id = currentId();
+    const n = NODES[id];
+    document.body.classList.toggle("guided", mode==="guided");
+    let html;
+    if(n.type==="reflection"){ html = renderReflection(n); }
+    else if(n.type==="toc"){ html = head(n) + renderRows(n); }
+    else { html = head(n) + (n.body||""); }
+    main.innerHTML = `<div class="docwrap">${html}</div>`;
+    main.scrollTop = 0;
+
+    // active nav item
+    document.querySelectorAll(".navitem").forEach(b=>{
+      b.classList.toggle("active", b.dataset.go===id);
+    });
+    // mode segment
+    document.querySelectorAll("#modeSeg button").forEach(b=>{
+      b.classList.toggle("on", b.dataset.mode===mode);
+      b.disabled = lockMode;
+      b.style.opacity = lockMode ? .5 : 1;
+    });
+
+    // reflection wiring
+    const sv = document.getElementById("saveRef");
+    if(sv){
+      const collect = ()=>{
+        const o={}; document.querySelectorAll("[data-ref]").forEach(t=>o[t.dataset.ref]=t.value);
+        store.set("ls_reflection", JSON.stringify(o)); return o;
+      };
+      sv.onclick = ()=>{ collect(); record("save-reflection", id, id); sv.textContent="Saved ✓"; setTimeout(()=>sv.textContent="Save answers",1400); };
+      document.getElementById("exportAll").onclick = ()=>{ collect(); exportTxt(); };
+    }
+  }
+
+  /* ---- click delegation (all internal navigation) ---- */
+  document.addEventListener("click", function(e){
+    const t = e.target.closest("[data-go]");
+    if(!t) return;
+    e.preventDefault();
+    go(t.dataset.go, t.classList.contains("src")||t.classList.contains("ext")||t.classList.contains("row"));
+    openLog(false);
+  });
+
+  /* ---- log drawer ---- */
+  const drawer=document.getElementById("drawer"), scrim=document.getElementById("scrim"), logBody=document.getElementById("logBody");
+  function openLog(o){ drawer.classList.toggle("open",o); scrim.classList.toggle("open",o); drawer.setAttribute("aria-hidden",!o); }
+  function labelNode(id){ const n=NODES[id]; return n?(n.title||id):id; }
+  function renderLog(){
+    if(!log.length){ logBody.innerHTML=`<div style="padding:24px 18px;color:var(--ink-faint)">No steps recorded yet.</div>`; return; }
+    logBody.innerHTML = log.map(r=>`
+      <div class="logrow act-${r.action}">
+        <span class="seq">${r.seq}</span>
+        <span class="act">${r.action}</span>
+        <span><a class="src loglink" data-go="${r.node}">${labelNode(r.node)}</a><br><span style="color:var(--ink-faint)">${r.type} · ${new Date(r.ts).toLocaleTimeString()}</span></span>
+      </div>`).join("");
+  }
+  document.getElementById("logBtn").onclick=()=>openLog(true);
+  document.getElementById("closeLog").onclick=()=>openLog(false);
+  scrim.onclick=()=>openLog(false);
+  document.getElementById("clearLog").onclick=()=>{ log=[]; store.set("ls_log","[]"); renderLog(); };
+
+  /* ---- exports ---- */
+  function download(name, text, type){
+    const blob=new Blob([text],{type}); const url=URL.createObjectURL(blob);
+    const a=document.createElement("a"); a.href=url; a.download=name; document.body.appendChild(a); a.click();
+    setTimeout(()=>{URL.revokeObjectURL(url); a.remove();},300);
+  }
+  function stripTags(s){ return String(s||"").replace(/<[^>]+>/g," ").replace(/\s+/g," ").trim(); }
+  function exportTxt(){
+    let reflection={}; try{reflection=JSON.parse(store.get("ls_reflection")||"{}");}catch(e){}
+    const L=[];
+    L.push("NOTICE-OF-CLAIM RESEARCH SANDBOX — SESSION EXPORT");
+    L.push("Exercise: The Question Method in Practice");
+    L.push("Exported: "+new Date().toLocaleString());
+    L.push("Researcher's notes: "+(mode==="guided"?"on":"off"));
+    L.push("");
+    L.push("REFLECTION");
+    L.push("----------");
+    const rq=(NODES["reflection"]&&NODES["reflection"].questions)||[];
+    rq.forEach((q,i)=>{
+      L.push((i+1)+". "+stripTags(q.q));
+      if(q.list){ q.list.forEach((li,j)=> L.push("     "+String.fromCharCode(97+j)+". "+stripTags(li))); }
+      L.push("   "+((reflection[i]||"").trim()||"[no answer]"));
+      L.push("");
+    });
+    L.push("RESEARCH LOG (in order)");
+    L.push("------------------------");
+    if(!log.length) L.push("  (no steps recorded)");
+    log.forEach(r=>{ L.push(String(r.seq).padStart(3," ")+". ["+r.action+"] "+labelNode(r.node)+"  —  "+r.type+"  @ "+new Date(r.ts).toLocaleTimeString()); });
+    L.push("");
+    L.push("My commentary on the steps above:");
+    L.push("");
+    download("research-submission.txt", L.join("\n"), "text/plain");
+  }
+  document.getElementById("expTxt").onclick=exportTxt;
+
+  /* ---- mode toggle ---- */
+  document.querySelectorAll("#modeSeg button").forEach(b=>{
+    b.onclick=()=>{ if(lockMode) return; mode=b.dataset.mode; store.set("ls_mode",mode); record("toggle-mode-"+mode, currentId(), currentId()); render(); };
+  });
+
+  /* ---- reset ---- */
+  document.getElementById("resetBtn").onclick=()=>{
+    if(!confirm("Reset this session? Your log and reflection answers will be cleared.")) return;
+    log=[]; store.set("ls_log","[]"); store.set("ls_reflection","{}");
+    location.hash="/"+CORPUS.start; renderLog(); render();
+  };
+
+  /* ---- boot ---- */
+  window.addEventListener("hashchange", ()=>{ /* handled via go(); guard direct edits */ render(); });
+  buildRail();
+  if(!location.hash){ location.hash="/"+CORPUS.start; }
+  record("open", currentId(), null);
+  renderLog();
+  render();
+})();
+</script>
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-3/index.html" target="_top">Ch. 3 · The Question Method of Legal Research</a></p>
+  <p class="modnav-verified">Authorities verified as of 2026-07-09. The law changes — run the method, don’t trust the module.</p>
+  <p class="modnav-next"><a href="checks.html"><span class="dir">Next</span> Your record <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+<script src="../../js/lib.js"></script>
+<script>QM.storageNotice({ session: true, clear: false, parent: document.querySelector(".app") });</script>
+</body>
+</html>

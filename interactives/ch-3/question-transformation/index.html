@@ -1,0 +1,673 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Reverse-Engineering the Question — Ch. 3 · The Question Method of Legal Research</title>
+<meta name="description" content="Watch a finished legal paragraph come apart into the four research questions that built it, then see those same questions become a synthesis table and an annotated outline. Color ties each question to its place in every form.">
+<!-- fallback brand tokens so the page is usable even opened on its own -->
+<style>
+:root{--paper:#eeeeee;--paper-2:#e6e6e6;--panel:#f6f6f4;--ink:#262622;--ink-soft:#54534d;--ink-faint:#6b6a62;
+--rule:#cfcfcf;--rule-strong:#b6b6b6;--flame:#135169;--flame-deep:#0d3d50;--flame-tint:#dcebf2;--callout:#f5efe0;
+--statute:#8a0100;--regulation:#2f6d56;--case:#28406b;--radius:4px;
+--display:"Archivo","Helvetica Neue",Arial,sans-serif;--sans:"Archivo","Helvetica Neue",Arial,sans-serif;--mono:"IBM Plex Mono",ui-monospace,monospace;--serif:"Newsreader",Georgia,serif;
+--shadow:0 1px 2px rgba(20,20,18,.05),0 6px 22px rgba(20,20,18,.07);--shadow-lg:0 2px 6px rgba(20,20,18,.07),0 20px 50px rgba(20,20,18,.12);--maxw:1120px;
+/* Okabe-Ito, colour-blind-safe; color is reinforced everywhere by a Q-label */
+--q1:#0072B2;--q1-tint:#dceaf4;
+--q2:#1a8f6f;--q2-tint:#d8efe7;
+--q3:#d55e00;--q3-tint:#f7e3d5;
+--q4:#a8478b;--q4-tint:#f1e2ec;}
+</style>
+<!--shell:head:start-->
+<link rel="preload" href="../../assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/archivo-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<!--shell:head:end-->
+<style>
+.lede{font-size:1.12rem;color:var(--ink-soft);max-width:none;}
+.howto{margin:18px 0 24px;padding:14px 18px;border-left:4px solid var(--flame);background:var(--callout);
+  border-radius:0 var(--radius) var(--radius) 0;font-size:.96rem;color:var(--ink);max-width:none;}
+.howto b{color:var(--flame-deep);}
+
+/* step scaffolding */
+.step{margin:30px 0 0;}
+.step-tag{font-family:var(--mono);font-size:.7rem;letter-spacing:.12em;text-transform:uppercase;color:var(--ink-faint);
+  display:flex;align-items:center;gap:9px;margin:0 0 10px;}
+.step-tag .n{display:inline-grid;place-items:center;width:22px;height:22px;border-radius:50%;background:var(--ink);
+  color:#fff;font-size:.74rem;font-weight:700;}
+.step h2{margin:0 0 .35em;font-size:1.3rem;}
+.step .intro{color:var(--ink-soft);max-width:none;margin:0 0 16px;font-size:.98rem;}
+
+/* the legend / through-line key */
+.legend{border:1px solid var(--rule-strong);border-radius:8px;background:var(--panel);padding:14px 16px;margin:0 0 8px;}
+.legend h3{font-family:var(--sans);font-size:.68rem;font-weight:700;text-transform:uppercase;letter-spacing:.12em;
+  color:var(--ink-faint);margin:0 0 10px;}
+.legend ol{list-style:none;margin:0;padding:0;display:grid;gap:8px;}
+.legend li{display:flex;gap:10px;align-items:baseline;font-size:.92rem;}
+.qtag{flex:0 0 auto;font-family:var(--sans);font-weight:700;font-size:.72rem;letter-spacing:.04em;border-radius:999px;
+  padding:2px 9px;border:1.5px solid;line-height:1.5;white-space:nowrap;}
+.q1 .qtag,.qtag.q1{color:var(--q1);background:var(--q1-tint);border-color:var(--q1);}
+.q2 .qtag,.qtag.q2{color:var(--q2);background:var(--q2-tint);border-color:var(--q2);}
+.q3 .qtag,.qtag.q3{color:var(--q3);background:var(--q3-tint);border-color:var(--q3);}
+.q4 .qtag,.qtag.q4{color:var(--q4);background:var(--q4-tint);border-color:var(--q4);}
+.legend .qtext{color:var(--ink);}
+.legend .pending{color:var(--ink-faint);font-style:italic;}
+
+/* Stage 1: the finished paragraph as clickable sentences */
+.passage{font-family:var(--serif);font-size:1.18rem;line-height:1.7;color:var(--ink);max-width:none;
+  border:1px solid var(--rule);border-radius:10px;background:#fff;box-shadow:var(--shadow);padding:22px 24px;margin:2px 0 14px;}
+.cite-line{display:block;margin:14px 0 0;font-family:var(--mono);font-size:.78rem;color:var(--ink-faint);}
+.case-name{font-style:italic;}
+
+.sent{display:inline;font:inherit;color:inherit;background:transparent;border:0;border-radius:5px;cursor:pointer;padding:1px 2px;
+  box-decoration-break:clone;-webkit-box-decoration-break:clone;transition:background .15s,box-shadow .15s;position:relative;}
+.sent .face-q{display:none;}
+.sent:hover,.sent:focus-visible{background:var(--accent-tint);box-shadow:inset 0 -2px 0 var(--accent);outline:none;}
+.sent:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+.sent[data-q="1"]{--accent:var(--q1);--accent-tint:var(--q1-tint);}
+.sent[data-q="2"]{--accent:var(--q2);--accent-tint:var(--q2-tint);}
+.sent[data-q="3"]{--accent:var(--q3);--accent-tint:var(--q3-tint);}
+.sent[data-q="4"]{--accent:var(--q4);--accent-tint:var(--q4-tint);}
+.sent .cite{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);font-style:normal;}
+.sent .hint{font-family:var(--sans);font-size:.6rem;font-weight:700;text-transform:uppercase;letter-spacing:.08em;
+  color:var(--accent);border:1.5px solid var(--accent);border-radius:999px;padding:1px 6px;vertical-align:middle;
+  margin-left:4px;white-space:nowrap;}
+
+/* once transformed, the sentence shows its question instead */
+.sent.is-q{display:block;font-family:var(--sans);font-size:1rem;line-height:1.5;background:var(--accent-tint);
+  border-left:4px solid var(--accent);border-radius:0 6px 6px 0;padding:12px 14px;margin:10px 0;box-shadow:none;}
+.sent.is-q .face-s{display:none;}
+.sent.is-q .face-q{display:block;}
+.sent.is-q:hover{box-shadow:none;}
+.sent .qline{display:flex;gap:9px;align-items:baseline;}
+.sent .qq{font-weight:600;color:var(--ink);}
+.sent .src{display:block;margin:7px 0 0 0;font-size:.82rem;color:var(--ink-soft);}
+.sent .src b{color:var(--accent);}
+.sent .src .surveymark{font-family:var(--mono);font-size:.76rem;}
+
+.reset-row{margin:4px 0 0;}
+.linkbtn{font:inherit;font-size:.85rem;font-weight:600;color:var(--flame);background:transparent;border:0;cursor:pointer;
+  text-decoration:underline;text-underline-offset:3px;padding:4px 2px;}
+.linkbtn:focus-visible{outline:3px solid var(--flame);outline-offset:2px;border-radius:3px;}
+
+.aside{margin:14px 0 0;padding:13px 16px;border:1px solid var(--rule-strong);border-left:4px solid var(--case);
+  background:var(--case-tint,#dde2ed);border-radius:0 var(--radius) var(--radius) 0;font-size:.92rem;color:var(--ink);max-width:none;}
+.aside[hidden]{display:none;}
+.aside b{color:var(--case);}
+
+/* reveal buttons */
+.reveal{margin:18px 0 0;}
+.reveal .btn[disabled]{opacity:.5;cursor:not-allowed;}
+.nudge{font-size:.82rem;color:var(--ink-faint);margin:6px 0 0;}
+
+/* Stage 2: table */
+.tablewrap{overflow-x:auto;border:1px solid var(--rule-strong);border-radius:8px;box-shadow:var(--shadow);background:#fff;margin:2px 0 0;}
+table.syn{border-collapse:collapse;width:100%;min-width:680px;font-size:.9rem;}
+table.syn caption{text-align:left;padding:12px 14px;font-size:.8rem;color:var(--ink-faint);}
+table.syn th,table.syn td{border:1px solid var(--rule);padding:11px 13px;vertical-align:top;text-align:left;}
+table.syn thead th{background:var(--panel);font-family:var(--sans);font-weight:600;font-size:.85rem;color:var(--ink);}
+table.syn thead th .qtag{display:inline-block;margin:0 0 6px;}
+table.syn thead th .colq{display:block;font-weight:500;color:var(--ink-soft);font-size:.82rem;line-height:1.35;}
+table.syn th[scope="row"]{background:#fff;font-family:var(--serif);font-style:italic;font-size:.95rem;white-space:nowrap;}
+table.syn th[scope="row"] .yr{font-family:var(--mono);font-style:normal;font-size:.74rem;color:var(--ink-faint);display:block;}
+.cell-q1{border-top:3px solid var(--q1)!important;}
+.cell-q2{border-top:3px solid var(--q2)!important;}
+.cell-q3{border-top:3px solid var(--q3)!important;}
+.cell-q4{border-top:3px solid var(--q4)!important;}
+.ph{position:relative;text-align:center;color:var(--ink-faint);font-family:var(--mono);font-size:.78rem;
+  background-image:repeating-linear-gradient(45deg,transparent,transparent 6px,rgba(0,0,0,.04) 6px,rgba(0,0,0,.04) 7px);}
+.ph-q1{background-color:var(--q1-tint);}
+.ph-q2{background-color:var(--q2-tint);}
+.ph-q3{background-color:var(--q3-tint);}
+.ph-q4{background-color:var(--q4-tint);}
+.survey-cell{font-family:var(--sans);font-size:.84rem;color:var(--ink-soft);}
+.survey-cell .surveymark{font-family:var(--mono);font-size:.76rem;color:var(--q4);font-weight:600;}
+
+/* Stage 3: outline */
+.outline{border:1px solid var(--rule-strong);border-radius:8px;background:#fff;box-shadow:var(--shadow);padding:8px 6px;margin:2px 0 0;}
+.oh{margin:0;padding:14px 16px 6px;}
+.oh .qtag{margin-right:9px;}
+.oh .ohq{font-family:var(--sans);font-weight:700;font-size:1.02rem;color:var(--ink);}
+.outline .oitem{border-left:4px solid var(--accent);background:var(--accent-tint);margin:0 16px 14px;border-radius:0 6px 6px 0;padding:11px 14px;}
+.outline .oitem.q1{--accent:var(--q1);--accent-tint:var(--q1-tint);}
+.outline .oitem.q2{--accent:var(--q2);--accent-tint:var(--q2-tint);}
+.outline .oitem.q3{--accent:var(--q3);--accent-tint:var(--q3-tint);}
+.outline .oitem.q4{--accent:var(--q4);--accent-tint:var(--q4-tint);}
+.outline ul{margin:0;padding:0 0 0 20px;}
+.outline li{margin:0 0 6px;font-size:.93rem;color:var(--ink);line-height:1.5;}
+.outline li.placeholder{color:var(--ink-faint);font-style:italic;}
+.outline .src{font-family:var(--mono);font-size:.74rem;color:var(--ink-faint);}
+
+.transform-note{margin:26px 0 0;padding:18px 20px;border:1px solid var(--rule-strong);border-left:4px solid var(--flame);
+  background:var(--callout);border-radius:0 var(--radius) var(--radius) 0;font-size:.96rem;color:var(--ink);max-width:none;}
+.transform-note h2{margin:0 0 .4em;font-size:1.05rem;}
+.transform-note a{color:var(--flame-deep);font-weight:600;}
+
+#export-slot{margin-top:30px;}
+.sr-only{position:absolute;width:1px;height:1px;padding:0;margin:-1px;overflow:hidden;clip:rect(0,0,0,0);white-space:nowrap;border:0;}
+
+@media (prefers-reduced-motion: reduce){.sent{transition:none;}}
+section[hidden]{display:none;}
+</style>
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body class="shell">
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html" aria-current="page">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-3/index.html" target="_top">Ch. 3</a>
+      <a class="pn-link pn-title on" href="index.html">Reverse-Engineering the Question</a>
+      <a class="pn-link" href="checks.html">Your record</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+
+<main id="main">
+  <div class="wrap ch-wrap">
+    <a class="cs-back" href="../../../index.html" target="_top">&larr; All modules</a>
+    <p class="ch-eyebrow">Chapter 3 · Educational</p>
+    <h1>Reverse-Engineering the Question</h1>
+    <p class="lede">A finished legal paragraph is really a stack of answers. Underneath each sentence is the research question it answers &mdash; and those questions are not just how you <em>found</em> the law. They are the architecture of everything you write next.</p>
+
+    <div class="howto">
+      Below is a real passage from a federal opinion. <b>Click each sentence</b> to turn it back into the question it answers. Then watch those same four questions become a <b>synthesis table</b> and an <b>annotated outline</b>. One color follows each question through every form, so you can see the structure hold.
+    </div>
+
+    <!-- through-line legend -->
+    <div class="legend" aria-label="The four research questions">
+      <h3>The four questions <span style="font-weight:400;text-transform:none;letter-spacing:0;">(fill in as you reveal them)</span></h3>
+      <ol id="legend">
+        <li class="q1"><span class="qtag q1">Q1</span><span class="qtext pending" data-q="1">Click the first sentence to reveal&hellip;</span></li>
+        <li class="q2"><span class="qtag q2">Q2</span><span class="qtext pending" data-q="2">Click the second sentence to reveal&hellip;</span></li>
+        <li class="q3"><span class="qtag q3">Q3</span><span class="qtext pending" data-q="3">Click the third sentence to reveal&hellip;</span></li>
+        <li class="q4"><span class="qtag q4">Q4</span><span class="qtext pending" data-q="4">Click the fourth sentence to reveal&hellip;</span></li>
+      </ol>
+    </div>
+
+    <!-- ================= STAGE 1 : the paragraph ================= -->
+    <section class="step" aria-labelledby="s1h">
+      <p class="step-tag"><span class="n">1</span> The finished paragraph</p>
+      <h2 id="s1h" class="sr-only">The finished paragraph</h2>
+      <p class="intro">From <span class="case-name">Oakland Police &amp; Fire Ret. Sys. v. Brown</span>, 861 F.3d 644. Each sentence answers one research question.</p>
+
+      <div class="passage" id="passage">
+        <button class="sent" data-q="1" type="button" aria-pressed="false">
+          <span class="face-s">In the vast majority of legal malpractice cases, the plaintiff was a client of the defendant-attorney, and the direct attorney-client relationship establishes the attorney&rsquo;s professional duties to the client.<span class="hint">Q1 &middot; click</span></span>
+          <span class="face-q"><span class="qline"><span class="qtag q1">Q1</span><span class="qq">Under Illinois law, what is the general scope of legal malpractice law?</span></span><span class="src">Answered by <b>one source</b> &mdash; <span class="case-name">Pelham v. Griesheimer</span>. A settled point of law usually rests on a single citation.</span></span>
+        </button>
+        <span class="cite"> </span>
+        <button class="sent" data-q="2" type="button" aria-pressed="false">
+          <span class="face-s"> There is a small corner of legal malpractice law, however, in which Illinois recognizes that attorneys owe professional duties to persons who are not their clients.<span class="hint">Q2 &middot; click</span></span>
+          <span class="face-q"><span class="qline"><span class="qtag q2">Q2</span><span class="qq">Are attorneys ever found to owe a duty to non-clients?</span></span><span class="src">Answered by <b>one source</b> &mdash; <span class="case-name">Pelham v. Griesheimer</span>.</span></span>
+        </button>
+        <button class="sent" data-q="3" type="button" aria-pressed="false">
+          <span class="face-s"> In Pelham, the Illinois Supreme Court held that an attorney may owe a duty to a third party when &ldquo;the primary purpose and intent of the attorney-client relationship itself was to benefit or influence the third party.&rdquo;<span class="hint">Q3 &middot; click</span></span>
+          <span class="face-q"><span class="qline"><span class="qtag q3">Q3</span><span class="qq">What are the requirements for that exception to the general rule?</span></span><span class="src">Answered by <b>one source</b> &mdash; the holding in <span class="case-name">Pelham</span>, <span style="font-family:var(--mono)">Id. at 100</span>.</span></span>
+        </button>
+        <button class="sent" data-q="4" type="button" aria-pressed="false">
+          <span class="face-s"> Examples of third parties to whom attorneys owe a duty include third-party beneficiaries of wills, third-party beneficiaries of wrongful death actions, and third-party recipients of formal opinion letters.<span class="hint">Q4 &middot; click</span></span>
+          <span class="face-q"><span class="qline"><span class="qtag q4">Q4</span><span class="qq">What are some examples of non-client parties an attorney might owe a duty to?</span></span><span class="src">Answered by a <b>survey across several cases</b> <span class="surveymark">[string cite]</span> &mdash; a clue that this is a <b>survey question</b>.</span></span>
+        </button>
+        <span class="cite-line"><span class="case-name">Pelham v. Griesheimer</span>, 92 Ill. 2d 13, 440 N.E.2d 96, 99 (Ill. 1982).</span>
+      </div>
+
+      <p class="reset-row"><button class="linkbtn" id="reset-sents" type="button">&#8635; Put the paragraph back</button></p>
+
+      <div class="aside" id="survey-aside" hidden>
+        <b>Notice the last one.</b> Three of these questions are answered by a single case &mdash; that is normal for settled points of law. The examples sentence is different: in the real opinion it carries a <em>string of citations</em>, because the answer comes from surveying several cases. When one proposition leans on many citations, that usually signals a <b>survey question</b>.
+      </div>
+
+      <div class="reveal">
+        <button class="btn" id="to-table" type="button">Now show these as a synthesis table &rarr;</button>
+        <p class="nudge" id="table-nudge">Tip: reveal the questions above first &mdash; the table is built from them.</p>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 2 : the table ================= -->
+    <section class="step" id="stage-table" aria-labelledby="s2h" hidden>
+      <p class="step-tag"><span class="n">2</span> The same questions, as a table</p>
+      <h2 id="s2h">Questions across the top, cases down the side</h2>
+      <p class="intro">The questions become the <b>columns</b>. Each case you read becomes a <b>row</b>, and each cell holds that court&rsquo;s answer to that question. Here only <span class="case-name">Pelham</span> is filled in &mdash; the other rows are placeholders, to show the <em>shape</em> of multi-case synthesis without inventing law that isn&rsquo;t there.</p>
+
+      <div class="tablewrap">
+        <table class="syn">
+          <caption>Synthesis grid &mdash; legal malpractice duty to non-clients (Illinois)</caption>
+          <thead>
+            <tr>
+              <th scope="col">Case</th>
+              <th scope="col" class="cell-q1"><span class="qtag q1">Q1</span><span class="colq">General scope of malpractice law?</span></th>
+              <th scope="col" class="cell-q2"><span class="qtag q2">Q2</span><span class="colq">Duty to non-clients ever owed?</span></th>
+              <th scope="col" class="cell-q3"><span class="qtag q3">Q3</span><span class="colq">Requirements for the exception?</span></th>
+              <th scope="col" class="cell-q4"><span class="qtag q4">Q4</span><span class="colq">Examples of non-client parties?</span></th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <th scope="row"><span class="case-name">Pelham v. Griesheimer</span><span class="yr">Ill. 1982</span></th>
+              <td>Most malpractice plaintiffs are the attorney&rsquo;s own client; the attorney&ndash;client relationship is what creates the duty.</td>
+              <td>Illinois recognizes a narrow exception &mdash; attorneys can owe duties to certain non-clients.</td>
+              <td>The duty arises only when the primary purpose and intent of the attorney&ndash;client relationship was to benefit or influence the third party.</td>
+              <td class="survey-cell"><span class="surveymark">Survey question.</span> Answered across several cases, not <span class="case-name">Pelham</span> alone &mdash; see the rows below.</td>
+            </tr>
+            <tr>
+              <th scope="row">A second case <span class="yr">(placeholder)</span></th>
+              <td class="ph ph-q1">&mdash;<span class="sr-only">Placeholder. A second case would fill in its answer to Q1 here.</span></td>
+              <td class="ph ph-q2">&mdash;<span class="sr-only">Placeholder. A second case would fill in its answer to Q2 here.</span></td>
+              <td class="ph ph-q3">&mdash;<span class="sr-only">Placeholder. A second case would fill in its answer to Q3 here.</span></td>
+              <td class="ph ph-q4">&mdash;<span class="sr-only">Placeholder. A second case would fill in an example of a non-client party here.</span></td>
+            </tr>
+            <tr>
+              <th scope="row">A third case <span class="yr">(placeholder)</span></th>
+              <td class="ph ph-q1">&mdash;<span class="sr-only">Placeholder. A third case would fill in its answer to Q1 here.</span></td>
+              <td class="ph ph-q2">&mdash;<span class="sr-only">Placeholder. A third case would fill in its answer to Q2 here.</span></td>
+              <td class="ph ph-q3">&mdash;<span class="sr-only">Placeholder. A third case would fill in its answer to Q3 here.</span></td>
+              <td class="ph ph-q4">&mdash;<span class="sr-only">Placeholder. A third case would fill in an example of a non-client party here.</span></td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+
+      <div class="reveal">
+        <button class="btn" id="to-outline" type="button">Now turn the table into an annotated outline &rarr;</button>
+      </div>
+    </section>
+
+    <!-- ================= STAGE 3 : the outline ================= -->
+    <section class="step" id="stage-outline" aria-labelledby="s3h" hidden>
+      <p class="step-tag"><span class="n">3</span> The same questions, as an outline</p>
+      <h2 id="s3h">Each question is a heading; the answers are the notes beneath it</h2>
+      <p class="intro">Stand the columns up on end and you have your annotated outline &mdash; the very thing that becomes your draft. The questions are the headings; the synthesized answers are the bullets; the colors are unchanged.</p>
+
+      <div class="outline">
+        <div class="oitem q1">
+          <p class="oh"><span class="qtag q1">Q1</span><span class="ohq">General scope of Illinois legal malpractice law</span></p>
+          <ul>
+            <li>Most malpractice plaintiffs were clients of the defendant-attorney; the direct attorney&ndash;client relationship is what establishes the attorney&rsquo;s duties. <span class="src">&mdash; Pelham, 92 Ill. 2d 13</span></li>
+          </ul>
+        </div>
+        <div class="oitem q2">
+          <p class="oh"><span class="qtag q2">Q2</span><span class="ohq">Whether a duty is ever owed to non-clients</span></p>
+          <ul>
+            <li>Illinois recognizes a narrow exception in which attorneys owe professional duties to persons who are not their clients. <span class="src">&mdash; Pelham</span></li>
+          </ul>
+        </div>
+        <div class="oitem q3">
+          <p class="oh"><span class="qtag q3">Q3</span><span class="ohq">Requirements for the non-client exception</span></p>
+          <ul>
+            <li>A duty runs to a third party only when the primary purpose and intent of the attorney&ndash;client relationship was to benefit or influence that third party. <span class="src">&mdash; Pelham, Id. at 100</span></li>
+          </ul>
+        </div>
+        <div class="oitem q4">
+          <p class="oh"><span class="qtag q4">Q4</span><span class="ohq">Examples of non-client parties owed a duty <span style="font-weight:500;font-size:.82rem;color:var(--ink-soft)">(survey question)</span></span></p>
+          <ul>
+            <li>Third-party beneficiaries of wills.</li>
+            <li>Third-party beneficiaries of wrongful-death actions.</li>
+            <li>Third-party recipients of formal opinion letters.</li>
+            <li class="placeholder">[further cases from the survey would be pinned here]</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="transform-note">
+        <h2>That is the whole point of the method</h2>
+        <p>One set of questions, three forms &mdash; recovered from a finished paragraph, laid out as a synthesis table, stood up as an outline. The questions are the structure that carries your research from reading to writing. Here you worked <em>backward</em> from a finished paragraph; when you research, you work <em>forward</em> toward one.</p>
+        <p>Try running the chain forward yourself in <a href="../../../ch-3/index.html" target="_top">Working the Chain</a>, or see it inside a real problem in <a href="../question-method/index.html">Notice of Claim</a>.</p>
+      </div>
+    </section>
+
+    
+  </div>
+</main>
+
+<!-- live region for transform announcements -->
+<div id="live" class="sr-only" role="status" aria-live="polite"></div>
+
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-3/index.html" target="_top">Ch. 3 · The Question Method of Legal Research</a></p>
+  <p class="modnav-next"><a href="checks.html"><span class="dir">Next</span> Your record <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+
+<script src="../../js/export-reflect.js"></script>
+<script>
+(function(){
+  if (window.ExportReflect) ExportReflect.collect({ module: "Reverse-Engineering the Question", chapter: "Chapter 3 — The Question Method", session: "qm_er_question_transformation" });
+  "use strict";
+
+  var QTEXT = {
+    1:"Under Illinois law, what is the general scope of legal malpractice law?",
+    2:"Are attorneys ever found to owe a duty to non-clients?",
+    3:"What are the requirements for that exception to the general rule?",
+    4:"What are some examples of non-client parties an attorney might owe a duty to?"
+  };
+
+  var live = document.getElementById("live");
+  var revealed = {};
+
+  function announce(msg){ live.textContent = ""; setTimeout(function(){ live.textContent = msg; }, 30); }
+
+  function fillLegend(q){
+    var node = document.querySelector('#legend .qtext[data-q="'+q+'"]');
+    if(node){ node.textContent = QTEXT[q]; node.classList.remove("pending"); }
+  }
+
+  var sents = Array.prototype.slice.call(document.querySelectorAll(".sent"));
+  sents.forEach(function(b){
+    var q = b.getAttribute("data-q");
+    b.addEventListener("click", function(){
+      var nowQ = !b.classList.contains("is-q");
+      b.classList.toggle("is-q", nowQ);
+      b.setAttribute("aria-pressed", nowQ ? "true" : "false");
+      if(nowQ){
+        fillLegend(q);
+        announce("Q"+q+". "+QTEXT[q]);
+        if(!revealed[q]){
+          revealed[q] = true;
+          if(window.ExportReflect) ExportReflect.log("Revealed the question behind a sentence", "Q"+q+": "+QTEXT[q]);
+        }
+        if(q==="4") document.getElementById("survey-aside").hidden = false;
+        // soften the table nudge once they've started revealing
+        if(Object.keys(revealed).length >= 4){
+          var n = document.getElementById("table-nudge"); if(n) n.style.display = "none";
+        }
+      }
+    });
+  });
+
+  document.getElementById("reset-sents").addEventListener("click", function(){
+    sents.forEach(function(b){ b.classList.remove("is-q"); b.setAttribute("aria-pressed","false"); });
+    announce("Paragraph restored to its original sentences.");
+    if(sents[0]) sents[0].focus();
+  });
+
+  /* ---- stage reveals ---- */
+  var tableShown = false, outlineShown = false;
+  document.getElementById("to-table").addEventListener("click", function(){
+    // make sure every question is revealed first, so the table is grounded
+    sents.forEach(function(b){
+      var q = b.getAttribute("data-q");
+      if(!b.classList.contains("is-q")){ b.classList.add("is-q"); b.setAttribute("aria-pressed","true"); fillLegend(q);
+        if(!revealed[q]){ revealed[q]=true; if(window.ExportReflect) ExportReflect.log("Revealed the question behind a sentence","Q"+q+": "+QTEXT[q]); } }
+    });
+    document.getElementById("survey-aside").hidden = false;
+    var n = document.getElementById("table-nudge"); if(n) n.style.display = "none";
+    var s = document.getElementById("stage-table");
+    s.hidden = false;
+    this.disabled = true; this.textContent = "Table built \u2713";
+    if(!tableShown){ tableShown = true; if(window.ExportReflect) ExportReflect.log("Built the synthesis table","questions \u2192 columns, cases \u2192 rows"); }
+    document.getElementById("s2h").focus && document.getElementById("s2h").setAttribute("tabindex","-1");
+    document.getElementById("s2h").focus();
+  });
+
+  document.getElementById("to-outline").addEventListener("click", function(){
+    var s = document.getElementById("stage-outline");
+    s.hidden = false;
+    this.disabled = true; this.textContent = "Outline built \u2713";
+    if(!outlineShown){ outlineShown = true; if(window.ExportReflect) ExportReflect.log("Built the annotated outline","columns \u2192 headings; answers \u2192 bullets"); }
+    var h = document.getElementById("s3h"); h.setAttribute("tabindex","-1"); h.focus();
+  });
+
+  /* ---- export + reflection (mostly reflection — this module is watched) ---- */
+  
+})();
+</script>
+</body>
+</html>

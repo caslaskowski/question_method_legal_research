@@ -1,0 +1,527 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Weigh the Agency Materials — Ch. 13 · Advanced Administrative Materials</title>
+<meta name="description" content="Seven client situations turning on agency materials — which binds, which persuades, and where each answer lives. Kind reasoning under every option.">
+<!--shell:head:start-->
+<link rel="preload" href="../../assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/archivo-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<!--shell:head:end-->
+<style>
+  .pagewrap{margin:0 auto;padding:26px 28px 10px;max-width:1100px;}
+  .lede{font-size:1.06rem;line-height:1.65;color:var(--ink-soft);margin:6px 0 14px;}
+  .howto{background:var(--callout);border:1px solid var(--rule-strong);border-left:4px solid var(--flame);border-radius:8px;padding:12px 16px;font-size:.94rem;margin:0 0 18px;}
+  h2.sec{font-size:1.3rem;margin:26px 0 4px;}
+  .secdesc{color:var(--ink-soft);margin:0 0 14px;line-height:1.6;}
+  .tally{font-family:var(--mono);font-size:.76rem;letter-spacing:.06em;color:var(--ink-soft);margin:0 0 16px;}
+  .card{background:#fff;border:1.5px solid var(--rule-strong);border-radius:10px;box-shadow:var(--shadow);padding:16px 20px;margin:0 0 16px;}
+  .card .num{font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:var(--flame);margin:0 0 5px;}
+  .card .task{font-weight:600;font-size:1rem;line-height:1.55;margin:0 0 12px;}
+  .opts{display:flex;flex-direction:column;gap:8px;}
+  .opt{font:inherit;text-align:left;background:var(--panel);border:1px solid var(--rule-strong);border-radius:8px;padding:10px 13px;cursor:pointer;line-height:1.5;}
+  .opt:hover{border-color:var(--flame);}
+  .opt:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+  .opt[disabled]{cursor:default;opacity:.92;}
+  .opt.good{border-color:#2e6b34;background:#e5efe0;}
+  .opt.bad{border-color:var(--flame);background:#f6e2dc;}
+  .why{display:block;font-weight:400;font-size:.85rem;color:var(--ink-soft);margin-top:5px;line-height:1.5;}
+  .fb{margin:12px 0 0;font-size:.92rem;line-height:1.55;color:var(--ink-soft);border-left:3px solid var(--rule-strong);padding:2px 0 2px 11px;}
+  .panel{background:#fff;border:1.5px solid var(--rule-strong);border-radius:9px;padding:14px 18px;margin:0 0 14px;}
+  .panel h3{font-size:1.02rem;margin:0 0 4px;}
+  .panel .w{display:inline-block;font-family:var(--mono);font-size:.6rem;letter-spacing:.08em;text-transform:uppercase;border-radius:99px;padding:1px 8px;border:1px solid;margin:0 0 8px;}
+  .wb{color:#2e6b34;border-color:#2e6b34;background:#e5efe0;}
+  .wp{color:#7a5a00;border-color:#c9a84c;background:#f7efd8;}
+  .panel p{font-size:.9rem;line-height:1.62;margin:0 0 8px;}
+  .panel .use{font-size:.86rem;line-height:1.55;border-top:1px dashed var(--rule-strong);padding-top:7px;margin:0;}
+  .panel .use b{color:var(--flame);}
+  .uni{background:#fff;border:1px solid var(--rule-strong);border-radius:10px;box-shadow:var(--shadow);overflow:hidden;margin:0 0 14px;}
+  .uni .utag{display:block;background:var(--flame);border-bottom:1px solid var(--flame-deep);font-family:var(--mono);font-size:.66rem;letter-spacing:.1em;text-transform:uppercase;color:#fff;padding:7px 16px;}
+  .uni .ubody{padding:14px 18px;}
+  .uni h3{font-size:.98rem;margin:0 0 4px;}
+  .uni .ucite{font-family:var(--mono);font-size:.7rem;color:var(--ink-soft);display:block;margin:0 0 6px;}
+  .uni .uex{font-family:"Newsreader",Georgia,serif;font-size:.92rem;line-height:1.65;background:var(--panel);border-radius:7px;padding:10px 13px;margin:0 0 14px;}
+  .ctx{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:0 0 14px;}
+  .ctxcard{background:#fff;border:1.5px solid var(--rule-strong);border-radius:9px;padding:14px 17px;}
+  .ctxcard h3{font-size:1rem;margin:0 0 8px;}
+  .ctxcard dl{margin:0;font-size:.86rem;line-height:1.55;}
+  .ctxcard dt{font-family:var(--mono);font-size:.62rem;letter-spacing:.08em;text-transform:uppercase;color:var(--flame);margin:8px 0 2px;}
+  .ctxcard dd{margin:0;color:var(--ink-soft);}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+  }
+</style>
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body class="shell">
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html" aria-current="page">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-13/index.html" target="_top">Ch. 13</a>
+      <a class="pn-link pn-title on" href="index.html">Weigh the Agency Materials</a>
+      <a class="pn-link" href="checks.html">Your record</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+
+<main id="main">
+  <div class="pagewrap">
+    <h1>Weigh the Agency Materials</h1>
+    <p class="lede">Seven situations, each turning on which agency material controls — or merely persuades. The recurring move: name what kind of document you are holding before you tell anyone what it requires.</p>
+    <div class="howto"><b>How to use this:</b> make the call, then read the reasoning under every option — each one either confirms the distinction or points to the panel worth rereading. All scenarios are fictional.</div>
+
+    <h2 class="sec">Seven situations</h2>
+    <p class="tally" id="tally">0 of 7 answered</p>
+    <div id="deck"></div>
+    
+  </div>
+</main>
+
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-13/index.html" target="_top">Ch. 13 · Advanced Administrative Research</a></p>
+  <p class="modnav-verified">Authorities verified as of 2026-07-10. The law changes — run the method, don’t trust the module.</p>
+  <p class="modnav-next"><a href="checks.html"><span class="dir">Next</span> Your record <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+
+<script src="../../js/lib.js"></script>
+<script src="../../js/export-reflect.js"></script>
+<script>
+(function(){
+  if (window.ExportReflect) ExportReflect.collect({ module: "Weigh the Agency Materials", chapter: "Chapter 13 \u2014 Advanced Administrative Law Research", session: "qm_er_weigh_the_agency_materials" });
+
+  "use strict";
+  var el = QM.el;
+  var CARDS = [
+  {
+    "task": "The agency's website FAQ says one thing; the codified regulation says another. Which do you advise the client follows?",
+    "opts": [
+      {
+        "t": "The regulation — and flag the FAQ conflict in your file",
+        "why": "Correct. The regulation has the force of law; a FAQ is guidance and cannot quietly amend it. Documenting the conflict is the professional touch — an enforcement posture built on the FAQ is a real practical risk worth recording.",
+        "good": true
+      },
+      {
+        "t": "The FAQ — it's more recent and shows current agency thinking",
+        "why": "Recency is a fair instinct for cases and statutes, but it doesn't convert guidance into law. A document that skipped notice-and-comment cannot amend one that went through it. (Review Beyond the Rule's guidance panel.)"
+      },
+      {
+        "t": "Whichever is stricter, to be safe",
+        "why": "Sometimes prudent operationally — but as legal advice it leaves the client's actual question unanswered: what is required. Name the binding source first, then discuss risk posture."
+      }
+    ]
+  },
+  {
+    "task": "Your client asks: “this policy statement — do we have to comply?” Your answer:",
+    "opts": [
+      {
+        "t": "“Not legally required — it lacks the force of law — but here is why following it may still be the right call”",
+        "why": "Correct — the chapter's core client-advice move: name the document type first. Guidance binds no one, and enforcement reality means the advice rarely ends at 'no.'",
+        "good": true
+      },
+      {
+        "t": "“Yes — the agency issued it”",
+        "why": "It's natural to equate 'official' with 'binding,' and this is exactly the confusion the chapter works to separate: issuance isn't rulemaking. Without notice-and-comment there is no force of law."
+      },
+      {
+        "t": "“No, and it's irrelevant to you”",
+        "why": "The first half is right; the second half drops the practical reality. Legally optional but practically weighty — the second sentence of the answer is part of competent advice."
+      }
+    ]
+  },
+  {
+    "task": "You need the most detailed interpretation of a dense regulation anywhere in existence. Best bet?",
+    "opts": [
+      {
+        "t": "The agency's adjudicated decisions applying it",
+        "why": "Correct — adjudications are often the most detailed interpretations available: the agency reasoning through its own rule on litigated facts. (Review the adjudication panel if this one surprised you.)",
+        "good": true
+      },
+      {
+        "t": "The regulation's own text, read harder",
+        "why": "The text states the rule — a necessary start, but interpretation lives in what the agency has done with it. When rereading stops yielding, that's the signal to move to the decisions."
+      },
+      {
+        "t": "A treatise on administrative law generally",
+        "why": "A treatise maps the field, and it's the right opening move for orientation — but your specific regulation's application lives in the agency's own decisions and the final rule's preamble."
+      }
+    ]
+  },
+  {
+    "task": "A document on the agency's site reads like a command — “covered entities must submit…” Before you tell the client it's binding, the reliable test is:",
+    "opts": [
+      {
+        "t": "Whether it went through notice-and-comment — is it a promulgated rule, or guidance?",
+        "why": "Correct — procedure, not tone, confers force. Mandatory-sounding language appears in manuals and FAQs all the time; what separates a requirement from a preference is the rulemaking process behind it.",
+        "good": true
+      },
+      {
+        "t": "Whether the language uses “must” and “shall”",
+        "why": "Drafting tone is the tempting shortcut, and it's exactly the trap: guidance frequently borrows command language. The test is the process the document went through, not the verbs it uses."
+      },
+      {
+        "t": "Whether it appears on the agency's official website",
+        "why": "Everything on the site is official in the loose sense — regulations, guidance, press releases alike. Location tells you the author; process tells you the force."
+      }
+    ]
+  },
+  {
+    "task": "The agency rescinds a guidance document overnight, no comment period, and issues a stricter one. Can it do that?",
+    "opts": [
+      {
+        "t": "Yes — what never had the force of law can change without rulemaking",
+        "why": "Correct — this is the flip side of guidance's weakness: it moves fast precisely because it skipped the process that confers force. Amending an actual regulation is a different, slower story.",
+        "good": true
+      },
+      {
+        "t": "No — changing rules requires notice-and-comment",
+        "why": "Right principle, wrong document: changing regulations requires it. Guidance was never a rule in that sense — its speed and its weakness come from the same place."
+      },
+      {
+        "t": "Only with court approval",
+        "why": "Courts review agency action when someone challenges it; they don't pre-clear changes. If this tempted you, revisit how guidance differs from adjudication."
+      }
+    ]
+  },
+  {
+    "task": "You need the agency's explanation of why a final rule reads the way it does, including its answers to objections. Where?",
+    "opts": [
+      {
+        "t": "The final rule's preamble in the Federal Register",
+        "why": "Correct — Chapter 7's lesson doing Chapter 13 work: the preamble is the agency's own explanation, and it never gets codified. The CFR keeps the rule; the Federal Register keeps the reasons.",
+        "good": true
+      },
+      {
+        "t": "The CFR section itself",
+        "why": "A sensible first guess — but the CFR carries only the operative text. The explanation stayed behind in the Federal Register preamble. (Review How to Read a Regulation.)"
+      },
+      {
+        "t": "The enabling statute",
+        "why": "The statute grants the power; the agency's reasoning about how it used that power lives in the preamble. Different documents, different questions."
+      }
+    ]
+  },
+  {
+    "task": "Opposing counsel argues the court is required to accept the agency's reading of an ambiguous statute. Your research-grounded response:",
+    "opts": [
+      {
+        "t": "Courts aren't bound by agency readings, and such views carry less weight than they once did — then bring the current framework from your administrative law materials",
+        "why": "Correct — and note the honest division of labor: the research point (persuades, doesn't bind, and less than before) is yours to make; the precise doctrinal framework for how courts weigh agency views now is what the doctrine course and current caselaw supply.",
+        "good": true
+      },
+      {
+        "t": "Concede — expertise has always commanded deference",
+        "why": "If this felt right, your model of the landscape may be a few years out of date — a genuinely easy thing to have happen here, because this area moved recently. The working rule: consideration, not obedience."
+      },
+      {
+        "t": "Respond that agency views can't even be cited",
+        "why": "An overcorrection — agency views remain citable and can persuade. What they lost is the entitlement to control the outcome, not their voice."
+      }
+    ]
+  }
+];
+
+  var deck = document.getElementById("deck"), tally = document.getElementById("tally");
+  var done = 0, right = 0;
+  CARDS.forEach(function (C, i) {
+    var card = el("div", { class: "card" });
+    card.appendChild(el("p", { class: "num" }, ["Situation " + (i + 1) + " of " + CARDS.length]));
+    card.appendChild(el("p", { class: "task" }, [C.task]));
+    var wrap = el("div", { class: "opts", role: "group", "aria-label": "Choices for item " + (i + 1) });
+    var fb = el("div", { class: "fb", role: "status", "aria-live": "polite" });
+    var locked = false;
+    C.opts.forEach(function (o) {
+      var b = el("button", { class: "opt", type: "button" }, [o.t]);
+      b.addEventListener("click", function () {
+        if (locked) return;
+        locked = true;
+        wrap.querySelectorAll(".opt").forEach(function (x, xi) {
+          x.disabled = true;
+          var O = C.opts[xi];
+          if (O.good) x.classList.add("good");
+          else if (x === b) x.classList.add("bad");
+          x.appendChild(el("span", { class: "why" }, [O.why]));
+        });
+        var ok = !!o.good;
+        done++; if (ok) right++;
+        tally.textContent = done + " of " + CARDS.length + " answered \u00b7 " + right + " correct";
+        fb.textContent = "";
+        window.setTimeout(function(){ fb.textContent = ok
+          ? "Right. Read the other options \u2014 the near-misses teach the boundaries."
+          : "The best answer is marked in green \u2014 the reasoning under each option shows why."; }, 30);
+        if (window.ExportReflect) ExportReflect.log("Situation " + (i + 1) + " \u2014 " + C.task.slice(0, 60),
+          (ok ? "correct" : "chose: " + o.t.slice(0, 50)));
+        if (done === CARDS.length && window.ExportReflect) ExportReflect.log("Deck complete", right + " / " + CARDS.length);
+      });
+      wrap.appendChild(b);
+    });
+    card.appendChild(wrap);
+    card.appendChild(fb);
+    deck.appendChild(card);
+  });
+
+  
+})();
+</script>
+</body>
+</html>

@@ -1,0 +1,48 @@
+/* Browse-modules menu — extracted for pages outside the standard shell (suites). */
+.modmenu{ position: relative; }
+.modmenu > summary{
+  font-family: var(--sans); font-size:.92rem; font-weight:600; color: var(--ink-soft);
+  cursor: pointer; list-style: none; display: inline-flex; align-items: center; gap:.4em;
+  padding: 2px 0; }
+.modmenu > summary::-webkit-details-marker{ display:none; }
+.modmenu > summary::after{ content:"\25BE"; font-size:.7em; transition: transform .15s ease; }
+.modmenu[open] > summary, .modmenu > summary:hover{ color: var(--flame); }
+.modmenu[open] > summary::after{ transform: rotate(180deg); }
+.modmenu > summary .mm-label-open{ display:none; }
+.modmenu[open] > summary .mm-label-default{ display:none; }
+.modmenu[open] > summary .mm-label-open{ display:inline; }
+.modmenu-panel{
+  position: absolute; right: 0; top: calc(100% + 12px); z-index: 999;
+  width: min(92vw, 880px); max-height: calc(100vh - 96px); overflow-y: auto;
+  background: var(--panel, #f6f6f4) !important; background-color: #f6f6f4 !important; border: 1px solid var(--rule-strong, #b6b6b6); border-radius: 8px;
+  box-shadow: var(--shadow-lg); padding: 22px 24px; }
+.modmenu-cols{ display:grid; grid-template-columns: repeat(3, 1fr); gap: 26px; }
+.modmenu-part > h2{ font-family: var(--sans); font-size:.66rem; font-weight:700;
+  letter-spacing:.14em; text-transform: uppercase; color: var(--ink-faint);
+  margin: 0 0 10px; padding-bottom: 8px; border-bottom: 1px solid var(--rule); }
+.modmenu-chaps{ list-style:none; margin:0; padding:0; display:flex; flex-direction:column; gap:9px; }
+.modmenu-stack{ display:flex; flex-direction:column; gap:24px; }
+.modmenu-chap > a{ font-family: var(--sans); font-weight:700; font-size:.9rem; color: var(--ink);
+  text-decoration:none; display:flex; gap:.5em; }
+.modmenu-chap > a:hover{ color: var(--flame); }
+.modmenu-chap .cn{ color: var(--ink-faint); font-variant-numeric: tabular-nums; flex:0 0 auto; }
+.modmenu-mods{ list-style:none; margin:4px 0 0 1.7em; padding:0;
+  display:flex; flex-direction:column; gap:3px;
+  border-left: 1px solid var(--rule); }
+.modmenu-mods a{ font-family: var(--sans); font-size:.84rem; font-weight:500;
+  color: var(--ink-soft); text-decoration:none; display:block; padding:1px 0 1px 12px; }
+.modmenu-mods a:hover{ color: var(--flame); }
+.modmenu-mods a[aria-current="page"]{ color: var(--flame); font-weight:600; }
+.modmenu-empty{ font-size:.78rem; color: var(--ink-faint); margin:3px 0 0 1.7em; padding-left:12px; }
+  .modmenu-panel{ position: fixed; left: 12px; right: 12px; top: auto; width: auto;
+    max-height: 70vh; }
+  .modmenu-cols{ grid-template-columns: 1fr; gap: 18px; }
+.mm-ch > summary{ list-style:none; cursor:pointer; display:flex; gap:.55em; align-items:baseline;
+  font-family: var(--sans); font-weight:700; font-size:.9rem; color: var(--ink); }
+.mm-ch > summary::-webkit-details-marker{ display:none; }
+.mm-ch > summary::after{ content:"\25BE"; font-size:.68em; color: var(--ink-faint);
+  margin-left:auto; transition: transform .15s ease; }
+.mm-ch[open] > summary::after{ transform: rotate(180deg); }
+.mm-ch > summary:hover, .mm-ch[open] > summary{ color: var(--flame); }
+.mm-ch > summary:focus-visible{ outline:3px solid var(--flame); outline-offset:2px; border-radius:4px; }
+.mm-chlink{ font-style: italic; }

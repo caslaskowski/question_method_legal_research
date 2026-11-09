@@ -1,0 +1,516 @@
+{
+ "title": "The Question Method of Legal Research",
+ "subtitle": "Interactive Edition",
+ "author": "Cas Laskowski",
+ "draft": true,
+ "interactive_repo": "caslaskowski/legal_research_interactive",
+ "front": [
+  {
+   "slug": "inception",
+   "title": "Inception of the Textbook",
+   "source_id": "front-matter-inception-of-the-textbook"
+  },
+  {
+   "slug": "introduction",
+   "title": "Introduction",
+   "source_id": "front-matter-introduction"
+  },
+  {
+   "slug": "ai-use",
+   "title": "Use of AI in the Development of this Textbook",
+   "source_id": "front-matter-use-of-ai-in-the-development-of-this-textbook"
+  }
+ ],
+ "parts": [
+  {
+   "id": "I",
+   "title": "Part I: Foundational Legal Research Topics",
+   "source_id": "part-main-body",
+   "chapters": [
+    1,
+    2,
+    3,
+    4,
+    5,
+    6,
+    7,
+    8,
+    9
+   ]
+  },
+  {
+   "id": "II",
+   "title": "Part II: Advanced Legal Research Topics",
+   "source_id": "part-part-ii-advanced-legal-research-topics",
+   "chapters": [
+    10,
+    11,
+    12,
+    13,
+    14,
+    15,
+    16,
+    17
+   ]
+  }
+ ],
+ "chapters": [
+  {
+   "n": 1,
+   "slug": "ch-01",
+   "title": "Foundations of Legal Authority",
+   "part": "I",
+   "source_id": "chapter-chapter-1",
+   "embeds": [
+    {
+     "module": "ch-1/rank-the-authorities/index.html",
+     "title": "Hierarchy of Authorities",
+     "blurb": "A map of the legal authority hierarchy: what makes one source control another, the line between primary and secondary, and why the same case can bind in one courtroom and only persuade in another.",
+     "height": 820,
+     "replaces": true
+    },
+    {
+     "module": "ch-1/rank-the-authorities/practice.html",
+     "title": "Applying the Hierarchy",
+     "blurb": "Drills and applied exercises to test your command of legal authority: sort primary from secondary, tell binding from persuasive, decide when a statute controls, rank a full stack of authorities by binding effect, and place a court in its system.",
+     "height": 820,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 2,
+   "slug": "ch-02",
+   "title": "Introduction to Legal Research Platforms",
+   "part": "I",
+   "source_id": "chapter-introduction-to-legal-research-platforms",
+   "embeds": [
+    {
+     "module": "ch-2/database-interface/index.html",
+     "title": "Database Interface Explorer",
+     "blurb": "Click through a generic legal database — header tools, the search bar, jurisdiction and content filters, the browse tabs, then a results page — and learn what every part does, so you can find the same features on any platform.",
+     "height": 860,
+     "after": "Understanding the Common Features"
+    }
+   ],
+   "remove_paragraphs": [
+    {
+     "startswith": "Sample database framework showing",
+     "reason": "caption for Figure 2.1; the Database Interface Explorer replaces the static screenshot"
+    }
+   ]
+  },
+  {
+   "n": 3,
+   "slug": "ch-03",
+   "title": "The Question Method of Legal Research",
+   "part": "I",
+   "source_id": "chapter-the-question-method-of-legal-research",
+   "embeds": [
+    {
+     "module": "ch-3/type-the-question/index.html",
+     "title": "Type the Question",
+     "blurb": "Name the type of fourteen research questions — definitional, exploratory, focusing, or application — then pick the source family each one points to. The feedback explains the tell in every question's wording.",
+     "height": 780,
+     "after": "Types of Questions"
+    },
+    {
+     "module": "ch-3/question-method/index.html",
+     "title": "Notice of Claim — Research Sandbox",
+     "blurb": "Work a real Arizona notice-of-claim problem through the question → answer → better-question cycle, logging every move in a research log.",
+     "height": 900,
+     "place": "practice"
+    }
+   ],
+   "replace_sections": [
+    {
+     "title": "Reverse Engineering the Question: A Demonstration",
+     "reason": "the Reverse-Engineering the Question interactive walks the same Oakland Police v. Mayer Brown paragraph sentence by sentence",
+     "embed": {
+      "module": "ch-3/question-transformation/index.html",
+      "title": "Reverse-Engineering the Question",
+      "blurb": "Take a finished legal paragraph apart into the four research questions that built it, then watch those same questions become a synthesis table and an annotated outline — one color tying each question to its place in every form.",
+      "height": 900
+     },
+     "keep_md": "@CH3_DEMO_KEEP@",
+     "lead_md": "Legal arguments are built by answering questions. Take a real paragraph from a federal opinion and turn each sentence back into the research question it answers."
+    }
+   ]
+  },
+  {
+   "n": 4,
+   "slug": "ch-04",
+   "title": "Secondary Sources Research",
+   "part": "I",
+   "source_id": "chapter-secondary-sources",
+   "embeds": [
+    {
+     "module": "ch-4/secondary-types/index.html",
+     "title": "The Types of Secondary Sources",
+     "blurb": "Explore the nine major secondary sources, then re-sort them by the question they answer, their coverage, and their persuasive weight — and place each on a depth-and-breadth chart.",
+     "height": 780,
+     "after": "Types of Secondary Sources in Legal Research"
+    },
+    {
+     "module": "ch-4/secondary-practice/index.html",
+     "title": "Secondary Sources Practice",
+     "blurb": "Run one question through the full cycle — match, mine, follow, leave — then practice the trust-and-timing judgment calls, including when an adopted Restatement may earn a cite.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 5,
+   "slug": "ch-05",
+   "title": "Case Law Research",
+   "part": "I",
+   "source_id": "chapter-case-law-research",
+   "embeds": [
+    {
+     "module": "ch-5/case-practice/index.html",
+     "title": "Case Law Practice",
+     "blurb": "Build a defensible case set, tell holding from dictum, and decide whether a flagged case is still good law.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 6,
+   "slug": "ch-06",
+   "title": "Statutes Research",
+   "part": "I",
+   "source_id": "chapter-statutes-research",
+   "embeds": [
+    {
+     "module": "ch-6/statute-practice/index.html",
+     "title": "Statutes Practice",
+     "blurb": "Find an answer in a section's table of contents, read what a statute's status means for your research, and match a finding aid to what you know.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 7,
+   "slug": "ch-07",
+   "title": "Regulations and Administrative Research",
+   "part": "I",
+   "source_id": "chapter-regulations-and-administrative-research",
+   "embeds": [
+    {
+     "module": "ch-7/regulation-practice/index.html",
+     "title": "Regulations Practice",
+     "blurb": "Navigate the CFR, choose between the CFR and the Federal Register, read shall/must/may/should, and check whether a regulation is still good law.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 8,
+   "slug": "ch-08",
+   "title": "Researching Across Sources",
+   "part": "I",
+   "source_id": "chapter-researching-across-sources",
+   "embeds": [
+    {
+     "module": "ch-8/across-sources-practice/index.html",
+     "title": "Across Sources Practice",
+     "blurb": "Two problems — FMLA and Arizona workers' comp — each solved by pulling a statute, a regulation, and a case, with reveal-for-answer authority.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 9,
+   "slug": "ch-09",
+   "title": "Narrowing and Closing Out Your Research",
+   "part": "I",
+   "source_id": "chapter-narrowing-and-closing-out-your-research",
+   "embeds": [
+    {
+     "module": "ch-9/closing-out/index.html",
+     "title": "Knowing When to Stop",
+     "blurb": "Run the closing-out protocol, tell 'no results' from 'no law,' diagnose a stuck search, and draft an exportable research-closure note.",
+     "height": 780,
+     "after": "The Closing-Out Protocol"
+    },
+    {
+     "module": "ch-9/diagnose-the-broken-search/index.html",
+     "title": "Diagnose the Broken Search",
+     "blurb": "Zero results is a symptom, not a diagnosis. Practice telling ‘no results’ from ‘no law,’ finding what went wrong, and documenting closure.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 10,
+   "slug": "ch-10",
+   "title": "Ethics and Professional Responsibility in Legal Research",
+   "part": "II",
+   "source_id": "chapter-ethics-and-professional-responsibility-in-legal-research",
+   "embeds": [
+    {
+     "module": "ch-10/catch-the-fabricated-citation/index.html",
+     "title": "Catch the Fabricated Citation",
+     "blurb": "A short brief, eight citations, one closed database. Retrieve each authority — or discover it does not exist — then classify it: supports, does not support, negatively treated, or fabricated. Feedback names the verification step that catches each failure.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 11,
+   "slug": "ch-11",
+   "title": "Dockets and Court Document Research",
+   "part": "II",
+   "source_id": "chapter-dockets-and-court-document-research",
+   "embeds": [
+    {
+     "module": "ch-11/read-the-docket/index.html",
+     "title": "Read the Docket",
+     "blurb": "A fictional federal docket, entry by entry — including the two genuinely unintuitive features: newest-first ordering and the multi-part entry where one motion hides five documents.",
+     "height": 780,
+     "after": "Understanding a Docket"
+    }
+   ]
+  },
+  {
+   "n": 12,
+   "slug": "ch-12",
+   "title": "Legislative History Research",
+   "part": "II",
+   "source_id": "chapter-legislative-history-research",
+   "embeds": [
+    {
+     "module": "ch-12/trace-the-bill/index.html",
+     "title": "Trace the Bill",
+     "blurb": "The legislative process as a pipeline you can walk, with a deep-dive page for each history source — what it is, the weight it carries, the questions it answers — plus the anatomy of a committee report and the route-and-cautions checks. A short multi-page module; start on the overview.",
+     "height": 860,
+     "after": "The Most Important Sources and Their Weight"
+    }
+   ]
+  },
+  {
+   "n": 13,
+   "slug": "ch-13",
+   "title": "Advanced Administrative Research",
+   "part": "II",
+   "source_id": "chapter-advanced-administrative-research",
+   "embeds": [
+    {
+     "module": "ch-13/weigh-the-agency-materials/index.html",
+     "title": "Weigh the Agency Materials",
+     "blurb": "Seven client situations turning on which agency material controls: regulation versus FAQ, the binding-or-guidance test, and the answer that starts with naming the document type.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 14,
+   "slug": "ch-14",
+   "title": "Practice-Specific Research Strategies",
+   "part": "II",
+   "source_id": "chapter-practice-specific-research-strategies",
+   "embeds": [
+    {
+     "module": "ch-14/pick-the-parameters/index.html",
+     "title": "Pick the Parameters",
+     "blurb": "Seven practice scenarios — set the right question type, first source, or closure call for each. The Pins Place client returns for deal work.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 15,
+   "slug": "ch-15",
+   "title": "GenAI and Legal Research",
+   "part": "II",
+   "source_id": "chapter-genai-and-legal-research",
+   "embeds": [
+    {
+     "module": "ch-15/how-the-machine-guesses/index.html",
+     "title": "How the Machine Guesses",
+     "blurb": "Feel prediction-without-retrieval: build a sentence one likely token at a time, watch the same mechanism assemble a perfect-looking fictional citation, walk the four-step framework, and sort what these tools can and cannot do.",
+     "height": 780,
+     "after": "How Generative AI Works and What That Means for Research"
+    },
+    {
+     "module": "ch-15/verify-the-ai/index.html",
+     "title": "Verify the AI’s Work",
+     "blurb": "A fluent AI answer with six citations — two solid, one disapproved, one real but cited for its opposite, two that do not exist. Run the four-step framework against the same closed database from Chapter 10, then decide how much of the answer survives.",
+     "height": 860,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 16,
+   "slug": "ch-16",
+   "title": "The NextGen Bar Exam and Legal Research",
+   "part": "II",
+   "source_id": "chapter-the-nextgen-bar-exam-and-legal-research",
+   "embeds": [
+    {
+     "module": "ch-16/the-closed-universe/index.html",
+     "title": "The Closed Universe",
+     "blurb": "A fictional statute and three fictional cases — six exam-style questions answerable only from the provided sources, including the one the universe cannot answer. Format modeled on released exam materials; all content original.",
+     "height": 780,
+     "place": "practice"
+    }
+   ]
+  },
+  {
+   "n": 17,
+   "slug": "ch-17",
+   "title": "Research for Legal Scholarship",
+   "part": "II",
+   "source_id": "chapter-research-for-legal-scholarship",
+   "embeds": [],
+   "append_md_file": "content/extras/ch17-scholarship-checklist.md"
+  }
+ ],
+ "appendices": [
+  {
+   "slug": "a",
+   "letter": "A",
+   "title": "How to Read a Secondary Source",
+   "source_id": "back-matter-appendix",
+   "embeds": [
+    {
+     "module": "ch-4/reading-secondary/index.html",
+     "title": "How to Read a Secondary Source",
+     "blurb": "A full encyclopedia entry on Arizona premises liability, read two ways: as a map of the doctrine, and for one question at a time — finding the sentence that answers you, taking its footnote, and reverse-engineering the headings into a research plan.",
+     "height": 900
+    }
+   ]
+  },
+  {
+   "slug": "b",
+   "letter": "B",
+   "title": "How to Read a Case",
+   "source_id": "back-matter-appendix-b-how-to-read-a-case",
+   "embeds": [
+    {
+     "module": "ch-5/reading-cases/index.html",
+     "title": "How to Read a Case",
+     "blurb": "A real Arizona Supreme Court opinion, Markowitz v. Arizona Parks Board, read for class and then for one research question at a time — with a citator flag you must test against the question you are holding.",
+     "height": 900
+    }
+   ]
+  },
+  {
+   "slug": "c",
+   "letter": "C",
+   "title": "How to Read a Statute",
+   "source_id": "back-matter-appendix-c-how-to-read-a-statute",
+   "embeds": [
+    {
+     "module": "ch-6/reading-statutes/index.html",
+     "title": "How to Read a Statute",
+     "blurb": "Arizona's occupational-disease statute, read for one question at a time: navigate the chapter's table of contents, follow the cross-reference to the definition that controls, and recognize the subsections written for a different reader.",
+     "height": 900
+    }
+   ]
+  },
+  {
+   "slug": "d",
+   "letter": "D",
+   "title": "How to Read a Regulation",
+   "source_id": "back-matter-appendix-d-how-to-read-a-regulation",
+   "embeds": [
+    {
+     "module": "ch-7/reading-regulations/index.html",
+     "title": "How to Read a Regulation",
+     "blurb": "A DOJ rule on removing barriers in existing facilities, read from the authority note down — definitions, the operative verb, the Part's structure — and the question the codified text cannot answer.",
+     "height": 900
+    }
+   ]
+  },
+  {
+   "slug": "e",
+   "letter": "E",
+   "title": "Practice Drill Walkthroughs",
+   "source_id": "back-matter-appendix-e-practice-drill-walkthroughs",
+   "embeds": []
+  },
+  {
+   "slug": "f",
+   "letter": "F",
+   "title": "The Chapter 3 Demonstration in Full: Research Log, Annotated Outline, and Case Chart",
+   "source_id": "back-matter-appendix-f-the-chapter-3-demonstration-in-full-research-log-annotated-outline-and-case-chart",
+   "embeds": []
+  },
+  {
+   "slug": "g",
+   "letter": "G",
+   "title": "The Worked Examples in Full",
+   "source_id": "back-matter-appendix-g-the-worked-examples-in-full",
+   "embeds": []
+  },
+  {
+   "slug": "h",
+   "letter": "H",
+   "title": "Sample Answers for the Reviewing Through Practice Exercises",
+   "source_id": "back-matter-appendix-h-sample-answers-for-the-reviewing-through-practice-exercises",
+   "embeds": []
+  },
+  {
+   "slug": "i",
+   "letter": "I",
+   "title": "Reflection Point Sample Answers",
+   "source_id": "back-matter-appendix-i-reflection-point-sample-answers",
+   "embeds": []
+  }
+ ],
+ "extra_interactives": [
+  {
+   "module": "appendices/glossary-flashcards/index.html",
+   "title": "Glossary Flashcards"
+  },
+  {
+   "module": "toolkit/index.html",
+   "title": "Toolkit & Resources"
+  }
+ ],
+ "downloads": [
+  {
+   "file": "Question_Method_Quick_Tips.docx",
+   "title": "Quick Tips & Research Checklists",
+   "desc": "Two pages: the whole method in one breath, the four question types with where to look, and three checklists (before you search, every research cycle, closing out).",
+   "use": "Keep it beside you for every assignment. Tick the boxes in the margins of your Research Log.",
+   "preview": "Question_Method_Quick_Tips.pdf"
+  },
+  {
+   "file": "Research_Log_Template.xlsx",
+   "title": "Research Log Template (spreadsheet)",
+   "desc": "A blank log, one row per research cycle. Columns: Research Question, Method, Answer, Source, Next Question, Notes. The book's full scaffold also records Question Type and How This Answers My Question; add those two columns if you or your instructor want the whole eight-field entry.",
+   "use": "Open it before your first exercise, write your macro question above the table, and add a row for every cycle you run."
+  },
+  {
+   "file": "Worked_Example_Notice_of_Claim.docx",
+   "title": "Worked Example: Research Map, Research Log, and Annotated Outline",
+   "desc": "One Arizona notice-of-claim problem run through all three tools, so you can see how a question moves from the map to the log to the outline.",
+   "use": "Read it first, then try the Notice of Claim sandbox in Chapter 3 and build your own.",
+   "preview": "Worked_Example_Notice_of_Claim.pdf"
+  },
+  {
+   "file": "Key_Takeaways_and_Pitfalls_by_Chapter.docx",
+   "title": "Key Takeaways and Common Pitfalls, by Chapter",
+   "desc": "Every chapter's Key Takeaways and Common Pitfalls on one set of pages. Rebuilt automatically from the chapter text whenever the site is built.",
+   "use": "Review before an exam or a project kickoff; check that you can restate each chapter in your own words."
+  },
+  {
+   "file": "Scholarship_Research_Checklist.docx",
+   "title": "Scholarship Research Checklist",
+   "desc": "The ten-step method from Chapter 17 for seminar papers, notes, and comments.",
+   "use": "Run it when the paper is assigned, and again before submission."
+  }
+ ]
+}

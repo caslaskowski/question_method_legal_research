@@ -1,0 +1,540 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>How the Machine Guesses — Ch. 15 · GenAI and Legal Research</title>
+<meta name="description" content="Feel prediction-without-retrieval: build a sentence one likely token at a time, watch the same mechanism assemble a perfect-looking citation with nothing underneath, then learn the four-step framework and sort what AI can and cannot do.">
+<!--shell:head:start-->
+<link rel="preload" href="../../assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../../assets/fonts/archivo-700.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="stylesheet" href="../../assets/firebrand.css">
+<!--shell:head:end-->
+<style>
+  .pagewrap{margin:0 auto;padding:26px 28px 10px;max-width:1200px;}
+  .lede{font-size:1.06rem;line-height:1.65;color:var(--ink-soft);margin:6px 0 14px;}
+  .howto{background:var(--callout);border:1px solid var(--rule-strong);border-left:4px solid var(--flame);border-radius:8px;padding:12px 16px;font-size:.94rem;margin:0 0 26px;}
+  h2.sec{font-size:1.3rem;margin:30px 0 4px;}
+  .secdesc{color:var(--ink-soft);margin:0 0 14px;line-height:1.6;}
+
+  /* ---- next-token explorable ---- */
+  .predict{background:#fff;border:1.5px solid var(--rule-strong);border-radius:10px;box-shadow:var(--shadow);padding:18px 22px;margin:0 0 10px;}
+  .sofar{font-family:"Newsreader",Georgia,serif;font-size:1.05rem;line-height:1.7;background:var(--panel);border-radius:8px;padding:12px 16px;margin:0 0 14px;min-height:52px;}
+  .sofar .cursor{color:var(--flame);font-weight:700;}
+  .predlbl{font-family:var(--mono);font-size:.68rem;letter-spacing:.1em;text-transform:uppercase;color:var(--ink-soft);margin:0 0 8px;}
+  .tokens{display:flex;flex-direction:column;gap:7px;margin:0 0 6px;}
+  .token{font:inherit;text-align:left;background:#fff;border:1px solid var(--rule-strong);border-radius:8px;padding:9px 12px;cursor:pointer;position:relative;overflow:hidden;}
+  .token:hover{border-color:var(--flame);}
+  .token:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+  .token .bar{position:absolute;inset:0;background:var(--callout);z-index:0;}
+  .token .tk{position:relative;z-index:1;font-family:"Newsreader",Georgia,serif;}
+  .token .pc{position:relative;z-index:1;float:right;font-family:var(--mono);font-size:.72rem;color:var(--ink-soft);}
+  .reveal{background:var(--flame);color:#fff;border-radius:8px;padding:13px 17px;font-size:.95rem;line-height:1.6;margin:8px 0 0;}
+  .reveal b{color:#fff;}
+
+  /* ---- citation assembler ---- */
+  .assemble{background:#fff;border:1.5px solid var(--rule-strong);border-radius:10px;box-shadow:var(--shadow);padding:18px 22px;margin:0 0 10px;}
+  .fakecite{font-family:"Newsreader",Georgia,serif;font-style:italic;font-size:1.08rem;background:var(--panel);border-radius:8px;padding:14px 16px;margin:0 0 10px;min-height:30px;}
+  .abtn{font:inherit;font-size:.86rem;font-weight:600;background:#fff;border:1.5px solid var(--flame);color:var(--flame);border-radius:7px;padding:7px 13px;cursor:pointer;}
+  .abtn:hover{background:rgba(19,81,105,.08);}
+  .abtn:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+  .anote{font-size:.88rem;color:var(--ink-soft);line-height:1.6;margin:10px 0 0;}
+
+  /* ---- four steps ---- */
+  .fsteps{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:12px;margin:0 0 10px;}
+  .fstep{background:#fff;border:1.5px solid var(--rule-strong);border-radius:9px;padding:13px 15px;}
+  .fstep .n{font-family:var(--mono);font-weight:700;font-size:1rem;color:var(--flame);}
+  .fstep h3{font-size:.98rem;margin:2px 0 6px;}
+  .fstep p{font-size:.86rem;line-height:1.55;color:var(--ink-soft);margin:0;}
+  .fstep .tie{display:block;margin-top:7px;font-family:var(--mono);font-size:.64rem;letter-spacing:.06em;text-transform:uppercase;color:var(--flame);}
+
+  /* ---- sorting wall ---- */
+  .wallwrap{background:#fff;border:1.5px solid var(--rule-strong);border-radius:10px;box-shadow:var(--shadow);padding:16px 20px;margin:0 0 10px;}
+  .wtask{border:1px solid var(--rule-strong);border-radius:9px;padding:11px 13px;margin:0 0 9px;}
+  .wtask .t{font-size:.94rem;margin:0 0 8px;}
+  .wtask .choices{display:flex;gap:8px;flex-wrap:wrap;}
+  .wch{font:inherit;font-size:.8rem;font-weight:600;background:var(--panel);border:1px solid var(--rule-strong);border-radius:99px;padding:5px 12px;cursor:pointer;}
+  .wch:hover{border-color:var(--flame);}
+  .wch:focus-visible{outline:3px solid var(--flame);outline-offset:2px;}
+  .wch[disabled]{cursor:default;}
+  .wch.good{border-color:#2e6b34;background:#e5efe0;}
+  .wch.bad{border-color:var(--flame);background:#f6e2dc;}
+  .wtask .wfb{font-size:.85rem;line-height:1.55;color:var(--ink-soft);margin:8px 0 0;}
+  .walltally{font-family:var(--mono);font-size:.74rem;color:var(--ink-soft);margin:4px 0 0;}
+
+  /* ---- tool compare ---- */
+  .tools{display:grid;grid-template-columns:repeat(auto-fit,minmax(280px,1fr));gap:14px;margin:0 0 8px;}
+  .tool{background:#fff;border:1.5px solid var(--rule-strong);border-radius:9px;padding:14px 17px;}
+  .tool h3{font-size:1rem;margin:0 0 6px;}
+  .tool p{font-size:.88rem;line-height:1.6;color:var(--ink-soft);margin:0 0 8px;}
+  .tool .vt{font-size:.84rem;line-height:1.5;border-top:1px dashed var(--rule-strong);padding-top:7px;margin:0;}
+  .tool .vt b{color:var(--flame);}
+  @media (prefers-reduced-motion: reduce){
+    *,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important;}
+  }
+</style>
+<link rel="stylesheet" href="../../assets/embed.css">
+</head>
+<body class="shell">
+<!--shell:masthead:start-->
+<a class="skip" href="#main">Skip to content</a>
+
+<header class="masthead">
+  <div class="wrap">
+    <div class="masthead-inner">
+      <a class="brand" href="../../../index.html" target="_top" aria-label="The Question Method of Legal Research — home">
+        <span class="mark">The Question Method of Legal Research</span>
+        <span class="sub">Interactive Legal Research Modules</span>
+      </a>
+      <nav class="topnav" aria-label="Primary">
+        <a href="../../../index.html" target="_top">Home</a>
+        <details class="modmenu">
+          <summary><span class="mm-label-default">Browse modules</span><span class="mm-label-open">Close menu</span></summary>
+          <div class="modmenu-panel" role="group" aria-label="All chapters and modules">
+            <div class="modmenu-cols">
+            <section class="modmenu-part">
+              <h2>Part I &middot; Foundational Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">1</span> Foundations of Legal Authority</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-1/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-1/index.html" target="_top">How Law Is Made — A 1L Primer</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/index.html">Hierarchy of Authorities</a></li>
+                  <li><a href="../../ch-1/rank-the-authorities/practice.html">Applying the Hierarchy</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">2</span> Introduction to Legal Research Platforms</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-2/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-2/database-interface/index.html">Database Interface Explorer</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Using Databases for Legal Research</a></li>
+                  <li><a href="../../../ch-2/index.html" target="_top">Database Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">3</span> The Question Method of Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-3/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-3/question-transformation/index.html">Reverse-Engineering the Question</a></li>
+                  <li><a href="../../ch-3/question-method/index.html">Notice of Claim — Research Sandbox</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">The Research Subway Map</a></li>
+                  <li><a href="../../../ch-3/index.html" target="_top">Working the Chain — Forward &amp; Reverse</a></li>
+                  <li><a href="../../ch-3/type-the-question/index.html">Type the Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">4</span> Secondary Sources Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-4/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-4/secondary-types/index.html">The Types of Secondary Sources</a></li>
+                  <li><a href="../../ch-4/reading-secondary/index.html">How to Read a Secondary Source</a></li>
+                  <li><a href="../../../ch-4/index.html" target="_top">How to Use a Secondary Source</a></li>
+                  <li><a href="../../ch-4/secondary-practice/index.html">Secondary Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">5</span> Case Law Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-5/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Cases as a Web of Answers</a></li>
+                  <li><a href="../../ch-5/reading-cases/index.html">How to Read a Case</a></li>
+                  <li><a href="../../../ch-5/index.html" target="_top">Run the Citator</a></li>
+                  <li><a href="../../ch-5/case-practice/index.html">Case Law Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">6</span> Statutes Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-6/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">The Life of a Statute</a></li>
+                  <li><a href="../../../ch-6/index.html" target="_top">How to Find a Statute</a></li>
+                  <li><a href="../../ch-6/reading-statutes/index.html">How to Read a Statute</a></li>
+                  <li><a href="../../ch-6/statute-practice/index.html">Statutes Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">7</span> Regulations and Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-7/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-7/index.html" target="_top">How to Find a Regulation</a></li>
+                  <li><a href="../../ch-7/reading-regulations/index.html">How to Read a Regulation</a></li>
+                  <li><a href="../../ch-7/regulation-practice/index.html">Regulations Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">8</span> Researching Across Sources</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-8/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Tracing the Law Across Sources</a></li>
+                  <li><a href="../../../ch-8/index.html" target="_top">Following the Question Trail</a></li>
+                  <li><a href="../../ch-8/across-sources-practice/index.html">Across Sources Practice</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">9</span> Narrowing and Closing Out Your Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-9/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Building a Precision Search</a></li>
+                  <li><a href="../../ch-9/closing-out/index.html">Knowing When to Stop</a></li>
+                  <li><a href="../../ch-9/diagnose-the-broken-search/index.html">Diagnose the Broken Search</a></li>
+                  <li><a href="../../../ch-9/index.html" target="_top">Mixed Review — The Diagnostic Moves</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Part II &middot; Advanced Legal Research</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">10</span> Ethics and Professional Responsibility in Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-10/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">Duties Behind the Research</a></li>
+                  <li><a href="../../ch-10/catch-the-fabricated-citation/index.html">Catch the Fabricated Citation</a></li>
+                  <li><a href="../../../ch-10/index.html" target="_top">The Duty Calls</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">11</span> Dockets and Court Document Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-11/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-11/read-the-docket/index.html">Read the Docket</a></li>
+                  <li><a href="../../../ch-11/index.html" target="_top">Pull the Right Paper</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">12</span> Legislative History Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-12/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-12/trace-the-bill/index.html">Trace the Bill</a></li>
+                  <li><a href="../../../ch-12/index.html" target="_top">Weigh the History</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">13</span> Advanced Administrative Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-13/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-13/index.html" target="_top">Beyond the Rule</a></li>
+                  <li><a href="../../ch-13/weigh-the-agency-materials/index.html">Weigh the Agency Materials</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">14</span> Practice-Specific Research Strategies</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-14/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-14/index.html" target="_top">Same Cycle, Different Parameters</a></li>
+                  <li><a href="../../ch-14/pick-the-parameters/index.html">Pick the Parameters</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch" open>
+                  <summary><span class="cn">15</span> GenAI and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-15/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../ch-15/how-the-machine-guesses/index.html" aria-current="page">How the Machine Guesses</a></li>
+                  <li><a href="../../ch-15/verify-the-ai/index.html">Verify the AI’s Work</a></li>
+                  <li><a href="../../../ch-15/index.html" target="_top">Right Tool, Right Question</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">16</span> The NextGen Bar Exam and Legal Research</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-16/index.html" target="_top">Chapter overview →</a></li>
+                  <li><a href="../../../ch-16/index.html" target="_top">Five Skills, Mapped</a></li>
+                  <li><a href="../../ch-16/the-closed-universe/index.html">The Closed Universe</a></li>
+                  </ul>
+                </details>
+              </li>
+              <li class="modmenu-chap">
+                <details class="mm-ch">
+                  <summary><span class="cn">17</span> Research for Legal Scholarship</summary>
+                  <ul class="modmenu-mods">
+                  <li><a class="mm-chlink" href="../../../ch-17/index.html" target="_top">Chapter overview →</a></li>
+                  </ul>
+                </details>
+              </li>
+              </ul>
+            </section>
+            <div class="modmenu-stack">
+            <section class="modmenu-part">
+              <h2>Why It Matters</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">§</span> Why Good Research Matters</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Appendices &amp; Glossary</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-4/reading-secondary/index.html"><span class="cn">A</span> How to Read a Secondary Source</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-5/reading-cases/index.html"><span class="cn">B</span> How to Read a Case</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-6/reading-statutes/index.html"><span class="cn">C</span> How to Read a Statute</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../ch-7/reading-regulations/index.html"><span class="cn">D</span> How to Read a Regulation</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../appendices/glossary-flashcards/index.html"><span class="cn">G</span> Glossary — Flashcards</a></li>
+              </ul>
+            </section>
+            <section class="modmenu-part">
+              <h2>Toolkit &amp; Resources</h2>
+              <ul class="modmenu-chaps">
+              <li class="modmenu-chap"><a class="mm-flat" href="../../toolkit/index.html"><span class="cn">T</span> Toolkit &amp; Resources — Templates &amp; Checklists</a></li>
+              <li class="modmenu-chap"><a class="mm-flat" href="../../../index.html" target="_top"><span class="cn">?</span> How to Navigate the Modules</a></li>
+              </ul>
+            </section>
+            </div>
+            </div>
+          </div>
+        </details>
+        <a href="../../../index.html" target="_top">About</a>
+      </nav>
+    </div>
+  </div>
+</header>
+
+<nav class="pagenav" aria-label="This module">
+  <div class="wrap">
+      <a class="pn-link" href="../../../index.html" target="_top">Home</a>
+      <a class="pn-link" href="../../../ch-15/index.html" target="_top">Ch. 15</a>
+      <a class="pn-link pn-title on" href="index.html">How the Machine Guesses</a>
+      <a class="pn-link" href="checks.html">Your record</a>
+  </div>
+</nav>
+<!--shell:masthead:end-->
+
+<main id="main">
+  <div class="pagewrap">
+    <h1>How the Machine Guesses</h1>
+    <p class="lede">A generative AI system does not look anything up. It predicts the next word, then the next, each chosen because it is <em>likely</em> &mdash; not because it is <em>true</em>. That single fact explains both why these tools are useful and why they invent authority with total confidence. This lesson lets you feel the mechanism, watch it assemble a perfect-looking citation with nothing underneath, and then puts the discipline on top: the four-step framework and a sorting of what these tools can and cannot do.</p>
+    <div class="howto"><b>How to use this:</b> four parts, in order. <b>Predict</b> a sentence token by token. Watch the <b>citation assembler</b> do the same thing to a case cite. Walk the <b>four-step framework</b> &mdash; you already know it. Then <b>sort</b> eight tasks into appropriate use or not-without-verification.</div>
+
+    <h2 class="sec">Part 1 · Build a sentence the way the machine does</h2>
+    <p class="secdesc">Pick the next words. The percentages are illustrative likelihoods &mdash; note that <em>every</em> option produces fluent legal English, and none of them involves looking anything up.</p>
+    <div class="predict">
+      <div class="sofar" id="sofar" aria-live="polite"></div>
+      <p class="predlbl" id="predlbl">Pick the next token</p>
+      <div class="tokens" id="tokens" role="group" aria-label="Next-token choices"></div>
+      <div id="predend"></div>
+    </div>
+
+    <h2 class="sec">Part 2 · Now watch it cite</h2>
+    <p class="secdesc">The same mechanism, pointed at a citation: likely case-name shape, likely reporter, likely year. Every product below is fictional &mdash; and every one of them <em>looks</em> exactly right.</p>
+    <div class="assemble">
+      <div class="fakecite" id="fakecite" aria-live="polite">Press the button to assemble a citation, one likely token at a time.</div>
+      <button class="abtn" id="assembleBtn" type="button">Assemble a citation \u2192</button>
+      <p class="anote"><b>What just happened:</b> plausible name + plausible reporter + plausible page + plausible year. Nothing was retrieved; nothing exists behind it. This is why fabricated citations read perfectly &mdash; they are built from the <em>shape</em> of real ones. The only test that catches them is the one the machine never ran: retrieval.</p>
+    </div>
+
+    <h2 class="sec">Part 3 · The four-step framework &mdash; you already own it</h2>
+    <p class="secdesc">The book&rsquo;s framework for AI-assisted research is the research cycle you have run since Chapter 3, with one extra discipline bolted on: verify before anything enters your record.</p>
+    <div class="fsteps">
+      <div class="fstep"><span class="n">1</span><h3>Ask one small, precise question</h3><p>Give the system a role, one discrete task, and the exact format you want back. A vague prompt invites a sprawling answer &mdash; and sprawling answers are where errors hide.</p><span class="tie">= the cycle&rsquo;s Step 1, unchanged</span></div>
+      <div class="fstep"><span class="n">2</span><h3>Verify before you record</h3><p>Check every claim against the primary source; never cite what you have not read. If verifying costs as much as researching it yourself, write that down &mdash; it signals a generative tool was the wrong instrument for this question.</p><span class="tie">= Step 3, with the discipline attached</span></div>
+      <div class="fstep"><span class="n">3</span><h3>Ask whether the question was actually answered</h3><p>Fully, partially, or not really? The same checkpoint you run on every source. Synthesize the <em>verified</em> findings into your Research Log and annotated outline.</p><span class="tie">= the checkpoint you already run</span></div>
+      <div class="fstep"><span class="n">4</span><h3>Let the answer hand you the next question</h3><p>Follow up to fill a gap the answer exposed, or move to the next cycle.</p><span class="tie">= Step 4, unchanged</span></div>
+    </div>
+
+    <h2 class="sec">Part 4 · Sort it: appropriate use, or not without verification?</h2>
+    <p class="secdesc">Eight tasks from the chapter&rsquo;s two-column table. Make the call on each.</p>
+    <div class="wallwrap">
+      <div id="wall"></div>
+      <p class="walltally" id="walltally"></p>
+    </div>
+
+    <h2 class="sec">Two kinds of tool</h2>
+    <div class="tools">
+      <div class="tool">
+        <h3>General-purpose chatbot</h3>
+        <p>Generates from its training alone &mdash; no live connection to a legal database. Strong for vocabulary, orientation, brainstorming, and working over text <em>you supply</em>.</p>
+        <p class="vt"><b>Verification tax:</b> total. Every legal claim and every citation must be independently confirmed, because none of it was retrieved from anywhere.</p>
+      </div>
+      <div class="tool">
+        <h3>Database-integrated AI (retrieval-backed)</h3>
+        <p>Built into a legal research platform; retrieves real documents and generates over them. Citations link to sources that exist, which removes the fabrication problem &mdash; not the reading problem.</p>
+        <p class="vt"><b>Verification tax:</b> reduced, never zero. A real case can still be quoted for more than it holds, or be negatively treated. You still read what you cite.</p>
+      </div>
+    </div>
+
+    
+  </div>
+</main>
+
+<!--shell:modnav:start-->
+<nav class="modnav" aria-label="Module navigation">
+  <p class="modnav-crumb">Part of <a href="../../../ch-15/index.html" target="_top">Ch. 15 · GenAI and Legal Research</a></p>
+  <p class="modnav-verified">Authorities verified as of 2026-07-10. The law changes — run the method, don’t trust the module.</p>
+  <p class="modnav-next"><a href="checks.html"><span class="dir">Next</span> Your record <span aria-hidden="true">→</span></a></p>
+</nav>
+<!--shell:modnav:end-->
+
+<!--shell:footer:start-->
+<footer class="foot">
+  <div class="wrap">
+    <span>The Question Method of Legal Research &mdash; interactive modules.</span>
+    <span>Constantly in beta · built by Cas Laskowski</span>
+    <span class="foot-contact">Found a problem, or wish a module existed?
+      <a href="https://github.com/caslaskowski/legal_research_interactive/issues" target="_blank" rel="noopener">Report an issue or suggest a feature</a>
+      <small>(opens GitHub in a new tab &mdash; nothing is sent from this site)</small></span>
+  </div>
+</footer>
+<!--shell:footer:end-->
+
+<script src="../../js/lib.js"></script>
+<script src="../../js/export-reflect.js"></script>
+<script>
+(function(){
+  if (window.ExportReflect) ExportReflect.collect({ module: "How the Machine Guesses", chapter: "Chapter 15 \u2014 GenAI and Legal Research", session: "qm_er_how_the_machine_guesses" });
+
+  "use strict";
+  var el = QM.el;
+
+  /* ---------------- Part 1: next-token rounds ---------------- */
+  var ROUNDS = [
+    { lbl:"Pick the next tokens", opts:[
+      { t:"implied warranty of habitability", pc:58 },
+      { t:"covenant of quiet enjoyment", pc:23 },
+      { t:"lease's maintenance clause", pc:13 },
+      { t:"doctrine of caveat emptor", pc:6 } ] },
+    { lbl:"The sentence wants a citation next. Pick one", opts:[
+      { t:"Marsh v. Golden Rentals", pc:41 },
+      { t:"Whitfield v. Cedar Point Apartments", pc:33 },
+      { t:"Aguirre v. Stonebrook Residential", pc:26 } ] },
+    { lbl:"And a reporter and year", opts:[
+      { t:"214 Ariz. 293 (2007)", pc:47 },
+      { t:"268 P.3d 1104 (Ct. App. 2011)", pc:35 },
+      { t:"199 Ariz. 512 (App. 2019)", pc:18 } ] }
+  ];
+  var built = "A landlord who fails to maintain heat may be liable for breach of the ";
+  var round = 0;
+  var sofar = document.getElementById("sofar"), tokens = document.getElementById("tokens"),
+      predlbl = document.getElementById("predlbl"), predend = document.getElementById("predend");
+
+  function renderRound() {
+    sofar.innerHTML = built.replace(/&/g,"&amp;").replace(/</g,"&lt;") + '<span class="cursor">\u258d</span>';
+    tokens.innerHTML = "";
+    if (round >= ROUNDS.length) {
+      predlbl.hidden = true;
+      predend.innerHTML = '<div class="reveal"><b>Read what you built.</b> A fluent, confident, fully cited legal sentence \u2014 and the citation is fictional, chosen because it was <b>likely</b>, exactly like every word before it. The machine never looked anything up; you watched it not do so. That is the whole hallucination problem in one sentence you assembled yourself.</div>';
+      if (window.ExportReflect) ExportReflect.log("Next-token explorable", "completed \u2014 sentence assembled: " + built.trim());
+      return;
+    }
+    predlbl.hidden = false;
+    predlbl.textContent = "Round " + (round + 1) + " of " + ROUNDS.length + " \u00b7 " + ROUNDS[round].lbl;
+    ROUNDS[round].opts.forEach(function (o) {
+      var b = el("button", { class: "token", type: "button", "aria-label": o.t + ", likelihood " + o.pc + " percent" }, []);
+      b.appendChild(el("span", { class: "bar", style: "width:" + o.pc + "%", "aria-hidden": "true" }, []));
+      b.appendChild(el("span", { class: "tk" }, [o.t]));
+      b.appendChild(el("span", { class: "pc" }, [o.pc + "%"]));
+      b.addEventListener("click", function () {
+        built += o.t + (round === 0 ? ", as recognized in " : round === 1 ? ", " : ".");
+        round++;
+        renderRound();
+      });
+      tokens.appendChild(b);
+    });
+  }
+  renderRound();
+
+  /* ---------------- Part 2: citation assembler ---------------- */
+  var P1 = ["Hollis","Trammel","Whitfield","Barreto","Kessler","Nakamura","Ochoa","Fairweather"];
+  var P2 = ["Ironwood Residential","Northgate Flats","Cactus Wren Props.","Silver Mesa Mgmt.","Delacroix Holdings","Palo Brea Estates"];
+  var REP = ["221 Ariz. 448","243 P.3d 887","198 Ariz. 306","267 P.3d 1152","231 Ariz. 77"];
+  var YR  = ["(2009)","(App. 2014)","(Ct. App. 2012)","(2017)","(App. 2021)"];
+  var fc = document.getElementById("fakecite");
+  var assembled = 0;
+  function pick(a){ return a[Math.floor(Math.random()*a.length)]; }
+  document.getElementById("assembleBtn").addEventListener("click", function () {
+    var cite = pick(P1) + " v. " + pick(P2) + ", " + pick(REP) + " " + pick(YR);
+    fc.textContent = "";
+    window.setTimeout(function(){ fc.textContent = cite + "  \u2014 fictional; retrieves nothing."; }, 30);
+    assembled++;
+    if (assembled === 1 && window.ExportReflect) ExportReflect.log("Citation assembler", "ran the fabrication demo");
+  });
+
+  /* ---------------- Part 4: sorting wall ---------------- */
+  var TASKS = [
+    { t:"Summarize a case you have already read and verified", ok:true,
+      fb:"Appropriate \u2014 you supplied the source and you can check the summary against it. The machine is working over your text, not inventing from memory." },
+    { t:"Initial case law research on a new issue", ok:false,
+      fb:"Not without verification \u2014 generation from memory is where fabricated and mis-described authority comes from. Retrieval tools first; anything a generative tool suggests gets independently confirmed." },
+    { t:"Generate initial search terms and synonyms", ok:true,
+      fb:"Appropriate \u2014 this is the vocabulary-acquisition move, and a wrong synonym costs you nothing: the database results, not the chatbot, do the verifying." },
+    { t:"State what the current law is in your jurisdiction", ok:false,
+      fb:"Not without verification \u2014 the model's training has a cutoff and no jurisdiction filter, and it will answer confidently either way. Current-law questions belong to retrieval, then reading." },
+    { t:"Explain a legal concept you already broadly understand", ok:true,
+      fb:"Appropriate \u2014 your existing understanding is the error-detector. The same explanation of a concept you know nothing about would be uncheckable." },
+    { t:"Cite any case, statute, or regulation", ok:false,
+      fb:"Not without verification \u2014 never cite what you have not retrieved and read. A citation from a generative tool is a lead, not an authority." },
+    { t:"Draft questions for your Research Log", ok:true,
+      fb:"Appropriate \u2014 drafting questions is generation over your own problem, and every question gets tested against real sources anyway. (Formatting and editing tasks work too \u2014 if you instruct the tool to track or list its changes, since silent regeneration can quietly alter text you never asked it to touch.)" },
+    { t:"Predict how a court will rule", ok:false,
+      fb:"Not without verification \u2014 and really: not at all. Outcome prediction dressed in fluent confidence is the most seductive failure mode there is." }
+  ];
+  var wall = document.getElementById("wall"), tallyEl = document.getElementById("walltally");
+  var done = 0, right = 0;
+  TASKS.forEach(function (T, i) {
+    var card = el("div", { class: "wtask" });
+    card.appendChild(el("p", { class: "t" }, [T.t]));
+    var row = el("div", { class: "choices", role: "group", "aria-label": "Sort: " + T.t });
+    var fb = el("div", { class: "wfb", role: "status", "aria-live": "polite" });
+    var locked = false;
+    [["Appropriate use", true], ["Not without verification", false]].forEach(function (pair) {
+      var b = el("button", { class: "wch", type: "button" }, [pair[0]]);
+      b.addEventListener("click", function () {
+        if (locked) return;
+        locked = true;
+        var ok = pair[1] === T.ok;
+        row.querySelectorAll(".wch").forEach(function (x, xi) {
+          x.disabled = true;
+          var isRightCol = (xi === 0) === T.ok;
+          if (isRightCol) x.classList.add("good");
+          else if (x === b) x.classList.add("bad");
+        });
+        fb.textContent = "";
+        window.setTimeout(function(){ fb.textContent = (ok ? "Right. " : "Not quite \u2014 ") + T.fb; }, 30);
+        done++; if (ok) right++;
+        tallyEl.textContent = done + " of " + TASKS.length + " sorted \u00b7 " + right + " correct";
+        if (window.ExportReflect) ExportReflect.log("Sort: " + T.t, ok ? "correct" : "incorrect");
+        if (done === TASKS.length && window.ExportReflect) ExportReflect.log("Sorting wall", right + " / " + TASKS.length);
+      });
+      row.appendChild(b);
+    });
+    card.appendChild(row);
+    card.appendChild(fb);
+    wall.appendChild(card);
+  });
+
+  
+})();
+</script>
+</body>
+</html>

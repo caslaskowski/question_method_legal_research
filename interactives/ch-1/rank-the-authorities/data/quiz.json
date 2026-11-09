@@ -1,0 +1,245 @@
+{
+  "instructions": "Eight questions across the module — the hierarchy, primary vs. secondary, binding vs. persuasive, and statute vs. common law. Answer each; the feedback explains every option. Your score is collected locally for the practice page’s submission file.",
+  "questions": [
+    {
+      "id": "q1",
+      "topic": "hierarchy",
+      "prompt": "An Arizona statute and a validly issued Arizona regulation on the same subject point in different directions. Which controls?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The statute — a regulation draws its force from the statute and yields to it"
+        },
+        {
+          "id": "b",
+          "text": "The regulation — it is more recent and more specific"
+        },
+        {
+          "id": "c",
+          "text": "Whichever one the agency says controls"
+        },
+        {
+          "id": "d",
+          "text": "Neither — a court must break the tie case by case"
+        }
+      ],
+      "correct": "a",
+      "feedback": {
+        "correct": "A regulation exists only because a statute empowered the agency to issue it — so when the two conflict, the enacted statute outranks the regulation it authorized.",
+        "b": "Recency and specificity matter within a level of the hierarchy, not across levels — the regulation still draws its force from the statute above it.",
+        "c": "The agency cannot rank its own rule above the legislature’s enactment; its power comes from that enactment.",
+        "d": "There is no tie to break — the hierarchy already decides it: statute over regulation."
+      }
+    },
+    {
+      "id": "q2",
+      "topic": "hierarchy",
+      "prompt": "A statute is clear, but a litigant argues it violates the state constitution — and the state’s highest court agrees. Which authority wins?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The statute — the legislature speaks for the people"
+        },
+        {
+          "id": "b",
+          "text": "The constitution — it sits above every statute in the hierarchy"
+        },
+        {
+          "id": "c",
+          "text": "The court’s opinion — courts outrank legislatures"
+        },
+        {
+          "id": "d",
+          "text": "They are equal, so the more recent one governs"
+        }
+      ],
+      "correct": "b",
+      "feedback": {
+        "correct": "The constitution tops the hierarchy; a statute that violates it falls. The court’s opinion is the instrument — the constitution is the authority doing the work.",
+        "a": "The legislature’s power itself comes from the constitution — it cannot enact past the document that created it.",
+        "c": "The court does not outrank the legislature; it applied a higher law. Strike the constitutional argument and the statute would have stood.",
+        "d": "Constitutional and statutory law are not equals — the whole point of the hierarchy is that one creates and limits the other."
+      }
+    },
+    {
+      "id": "q3",
+      "topic": "primary-secondary",
+      "prompt": "Which of these is primary authority?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A treatise’s explanation of negligence doctrine"
+        },
+        {
+          "id": "b",
+          "text": "An ALR annotation collecting cases from forty states"
+        },
+        {
+          "id": "c",
+          "text": "A municipal ordinance regulating short-term rentals"
+        },
+        {
+          "id": "d",
+          "text": "A law review article proposing a new liability rule"
+        }
+      ],
+      "correct": "c",
+      "feedback": {
+        "correct": "An ordinance is enacted law — the law itself, however local. Everything else on this list talks about the law: that is the whole distinction.",
+        "a": "A treatise explains the law expertly — and is still secondary: about the law, never the law.",
+        "b": "An ALR annotation collects and summarizes primary authority; the collection itself is secondary.",
+        "d": "Scholarship analyzes and proposes — persuasive to read, secondary by definition."
+      }
+    },
+    {
+      "id": "q4",
+      "topic": "primary-secondary",
+      "prompt": "You found the perfect explanation of your rule in a legal encyclopedia. What belongs in your brief?",
+      "options": [
+        {
+          "id": "a",
+          "text": "A citation to the encyclopedia — it states the rule cleanly"
+        },
+        {
+          "id": "b",
+          "text": "The primary authority its footnotes led you to, after you read it"
+        },
+        {
+          "id": "c",
+          "text": "Both, side by side, for extra support"
+        },
+        {
+          "id": "d",
+          "text": "Neither — encyclopedias are unreliable"
+        }
+      ],
+      "correct": "b",
+      "feedback": {
+        "correct": "The encyclopedia’s job was to hand you the citations. You follow them, read the primary authority, confirm it is still good law, and cite that.",
+        "a": "With rare exceptions you do not cite secondary sources as the law — the encyclopedia is the map, not the territory.",
+        "c": "Adding the encyclopedia next to on-point primary authority adds weakness, not weight.",
+        "d": "Encyclopedias are reliable at their actual job — orientation and citations — just not as citable authority."
+      }
+    },
+    {
+      "id": "q5",
+      "topic": "binding",
+      "prompt": "Before an Arizona trial court: a California Supreme Court decision squarely on point. What is it?",
+      "options": [
+        {
+          "id": "a",
+          "text": "Binding — it is a state supreme court"
+        },
+        {
+          "id": "b",
+          "text": "Binding — it is squarely on point"
+        },
+        {
+          "id": "c",
+          "text": "Persuasive only — another jurisdiction’s law never binds an Arizona court"
+        },
+        {
+          "id": "d",
+          "text": "Nothing — out-of-state cases cannot even be cited"
+        }
+      ],
+      "correct": "c",
+      "feedback": {
+        "correct": "Precedent runs down a single court system. California’s high court sits atop California’s system — in Arizona it can persuade, especially where Arizona law is unsettled, but it cannot bind.",
+        "a": "Height in the wrong system is still the wrong system — bindingness follows the forum’s own ladder.",
+        "b": "On-point makes it useful; it cannot make it binding across a jurisdictional line.",
+        "d": "Too far — persuasive authority is citable and often valuable; it just is not controlling."
+      }
+    },
+    {
+      "id": "q6",
+      "topic": "binding",
+      "prompt": "The same published Ninth Circuit opinion is cited in two courts. Where does it bind?",
+      "options": [
+        {
+          "id": "a",
+          "text": "In every federal court, because it is a federal appellate decision"
+        },
+        {
+          "id": "b",
+          "text": "In a U.S. District Court within the Ninth Circuit — and only persuades a district court in the Second"
+        },
+        {
+          "id": "c",
+          "text": "Nowhere — only the Supreme Court binds"
+        },
+        {
+          "id": "d",
+          "text": "In both, if the reasoning is strong enough"
+        }
+      ],
+      "correct": "b",
+      "feedback": {
+        "correct": "Exactly the both-and of authority: one case, binding inside its own circuit’s ladder, persuasive outside it. The forum decides which face you see.",
+        "a": "Circuits bind their own district courts — sister circuits get persuasion, not obedience.",
+        "c": "The Supreme Court binds everywhere, but each circuit binds within its own system too.",
+        "d": "Strong reasoning increases persuasive force; it never converts persuasion into obligation."
+      }
+    },
+    {
+      "id": "q7",
+      "topic": "statute-common-law",
+      "prompt": "For decades, a state’s courts applied a common-law rule. The legislature then enacts a statute squarely addressing the question with a different rule. Going forward?",
+      "options": [
+        {
+          "id": "a",
+          "text": "The common-law rule — it is older and more developed"
+        },
+        {
+          "id": "b",
+          "text": "The statute — enacted law displaces the common law it addresses"
+        },
+        {
+          "id": "c",
+          "text": "Whichever a trial judge prefers"
+        },
+        {
+          "id": "d",
+          "text": "The common law, unless the statute says it overrides it"
+        }
+      ],
+      "correct": "b",
+      "feedback": {
+        "correct": "Where a valid statute speaks to the question, it displaces the judge-made rule — the legislature can answer the courts back. The common law then governs only what the statute leaves open.",
+        "a": "Age and development do not protect a common-law rule from a legislature that has spoken.",
+        "c": "Judges apply the governing source; they do not choose between them by preference.",
+        "d": "No magic words needed — a statute squarely addressing the question does the displacing by existing."
+      }
+    },
+    {
+      "id": "q8",
+      "topic": "statute-common-law",
+      "prompt": "On a question where the legislature has never enacted anything at all, where does the governing rule come from?",
+      "options": [
+        {
+          "id": "a",
+          "text": "There is no law until the legislature acts"
+        },
+        {
+          "id": "b",
+          "text": "The common law — the rules courts have developed case by case"
+        },
+        {
+          "id": "c",
+          "text": "Federal law fills every state-law gap"
+        },
+        {
+          "id": "d",
+          "text": "The restatement of the majority rule"
+        }
+      ],
+      "correct": "b",
+      "feedback": {
+        "correct": "Where statutes are silent, the common law governs — judge-made rules built decision by decision. That is why case law research never stops mattering.",
+        "a": "Courts have been resolving disputes — and making law doing it — for centuries of legislative silence.",
+        "c": "Federal law governs federal questions; it does not backfill state common-law subjects.",
+        "d": "A Restatement describes the common law persuasively — the governing rule is the forum’s own case law."
+      }
+    }
+  ]
+}

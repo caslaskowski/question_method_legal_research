@@ -1,0 +1,226 @@
+{
+  "primary-secondary": {
+    "eyebrow": "Drill \u00b7 Classification",
+    "title": "Primary vs. Secondary",
+    "instructions": "For each source, decide whether it is primary authority (the law itself) or a secondary source (something that explains or analyzes the law). After you answer, read the feedback \u2014 the reasoning is the point, not the score.",
+    "options": [
+      { "id": "primary", "text": "Primary authority" },
+      { "id": "secondary", "text": "Secondary source" }
+    ],
+    "items": [
+      {
+        "id": "ps1",
+        "prompt": "A section of the Arizona Revised Statutes governing a landlord\u2019s duties.",
+        "correct": "primary",
+        "feedback": {
+          "correct": "Right. A statute is the law itself, enacted by the legislature \u2014 a core primary authority.",
+          "secondary": "A statute is not a commentary on the law; it is the law. Enacted text from a legislature is primary authority."
+        }
+      },
+      {
+        "id": "ps2",
+        "prompt": "A United States Supreme Court opinion.",
+        "correct": "primary",
+        "feedback": {
+          "correct": "Right. A judicial opinion is primary authority \u2014 the court is making and applying law, not summarizing it.",
+          "secondary": "Cases are primary authority. The court is deciding the law, not describing someone else\u2019s account of it."
+        }
+      },
+      {
+        "id": "ps3",
+        "prompt": "A regulation published in the Code of Federal Regulations.",
+        "correct": "primary",
+        "feedback": {
+          "correct": "Right. A validly issued regulation carries the force of law, so it is primary authority \u2014 even though it sits below the statute that authorized it.",
+          "secondary": "Regulations are primary authority: properly adopted, they bind like law. Ranking below a statute does not make a source secondary."
+        }
+      },
+      {
+        "id": "ps4",
+        "prompt": "A law review article analyzing a recent line of cases.",
+        "correct": "secondary",
+        "feedback": {
+          "correct": "Right. A law review article comments on and analyzes the law. It is secondary \u2014 a tool for understanding and finding primary authority.",
+          "primary": "An article is not the law; it is one scholar\u2019s analysis of it. That makes it a secondary source, however persuasive its argument."
+        }
+      },
+      {
+        "id": "ps5",
+        "prompt": "A legal encyclopedia entry summarizing an area of law.",
+        "correct": "secondary",
+        "feedback": {
+          "correct": "Right. An encyclopedia describes the legal landscape and points you toward primary authority. It is a classic secondary source \u2014 a good place to start.",
+          "primary": "An encyclopedia summarizes the law for orientation; it is not itself the law. That is the definition of a secondary source."
+        }
+      },
+      {
+        "id": "ps6",
+        "prompt": "A section of the Restatement (Second) of Torts.",
+        "correct": "secondary",
+        "feedback": {
+          "correct": "Right \u2014 and this one trips people up. A Restatement reads like a code and is highly influential, but it is written by scholars, not enacted by a legislature or decided by a court. It is secondary, and never binding on its own.",
+          "primary": "It looks like a statute, but a Restatement is drafted by the American Law Institute, not enacted into law. Influence is not the same as binding force \u2014 it is secondary."
+        }
+      },
+      {
+        "id": "ps7",
+        "prompt": "The Fourteenth Amendment to the U.S. Constitution.",
+        "correct": "primary",
+        "feedback": {
+          "correct": "Right. A constitution is the supreme primary authority in its jurisdiction \u2014 nothing ranks higher.",
+          "secondary": "A constitution is the foundational law itself, not a commentary on it. It is primary \u2014 and the highest primary authority there is."
+        }
+      },
+      {
+        "id": "ps8",
+        "prompt": "A practitioner treatise on contract law (for example, a multi-volume set with annual supplements).",
+        "correct": "secondary",
+        "feedback": {
+          "correct": "Right. A treatise organizes and explains a doctrine and points you to the cases and statutes that govern it. Useful and respected \u2014 but secondary.",
+          "primary": "A treatise is an expert\u2019s synthesis of the law, not the law. It is a secondary source \u2014 the map, not the road."
+        }
+      }
+    ]
+  },
+  "binding-persuasive": {
+    "eyebrow": "Drill \u00b7 Classification",
+    "title": "Binding vs. Persuasive",
+    "instructions": "Each item names the deciding court and an authority before it. Decide whether the court must follow the authority (binding) or may merely consider it (persuasive). Watch two things: the jurisdiction line and the court system.",
+    "options": [
+      { "id": "binding", "text": "Binding (must follow)" },
+      { "id": "persuasive", "text": "Persuasive (may consider)" }
+    ],
+    "items": [
+      {
+        "id": "bp1",
+        "prompt": "Before the Arizona Court of Appeals: a prior Arizona Supreme Court decision on the same issue.",
+        "correct": "binding",
+        "feedback": {
+          "correct": "Right. The Arizona Supreme Court is a higher court in the same system, so its decisions bind the Arizona Court of Appeals.",
+          "persuasive": "Both courts sit in Arizona\u2019s system, and the Supreme Court is above the Court of Appeals. A higher court in the same system binds \u2014 this is mandatory authority."
+        }
+      },
+      {
+        "id": "bp2",
+        "prompt": "Before an Arizona trial court: a California Supreme Court decision squarely on point.",
+        "correct": "persuasive",
+        "feedback": {
+          "correct": "Right. California\u2019s law has no binding effect in Arizona. The decision may persuade, but the Arizona court is free to disregard it.",
+          "binding": "Watch the jurisdiction line. A California decision \u2014 however on point \u2014 does not bind an Arizona court. It is persuasive only."
+        }
+      },
+      {
+        "id": "bp3",
+        "prompt": "Before a U.S. District Court: a published decision of the U.S. Court of Appeals for the circuit in which that district sits.",
+        "correct": "binding",
+        "feedback": {
+          "correct": "Right. The circuit court is the district court\u2019s direct superior in the same federal system, so its precedent binds.",
+          "persuasive": "The district court sits within that circuit, and the circuit court is above it in the same system. Its published precedent is binding."
+        }
+      },
+      {
+        "id": "bp4",
+        "prompt": "Before the Arizona Supreme Court: a decision of the Arizona Court of Appeals (a lower court).",
+        "correct": "persuasive",
+        "feedback": {
+          "correct": "Right. Precedent binds downward, not upward. A lower court\u2019s decision does not bind the higher court \u2014 the Arizona Supreme Court may follow it or not.",
+          "binding": "Binding effect runs from higher courts to lower courts in the same system, never the other way. A lower court cannot bind the court above it."
+        }
+      },
+      {
+        "id": "bp5",
+        "prompt": "Before any state trial court: a U.S. Supreme Court decision interpreting the U.S. Constitution.",
+        "correct": "binding",
+        "feedback": {
+          "correct": "Right. On the meaning of the U.S. Constitution, the U.S. Supreme Court binds every court in the country \u2014 state and federal alike.",
+          "persuasive": "Federal constitutional rulings from the U.S. Supreme Court bind all courts. This is mandatory authority everywhere."
+        }
+      },
+      {
+        "id": "bp6",
+        "prompt": "Before an Arizona trial court: a well-regarded treatise that states the rule clearly.",
+        "correct": "persuasive",
+        "feedback": {
+          "correct": "Right. A treatise is a secondary source, and secondary sources are never binding \u2014 no matter how authoritative they sound.",
+          "binding": "No secondary source binds a court. A treatise can persuade and can point you to binding authority, but it cannot control the outcome."
+        }
+      },
+      {
+        "id": "bp7",
+        "prompt": "Before a U.S. District Court sitting in the Ninth Circuit: a decision of the U.S. Court of Appeals for the Second Circuit.",
+        "correct": "persuasive",
+        "feedback": {
+          "correct": "Right. The Second Circuit is a coordinate court in a different part of the federal system; it does not bind a district court in the Ninth Circuit. Persuasive only.",
+          "binding": "Only the district court\u2019s own circuit binds it. A sister circuit\u2019s decision is persuasive \u2014 useful, but the court need not follow it."
+        }
+      }
+    ]
+  },
+  "statute-common": {
+    "eyebrow": "Drill \u00b7 Which controls",
+    "title": "Statute vs. Common Law",
+    "instructions": "Statutes and judge-made (common-law) rules often address the same ground. These items drill the rule from Chapter 1: a statute controls over common law on the same subject \u2014 and its limits.",
+    "items": [
+      {
+        "id": "sc1",
+        "prompt": "For decades a state\u2019s courts applied a common-law rule on a question. The legislature then enacted a statute squarely addressing the same question and setting a different rule. Which governs going forward?",
+        "options": [
+          { "id": "statute", "text": "The statute" },
+          { "id": "common", "text": "The older common-law rule" },
+          { "id": "court", "text": "Whichever a court prefers, case by case" }
+        ],
+        "correct": "statute",
+        "feedback": {
+          "correct": "Right. On a subject a statute actually addresses, the statute controls over inconsistent common law. The legislature can displace or modify judge-made rules.",
+          "common": "Common law yields when the legislature speaks to the same subject. The newer statute displaces the inconsistent common-law rule.",
+          "court": "Courts do not pick freely between them. Where a statute squarely governs the subject, the court must apply the statute over conflicting common law."
+        }
+      },
+      {
+        "id": "sc2",
+        "prompt": "On a particular question, the legislature has never enacted anything at all \u2014 no statute speaks to it. Where does the governing rule come from?",
+        "options": [
+          { "id": "common", "text": "The common law (the courts)" },
+          { "id": "statute", "text": "A statute you simply haven\u2019t found yet" },
+          { "id": "none", "text": "Nowhere \u2014 there is no law on the point" }
+        ],
+        "correct": "common",
+        "feedback": {
+          "correct": "Right. Where the legislature has not acted, the common law supplies the rule. Statutes displace common law only on subjects they actually address.",
+          "statute": "Don\u2019t assume a hidden statute. When the legislature truly has not spoken, the common law governs the question \u2014 that is its proper domain.",
+          "none": "Silence by the legislature does not mean a legal vacuum. Courts supply the rule through the common law where no statute governs."
+        }
+      },
+      {
+        "id": "sc3",
+        "prompt": "A statute governs the subject, but a word in it is ambiguous. A court issues an opinion interpreting that word. Does the court\u2019s opinion now outrank the statute?",
+        "options": [
+          { "id": "no", "text": "No \u2014 the statute still controls; the case supplies its meaning" },
+          { "id": "yes", "text": "Yes \u2014 the later case beats the earlier statute" },
+          { "id": "depends", "text": "Only if the court says it is overruling the statute" }
+        ],
+        "correct": "no",
+        "feedback": {
+          "correct": "Right. Interpreting a statute is not the same as overriding it. The statute remains the controlling law; the case settles what its words mean and how they apply.",
+          "yes": "A court interpreting a statute does not displace it \u2014 the two work together. The statute controls; the opinion fixes its meaning. (And the legislature can amend the statute if it dislikes the reading.)",
+          "depends": "A court cannot \u2018overrule\u2019 a statute by interpreting it. It clarifies the statute\u2019s meaning; the statute itself remains the governing authority."
+        }
+      },
+      {
+        "id": "sc4",
+        "prompt": "A statute is clear, but a litigant argues it violates the constitution. The court agrees. Which authority wins?",
+        "options": [
+          { "id": "constitution", "text": "The constitution \u2014 the court can refuse to enforce the statute" },
+          { "id": "statute", "text": "The statute \u2014 enacted law always controls" },
+          { "id": "common", "text": "The common law fills the gap automatically" }
+        ],
+        "correct": "constitution",
+        "feedback": {
+          "correct": "Right. The constitution sits above ordinary statutes. A court can hold a statute unconstitutional and refuse to enforce it \u2014 though the text usually stays printed in the code, findable but unenforceable.",
+          "statute": "Statutes outrank regulations and common law, but not the constitution. A statute that conflicts with the constitution is invalid.",
+          "common": "This is a clash between a statute and the constitution, not a gap for the common law. The higher law \u2014 the constitution \u2014 controls."
+        }
+      }
+    ]
+  }
+}
