@@ -545,6 +545,51 @@ def check():
     return problems, len(pages)
 
 
+# --------------------------------------------------------------------------------------
+# Build manifest: a hash of every input, so CI can tell whether the committed site was
+# rebuilt after the last edit without needing byte-identical output (pandoc versions and
+# DOCX timestamps differ from machine to machine).
+# --------------------------------------------------------------------------------------
+MANIFEST = "build-manifest.json"
+
+
+def source_hashes():
+    import hashlib
+    files = ["book.json", "build.py"]
+    for sub in ("content", "assets", "downloads"):
+        for dp, dn, fns in os.walk(os.path.join(ROOT, sub)):
+            if "_archive" in dp:
+                continue
+            for fn in sorted(fns):
+                rp = os.path.relpath(os.path.join(dp, fn), ROOT).replace(os.sep, "/")
+                if sub == "downloads" and (fn == "index.html" or fn in GENERATED_DOWNLOADS):
+                    continue
+                files.append(rp)
+    out = {}
+    for rp in sorted(set(files)):
+        with open(os.path.join(ROOT, rp), "rb") as f:
+            out[rp] = hashlib.sha256(f.read()).hexdigest()
+    return out
+
+
+GENERATED_DOWNLOADS = {"Key_Takeaways_and_Pitfalls_by_Chapter.docx", "Scholarship_Research_Checklist.docx",
+                       "The_Question_Method_of_Legal_Research.docx"}
+
+
+def write_manifest():
+    write(MANIFEST, json.dumps({"inputs": source_hashes()}, indent=1, sort_keys=True) + "\n")
+
+
+def check_manifest():
+    try:
+        saved = json.load(open(os.path.join(ROOT, MANIFEST), encoding="utf-8"))["inputs"]
+    except (OSError, ValueError, KeyError):
+        return ["no %s: run python3 build.py and commit" % MANIFEST]
+    now = source_hashes()
+    changed = sorted(set(k for k in set(saved) | set(now) if saved.get(k) != now.get(k)))
+    return ["%s changed since the last build: run python3 build.py and commit the output" % k for k in changed]
+
+
 def main():
     if "--check" not in sys.argv:
         STATS["embeds"] = {}
@@ -565,7 +610,10 @@ def main():
         build_404()
         total = sum(STATS["embeds"].values())
         print("built: %d chapters, %d appendices, %d interactive embeds in chapters" % (len(CH), len(APP), total))
+        write_manifest()
     problems, npages = check()
+    if "--check" in sys.argv:
+        problems += check_manifest()
     print("checked %d pages" % npages)
     if problems:
         print("\n".join(" - " + p for p in problems[:60]))

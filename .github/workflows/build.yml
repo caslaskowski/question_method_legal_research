@@ -4,14 +4,18 @@ jobs:
   build:
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
+      - uses: actions/checkout@v5
+      - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
       - name: Install pandoc
         run: sudo apt-get update && sudo apt-get install -y pandoc
-      - name: Build and check
+      - name: Site builds cleanly on a fresh machine
         run: python3 build.py
-      - name: Committed output is current
+      - name: Committed site is current with its sources
+        # build.py records a hash of every input in build-manifest.json; this fails if content/,
+        # book.json, assets/ or the hand-made downloads changed after the last committed build.
+        # (Byte-comparing the output does not work: pandoc versions and DOCX timestamps differ.)
         run: |
-          git status --porcelain
-          test -z "$(git status --porcelain)" || { echo "Run python3 build.py and commit the output."; exit 1; }
+          git checkout -- . 2>/dev/null || true
+          git clean -fdq
+          python3 build.py --check

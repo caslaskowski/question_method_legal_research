@@ -26,7 +26,8 @@ opens a local page (http://127.0.0.1:8765, this computer only) where you can edi
 | `scripts/` | `import_pressbooks.py` (one-time import), `sync_interactives.py` (vendor the modules). |
 | `build.py` | Builds the site from `content/` and checks it. Also writes `search/index.json` (the in-browser search), the whole-book DOCX and two study aids into `downloads/`. |
 | `editing.py` | The local editing interface (see above). |
-| `.github/workflows/build.yml` | CI: builds, runs the checks, fails if the committed output is stale. |
+| `.github/workflows/build.yml` | CI: builds on a fresh machine, then runs `build.py --check`. |
+| `build-manifest.json` | Written by every build: a hash of each input (content, book.json, assets, hand-made downloads). `--check` fails if any input changed after the last build, which is how CI tells the committed site is current without needing byte-identical output. Commit it with the build. |
 
 ## Chapter numbering
 
