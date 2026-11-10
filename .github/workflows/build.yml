@@ -1,0 +1,17 @@
+name: build
+on: [push, pull_request]
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with: { python-version: "3.12" }
+      - name: Install pandoc
+        run: sudo apt-get update && sudo apt-get install -y pandoc
+      - name: Build and check
+        run: python3 build.py
+      - name: Committed output is current
+        run: |
+          git status --porcelain
+          test -z "$(git status --porcelain)" || { echo "Run python3 build.py and commit the output."; exit 1; }

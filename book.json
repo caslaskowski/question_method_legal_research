@@ -507,7 +507,7 @@
   {
    "file": "Research_Log_Template.xlsx",
    "title": "Research Log Template (spreadsheet)",
-   "desc": "A blank log, one row per research cycle. Columns: Research Question, Method, Answer, Source, Next Question, Notes. The book's full scaffold also records Question Type and How This Answers My Question; add those two columns if you or your instructor want the whole eight-field entry.",
+   "desc": "A blank log, one row per research cycle, with the book's seven fields as columns: Research Question, Question Type (a dropdown), Method, Findings, Source Consulted, Next Question, Notes.",
    "use": "Open it before your first exercise, write your macro question above the table, and add a row for every cycle you run."
   },
   {
@@ -528,6 +528,12 @@
    "title": "Scholarship Research Checklist",
    "desc": "The ten-step method from Chapter 17 for seminar papers, notes, and comments.",
    "use": "Run it when the paper is assigned, and again before submission."
+  },
+  {
+   "file": "The_Question_Method_of_Legal_Research.docx",
+   "title": "The whole book (Word)",
+   "desc": "Every chapter and appendix in one document, with a table of contents, regenerated on every build. Interactives appear as one-line pointers to the online edition; draft flags are left out.",
+   "use": "Read offline, print, or run a spell-check and a global find-and-replace across the whole text."
   }
  ],
  "renumber": {

@@ -57,7 +57,7 @@ def url_chapter(n):  return "ch-%d/index.html" % n
 def url_app(letter): return "appendices/%s.html" % letter.lower()
 def url_front(slug): return "front/%s.html" % slug
 def url_part(pid):   return "part-%s.html" % pid.lower()
-URL_HOME, URL_DOWNLOADS, URL_GLOSSARY = "index.html", "downloads/index.html", "glossary/index.html"
+URL_HOME, URL_DOWNLOADS, URL_GLOSSARY, URL_SEARCH = "index.html", "downloads/index.html", "glossary/index.html", "search/index.html"
 
 
 def rel(depth, url):
@@ -148,13 +148,44 @@ def toc_from(frag):
     return items
 
 
-def process(md_text, depth, page_url):
+SEARCH = []   # (url, page title, section id, section title, text) collected while building
+
+
+def add_anchors(frag):
+    """A small '#' link on every section heading, so a section can be cited by URL."""
+    return re.sub(r'<h([23]) id="([^"]+)"([^>]*)>(.*?)</h\1>',
+                  lambda m: '<h%s id="%s"%s>%s <a class="anchor" href="#%s" aria-label="Link to this section">#</a></h%s>'
+                  % (m.group(1), m.group(2), m.group(3), m.group(4), m.group(2), m.group(1)), frag, flags=re.S)
+
+
+def index_for_search(frag, page_url, page_title):
+    """Split the fragment at h2/h3 and store plain text per section."""
+    parts = re.split(r'(<h[23] id="[^"]+"[^>]*>.*?</h[23]>)', frag, flags=re.S)
+    cur_id, cur_title = "", page_title
+    for part in parts:
+        m = re.match(r'<h[23] id="([^"]+)"[^>]*>(.*?)</h[23]>', part, re.S)
+        if m:
+            cur_id = m.group(1)
+            cur_title = html.unescape(re.sub(r"<[^>]+>", "", m.group(2))).replace(" #", "").strip()
+            continue
+        text = re.sub(r"<(script|style|iframe)[^>]*>.*?</\1>", " ", part, flags=re.S)
+        text = re.sub(r'<span class="flag">.*?</span>', " ", text, flags=re.S)
+        text = html.unescape(re.sub(r"<[^>]+>", " ", text))
+        text = re.sub(r"\s+", " ", text).strip()
+        if text:
+            SEARCH.append({"u": page_url + ("#" + cur_id if cur_id else ""), "p": page_title, "s": cur_title, "t": text[:4000]})
+
+
+def process(md_text, depth, page_url, page_title=""):
     frag = pandoc_html(md_text)
     frag = fix_tables(frag)
     frag, n_embeds = render_embeds(frag, depth, page_url)
     frag = autolink(frag, depth, page_url)
     if not DRAFT:
         frag = strip_flags(frag)
+    frag = add_anchors(frag)
+    if page_title:
+        index_for_search(frag, page_url, page_title)
     return frag, n_embeds
 
 
@@ -174,12 +205,24 @@ def nav_menu(depth):
     return "".join(parts)
 
 
+def describe(body):
+    """First real paragraph of a page, for the meta description."""
+    m = re.search(r"<p>(?!<strong>In practice)(.*?)</p>", body, re.S)
+    if not m:
+        return ""
+    t = html.unescape(re.sub(r"<[^>]+>", "", m.group(1)))
+    t = re.sub(r"\s+", " ", t).strip()
+    return (t[:157] + "\u2026") if len(t) > 160 else t
+
+
 def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker=""):
     base = "../" * depth
+    desc = describe(body)
     toc_html = ""
     if toc:
         lis = "".join('<li class="l%d"><a href="#%s">%s</a></li>' % (lvl, i, esc(t)) for lvl, i, t in toc)
-        toc_html = '<nav class="toc" aria-label="On this page"><p class="th">On this page</p><ol>%s</ol></nav>' % lis
+        toc_html = ('<nav class="toc" aria-label="On this page"><details class="tocbox" open><summary><span class="th">On this page</span></summary>'
+                    '<ol>%s</ol></details></nav>' % lis)
     pager_html = ""
     if pager:
         prev, nxt = pager
@@ -197,7 +240,7 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%(title)s &mdash; %(book)s</title>
-<link rel="preload" href="%(base)sassets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
+%(desc)s<link rel="preload" href="%(base)sassets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="%(base)sassets/fonts/newsreader-400.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="%(base)sassets/book.css">
 </head>
@@ -209,6 +252,7 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
     <details class="menu"><summary>Contents</summary><div class="menu-panel">%(menu)s</div></details>
     <a href="%(dl)s">Downloads</a>
     <a href="%(gl)s">Glossary</a>
+    <a href="%(se)s">Search</a>
   </nav>
 </div></header>
 %(banner)s
@@ -228,7 +272,8 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 </body>
 </html>
 """ % {"title": esc(title), "book": esc(TITLE), "sub": esc(BOOK["subtitle"]), "base": base, "menu": nav_menu(depth),
-       "dl": base + URL_DOWNLOADS, "gl": base + URL_GLOSSARY, "banner": banner, "toc": toc_html, "pager": pager_html,
+       "dl": base + URL_DOWNLOADS, "gl": base + URL_GLOSSARY, "se": base + URL_SEARCH, "banner": banner,
+       "desc": ('<meta name="description" content="%s">\n' % esc(desc)) if desc else "", "toc": toc_html, "pager": pager_html,
        "body": body, "wide": "wide" if wide else "", "author": esc(BOOK["author"]), "kicker": kicker}
 
 
@@ -247,6 +292,7 @@ def sequence():
         seq.append((url_app(a["letter"]), "Appendix %s: %s" % (a["letter"], a["title"].split(":")[0])))
     seq.append((URL_GLOSSARY, "Glossary"))
     seq.append((URL_DOWNLOADS, "Downloads"))
+    seq.append((URL_SEARCH, "Search"))
     return seq
 
 
@@ -267,22 +313,28 @@ def pager_for(url):
 STATS = {"embeds": {}, "pages": 0}
 
 
+def embed_titles(frag):
+    return [html.unescape(t) for t in re.findall(r'<figure class="embed" id="embed-\d+"[^>]*><figcaption><span class="embed-kind">Interactive</span> <strong>(.*?)</strong>', frag)]
+
+
 def build_chapter(n):
     c = CH[n]
     url = url_chapter(n)
     md = read("content/chapters/ch-%02d.md" % n)
-    frag, ne = process(md, 1, url)
+    frag, ne = process(md, 1, url, "Chapter %d: %s" % (n, c["title"]))
     STATS["embeds"][n] = ne
     pid = c["part"]
     kicker = ('<header class="chead"><p class="kick"><a href="%s">%s</a></p><h1><span class="num">Chapter %d</span> %s</h1>%s</header>'
               % (rel(1, url_part(pid)), esc(PARTS[pid]["title"]), n, esc(c["title"]),
-                 ('<p class="chips"><span class="chip">%d interactive%s</span></p>' % (ne, "" if ne == 1 else "s")) if ne else ""))
+                 ('<p class="chips"><span class="chip">%d interactive%s</span> %s</p>'
+                  % (ne, "" if ne == 1 else "s",
+                     " ".join('<a class="chiplink" href="#embed-%d">%s</a>' % (i + 1, esc(t)) for i, t in enumerate(embed_titles(frag))))) if ne else ""))
     write(url, shell("Chapter %d: %s" % (n, c["title"]), frag, 1, url, toc=toc_from(frag), pager=pager_for(url), kicker=kicker))
 
 
 def build_front(f):
     url = url_front(f["slug"])
-    frag, _ = process(read("content/front/%s.md" % f["slug"]), 1, url)
+    frag, _ = process(read("content/front/%s.md" % f["slug"]), 1, url, f["title"])
     kicker = '<header class="chead"><h1>%s</h1></header>' % esc(f["title"])
     write(url, shell(f["title"], frag, 1, url, toc=toc_from(frag), pager=pager_for(url), kicker=kicker))
 
@@ -290,7 +342,7 @@ def build_front(f):
 def build_part(pid):
     p = PARTS[pid]
     url = url_part(pid)
-    frag, _ = process(read("content/front/part-%s.md" % pid.lower()), 0, url)
+    frag, _ = process(read("content/front/part-%s.md" % pid.lower()), 0, url, p["title"])
     cards = "".join(
         '<li><a href="%s"><span class="cn">%d</span><span class="ct">%s</span></a></li>' % (url_chapter(n), n, esc(CH[n]["title"]))
         for n in p["chapters"])
@@ -300,7 +352,7 @@ def build_part(pid):
 
 def build_appendix(a):
     url = url_app(a["letter"])
-    frag, ne = process(read("content/appendices/%s.md" % a["slug"]), 1, url)
+    frag, ne = process(read("content/appendices/%s.md" % a["slug"]), 1, url, "Appendix %s: %s" % (a["letter"], a["title"]))
     kicker = '<header class="chead"><p class="kick">Appendix %s</p><h1>%s</h1></header>' % (a["letter"], esc(a["title"]))
     write(url, shell("Appendix %s: %s" % (a["letter"], a["title"]), frag, 1, url, toc=toc_from(frag), pager=pager_for(url), kicker=kicker, wide=False))
 
@@ -347,6 +399,24 @@ def build_downloads():
             '<p class="embed-print">Interactive: Toolkit and Resources. Available in the online edition.</p></figure>'
             % "".join(cards))
     write(url, shell("Downloads", body, 1, url, pager=pager_for(url)))
+
+
+def build_search():
+    url = URL_SEARCH
+    write("search/index.json", json.dumps(SEARCH, ensure_ascii=False))
+    body = ('<header class="chead"><h1>Search the book</h1></header>'
+            '<p class="lede">Every chapter, appendix, and front-matter page, searched in your browser. Nothing you type leaves this page.</p>'
+            '<form class="searchform" role="search" onsubmit="return false"><label for="q" class="visually-hidden">Search terms</label>'
+            '<input id="q" type="search" placeholder="e.g. adverse authority, Skidmore, research map" autocomplete="off" autofocus>'
+            '</form><p id="search-status" class="search-status" role="status" aria-live="polite"></p><ol id="results" class="results"></ol>')
+    write(url, shell("Search", body, 1, url, pager=pager_for(url)))
+
+
+def build_404():
+    body = ('<header class="chead"><h1>Page not found</h1></header>'
+            '<p class="lede">That address does not match a page in this edition. The contents menu above lists every chapter and appendix, '
+            'or <a href="/%s">search the book</a>.</p>' % URL_SEARCH)
+    write("404.html", shell("Page not found", body, 0, "404.html"))
 
 
 def build_home():
@@ -411,6 +481,34 @@ def build_study_guide():
     os.remove(os.path.join(ROOT, "downloads", "_checklist.md"))
 
 
+def build_whole_book():
+    """One DOCX of the whole book, for reading offline or printing. Interactives become a one-line pointer."""
+    parts = ['---\ntitle: "%s"\nsubtitle: "%s"\nauthor: "%s"\n---\n' % (TITLE, BOOK["subtitle"], BOOK["author"])]
+    def clean(md):
+        md = re.sub(r'::: \{\.interactive module="[^"]+" title="([^"]*)" height="\d+"\}\n.*?\n:::\n?',
+                    lambda m: "> *Interactive: %s. Available in the online edition.*\n" % m.group(1), md, flags=re.S)
+        md = re.sub(r"\[((?:[^\[\]]|\\\[|\\\])*)\]\{\.flag\}", "", md)        # draft flags never go in the file
+        md = re.sub(r"\[([^\]]*)\]\{\.box-title\}", r"**\1**", md)
+        md = re.sub(r"\[([^\]]*)\]\{\.gloss\}", r"\1", md)
+        md = re.sub(r"(?m)^::: \{[^}]*\}\s*$", "", md)
+        md = re.sub(r"(?m)^:::\s*$", "", md)
+        md = re.sub(r"```\{=html\}.*?```", "", md, flags=re.S)
+        return re.sub(r"(?m)^(#+) ", lambda m: "#" * (len(m.group(1)) + 1) + " ", md)   # chapter title is the H1
+    for f in BOOK["front"]:
+        parts.append("\n# %s\n\n%s" % (f["title"], clean(read("content/front/%s.md" % f["slug"]))))
+    for pid in ("I", "II"):
+        parts.append("\n# %s\n\n%s" % (PARTS[pid]["title"], clean(read("content/front/part-%s.md" % pid.lower()))))
+        for n in PARTS[pid]["chapters"]:
+            parts.append("\n# Chapter %d: %s\n\n%s" % (n, CH[n]["title"], clean(read("content/chapters/ch-%02d.md" % n))))
+    for a in BOOK["appendices"]:
+        parts.append("\n# Appendix %s: %s\n\n%s" % (a["letter"], a["title"], clean(read("content/appendices/%s.md" % a["slug"]))))
+    tmp = os.path.join(ROOT, "downloads", "_book.md")
+    write("downloads/_book.md", "\n".join(parts))
+    subprocess.run(["pandoc", "-f", "markdown+fenced_divs+bracketed_spans+pipe_tables+smart", "--toc", "--toc-depth=2", tmp,
+                    "-o", os.path.join(ROOT, "downloads", "The_Question_Method_of_Legal_Research.docx")], check=True)
+    os.remove(tmp)
+
+
 # --------------------------------------------------------------------------------------
 # Checks
 # --------------------------------------------------------------------------------------
@@ -419,7 +517,7 @@ def check():
     pages = []
     for dp, dn, fns in os.walk(ROOT):
         rp = os.path.relpath(dp, ROOT)
-        if rp.split(os.sep)[0] in (".git", "interactives", "content", "source", "scripts", "node_modules"):
+        if rp.split(os.sep)[0] in (".git", "interactives", "content", "source", "scripts", "node_modules", ".github"):
             dn[:] = []
             continue
         for fn in fns:
@@ -435,7 +533,7 @@ def check():
             problems.append("%s: duplicate ids %s" % (os.path.relpath(pg, ROOT), sorted(dup)[:5]))
         for m in re.finditer(r'(?:href|src)="([^"#?]+)(#[^"]*)?"', s):
             u = m.group(1)
-            if re.match(r"^(mailto:|data:|javascript:)", u):
+            if re.match(r"^(mailto:|data:|javascript:)", u) or u.startswith("/"):
                 continue
             target = os.path.normpath(os.path.join(os.path.dirname(pg), u))
             if not os.path.exists(target):
@@ -460,8 +558,11 @@ def main():
             build_appendix(a)
         build_glossary()
         build_study_guide()
+        build_whole_book()
         build_downloads()
         build_home()
+        build_search()
+        build_404()
         total = sum(STATS["embeds"].values())
         print("built: %d chapters, %d appendices, %d interactive embeds in chapters" % (len(CH), len(APP), total))
     problems, npages = check()

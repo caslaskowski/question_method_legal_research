@@ -63,3 +63,61 @@
     for (var id in map) { var t = document.getElementById(id); if (t) io.observe(t); }
   }
 })();
+
+/* 4. collapse the on-this-page list on narrow screens (it would otherwise push the chapter down a full screen) */
+(function () {
+  var box = document.querySelector(".tocbox");
+  if (!box) return;
+  var mq = window.matchMedia("(max-width: 1079px)");
+  function apply() { box.open = !mq.matches; }
+  apply();
+  if (mq.addEventListener) mq.addEventListener("change", apply);
+})();
+
+/* 5. search page: load the index built by build.py, rank by term hits, show snippets */
+(function () {
+  var q = document.getElementById("q"), out = document.getElementById("results"), status = document.getElementById("search-status");
+  if (!q || !out) return;
+  var idx = null;
+  function esc(s) { return s.replace(/[&<>"]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;" }[c]; }); }
+  function load(cb) {
+    if (idx) return cb();
+    var x = new XMLHttpRequest();
+    x.open("GET", "index.json");
+    x.onload = function () { try { idx = JSON.parse(x.responseText); } catch (e) { idx = []; } cb(); };
+    x.onerror = function () { status.textContent = "The search index could not be loaded. Open the site over http (python3 -m http.server) rather than from a file."; };
+    x.send();
+  }
+  function run() {
+    var terms = q.value.toLowerCase().split(/\s+/).filter(function (t) { return t.length > 1; });
+    out.innerHTML = "";
+    if (!terms.length) { status.textContent = ""; return; }
+    load(function () {
+      var hits = [];
+      idx.forEach(function (e) {
+        var hay = (e.s + " " + e.t).toLowerCase(), score = 0;
+        for (var i = 0; i < terms.length; i++) {
+          var n = hay.split(terms[i]).length - 1;
+          if (!n) { score = 0; break; }
+          score += n + (e.s.toLowerCase().indexOf(terms[i]) >= 0 ? 5 : 0);
+        }
+        if (score) hits.push([score, e]);
+      });
+      hits.sort(function (a, b) { return b[0] - a[0]; });
+      hits = hits.slice(0, 40);
+      status.textContent = hits.length ? hits.length + " section" + (hits.length === 1 ? "" : "s") + " match." : "No sections match.";
+      hits.forEach(function (h) {
+        var e = h[1], low = e.t.toLowerCase(), at = -1;
+        for (var i = 0; i < terms.length && at < 0; i++) at = low.indexOf(terms[i]);
+        var start = Math.max(0, at - 90), snip = (start ? "…" : "") + e.t.substr(start, 220) + "…";
+        var html = esc(snip);
+        terms.forEach(function (t) { html = html.replace(new RegExp("(" + t.replace(/[.*+?^${}()|[\]\\]/g, "\\$&") + ")", "ig"), "<mark>$1</mark>"); });
+        var li = document.createElement("li");
+        li.innerHTML = '<span class="r-page">' + esc(e.p) + '</span><a href="../' + esc(e.u) + '">' + esc(e.s) + "</a><p>" + html + "</p>";
+        out.appendChild(li);
+      });
+    });
+  }
+  var t; q.addEventListener("input", function () { clearTimeout(t); t = setTimeout(run, 120); });
+  if (q.value) run();
+})();

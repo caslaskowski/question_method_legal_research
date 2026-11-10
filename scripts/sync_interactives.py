@@ -59,6 +59,16 @@ def module_dirs(book):
                 dirs[os.path.dirname(rs["embed"]["module"])] = True
     for item in book.get("extra_interactives", []):
         dirs[os.path.dirname(item["module"])] = True
+    # the build reads embeds from the Markdown itself, so vendor whatever the pages reference
+    content = os.path.join(ROOT, "content")
+    for dp, _dn, fns in os.walk(content):
+        if "_archive" in dp:
+            continue
+        for fn in fns:
+            if fn.endswith(".md"):
+                with open(os.path.join(dp, fn), encoding="utf-8") as f:
+                    for m in re.finditer(r'\{\.interactive module="([^"]+)"', f.read()):
+                        dirs[os.path.dirname(m.group(1))] = True
     return sorted(dirs)
 
 
