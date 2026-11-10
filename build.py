@@ -440,7 +440,7 @@ def build_home():
 <li><strong>Read the chapter, then practice in it.</strong> Interactive exercises sit inside the chapters, right where the book teaches the skill. Each has an <em>Open in a new tab</em> link if you want more room.</li>
 <li><strong>Keep one Research Log.</strong> The interactive modules that use it share a single log in your browser, so your work follows you from chapter to chapter.</li>
 <li><strong>Your work stays with you.</strong> Nothing you type is sent anywhere. Modules save to your own browser and let you download a record to submit.</li>
-<li><strong>Download the tools.</strong> The <a href="%(dl)s">Downloads page</a> has the Quick Tips sheet, the Research Log template, and a fully worked example.</li>
+<li><strong>Download the tools.</strong> The <a href="%(dl)s">Downloads page</a> has the Tip Sheet, the Research Log template, and a fully worked example.</li>
 </ul></div>
 <h2>Start here</h2><ul class="cardlist plain">%(front)s</ul>
 <h2><a href="%(p1)s">%(p1t)s</a></h2><ol class="cardlist">%(c1)s</ol>
