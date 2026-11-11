@@ -45,7 +45,7 @@ def write(path, text):
 
 def pandoc_html(md_text):
     p = subprocess.run(["pandoc", "-f", PANDOC_FROM, "-t", "html5", "--wrap=none"],
-                       input=md_text, capture_output=True, text=True)
+                       input=md_text, capture_output=True, text=True, encoding="utf-8")
     if p.returncode:
         sys.exit("pandoc failed: " + p.stderr)
     return p.stdout

@@ -150,7 +150,7 @@ def available_modules():
 
 def run(cmd, timeout=600):
     try:
-        p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, timeout=timeout)
+        p = subprocess.run(cmd, cwd=ROOT, capture_output=True, text=True, encoding="utf-8", errors="replace", timeout=timeout)
         return {"ok": p.returncode == 0, "output": (p.stdout + p.stderr).strip()}
     except subprocess.TimeoutExpired:
         return {"ok": False, "output": "timed out"}
