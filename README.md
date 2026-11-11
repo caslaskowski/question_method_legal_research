@@ -63,7 +63,7 @@ An interactive is a fenced block in the chapter's Markdown. Its content is ordin
 | `order` | Arranges rows, then checks | A numbered list in the correct order. The page shuffles it. |
 | `explore` | Selects parts of a diagram | A list of `**Name \| tag.** text` items. `layout=` `tabs`, `flow`, `stack`, `list`, `ring` (add `edges="a \| b"` and `arrows="both"`), `plot` (`**Name \| x, y.**`, 0 to 100, with `xlabel` and `ylabel`), or `screen`. |
 | `annotate` | Selects marked phrases in a passage | `[phrase]{.m label="..." note="..."}`. `layout="cite"` shows a citation part by part; `verdict="ok"`, `"warn"` or `"bad"` colours a phrase once opened; `hint="..."` sets the instruction. |
-| `search` | Runs real terms-and-connectors searches | Each bullet is a document: `**Title \| on point.** text`. `queries="..."` lists presets separated by `\|` (write `&quot;` for a quotation mark); `natural="..."` adds a natural-language mode. Supports AND, OR, NOT, phrases, `!`, `*`, `/n`, `/s`, `/p`, `+n`. |
+| `search` | Runs real terms-and-connectors searches | Each bullet is a document: `**Title \| on point.** text`. `queries="..."` lists presets separated by `\|` (write `&quot;` for a quotation mark); `natural="..."` adds a natural-language mode. Supports AND, OR, NOT, phrases, `!`, `*`, `/n`, `+n`, and `/s` and `/p` as stand-in word distances (15 and 50), since the real numbers are not published. |
 | `checklist` | Ticks boxes that persist in the browser | A task list of `- [ ]` items; a bold lead becomes the label. |
 | `reveal` | Writes an answer, then compares | Prompt, a `---` line, then the model answer. |
 | `tokens` | Watches a sentence predicted piece by piece | `start="..."`; each bullet lists candidates as `word 70%; word 20%`, most likely first. |

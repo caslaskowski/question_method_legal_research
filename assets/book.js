@@ -548,6 +548,7 @@
       function par(c) { return c.k === "T" || c.k === n.k ? show(c) : "(" + show(c) + ")"; }
       return par(n.l) + " " + op + " " + par(n.r);
     }
+    var UNIT = { s: 15, p: 50 };
     function uniq(a) { var s = {}, o = []; a.forEach(function (x) { if (!s[x]) { s[x] = 1; o.push(x); } }); return o; }
     function run(n, d) {            /* returns the word indexes (into d.seq) that satisfy the node, or [] */
       var a, b, out = [];
@@ -564,7 +565,9 @@
       if (n.k === "NOT") return b.length ? [] : a;
       a.forEach(function (x) { b.forEach(function (y) {
         var wx = d.words[d.seq[x]], wy = d.words[d.seq[y]], ok;
-        if (n.op.unit) ok = n.op.unit === "s" ? wx.s === wy.s : wx.p === wy.p; else ok = Math.abs(y - x) <= n.op.n;
+        /* /s and /p are not sentence or paragraph tests. On a real platform each is shorthand for a
+           word distance the vendor does not publish; the lab uses stand-in distances and says so. */
+        ok = Math.abs(y - x) <= (n.op.unit ? UNIT[n.op.unit] : n.op.n);
         if (ok && n.op.ord) ok = y > x;
         if (ok && x !== y) { out.push(x); out.push(y); }
       }); });
@@ -599,7 +602,7 @@
       var q = input.value.trim(), rows = [], tree = null;
       res.innerHTML = ""; read.textContent = "";
       if (!q) { stats.textContent = docs.length + " documents in this practice database. Run a search."; return; }
-      if (mode === "tc") { tree = parse(lex(q)); if (!tree) { stats.textContent = "The lab could not read that search."; return; } read.textContent = "Read as: " + show(tree); }
+      if (mode === "tc") { tree = parse(lex(q)); if (!tree) { stats.textContent = "The lab could not read that search."; return; } read.textContent = "Read as: " + show(tree) + (/[\/+][sp]\b/i.test(q) ? "   (in this lab /s stands in for /" + UNIT.s + " and /p for /" + UNIT.p + "; real platforms do not publish their numbers)" : ""); }
       docs.forEach(function (d) {
         var r = mode === "nl" ? natural(q, d) : { hits: run(tree, d), score: 1 };
         rows.push({ d: d, hits: r.hits, score: r.hits.length ? r.score : 0 });

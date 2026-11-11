@@ -1,7 +1,7 @@
 {
  "inputs": {
   "assets/book.css": "137fcaf5f4afa0d89ed3c086688ef05d006aec6e455679fb1435d6023b571ae8",
-  "assets/book.js": "b4546d894ec4c8fc5a2ae7b4c8bd8f3c048ac62e6c992860306b1f5a78f6b29e",
+  "assets/book.js": "95af8224f41e8560858e5201ff7d41ffbb7c65ef71667afe401ef1577c6c9261",
   "assets/fonts/archivo-400.woff2": "07f9160163da2ec0f6376ef9d27a2bb8163f98019ba798da4baafb154e30056e",
   "assets/fonts/archivo-500.woff2": "ab74eca5ad115fe4cfec82ba641e5d37e4d92c58dfb1bfc1e464e9039c9d17cf",
   "assets/fonts/archivo-600.woff2": "d9e8c29fdd348edde2a4f9aae438e569dd165bbbdebda78495824a2d9aaa67e8",
@@ -32,7 +32,7 @@
   "content/chapters/ch-06.md": "31978ef0a821bb4b0f11f46abcbc704114b673405ff41e334b4fb937885b8a1e",
   "content/chapters/ch-07.md": "744968b0013000434f71bcfcbe5dd126e4c73eee534bcc4ad8835ebcc07e0b02",
   "content/chapters/ch-08.md": "64204658c9ef825d0388ca0f2b109beff52b726904725ef646a25837b459a540",
-  "content/chapters/ch-09.md": "6e4bc16aa5588a9b37440264fc37d68ccc0e8f01717f2fdc949fbefb24f4850c",
+  "content/chapters/ch-09.md": "488dd5dd7f13ec0bf22d8372d430fc5d840d934e5047377c3381e9096dbda6f4",
   "content/chapters/ch-10.md": "2f512cf8c09a8d358f77b6423564eccb571fa745d383ec46cf34dc3a112a0377",
   "content/chapters/ch-11.md": "fa5e7e29ee074d335eb519e5402c93b83dadfba4f5792bf260d567d7302f9c51",
   "content/chapters/ch-12.md": "e67457a31af9775ef46a33d51288fe705d51e8d1303f29fd10682da5e67e11b2",
