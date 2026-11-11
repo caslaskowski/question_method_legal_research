@@ -8,7 +8,10 @@ jobs:
       - uses: actions/setup-python@v6
         with: { python-version: "3.12" }
       - name: Install pandoc
-        run: sudo apt-get update && sudo apt-get install -y pandoc
+        # From pandoc's own release files, not the Ubuntu package mirrors: the mirrors' name lookups
+        # were failing on the runner and taking the whole check down with them.
+        uses: pandoc/actions/setup@v1
+        with: { version: "3.1.3" }
       - name: Site builds cleanly on a fresh machine
         run: python3 build.py
       - name: Committed site is current with its sources
