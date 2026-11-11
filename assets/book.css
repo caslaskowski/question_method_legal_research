@@ -434,9 +434,10 @@ h2:hover .anchor,h3:hover .anchor,.anchor:focus{opacity:1;}
 .lost-kick{font-weight:900;letter-spacing:.3em;text-transform:uppercase;color:var(--spark);font-size:.95rem!important;margin:22px 0 10px;}
 .lost h1{font-family:var(--slab);font-size:clamp(2.4rem,7vw,3.8rem);line-height:1.05;margin:0;color:#fdf8ec;}
 .lost-lede{font-size:1.2rem!important;max-width:34em;margin:18px auto 0;}
-.lost-list{list-style:none;padding:0;margin:26px auto 0;max-width:36em;text-align:left;display:grid;gap:10px;}
-.lost-list li{background:rgba(255,255,255,.07);border-left:4px solid var(--spark);padding:10px 16px;font-size:1.05rem!important;}
-.lost a{color:#ffd9bf;font-weight:700;}
-.lost a:hover{color:#fff;}
+.lost-actions{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;margin:28px 0 0;}
+.lost .btn{background:var(--spark);color:var(--navy);font-size:1rem;padding:11px 20px;}
+.lost .btn:hover{background:#fff;color:var(--navy);}
+.lost .btn.ghost{background:transparent;color:#fdf8ec;border:1.5px solid #fdf8ec;}
+.lost .btn.ghost:hover{background:#fdf8ec;color:var(--navy);}
 .lost a:focus-visible{outline-color:#fff;}
 .lost-foot{font-style:italic;margin:24px auto 0;max-width:34em;color:#d9dce6;}

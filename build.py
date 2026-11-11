@@ -465,18 +465,14 @@ def build_404():
     head = ('<script>(function(){var p=location.pathname.split("/"),b=document.createElement("base");'
             'b.setAttribute("href",/\\.github\\.io$/.test(location.hostname)&&p[1]?"/"+p[1]+"/":"/");document.head.appendChild(b);})();</script>\n')
     body = ('<div class="lost"><div class="qmarks" aria-hidden="true"><span>?</span><span>?</span><span>?</span></div>'
-            '<p class="lost-kick">Error 404</p>'
-            '<h1>No results.</h1>'
-            '<p class="lost-lede">A search that returns nothing means one of two things. Either nothing is there, or the search was too narrow. '
-            'This book has plenty in it, so let us diagnose the search.</p>'
-            '<ul class="lost-list">'
-            '<li><strong>Check your terms.</strong> A typo in an address fails the way a typo in a citation does. Completely.</li>'
-            '<li><strong>Broaden.</strong> <a href="index.html">Start from the contents</a> and browse your way down.</li>'
-            '<li><strong>Try other words.</strong> <a href="search/index.html">Search the book</a> for the idea you were after.</li>'
-            '<li><strong>Go back to a secondary source.</strong> The <a href="glossary/index.html">glossary</a> will tell you what we call it here.</li>'
-            '</ul>'
-            '<p class="lost-foot">And write it down. A dead end you logged is a dead end you never have to visit twice.</p></div>')
-    write("404.html", shell("No results", body, 0, "404.html", head=head))
+            '<p class="lost-kick">404 F. Supp. Nowhere</p>'
+            '<h1>This page has been overruled.</h1>'
+            '<p class="lost-lede">We ran the citator and it came back all red flags. No such page in any reporter, in any jurisdiction. '
+            'It is, as they say, no longer good law.</p>'
+            '<p class="lost-actions"><a class="btn" href="index.html">Return to binding authority</a> '
+            '<a class="btn ghost" href="search/index.html">Motion to search</a></p>'
+            '<p class="lost-foot">Objection sustained. The address you entered is stricken from the record.</p></div>')
+    write("404.html", shell("Page not found", body, 0, "404.html", head=head))
 
 
 def build_home():
