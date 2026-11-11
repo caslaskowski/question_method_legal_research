@@ -134,6 +134,63 @@ def autolink(frag, depth, page_url):
     return "".join(out)
 
 
+GLOSS = None
+GLOSS_MISS = set()
+
+
+def gloss_key(t):
+    t = html.unescape(re.sub(r"<[^>]+>", "", t)).lower()
+    t = re.sub(r"\([^)]*\)", "", t)
+    return re.sub(r"[^a-z0-9 ]+", " ", t.replace("\u2019", "").replace("'", "")).strip()
+
+
+def load_gloss():
+    """term -> definition, from content/glossary.md (a definition list)."""
+    global GLOSS
+    GLOSS = {}
+    for m in re.finditer(r"(?m)^(\S[^\n]*)\n:   (.*)$", read("content/glossary.md")):
+        d = re.sub(r"\s*\(Chapter \d+\)\s*$", "", m.group(2).strip())
+        GLOSS[gloss_key(m.group(1))] = d
+
+
+def add_definitions(frag):
+    """Give each defined term (a .gloss span) its glossary definition, shown on hover, focus or tap."""
+    if GLOSS is None:
+        load_gloss()
+
+    def find(k):
+        c = [k, k.rstrip("s"), k + "s", re.sub(r"ies$", "y", k), re.sub(r"s$", "", k.split(" ")[0]) + " " + " ".join(k.split(" ")[1:])]
+        for x in c:
+            if x.strip() in GLOSS:
+                return GLOSS[x.strip()]
+        for g in GLOSS:                      # "citators" -> "citator"; "session laws" -> "session law"
+            if g.startswith(k) or k.startswith(g):
+                if abs(len(g) - len(k)) <= 4:
+                    return GLOSS[g]
+        return None
+
+    def sub(m):
+        d = find(gloss_key(m.group(1)))
+        if not d:
+            # No glossary entry: fall back to the book's own defining sentence, the one the term sits in.
+            GLOSS_MISS.add(gloss_key(m.group(1)))
+            src = m.string
+            a = max(src.rfind("<p>", 0, m.start()), src.rfind("<li>", 0, m.start()))
+            b = min([x for x in (src.find("</p>", m.end()), src.find("</li>", m.end())) if x >= 0] or [-1])
+            if a < 0 or b < 0:
+                return m.group(0)
+            before = html.unescape(re.sub(r"<[^>]+>", "", src[a:m.start()]))
+            after = html.unescape(re.sub(r"<[^>]+>", "", src[m.end():b]))
+            term = html.unescape(re.sub(r"<[^>]+>", "", m.group(1)))
+            head = re.split(r"(?<=[.?!])\s+(?=[A-Z\u201c*])", before)[-1]
+            tail = re.split(r"(?<=[.?!])\s+(?=[A-Z\u201c])", after)[0]
+            d = re.sub(r"\s+", " ", head + term + tail).strip()
+            if len(d) < 40:
+                return m.group(0)
+        return '<span class="gloss" data-def="%s">%s</span>' % (esc(d), m.group(1))
+    return re.sub(r'<span class="gloss">(.*?)</span>', sub, frag, flags=re.S)
+
+
 def strip_flags(frag):
     return re.sub(r'<span class="flag">(.*?)</span>', "", frag, flags=re.S)
 
@@ -190,6 +247,8 @@ def process(md_text, depth, page_url, page_title=""):
     if not DRAFT:
         frag = strip_flags(frag)
     frag = add_anchors(frag)
+    if page_url != URL_GLOSSARY:
+        frag = add_definitions(frag)
     if page_title:
         index_for_search(frag, page_url, page_title)
     return frag, n_embeds
@@ -598,6 +657,8 @@ def main():
         build_404()
         total = sum(STATS["embeds"].values())
         print("built: %d chapters, %d appendices, %d in-text interactives in chapters" % (len(CH), len(APP), total))
+        if GLOSS_MISS:
+            print("defined terms with no glossary entry (hover shows the defining sentence instead): " + "; ".join(sorted(GLOSS_MISS)))
         write_manifest()
     problems, npages = check()
     if "--check" in sys.argv:

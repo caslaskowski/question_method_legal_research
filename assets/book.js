@@ -285,7 +285,16 @@
       var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
       svg.setAttribute("viewBox", "0 0 160 90"); svg.setAttribute("aria-hidden", "true");
       svg.innerHTML = '<defs><marker id="qm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z"/></marker></defs>';
-      var pts = items.map(function (_it, i) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [80 + 52 * Math.cos(a), (n === 3 ? 50 : 45) + 32 * Math.sin(a)]; });
+      var centre = opt(root, "center") === "last" ? n - 1 : -1; if (centre >= 0) n = n - 1;       /* the last item floats in the middle, outside the cycle */
+      var pts = items.slice(0, n).map(function (_it, i) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [80 + 54 * Math.cos(a), (n === 3 ? 50 : 45) + 33 * Math.sin(a)]; });
+      var curved = n >= 4 && !opt(root, "edges");
+      function curve(p, q) {
+        var dx = q[0] - p[0], dy = q[1] - p[1], f = Math.min(Math.min(22 / Math.abs(dx || 1e-6), 9.5 / Math.abs(dy || 1e-6)), 0.45);
+        var a = [p[0] + dx * f, p[1] + dy * f], b = [q[0] - dx * f, q[1] - dy * f], mx = (a[0] + b[0]) / 2, my = (a[1] + b[1]) / 2;
+        var ox = mx - 80, oy = my - 45, ol = Math.sqrt(ox * ox + oy * oy) || 1, path = document.createElementNS(NS, "path");
+        path.setAttribute("d", "M" + a[0] + " " + a[1] + " Q" + (mx + ox / ol * 7) + " " + (my + oy / ol * 5) + " " + b[0] + " " + b[1]);
+        path.setAttribute("marker-end", "url(#qm-arrow)"); svg.appendChild(path);
+      }
       /* an edge label may be "forward ~ backward": two arrows, one each way, each carrying its own label.
          "~ backward" alone draws only the return arrow. */
       function arrow(p, q, off, label, twoHeads) {
@@ -304,6 +313,7 @@
       pts.forEach(function (p, i) {
         if (n < 2) return;
         var q = pts[(i + 1) % n], e = edges[i] || "";
+        if (curved) { curve(p, q); return; }
         if (e.indexOf("~") >= 0) {
           var parts = e.split("~").map(function (x) { return x.trim(); }), pair = parts[0] && parts[1];
           if (parts[0]) arrow(p, q, pair ? 2.2 : 0, parts[0], false);
@@ -311,7 +321,11 @@
         } else arrow(p, q, 0, e, both);
       });
       fig.appendChild(svg);
-      btns.forEach(function (b, i) { b.style.left = (pts[i][0] / 1.6) + "%"; b.style.top = (pts[i][1] / 0.9) + "%"; fig.appendChild(b); });
+      btns.forEach(function (b, i) {
+        if (i === centre) { b.classList.add("centre"); b.style.left = "50%"; b.style.top = "50%"; }
+        else { b.style.left = (pts[i][0] / 1.6) + "%"; b.style.top = (pts[i][1] / 0.9) + "%"; }
+        fig.appendChild(b);
+      });
     } else if (layout === "database") {
       /* A generic legal database. Every control is one item of the list, in this order: five header
          tools, the search box, the filter, advanced search, the browse tabs (items that carry a
@@ -694,4 +708,38 @@
     var k = root.getAttribute("data-kind");
     if (KINDS[k]) { try { KINDS[k](root, idx); root.classList.add("live"); } catch (e) { if (window.console) console.error("interactive failed:", k, e); } }
   });
+})();
+
+/* 7. Defined terms: the glossary definition opens on hover, keyboard focus, or tap. It stays open while
+      the pointer is on it and closes with Escape. */
+(function () {
+  var terms = document.querySelectorAll(".gloss[data-def]");
+  if (!terms.length) return;
+  var tip = document.createElement("div"), cur = null, timer = null;
+  tip.className = "gloss-tip"; tip.id = "gloss-tip"; tip.setAttribute("role", "tooltip"); tip.hidden = true;
+  document.body.appendChild(tip);
+  function show(t) {
+    clearTimeout(timer); cur = t;
+    tip.textContent = t.getAttribute("data-def"); tip.hidden = false;
+    var r = t.getBoundingClientRect(), w = Math.min(520, window.innerWidth - 24);
+    tip.style.width = w + "px";
+    tip.style.left = Math.max(12, Math.min(r.left + window.scrollX, window.scrollX + window.innerWidth - w - 12)) + "px";
+    var below = r.bottom + 8 + tip.offsetHeight < window.innerHeight - 60;
+    tip.style.top = (below ? r.bottom + window.scrollY + 8 : r.top + window.scrollY - tip.offsetHeight - 8) + "px";
+    t.setAttribute("aria-describedby", "gloss-tip");
+  }
+  function hide() { if (cur) cur.removeAttribute("aria-describedby"); cur = null; tip.hidden = true; }
+  function later() { clearTimeout(timer); timer = setTimeout(hide, 180); }
+  Array.prototype.forEach.call(terms, function (t) {
+    t.setAttribute("tabindex", "0");
+    t.addEventListener("mouseenter", function () { show(t); });
+    t.addEventListener("mouseleave", later);
+    t.addEventListener("focus", function () { show(t); });
+    t.addEventListener("blur", later);
+    t.addEventListener("click", function (e) { e.stopPropagation(); if (cur === t && !tip.hidden) hide(); else show(t); });
+  });
+  tip.addEventListener("mouseenter", function () { clearTimeout(timer); });
+  tip.addEventListener("mouseleave", later);
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape") hide(); });
+  document.addEventListener("click", function (e) { if (!tip.contains(e.target)) hide(); });
 })();

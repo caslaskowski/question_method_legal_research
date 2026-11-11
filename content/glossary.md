@@ -115,6 +115,9 @@ List of CFR Sections Affected (LSA)
 litigation research closure
 :   The litigation closure criterion: controlling authority identified for each issue, adverse authority identified and addressed, procedural requirements confirmed, and all cited authorities updated and validated. (Chapter 14)
 
+natural language searching
+:   A search method that allows the user to submit conversational sentences or questions instead of rigid keywords to search the database for relevant authority. (Chapter 2)
+
 Notice of Proposed Rulemaking (NPRM)
 :   The Federal Register notice proposing a rule and opening the public comment period; the record of the agency's intent. (Chapter 7)
 
