@@ -610,6 +610,7 @@ def check():
 # DOCX timestamps differ from machine to machine).
 # --------------------------------------------------------------------------------------
 MANIFEST = "build-manifest.json"
+TEXT_EXTS = {".md", ".py", ".json", ".css", ".js", ".html", ".txt", ".svg", ".yml", ".csv"}
 
 
 def source_hashes():
@@ -627,7 +628,10 @@ def source_hashes():
     out = {}
     for rp in sorted(set(files)):
         with open(os.path.join(ROOT, rp), "rb") as f:
-            out[rp] = hashlib.sha256(f.read()).hexdigest()
+            data = f.read()
+        if os.path.splitext(rp)[1].lower() in TEXT_EXTS:
+            data = data.replace(b"\r\n", b"\n")   # Windows checkouts use CRLF; the hash must not care
+        out[rp] = hashlib.sha256(data).hexdigest()
     return out
 
 
