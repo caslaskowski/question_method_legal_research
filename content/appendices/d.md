@@ -1,11 +1,13 @@
 If reading a statute calls for close attention to text, reading a regulation calls for even more. Regulations tend to be more detailed, more technical, and more intricately structured than statutes, because their job is to translate a statute’s broad mandate into specific, enforceable requirements. The same reading principles apply (read in context, check definitions, follow cross-references, look for exceptions), but regulations carry a few extra features that deserve their own attention. As with every source in this book, reading one is answering the questions the source exists to answer: what is required, of whom, on what authority, and since when. Keep your current question in the foreground and the extra apparatus becomes a checklist rather than clutter.
 
-*[\[Figure D.1\]]{.flag} Full-page annotated CFR section, using a real provision such as 29 C.F.R. Part 1910 (OSHA) or 40 C.F.R. Part 122 (Clean Water Act). Label: Part Heading, Authority Note, Source Note, Definitions Section, Section Number and Heading, Regulatory Text, Cross-References, and the annotations as they appear in Westlaw or Lexis.*
+::: {.try kind="annotate" title="The parts of a regulation, on a real one" hint="Your client’s 1960s restaurant has one step at its door. Must the step go? Select each part of the Department of Justice’s rule, working in a researcher’s order: authority first."}
+[**Part 36 — Nondiscrimination on the Basis of Disability by Public Accommodations and in Commercial Facilities**]{.m label="Part heading" note="The subject of the whole Part, and how you orient yourself: Title 28, Chapter I, Part 36. Related rules, including the definitions, share this Part."}
 
+[Authority: 42 U.S.C. 12181–12189; 28 U.S.C. 509, 510.]{.m label="Authority note" note="The statute that lets the agency speak at all: the public accommodations provisions of the Americans with Disabilities Act. It is the outer boundary of the rule. Read the statute before you rely on the regulation."} [Source: 56 FR 35544, July 26, 1991, as amended at 75 FR 56236, Sept. 15, 2010.]{.m label="Source note" note="Where the rule was published and last amended. This is the thread to the preamble, the agency’s own explanation of what it meant, which is never codified."}
 
-::: {.interactive module="ch-7/reading-regulations/index.html" title="How to Read a Regulation" height="900"}
-A DOJ rule on removing barriers in existing facilities, read from the authority note down — definitions, the operative verb, the Part's structure — and the question the codified text cannot answer.
+[**§ 36.304 Removal of barriers.**]{.m label="Section number and heading" note="The address. Part 36, section 304."} (a) *General.* A public accommodation [shall remove]{.m label="The operative verb" note="“Shall” creates an obligation. Compare paragraph (c) of this same section, where a public accommodation “is urged” to follow an order of priorities. Read the verbs one at a time. A binding rule can contain advice."} architectural barriers in existing facilities, including communication barriers that are structural in nature, where such removal is [readily achievable]{.m label="A defined term" note="The whole duty turns on this phrase. The Part’s definitions section, § 36.104, supplies factors: the nature and cost of the action, the resources of the site and of the business, and the type of operation. Factors are sibling questions about your client’s facts."}, [i.e., easily accomplishable and able to be carried out without much difficulty or expense]{.m label="A gloss, not the definition" note="A compressed restatement inside the operative text. Helpful, and not a substitute for the definition, because the definition carries the factors a court will apply."}.
 :::
+
 
 ## Components of a Regulatory Section
 
@@ -35,4 +37,11 @@ A DOJ rule on removing barriers in existing facilities, read from the authority 
 
 **Confirm currency before you rely on it.** Regulations change frequently. Verify you are reading the current version using the eCFR, the List of CFR Sections Affected (LSA), the Federal Register, and a citator. Stopping at the CFR text without checking for recent amendments is one of the most common regulatory research errors.
 
-*[\[Figure D.2\]]{.flag} Vertical hierarchy diagram: Authorizing Statute, then Regulation, then a branch into Federal Register Preamble, Case Law Interpreting, and Agency Guidance, all feeding into Your Analysis synthesizing the sources.*
+::: {.try kind="explore" layout="stack" title="A regulation is never read alone"}
+- **Authorizing statute | start here.** Sets the mandate and the limit. If the regulation seems to reach further than the statute, that gap is itself a research question.
+- **Regulation | the operative text.** What is required, of whom, in the agency’s words. Read with its Part’s definitions.
+- **Federal Register preamble | why.** The agency’s explanation and its answers to comments. Persuasive evidence of meaning, found through the source note.
+- **Case law | how it has fared.** Whether courts have upheld the rule and how they have applied it to facts.
+- **Agency guidance | how it is enforced.** Manuals, FAQs, and letters. Influential, not binding (Chapter 11).
+- **Your analysis | the synthesis.** The rule as it stands today, with each layer cited for what it is and weighted for what it is worth.
+:::

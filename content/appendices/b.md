@@ -1,11 +1,21 @@
 Reading a judicial opinion is harder than it sounds, and it helps to say that out loud. Opinions are written by judges for other lawyers and judges, who are assumed to already know the terminology, the procedural context, and the analytical conventions. The disorientation you feel at first is normal, and it passes. Once you can recognize the parts, you can move through any opinion efficiently, reading for the components that answer your question and moving quickly past the rest. That is the Question Method restated for opinions. Reading a case is answering the questions the opinion exists to answer: what was the dispute, what rule resolved it, and which facts the resolution turned on. Bring your current research question to every opinion, and let it tell you which components deserve the close read.
 
-*[\[Figure B.1\]]{.flag} Full-page annotated judicial opinion, real but short (2 to 3 pages), with each component labeled: Caption, Procedural History, Facts, Issue, Holding, Reasoning, Disposition. A short first-year torts or contracts opinion works well.*
+::: {.try kind="annotate" title="The parts of an opinion, on a real one" hint="Your question: does the State owe park visitors a duty of care? Select each part to see how a researcher holding that question reads it. Bracketed ellipses mark omitted text."}
+[*Markowitz v. Arizona Parks Board*, 146 Ariz. 352, 706 P.2d 364 (1985) (en banc).]{.m label="Caption" note="Read it first. An en banc decision of the Arizona Supreme Court binds every Arizona court, so the opinion is worth a close read. Two reporters, one text."}
 
+[The state, the only defendant remaining, moved for summary judgment, primarily claiming that it had breached no duty owed to David. The trial court granted summary judgment in favor of the state and the court of appeals affirmed, one judge concurring specially and the other judge dissenting.]{.m label="Procedural history" note="The State won without a trial on a no-duty theory. That posture tells you two things: the court takes the facts in the plaintiff’s favor, and the question it decides is a question of law."}
 
-::: {.interactive module="ch-5/reading-cases/index.html" title="How to Read a Case" height="900"}
-A real Arizona Supreme Court opinion, Markowitz v. Arizona Parks Board, read for class and then for one research question at a time — with a citator flag you must test against the question you are holding.
+[No signs prohibiting diving or warnings of any kind were posted in the area or at the park entrances. David described the path leading to the diving spot on the cliff as “well worn.” \[…\] David then dived from the same spot and hit his head on a shallow ledge or sandbar below the surface.]{.m label="Facts" note="Courts tell the facts that bear on the legal question. Watch which ones return in the analysis: the absent signs and the well-worn path do. Facts that reappear are the candidates for dispositive facts."}
+
+[The first question presented, therefore, is whether the state as a possessor of land is under any duty of care with respect to the safety of those it has invited to use the particular parcel of state land.]{.m label="Issue" note="The court’s own Step 1. Notice the framing: not “must the State post signs,” but whether any duty exists. Compare it with your question. They match, so this case can answer you."}
+
+[\[W\]e cannot posit a rule of law that the state is relieved from all duty to those invited to use particular portions of public land, no matter what the hazard, simply because the state’s parks are large and their terrain often inhospitable.]{.m label="Reasoning" note="Why the lower court was wrong. The size and wildness of a park bear on what care is reasonable, which is breach. They do not erase the duty. The reasoning is what lets you predict the next case."}
+
+[When the government invites citizens onto public land — and this opinion has no application to areas where the public is not invited — it is under a duty to take some precautions to avoid injury to those invited.]{.m label="Holding" note="The answer to the issue, and the part with precedential force. Read the rule and its limit together: the duty runs to people invited onto land held open to the public. This sentence, in your own words, is what goes in the Research Log."}
+
+[The summary judgment granted by the trial court is reversed. The opinion of the court of appeals is vacated. The case is remanded for further proceedings.]{.m label="Disposition" note="What the court ordered. The State did not win; a jury gets the case. The disposition tells you who won this round. It does not tell you the rule."}
 :::
+
 
 ## Components of a Judicial Opinion
 

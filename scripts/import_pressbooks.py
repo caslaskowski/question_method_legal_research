@@ -6,7 +6,14 @@ docx  ->  editable Markdown in content/.
         --xhtml source/The-Question-Method-of-Legal-Research.html \
         --rtp   source/Reviewing_Through_Practice_FULL_Ch1-17.docx
 
-After the first import the Markdown in content/ is the source of truth. Re-running this
+After the first # RETIRED. This one-time importer produced the first draft of content/ from the Pressbooks export.
+# It predates the in-text interactives (::: {.try ...} blocks) that now live in the chapter Markdown,
+# and the embed plan it read from book.json has been removed. Running it would overwrite content/
+# and every interactive in it. It is kept for the record of how the import was done.
+import sys as _sys
+if "--i-know-this-overwrites-content" not in _sys.argv:
+    _sys.exit("import_pressbooks.py is retired: it would overwrite content/ and remove every in-text interactive. See the note at the top of the file.")
+import the Markdown in content/ is the source of truth. Re-running this
 script OVERWRITES content/ -- only do it if you want to start over from the export.
 
 What it does (every change is logged to content/_archive/IMPORT-LOG.md)

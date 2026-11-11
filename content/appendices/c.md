@@ -1,8 +1,8 @@
 Reading statutory text is a different skill from reading case law. Opinions explain their reasoning; statutes do not. A statute tells you what the rule is without telling you why. It does not walk you through hypotheticals. It states the law in the most compressed, precise language the legislature could manage and leaves the interpretive work to the courts and to you. Every word carries weight. Every comma may matter. Every cross-reference pulls in another rule. The Question Method’s premise holds here with full force: a statute exists to answer the question what does the law require, and reading it well means interrogating the text with the sub-questions this appendix walks through, one defined term, exception, and cross-reference at a time.
 
 
-::: {.interactive module="ch-6/reading-statutes/index.html" title="How to Read a Statute" height="900"}
-Arizona's occupational-disease statute, read for one question at a time: navigate the chapter's table of contents, follow the cross-reference to the definition that controls, and recognize the subsections written for a different reader.
+::: {.try kind="annotate" title="One definition, read word by word" hint="Your client developed a lung condition after years in a cold, damp packing room. Is it an “occupational disease”? Select each marked phrase of Arizona’s definition, A.R.S. § 23-901(13)(c)."}
+Arizona’s workers’ compensation definitions treat as a compensable injury [an occupational disease]{.m label="The defined term" note="A statutory definition overrides ordinary meaning. Whatever you or a dictionary would call an occupational disease is beside the point. Only this sentence counts."} that is due to causes and conditions [characteristic of and peculiar to]{.m label="The narrowing words" note="Both words work. A disease any workplace or any life could produce is not occupational merely because this job produced it. Next question: how have Arizona courts read “peculiar to”?"} a particular trade, occupation, process or employment, and [not the ordinary diseases to which the general public is exposed]{.m label="An exclusion" note="A second, independent condition. If the public catches the condition just as readily, it is outside the definition even if the job also caused it. Two facts about the packing room just became relevant."}, and [subject to section 23-901.01 or 23-901.09 or, for heart-related, perivascular or pulmonary cases, section 23-1105]{.m label="Cross-references" note="The definition is not finished at its last word. It sends you to whichever section governs your kind of claim, and each of those sections adds requirements. Open them before you decide the definition is met."}.
 :::
 
 ## Components of a Statutory Section
@@ -19,7 +19,15 @@ Arizona's occupational-disease statute, read for one question at a time: navigat
 
 **History and Credits.** Found at the end of the statutory text or in the annotations, the history notes tell you when the section was enacted and how it has been amended over time. They also supply the Public Law number and Statutes at Large citation you will need if an ambiguity sends you into legislative history research (Chapter 10).
 
-*[\[Figure C.1\]]{.flag} Vertical stack of connected boxes showing a statutory chapter’s structure: Scope/Applicability, Definitions, General Rule, Specific Obligations, Exceptions, Enforcement/Penalties, Effective Date.*
+::: {.try kind="explore" layout="stack" title="How a statutory chapter is usually built"}
+- **Scope and applicability.** *Does this chapter reach my client at all?* Read it first. Many research questions end here.
+- **Definitions.** *What do the operative words mean in this chapter?* A defined term controls every section that uses it, and it may differ from the same word in a neighboring chapter.
+- **General rule.** *What is required, prohibited, or permitted?* The provision you came for. It is almost never the whole answer.
+- **Specific obligations.** *What exactly must be done, by whom, and when?* The detail that turns the general rule into conduct.
+- **Exceptions.** *Is my client’s conduct carved out?* Look for “notwithstanding,” “except,” and “unless.” An exception often sits several sections away from the rule it qualifies.
+- **Enforcement and penalties.** *Who can enforce this, and what follows from a violation?* Whether a private person may sue is frequently its own research question.
+- **Effective date.** *Did this text govern on the date that matters?* Sometimes found only in the session law.
+:::
 
 ## How to Engage With the Source
 
@@ -34,7 +42,18 @@ Arizona's occupational-disease statute, read for one question at a time: navigat
 - **In Pari Materia.** Statutes on the same subject are read together and interpreted consistently.
 - **Rule of Lenity.** Ambiguous criminal statutes are read in favor of the defendant.
 
-*[\[Figure C.2\]]{.flag} Quick-reference card summarizing the six canons: name, one-line definition, and a short example for each, in a clean, print-ready format students can keep beside them while reading.*
+::: {.try kind="sort" title="Which canon is doing the work?" bins="Expressio unius | Ejusdem generis | Surplusage | Lenity"}
+- A statute exempts “hospitals, clinics, and nursing homes.” A court holds that a veterinary practice is not exempt. **Expressio unius**
+    - The legislature listed what it meant to exempt. Naming three implies the rest were left out.
+- A statute covers “cars, trucks, motorcycles, and other vehicles.” A court holds that it does not reach a canoe. **Ejusdem generis**
+    - The catch-all is read to cover things of the same kind as the listed items: motorized road vehicles.
+- A statute requires that notice be “written and delivered.” A court rejects the argument that mailing alone always suffices, because that would leave “delivered” with nothing to do. **Surplusage**
+    - Every word is presumed to do a job.
+- A criminal statute can fairly be read to reach the defendant’s conduct or not to reach it. The court adopts the narrower reading. **Lenity**
+    - Ambiguity in a criminal statute is resolved in the defendant’s favor.
+- A statute grants a remedy to “tenants, lodgers, or other occupants.” A court holds that a burglar is not an “occupant.” **Ejusdem generis**
+    - “Other occupants” takes its meaning from the lawful occupants listed before it.
+:::
 
 **Spot ambiguity and turn it into your next question.** Finding ambiguity is not a failure of your research; it is a core research skill. Common types include undefined terms, vague standards (“reasonable,” “substantial,” “undue,” “appropriate”), terms of art whose legal meaning differs from everyday meaning, structural ambiguity where the grammar allows more than one reading, and scope ambiguity about what falls inside or outside the statute. Each ambiguity becomes a distinct next question pointing to a distinct source.
 

@@ -1,6 +1,0 @@
-/* Embed mode: the book supplies its own masthead, footer and navigation. */
-.skip, footer.foot, .modnav, .modmenu, #browse-menu-src, .masthead .brand { display: none !important; }
-body.shell > header.masthead { display: none !important; }
-.masthead .navlink[href$="index.html"][href^="../../index"], .masthead .navlink[href^="../../ch-"] { display: none !important; }
-body { background: transparent; }
-body.shell main, body.shell #main { padding-top: 8px; }

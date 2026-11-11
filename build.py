@@ -9,8 +9,9 @@ The committed output (HTML in the repo root) is the site; GitHub Pages serves it
 
 Pipeline
   content/**/*.md --pandoc--> HTML fragment --postprocess--> page shell --> site
-  postprocess: interactive embeds -> <figure class="embed"> iframes, "Chapter N" / "Appendix X"
-  auto-links, draft-flag handling.  Downloads (incl. the generated Key Takeaways study guide)
+  postprocess: in-text interactives (::: {.try kind=...} blocks) get an id and a heading strip and
+  are enhanced in the browser by assets/book.js; "Chapter N" / "Appendix X" auto-links;
+  draft-flag handling.  Downloads (incl. the generated Key Takeaways study guide)
   are assembled into downloads/.
 """
 import html, json, os, re, shutil, subprocess, sys, datetime
@@ -67,31 +68,35 @@ def rel(depth, url):
 # --------------------------------------------------------------------------------------
 # Post-processing of a pandoc fragment
 # --------------------------------------------------------------------------------------
-EMBED_RE = re.compile(r'<div class="interactive" data-module="([^"]+)" data-title="([^"]*)"\s+data-height="(\d+)">\s*(.*?)\s*</div>', re.S)
-EMBED_RE2 = re.compile(r'<div class="interactive" data-module="([^"]+)" title="([^"]*)"\s+height="(\d+)">\s*(.*?)\s*</div>', re.S)
+TRY_RE = re.compile(r'<div class="try"([^>]*)>')
+TRY_LABEL = {"choice": "Check yourself", "sort": "Sort it", "order": "Put it in order", "explore": "Explore",
+             "annotate": "Read closely", "search": "Search lab", "checklist": "Checklist", "reveal": "Your turn",
+             "log": "Research Log", "tokens": "Watch it work", "flashcards": "Flashcards"}
 
 
-def render_embeds(frag, depth, page_url):
+def render_try(frag):
+    """In-text interactives. The Markdown block
+           ::: {.try kind="sort" title="..." bins="A | B"}
+       is ordinary content (a list, a passage); here it gets an id and a heading strip, and
+       assets/book.js turns it into the working interactive in the reader's browser. Nothing
+       is framed in from elsewhere, and with scripts off the content still reads as text."""
     n = [0]
 
     def sub(m):
-        module, title, height, inner = m.group(1), m.group(2), m.group(3), m.group(4)
+        attrs = m.group(1)
+        kind = re.search(r'\bkind="([^"]*)"', attrs)
+        title = re.search(r'\btitle="([^"]*)"', attrs)
+        kind = kind.group(1) if kind else ""
+        if kind not in TRY_LABEL:
+            sys.exit("unknown interactive kind %r (known: %s)" % (kind, ", ".join(sorted(TRY_LABEL))))
+        title = title.group(1) if title else ""
+        rest = re.sub(r'\s*\b(kind|title)="[^"]*"', "", attrs)
         n[0] += 1
-        src = rel(depth, "interactives/" + module)
-        blurb = re.sub(r"</?p>", "", inner).strip()
-        fid = "embed-%d" % n[0]
-        return (
-            '<figure class="embed" id="%(id)s" data-module="%(mod)s">'
-            '<figcaption><span class="embed-kind">Interactive</span> <strong>%(title)s</strong>'
-            '<a class="embed-open" href="%(src)s" target="_blank" rel="noopener">Open in a new tab <span aria-hidden="true">&#8599;</span></a></figcaption>'
-            '<p class="embed-blurb">%(blurb)s</p>'
-            '<iframe src="%(src)s" title="Interactive: %(title)s" loading="lazy" style="height:%(h)spx" data-minheight="%(h)s"></iframe>'
-            '<p class="embed-print">Interactive: %(title)s. Available in the online edition.</p>'
-            '</figure>'
-        ) % {"id": fid, "mod": esc(module), "title": title, "src": esc(src), "blurb": blurb, "h": height}
+        return ('<div class="try" id="try-%d" data-kind="%s" data-title="%s"%s>'
+                '<p class="try-head"><span class="try-kind">%s</span> <strong>%s</strong></p>'
+                % (n[0], kind, title, rest, TRY_LABEL[kind], title))
 
-    frag = EMBED_RE.sub(sub, frag)
-    frag = EMBED_RE2.sub(sub, frag)
+    frag = TRY_RE.sub(sub, frag)
     return frag, n[0]
 
 
@@ -143,7 +148,8 @@ def fix_tables(frag):
 def toc_from(frag):
     items = []
     for m in re.finditer(r'<h([23]) id="([^"]+)"[^>]*>(.*?)</h\1>', frag, re.S):
-        text = re.sub(r"<[^>]+>", "", m.group(3))
+        text = re.sub(r'<a class="anchor".*?</a>', "", m.group(3), flags=re.S)      # not the '#' permalink
+        text = re.sub(r"<[^>]+>", "", text).strip()
         items.append((int(m.group(1)), m.group(2), html.unescape(text)))
     return items
 
@@ -179,7 +185,7 @@ def index_for_search(frag, page_url, page_title):
 def process(md_text, depth, page_url, page_title=""):
     frag = pandoc_html(md_text)
     frag = fix_tables(frag)
-    frag, n_embeds = render_embeds(frag, depth, page_url)
+    frag, n_embeds = render_try(frag)
     frag = autolink(frag, depth, page_url)
     if not DRAFT:
         frag = strip_flags(frag)
@@ -313,10 +319,6 @@ def pager_for(url):
 STATS = {"embeds": {}, "pages": 0}
 
 
-def embed_titles(frag):
-    return [html.unescape(t) for t in re.findall(r'<figure class="embed" id="embed-\d+"[^>]*><figcaption><span class="embed-kind">Interactive</span> <strong>(.*?)</strong>', frag)]
-
-
 def build_chapter(n):
     c = CH[n]
     url = url_chapter(n)
@@ -326,9 +328,7 @@ def build_chapter(n):
     pid = c["part"]
     kicker = ('<header class="chead"><p class="kick"><a href="%s">%s</a></p><h1><span class="num">Chapter %d</span> %s</h1>%s</header>'
               % (rel(1, url_part(pid)), esc(PARTS[pid]["title"]), n, esc(c["title"]),
-                 ('<p class="chips"><span class="chip">%d interactive%s</span> %s</p>'
-                  % (ne, "" if ne == 1 else "s",
-                     " ".join('<a class="chiplink" href="#embed-%d">%s</a>' % (i + 1, esc(t)) for i, t in enumerate(embed_titles(frag))))) if ne else ""))
+                 ('<p class="chips"><span class="chip">%d interactive%s in the text</span></p>' % (ne, "" if ne == 1 else "s")) if ne else ""))
     write(url, shell("Chapter %d: %s" % (n, c["title"]), frag, 1, url, toc=toc_from(frag), pager=pager_for(url), kicker=kicker))
 
 
@@ -359,10 +359,7 @@ def build_appendix(a):
 
 def build_glossary():
     url = URL_GLOSSARY
-    md = ("The glossary is a flashcard deck covering every defined term in the book. Terms are also marked with a dotted underline "
-          "where the text first defines them.\n\n::: {.interactive module=\"appendices/glossary-flashcards/index.html\" "
-          "title=\"Glossary Flashcards\" height=\"760\"}\nFlip through every defined term in the book, filter by chapter, and mark the ones you know.\n:::\n")
-    frag, _ = process(md, 1, url)
+    frag, _ = process(read("content/glossary.md"), 1, url, "Glossary")
     write(url, shell("Glossary", '<header class="chead"><h1>Glossary</h1></header>' + frag, 1, url, pager=pager_for(url)))
 
 
@@ -391,12 +388,9 @@ def build_downloads():
     body = ('<header class="chead"><h1>Downloads</h1></header>'
             '<p class="lede">Print them, fill them in, keep them beside every research task. Everything here is free to use and share in class.</p>'
             '<ul class="dllist">%s</ul>'
-            '<h2>Fill-in templates and checklists in the browser</h2>'
-            '<p>The interactive companion also keeps a plain-text toolkit: copy or download a template without opening a file.</p>'
-            '<figure class="embed"><figcaption><span class="embed-kind">Interactive</span> <strong>Toolkit &amp; Resources</strong>'
-            '<a class="embed-open" href="../interactives/toolkit/index.html" target="_blank" rel="noopener">Open in a new tab <span aria-hidden="true">&#8599;</span></a></figcaption>'
-            '<iframe src="../interactives/toolkit/index.html" title="Interactive: Toolkit and Resources" loading="lazy" style="height:720px" data-minheight="720"></iframe>'
-            '<p class="embed-print">Interactive: Toolkit and Resources. Available in the online edition.</p></figure>'
+            '<h2>Your Research Log</h2>'
+            '<p>The Research Log you start in Chapter 3 lives in your browser and follows you through the book. Add an entry here, or download the whole log as a text file to submit or to paste into your own document.</p>'
+            '<div class="try" id="try-1" data-kind="log" data-title="One entry per question"><p class="try-head"><span class="try-kind">Research Log</span> <strong>One entry per question</strong></p></div>'
             % "".join(cards))
     write(url, shell("Downloads", body, 1, url, pager=pager_for(url)))
 
@@ -437,16 +431,16 @@ def build_home():
 </header>
 <div class="howto"><h2>How this edition works</h2>
 <ul>
-<li><strong>Read the chapter, then practice in it.</strong> Interactive exercises sit inside the chapters, right where the book teaches the skill. Each has an <em>Open in a new tab</em> link if you want more room.</li>
-<li><strong>Keep one Research Log.</strong> The interactive modules that use it share a single log in your browser, so your work follows you from chapter to chapter.</li>
-<li><strong>Your work stays with you.</strong> Nothing you type is sent anywhere. Modules save to your own browser and let you download a record to submit.</li>
+<li><strong>Read and do in the same breath.</strong> The interactives are part of the text. A diagram you can click, a quick sort, a passage to read closely, a working search lab: each sits in the paragraph where the book teaches that idea, takes a minute or two, and fits on one screen.</li>
+<li><strong>Keep one Research Log.</strong> The log you start in Chapter 3 lives in your browser and is the same log on every page.</li>
+<li><strong>Your work stays with you.</strong> Nothing you type is sent anywhere. Download your log whenever you need to submit it.</li>
 <li><strong>Download the tools.</strong> The <a href="%(dl)s">Downloads page</a> has the Tip Sheet, the Research Log template, and a fully worked example.</li>
 </ul></div>
 <h2>Start here</h2><ul class="cardlist plain">%(front)s</ul>
 <h2><a href="%(p1)s">%(p1t)s</a></h2><ol class="cardlist">%(c1)s</ol>
 <h2><a href="%(p2)s">%(p2t)s</a></h2><ol class="cardlist">%(c2)s</ol>
 <h2>Appendices and resources</h2><ul class="cardlist">%(apps)s
-<li><a href="%(gl)s"><span class="cn">&#9733;</span><span class="ct">Glossary flashcards</span></a></li>
+<li><a href="%(gl)s"><span class="cn">&#9733;</span><span class="ct">Glossary</span></a></li>
 <li><a href="%(dl)s"><span class="cn">&darr;</span><span class="ct">Downloads: tip sheet, log template, worked example</span></a></li></ul>
 """ % {"title": esc(TITLE), "dl": URL_DOWNLOADS, "gl": URL_GLOSSARY, "front": front, "p1": url_part("I"), "p1t": esc(PARTS["I"]["title"]),
        "p2": url_part("II"), "p2t": esc(PARTS["II"]["title"]), "apps": apps,
@@ -485,8 +479,10 @@ def build_whole_book():
     """One DOCX of the whole book, for reading offline or printing. Interactives become a one-line pointer."""
     parts = ['---\ntitle: "%s"\nsubtitle: "%s"\nauthor: "%s"\n---\n' % (TITLE, BOOK["subtitle"], BOOK["author"])]
     def clean(md):
-        md = re.sub(r'::: \{\.interactive module="[^"]+" title="([^"]*)" height="\d+"\}\n.*?\n:::\n?',
-                    lambda m: "> *Interactive: %s. Available in the online edition.*\n" % m.group(1), md, flags=re.S)
+        # in-text interactives print as their own content (the list or passage), under a one-line label
+        md = re.sub(r'(?m)^::: \{\.try kind="(\w+)"(?: title="([^"]*)")?[^}]*\}\s*$',
+                    lambda m: "**%s%s** *(interactive in the online edition)*\n" % (TRY_LABEL.get(m.group(1), "Interactive"), (": " + m.group(2)) if m.group(2) else ""), md)
+        md = re.sub(r"\[((?:[^\[\]]|\[[^\]]*\])*)\]\{\.m\b[^}]*\}", r"\1", md)
         md = re.sub(r"\[((?:[^\[\]]|\\\[|\\\])*)\]\{\.flag\}", "", md)        # draft flags never go in the file
         md = re.sub(r"\[([^\]]*)\]\{\.box-title\}", r"**\1**", md)
         md = re.sub(r"\[([^\]]*)\]\{\.gloss\}", r"\1", md)
@@ -517,7 +513,7 @@ def check():
     pages = []
     for dp, dn, fns in os.walk(ROOT):
         rp = os.path.relpath(dp, ROOT)
-        if rp.split(os.sep)[0] in (".git", "interactives", "content", "source", "scripts", "node_modules", ".github"):
+        if rp.split(os.sep)[0] in (".git", "content", "source", "scripts", "node_modules", ".github"):
             dn[:] = []
             continue
         for fn in fns:
@@ -609,7 +605,7 @@ def main():
         build_search()
         build_404()
         total = sum(STATS["embeds"].values())
-        print("built: %d chapters, %d appendices, %d interactive embeds in chapters" % (len(CH), len(APP), total))
+        print("built: %d chapters, %d appendices, %d in-text interactives in chapters" % (len(CH), len(APP), total))
         write_manifest()
     problems, npages = check()
     if "--check" in sys.argv:

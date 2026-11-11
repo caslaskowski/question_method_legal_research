@@ -7,13 +7,14 @@
 What you can do from the browser
   * Edit any page's text (chapters, appendices, front matter, part intros, the Chapter 17
     checklist, EDITING-NOTES.md) with a live preview rendered exactly as the site renders it.
-  * Insert an interactive, a Reflection Point, an Example, an Exercise, or a draft flag from
-    the toolbar; remove an interactive from a page with one click.
+  * Insert an in-text interactive (a quick check, a sorter, a clickable diagram, a search lab...),
+    a Reflection Point, an Example, an Exercise, or a draft flag from the toolbar; remove an
+    interactive from a page with one click.
   * Work through the yellow draft flags: keep the text and clear the flag, or delete the
     flagged text, page by page.
   * Change the book's title, subtitle, author, draft mode, chapter and appendix titles.
   * Manage the Downloads page: titles, descriptions, add or replace files, remove entries.
-  * Build the site, preview it, sync the interactives from the companion repo, and commit.
+  * Build the site, preview it, and commit.
 
 Everything runs on your machine; the server listens on 127.0.0.1 only and makes no external
 requests. It edits the same files you would edit by hand (content/*.md, book.json,
@@ -51,7 +52,7 @@ def load_settings():
         with open(SETTINGS_FILE, encoding="utf-8") as f:
             return json.load(f)
     except (OSError, ValueError):
-        return {"interactive_repo": os.path.join(os.path.dirname(ROOT), "legal_research_interactive")}
+        return {}
 
 
 def save_settings(s):
@@ -74,6 +75,7 @@ def pages():
     for fn in sorted(glob.glob(os.path.join(ROOT, "content", "extras", "*.md"))):
         slug = os.path.basename(fn)[:-3]
         out.append(("extra:" + slug, "extra", "Extra: " + slug, "content/extras/%s.md" % slug))
+    out.append(("extra:glossary", "extra", "Glossary", "content/glossary.md"))
     out.append(("notes", "notes", "EDITING-NOTES.md", "EDITING-NOTES.md"))
     out.append(("readme", "notes", "README.md", "README.md"))
     return out
@@ -107,47 +109,43 @@ def flags_in(text):
             for i, m in enumerate(FLAG_RE.finditer(text))]
 
 
-EMBED_RE = re.compile(r'::: \{\.interactive module="([^"]+)" title="([^"]*)" height="(\d+)"\}\n(.*?)\n:::\n?', re.S)
+EMBED_RE = re.compile(r'::: \{\.try kind="([^"]+)"(?: title="([^"]*)")?[^}]*\}\n(.*?)\n?:::\n?', re.S)
 
 
 def embeds_in(text):
-    return [{"module": m.group(1), "title": m.group(2), "height": int(m.group(3)), "blurb": m.group(4).strip(), "pos": m.start()}
-            for m in EMBED_RE.finditer(text)]
+    return [{"module": m.group(1), "title": m.group(2) or "", "pos": m.start()} for m in EMBED_RE.finditer(text)]
+
+
+# The in-text interactives. Each is ordinary Markdown inside a ::: {.try kind="..."} block; assets/book.js
+# turns it into the working interactive. The templates below are what the toolbar inserts.
+TEMPLATES = [
+    ("choice", "Check yourself", "One question, with feedback on every option. Mark the right answer with [x].",
+     '::: {.try kind="choice" title="TITLE"}\nThe question.\n\n- [x] The right answer\n    - Why it is right.\n- [ ] A tempting wrong answer\n    - Why it is wrong.\n- [ ] Another wrong answer\n    - Why it is wrong.\n:::'),
+    ("sort", "Sort it", "Items the reader places in categories. End each item with its category in bold; the indented line is the explanation.",
+     '::: {.try kind="sort" title="TITLE" bins="First | Second"}\n- An item **First**\n    - Why.\n- Another item **Second**\n    - Why.\n:::'),
+    ("order", "Put it in order", "A numbered list written in the correct order. The page shuffles it.",
+     '::: {.try kind="order" title="TITLE"}\nWhat to arrange, and from what to what.\n\n1. First\n    - Why it comes first.\n2. Second\n    - Why.\n3. Third\n    - Why.\n:::'),
+    ("explore", "Explore (diagram)", 'Parts the reader selects to read about. layout = tabs, flow (left to right), stack (top to bottom), list, ring (a cycle; add edges="a | b | c" to label the arrows), or plot (give each part "Name | x, y" from 0 to 100).',
+     '::: {.try kind="explore" layout="flow" title="TITLE"}\nOne line telling the reader what to do.\n\n- **First part | short tag.** What it is.\n- **Second part | short tag.** What it is.\n- **Third part | short tag.** What it is.\n:::'),
+    ("annotate", "Read closely (annotated passage)", 'A passage with marked phrases. Wrap each phrase as [phrase]{.m label="..." note="..."}. Add layout="cite" for a citation shown part by part, and verdict="ok", "warn" or "bad" to colour a phrase once opened.',
+     '::: {.try kind="annotate" title="TITLE" hint="What the reader should look for."}\nOrdinary text with [a marked phrase]{.m label="Label" note="What a researcher does with it."} and [another]{.m label="Label" note="Its note."}.\n:::'),
+    ("search", "Search lab", 'A small practice database and a working terms-and-connectors search. Each bullet is a document; add "| on point" or "| off point" to its title. queries = preset searches separated by |. Add natural="..." for a natural-language mode.',
+     '::: {.try kind="search" title="TITLE" queries="first AND second | first /s second"}\n- **Case One | on point.** The text of the summary. A second sentence.\n- **Case Two | off point.** The text of the summary.\n\nA closing line telling the reader what to notice.\n:::'),
+    ("checklist", "Checklist", "Tick boxes that remember the reader's progress in their browser. A bold lead becomes the label.",
+     '::: {.try kind="checklist" title="TITLE"}\n- [ ] **First step.** The detail.\n- [ ] **Second step.** The detail.\n:::'),
+    ("reveal", "Your turn (write, then compare)", "The reader writes an answer, then opens a model answer. Everything after the --- line is the model answer.",
+     '::: {.try kind="reveal" title="TITLE"}\nThe prompt.\n\n---\n\nThe model answer.\n:::'),
+    ("tokens", "Watch it work (prediction)", 'A sentence completed one piece at a time. Each bullet lists candidates with percentages, most likely first; the indented line is the comment shown after that step.',
+     '::: {.try kind="tokens" title="TITLE" start="The opening words"}\n- likely 70%; possible 20%; unlikely 5%\n    - What to notice.\n:::'),
+    ("log", "Research Log entry", "The seven-field Research Log form. It is the same log on every page and is stored in the reader's browser.",
+     '::: {.try kind="log" title="One entry per question"}\n:::'),
+]
 
 
 def available_modules():
-    """Modules the picker offers: the companion repo's registry when reachable, else what is vendored."""
-    settings = load_settings()
-    src = settings.get("interactive_repo", "")
-    book = load_book()
-    renum = {int(k): v for k, v in book.get("renumber", {}).items()}
-    mods = []
-    reg = os.path.join(src, "data", "registry.json")
-    if src and os.path.exists(reg):
-        with open(reg, encoding="utf-8") as f:
-            r = json.load(f)
-        for c in r.get("chapters", []):
-            for m in c.get("modules", []):
-                if m.get("status") == "live" and m.get("href"):
-                    mods.append({"module": m["href"], "title": m["title"], "desc": m.get("desc", ""),
-                                 "chapter": renum.get(c["ch"], c["ch"]), "type": m.get("type", ""),
-                                 "vendored": os.path.exists(os.path.join(ROOT, "interactives", m["href"]))})
-        for key in ("appendices", "toolkit", "spotlight"):
-            for it in (r.get(key) or {}).get("items", []):
-                if it.get("href"):
-                    mods.append({"module": it["href"], "title": it["title"], "desc": it.get("also", ""), "chapter": 0, "type": key,
-                                 "vendored": os.path.exists(os.path.join(ROOT, "interactives", it["href"]))})
-        return {"source": reg, "modules": mods}
-    for fn in sorted(glob.glob(os.path.join(ROOT, "interactives", "*", "*", "index.html")) + glob.glob(os.path.join(ROOT, "interactives", "*", "index.html"))):
-        rel = os.path.relpath(fn, os.path.join(ROOT, "interactives")).replace(os.sep, "/")
-        if rel.split("/")[0] in ("assets", "js"):
-            continue
-        m = re.search(r"<title>(.*?)</title>", read_text(fn), re.S)
-        title = html.unescape(m.group(1)).split("—")[0].strip() if m else rel
-        mch = re.match(r"ch-(\d+)/", rel)
-        mods.append({"module": rel, "title": title, "desc": "", "chapter": renum.get(int(mch.group(1)), int(mch.group(1))) if mch else 0,
-                     "type": "", "vendored": True})
-    return {"source": "interactives/ (vendored copy)", "modules": mods}
+    """What the 'Insert interactive' picker offers: one template per kind of in-text interactive."""
+    return {"source": "the book's own in-text interactives",
+            "modules": [{"module": k, "title": t, "desc": d, "template": tpl} for k, t, d, tpl in TEMPLATES]}
 
 
 def run(cmd, timeout=600):
@@ -355,11 +353,6 @@ class Handler(SimpleHTTPRequestHandler):
             return {"ok": True, "settings": s}
         if path == "/api/build":
             return run([sys.executable, "build.py"])
-        if path == "/api/sync":
-            src = load_settings().get("interactive_repo", "")
-            if not os.path.isdir(src):
-                return {"ok": False, "output": "Companion repo not found at %r. Set the path under Settings." % src}
-            return run([sys.executable, os.path.join("scripts", "sync_interactives.py"), "--src", src])
         if path == "/api/git":
             action = body.get("action")
             if action == "status":
@@ -446,7 +439,7 @@ window.addEventListener("hashchange", route);
 /* ---------- pages ---------- */
 function pagesView() {
   const kinds = [["front","Front matter"],["part","Part introductions"],["chapter","Chapters"],["appendix","Appendices"],["extra","Extras"],["notes","Working documents"]];
-  let h = `<h1>Pages</h1><p class="help">Click a page to edit its text. Counts: words · interactives embedded · draft flags still open.</p>`;
+  let h = `<h1>Pages</h1><p class="help">Click a page to edit its text. Counts: words · interactives in the text · draft flags still open.</p>`;
   for (const [k, label] of kinds) {
     const ps = S.pages.filter(p => p.kind === k);
     if (!ps.length) continue;
@@ -482,7 +475,7 @@ async function editor(pid) {
   <div class="editor">
     <div><textarea class="md" id="md" spellcheck="true"></textarea>
       <div id="side"></div></div>
-    <div><div class="help" style="margin:0 0 6px">Preview, rendered the way the site renders it. Interactives load from the built site; press Build after a sync if one looks missing.</div><iframe class="preview" id="pv" title="Preview"></iframe></div>
+    <div><div class="help" style="margin:0 0 6px">Preview, rendered the way the site renders it. Interactives work in the preview just as they do on the site.</div><iframe class="preview" id="pv" title="Preview"></iframe></div>
   </div>`;
   const ta = $("#md"); ta.value = data.md;
   const st = $("#st");
@@ -499,7 +492,7 @@ async function editor(pid) {
   function side() {
     const fl = flagsOf(ta.value), em = embedsOf(ta.value);
     let h = "";
-    if (em.length) h += `<div class="card"><h2>Interactives on this page</h2><table>${em.map((e, i) => `<tr><td><b>${esc(e.title)}</b><br><small>${esc(e.module)}</small></td><td>${e.height}px</td><td><button class="warn" data-rm="${i}">Remove</button></td></tr>`).join("")}</table></div>`;
+    if (em.length) h += `<div class="card"><h2>Interactives on this page</h2><table>${em.map((e, i) => `<tr><td><b>${esc(e.title)}</b><br><small>${esc(e.module)}</small></td><td><button class="warn" data-rm="${i}">Remove</button></td></tr>`).join("")}</table></div>`;
     if (fl.length) h += `<div class="card"><h2>Draft flags on this page</h2><table>${fl.map((f, i) => `<tr class="flagrow"><td>line ${f.line}<br><span class="ctx">…${esc(f.context.slice(-60))}</span> <span class="txt">${esc(unesc(f.text))}</span></td><td><button class="ghost" data-fl="keep:${i}">Keep text, clear flag</button> <button class="warn" data-fl="delete:${i}">Delete text</button></td></tr>`).join("")}</table><p class="help">These act on the editor text; save afterwards.</p></div>`;
     $("#side").innerHTML = h;
     $("#side").querySelectorAll("[data-rm]").forEach(b => b.onclick = () => { const e = embedsOf(ta.value)[+b.dataset.rm]; ta.value = ta.value.slice(0, e.pos) + ta.value.slice(e.end); changed(); });
@@ -517,23 +510,23 @@ async function editor(pid) {
   function insertAtCursor(text) { const s = ta.selectionStart, e = ta.selectionEnd; ta.value = ta.value.slice(0, s) + text + ta.value.slice(e); ta.selectionStart = ta.selectionEnd = s + text.length; ta.focus(); changed(); }
   document.querySelectorAll("[data-ins]").forEach(b => b.onclick = () => insertAtCursor(SNIPPETS[b.dataset.ins]));
   const wf = $("#wrap-flag"); if (wf) wf.onclick = () => { const s = ta.selectionStart, e = ta.selectionEnd; const sel = ta.value.slice(s, e) || "NOTE"; ta.value = ta.value.slice(0, s) + "[" + sel + "]{.flag}" + ta.value.slice(e); changed(); ta.focus(); };
-  const ii = $("#ins-interactive"); if (ii) ii.onclick = () => pickModule(m => insertAtCursor(`\n::: {.interactive module="${m.module}" title="${m.title.replace(/"/g, "'")}" height="${m.height || 780}"}\n${m.desc || ""}\n:::\n`));
+  const ii = $("#ins-interactive"); if (ii) ii.onclick = () => pickModule(m => insertAtCursor("\n" + m.template + "\n"));
   preview(); side(); setDirty(false);
 }
 function flagsOf(t) { const re = /\[((?:[^\[\]]|\\\[|\\\])*)\]\{\.flag\}/g, out = []; let m; while ((m = re.exec(t))) { const pos = m.index; out.push({text: m[1], pos, end: pos + m[0].length, line: t.slice(0, pos).split("\n").length, context: t.slice(Math.max(0, pos - 80), pos).replace(/\n/g, " ")}); } return out; }
-function embedsOf(t) { const re = /::: \{\.interactive module="([^"]+)" title="([^"]*)" height="(\d+)"\}\n[\s\S]*?\n:::\n?/g, out = []; let m; while ((m = re.exec(t))) out.push({module: m[1], title: m[2], height: m[3], pos: m.index, end: m.index + m[0].length}); return out; }
+function embedsOf(t) { const re = /::: \{\.try kind="([^"]+)"(?: title="([^"]*)")?[^}]*\}\n[\s\S]*?\n?:::\n?/g, out = []; let m; while ((m = re.exec(t))) out.push({module: m[1], title: m[2] || "(untitled)", pos: m.index, end: m.index + m[0].length}); return out; }
 
 async function pickModule(cb) {
   const r = await api("/api/modules");
   const box = document.createElement("div"); box.className = "modal";
-  box.innerHTML = `<div class="box"><h2>Insert an interactive</h2><p class="help">List from ${esc(r.source)}. Modules not yet vendored get copied in when you run <b>Sync interactives</b> (Build &amp; publish). Chapter numbers follow this edition's order.</p>
-  <input type="search" id="mq" placeholder="filter by title or chapter"><div id="ml"></div><p><button class="ghost" id="mclose">Cancel</button></p></div>`;
+  box.innerHTML = `<div class="box"><h2>Insert an interactive</h2><p class="help">Each kind is ordinary text inside a <code>::: {.try ...}</code> block, so you edit it like the rest of the chapter. Insert a template, then replace its placeholder text. Keep each one short enough to fit on a single screen.</p>
+  <input type="search" id="mq" placeholder="filter"><div id="ml"></div><p><button class="ghost" id="mclose">Cancel</button></p></div>`;
   document.body.appendChild(box);
   function list() {
     const q = $("#mq").value.toLowerCase();
-    const mods = r.modules.filter(m => !q || (m.title + " " + m.module + " ch " + m.chapter).toLowerCase().includes(q));
-    $("#ml").innerHTML = mods.map((m, i) => `<div class="mod"><div class="d"><b>${esc(m.title)}</b> ${m.chapter ? `<span class="pill">Ch. ${m.chapter}</span>` : ""} ${m.type ? `<span class="pill">${esc(m.type)}</span>` : ""} ${m.vendored ? "" : `<span class="pill flag">not vendored yet</span>`}<br><small>${esc(m.desc)}</small><br><small>${esc(m.module)}</small></div><div><label class="f">height px</label><input type="number" value="780" id="h${i}" style="width:90px"><br><button data-i="${i}" style="margin-top:6px">Insert</button></div></div>`).join("") || "<p>No matches.</p>";
-    $("#ml").querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const m = r.modules[+b.dataset.i]; m.height = +$("#h" + b.dataset.i).value || 780; box.remove(); cb(m); });
+    const mods = r.modules.map((m, i) => [m, i]).filter(([m]) => !q || (m.title + " " + m.module + " " + m.desc).toLowerCase().includes(q));
+    $("#ml").innerHTML = mods.map(([m, i]) => `<div class="mod"><div class="d"><b>${esc(m.title)}</b> <span class="pill">${esc(m.module)}</span><br><small>${esc(m.desc)}</small></div><div><button data-i="${i}">Insert</button></div></div>`).join("") || "<p>No matches.</p>";
+    $("#ml").querySelectorAll("[data-i]").forEach(b => b.onclick = () => { const m = r.modules[+b.dataset.i]; box.remove(); cb(m); });
   }
   $("#mq").oninput = list; $("#mclose").onclick = () => box.remove(); list();
 }
@@ -566,8 +559,7 @@ function bookView() {
   <div class="card"><h2>Part titles</h2>${S.parts.map(p => `<label class="f">Part ${p.id}</label><input type="text" data-part="${p.id}" value="${esc(p.title)}">`).join("")}</div>
   <div class="card"><h2>Chapter titles</h2><p class="help">Numbers and order are fixed here; renumbering touches every cross-reference and is done in <code>book.json</code> plus the import script (see README).</p><table>${S.chapters.map(c => `<tr><td style="width:90px">Chapter ${c.n}<br><small>Part ${c.part}</small></td><td><input type="text" data-ch="${c.n}" value="${esc(c.title)}"></td></tr>`).join("")}</table></div>
   <div class="card"><h2>Appendix titles</h2><table>${S.appendices.map(a => `<tr><td style="width:90px">Appendix ${a.letter}</td><td><input type="text" data-app="${a.slug}" value="${esc(a.title)}"></td></tr>`).join("")}</table></div>
-  <p><button id="b-save">Save</button> <span class="status" id="b-st"></span></p>
-  <div class="card"><h2>Settings (this computer only)</h2><label class="f">Path to the companion interactive repo (for the module picker and Sync)</label><input type="text" id="s-repo" value="${esc(S.settings.interactive_repo || "")}"><p><button class="ghost" id="s-save">Save settings</button></p></div>`;
+  <p><button id="b-save">Save</button> <span class="status" id="b-st"></span></p>`;
   $("#b-save").onclick = async () => {
     const body = {title: $("#b-title").value, subtitle: $("#b-subtitle").value, author: $("#b-author").value, draft: $("#b-draft").checked,
       parts: [...document.querySelectorAll("[data-part]")].map(i => ({id: i.dataset.part, title: i.value})),
@@ -575,7 +567,6 @@ function bookView() {
       appendices: [...document.querySelectorAll("[data-app]")].map(i => ({slug: i.dataset.app, title: i.value}))};
     const r = await api("/api/book", body); $("#b-st").textContent = r.error || "Saved. Build to apply."; await refresh();
   };
-  $("#s-save").onclick = async () => { await api("/api/settings", {interactive_repo: $("#s-repo").value}); await refresh(); alert("Saved."); };
 }
 
 /* ---------- downloads ---------- */
@@ -610,14 +601,13 @@ function downloadsView() {
 /* ---------- build & publish ---------- */
 function buildView() {
   $("#main").innerHTML = `<h1>Build &amp; publish</h1>
-  <div class="card"><p><button id="build">Build the site</button> <button class="ghost" id="sync">Sync interactives from the companion repo</button> <a class="btn" href="/site/" target="_blank">Open the built site ↗</a></p>
-  <p class="help">Build turns content/ into the HTML pages and runs the checks (links, anchors, no external requests). Sync copies the modules the pages reference, in this edition's chapter numbering, from the path set under Book &amp; titles → Settings.</p><pre class="out" id="out">Ready.</pre></div>
+  <div class="card"><p><button id="build">Build the site</button> <a class="btn" href="/site/" target="_blank">Open the built site ↗</a></p>
+  <p class="help">Build turns content/ into the HTML pages and runs the checks (links, anchors, no external requests).</p><pre class="out" id="out">Ready.</pre></div>
   <div class="card"><h2>Git</h2><p><button class="ghost" id="g-status">Status</button> <button class="ghost" id="g-diff">What changed</button></p>
   <label class="f">Commit message</label><input type="text" id="g-msg" placeholder="e.g. Chapter 11: verify Kisor note; resolve figure flags"><p><button id="g-commit">Commit everything</button> <button class="ghost" id="g-push">Push</button></p><pre class="out" id="gout">—</pre></div>`;
   const out = $("#out"), gout = $("#gout");
   const go = async (btn, p, body, target) => { btn.disabled = true; target.textContent = "Running…"; const r = await api(p, body); target.textContent = (r.ok ? "OK\n" : "FAILED\n") + (r.output || r.error || ""); btn.disabled = false; await refresh(); };
   $("#build").onclick = e => go(e.target, "/api/build", {}, out);
-  $("#sync").onclick = e => go(e.target, "/api/sync", {}, out);
   $("#g-status").onclick = e => go(e.target, "/api/git", {action: "status"}, gout);
   $("#g-diff").onclick = e => go(e.target, "/api/git", {action: "diff"}, gout);
   $("#g-commit").onclick = e => go(e.target, "/api/git", {action: "commit", message: $("#g-msg").value}, gout);

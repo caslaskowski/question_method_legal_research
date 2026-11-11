@@ -1,6 +1,6 @@
 # The Question Method of Legal Research: Interactive Edition
 
-A static, GitHub Pages–ready edition of the textbook with interactive exercises embedded in the chapters where the book teaches the skill. First-pass draft.
+A static, GitHub Pages–ready edition of the textbook in which the interactives are part of the text: a clickable diagram, a quick sort, an annotated passage, or a working search lab sits in the paragraph that teaches the idea. Nothing is embedded from another site. First-pass draft.
 
 **Start with [`EDITING-NOTES.md`](EDITING-NOTES.md).** It lists everything that needs a decision, a fix, or a fact-check, with Part II in the most detail.
 
@@ -10,20 +10,20 @@ A static, GitHub Pages–ready edition of the textbook with interactive exercise
 python3 editing.py
 ```
 
-opens a local page (http://127.0.0.1:8765, this computer only) where you can edit every chapter, appendix and front-matter page with a live preview, insert interactives and the book's boxes from a toolbar, clear draft flags, change titles and draft mode, manage the Downloads page, build the site, preview it, sync the interactives from the companion repo, and commit. It edits the same files listed below, so everything it does shows up in `git status`. Needs Python 3.8+ and pandoc, nothing else.
+opens a local page (http://127.0.0.1:8765, this computer only) where you can edit every chapter, appendix and front-matter page with a live preview, insert interactives and the book's boxes from a toolbar, clear draft flags, change titles and draft mode, manage the Downloads page, build the site, preview it, and commit. It edits the same files listed below, so everything it does shows up in `git status`. Needs Python 3.8+ and pandoc, nothing else.
 
 ## What is here
 
 | Path | What it is |
 |---|---|
 | `index.html`, `ch-N/`, `appendices/`, `front/`, `glossary/`, `downloads/` | The built site. The committed output is the site; no build step runs at deploy time. |
-| `content/` | The editable book: one Markdown file per chapter, appendix, and front-matter piece (pandoc dialect). **Edit here.** |
+| `content/` | The editable book: one Markdown file per chapter, appendix, and front-matter piece, plus `glossary.md` (pandoc dialect). The interactives are written here too. **Edit here.** |
 | `content/_archive/` | Text cut or replaced during import, the import log, and the superseded duplicate sample-answers appendix. Nothing is deleted. |
-| `book.json` | Structure, chapter order, which interactives are embedded and where, and the downloads list. |
-| `interactives/` | Vendored copy of the modules the book embeds, from [`legal_research_interactive`](https://github.com/caslaskowski/legal_research_interactive). Do not hand-edit. |
+| `book.json` | Structure, chapter order, titles, and the downloads list. |
+| `assets/` | `book.css`, `book.js` (page behaviour and the interactive engine), and the self-hosted fonts. |
 | `downloads/` | Quick Tips sheet, Research Log template, worked example, and two generated study aids. |
 | `source/` | The Pressbooks XHTML export and the Reviewing Through Practice docx the importer read. |
-| `scripts/` | `import_pressbooks.py` (one-time import), `sync_interactives.py` (vendor the modules). |
+| `scripts/` | `import_pressbooks.py`, the one-time importer. Retired: it would overwrite `content/` and every interactive in it, and refuses to run without an explicit flag. |
 | `build.py` | Builds the site from `content/` and checks it. Also writes `search/index.json` (the in-browser search), the whole-book DOCX and two study aids into `downloads/`. |
 | `editing.py` | The local editing interface (see above). |
 | `.github/workflows/build.yml` | CI: builds on a fresh machine, then runs `build.py --check`. |
@@ -31,7 +31,7 @@ opens a local page (http://127.0.0.1:8765, this computer only) where you can edi
 
 ## Chapter numbering
 
-Part II runs 10 Legislative History, 11 Advanced Administrative Research, 12 Ethics, 13 Dockets, 14 Practice-Specific, 15 GenAI, 16 NextGen, 17 Scholarship. The Pressbooks export and the interactive repo use an older order for 10 to 13 (`old_n` in `book.json`). The importer and the sync script translate the numbers readers see; module directories under `interactives/` keep their original names.
+Part II runs 10 Legislative History, 11 Advanced Administrative Research, 12 Ethics, 13 Dockets, 14 Practice-Specific, 15 GenAI, 16 NextGen, 17 Scholarship. The Pressbooks export uses an older order for 10 to 13 (`old_n` in `book.json`).
 
 ## Build
 
@@ -43,16 +43,34 @@ python3 build.py --check    # checks only
 python3 -m http.server      # preview at http://localhost:8000
 ```
 
-## Change which interactives are embedded
+## Interactives
 
-The build reads interactives from the `::: {.interactive ...}` blocks in the page Markdown, so add or remove them there (the editor's toolbar does this). The `embeds` lists in `book.json` are the import plan that first placed them; they matter only if you re-run the importer. After adding a module the site does not have yet:
+An interactive is a fenced block in the chapter's Markdown. Its content is ordinary text (a list, a passage), which `assets/book.js` turns into the working interactive in the reader's browser. With scripts off, in print, and in the whole-book DOCX, the same content reads as text. The editor's **Insert interactive** button drops in a template for each kind.
 
-```bash
-python3 scripts/sync_interactives.py --src ../legal_research_interactive
-python3 build.py
+```markdown
+::: {.try kind="sort" title="The law itself, or writing about the law?" bins="Primary | Secondary"}
+- A regulation in the Code of Federal Regulations **Primary**
+    - A properly adopted regulation carries the force of law.
+- A law review article **Secondary**
+    - One scholar's analysis is commentary on the law.
+:::
 ```
 
-Embeds are ordinary iframes onto the vendored modules, which also open in a new tab. A shared `localStorage` key keeps one Research Log across modules, as in the standalone site.
+| `kind` | What the reader does | How to write it |
+|---|---|---|
+| `choice` | Answers one question; every option has feedback | A task list. `- [x]` marks the right answer; the indented bullet under each option is its feedback. |
+| `sort` | Places items in categories | `bins="A \| B"`. End each item with its category in bold; indented bullet = explanation. |
+| `order` | Arranges rows, then checks | A numbered list in the correct order. The page shuffles it. |
+| `explore` | Selects parts of a diagram | A list of `**Name \| tag.** text` items. `layout=` `tabs`, `flow`, `stack`, `list`, `ring` (add `edges="a \| b"` and `arrows="both"`), `plot` (`**Name \| x, y.**`, 0 to 100, with `xlabel` and `ylabel`), or `screen`. |
+| `annotate` | Selects marked phrases in a passage | `[phrase]{.m label="..." note="..."}`. `layout="cite"` shows a citation part by part; `verdict="ok"`, `"warn"` or `"bad"` colours a phrase once opened; `hint="..."` sets the instruction. |
+| `search` | Runs real terms-and-connectors searches | Each bullet is a document: `**Title \| on point.** text`. `queries="..."` lists presets separated by `\|` (write `&quot;` for a quotation mark); `natural="..."` adds a natural-language mode. Supports AND, OR, NOT, phrases, `!`, `*`, `/n`, `/s`, `/p`, `+n`. |
+| `checklist` | Ticks boxes that persist in the browser | A task list of `- [ ]` items; a bold lead becomes the label. |
+| `reveal` | Writes an answer, then compares | Prompt, a `---` line, then the model answer. |
+| `tokens` | Watches a sentence predicted piece by piece | `start="..."`; each bullet lists candidates as `word 70%; word 20%`, most likely first. |
+| `log` | Adds a seven-field Research Log entry | Empty block. One log, shared by every page, stored in the reader's browser. |
+| `flashcards` | Flips through a definition list | Used by `content/glossary.md`. |
+
+Two rules keep them useful. Keep each one to a single screen: about six rows in a sorter. And do not let an interactive repeat the paragraph above it; give it new examples, or turn the paragraph's own list into the interactive.
 
 ## Draft flags
 
@@ -60,8 +78,8 @@ Placeholders, missing pincites, and pending figures render as yellow chips. Hide
 
 ## Privacy and accessibility
 
-The site makes no external requests (fonts are self-hosted; `build.py` fails if a third-party URL appears). Student work lives in the browser only, as in the interactive repo. Pages carry a skip link, landmark regions, visible focus, and a reduced-motion override; print styles replace each embed with a one-line pointer.
+The site makes no external requests (fonts are self-hosted; `build.py` fails if a third-party URL appears). Student work (the Research Log, checklist ticks, drafted answers) lives in the reader's browser only. Pages carry a skip link, landmark regions, visible focus, and a reduced-motion override. Every interactive is built from buttons and form controls, works from the keyboard, and announces its feedback to screen readers; in print it appears as its own text.
 
 ## Re-running the importer
 
-`scripts/import_pressbooks.py` **overwrites `content/`**. Run it only to start over from the Pressbooks export.
+`scripts/import_pressbooks.py` **overwrites `content/`**, including every interactive written since the import. It is retired and will not run without `--i-know-this-overwrites-content`.

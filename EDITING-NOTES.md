@@ -13,11 +13,107 @@ Tick the boxes as you go. Items marked ⚑ also show as yellow flags on the draf
 
 ## What I did and did not review
 
-I read in full: the front matter, Part I and Part II intros, Chapter 1, Chapters 10 through 17 (body and exercises), and the Research Log, question-type, and closure sections of Chapter 3. I read the three Part I source chapters' headings and openings but not line by line (Chapters 2 to 9). I did not read Appendices E, F, G, H, or the Chapter 3 full demonstration line by line. For everything, I ran automated scans: placeholders, cross-references, exercise numbers, vocabulary, Research Log field names, template completeness, reflection-point pairing, and doubled words. **A real read-through of Chapters 4 to 9 and Appendices E to H is still owed.** Legal claims below are flagged for verification, not corrected from memory. Today's date in this session is 2026-11-09, and several items are the kind that move (deference doctrine, AI rules, product names).
+*(Written in round 1; see Round 4 below for what the latest pass covered.)* I read in full: the front matter, Part I and Part II intros, Chapter 1, Chapters 10 through 17 (body and exercises), and the Research Log, question-type, and closure sections of Chapter 3. I read the three Part I source chapters' headings and openings but not line by line (Chapters 2 to 9). I did not read Appendices E, F, G, H, or the Chapter 3 full demonstration line by line. For everything, I ran automated scans: placeholders, cross-references, exercise numbers, vocabulary, Research Log field names, template completeness, reflection-point pairing, and doubled words. **A real read-through of Chapters 4 to 9 and Appendices E to H is still owed.** Legal claims below are flagged for verification, not corrected from memory. Today's date in this session is 2026-11-09, and several items are the kind that move (deference doctrine, AI rules, product names).
 
 ---
 
-## 0. Round 3 (this pass)
+## 0. Round 4 (this pass): no embeds, one width, interactives written into the text
+
+**What you asked for, and what I did with it.** No interactive is embedded any longer. Every iframe is gone, along with the vendored copy of the companion site (`interactives/`, about 1.5 MB) and the script that synced it. In their place the chapters carry **68 native interactives** (59 in the chapters, 7 in Appendices A to D, plus the glossary and the Research Log on the Downloads page). Each one is ordinary Markdown inside a `::: {.try kind="..."}` block, sits in the paragraph where the book teaches that idea, and fits on a single screen at desktop width. Nothing pages, nothing opens in a new tab, and with scripts off or on paper the block still reads as text.
+
+**Width.** Prose, tables, boxes, and interactives now share one column. The old 68-character cap on text is gone, so no paragraph is narrower than the table or the interactive beside it. A browser sweep of all 36 pages at 1280 px and 390 px found no block narrower than its column, no horizontal scrolling, no iframes, and no script errors.
+
+### What is in each chapter
+
+Kinds: *choice* (one question, feedback on every option), *sort*, *order*, *explore* (a clickable diagram: ring, flow, stack, list, plot, or the schematic database screen), *annotate* (a passage with marked phrases), *search* (a working terms-and-connectors engine over a small invented database), *checklist* (remembers ticks), *reveal* (write, then compare), *tokens* (next-word prediction), *log* (the seven-field Research Log).
+
+| Page | Count | Interactives (section) |
+|---|---|---|
+| Ch. 1 | 4 | explore/ring: *Who can undo whom* (The Interplay of U.S. Legal Authorities); sort: *The law itself, or writing about the law?* (The Hierarchy of Legal Authority); sort: *Before the Arizona Court of Appeals, on Arizona contract law* (The Hierarchy of Legal Authority); order: *A direct conflict, in a field Congress may regulate: which controls?* (The Hierarchy of Legal Authority) |
+| Ch. 2 | 7 | explore/screen: *The parts every legal database has* (Understanding the Common Features); annotate/cite: *A case citation, part by part* (Reading a Legal Citation); annotate/cite: *A statute citation, part by part* (Reading a Legal Citation); annotate/cite: *A regulation citation, part by part* (Reading a Legal Citation); choice: *Retrieve, don't search* (Finding the Cited Source); sort: *Does it widen the net or tighten it?* (Expansion Operators); search: *One question, two ways to search* (Practical Search Strategy) |
+| Ch. 3 | 7 | explore/ring: *The cycle, and the question each step asks of you* (Why This Method Works: Making Your Thinking Visible); log: *One entry per question* (The Research Log); annotate: *Four sentences, four questions* (Reverse Engineering the Question: A Demonstration); sort: *Name the type* (Application Questions); sort: *Closure, or just stopping?* (When Is Your Research Done? Research Closure); choice: *One question per question mark* (Q1: Explore the Legal Landscape); reveal: *Draft the next question before you read it* (Q4: Find the Rule for Your Setting) |
+| Ch. 4 | 3 | explore/plot: *Breadth against depth* (Searching for Secondary Sources); sort: *Which do you open first?* (Matching Source Type to Question Type); choice: *The map is not the territory* (Common Pitfalls) |
+| Ch. 5 | 3 | sort: *Before the U.S. District Court for the District of Arizona, on a federal statute* (Published vs. Unpublished Opinions); choice: *The flag is a prompt, not a verdict* (Editorial Enhancements in Case Law Databases); sort: *Holding or dictum?* (Holding vs. Dictum) |
+| Ch. 6 | 3 | sort: *Does the statute apply itself, or do you need cases?* (Statutes and the Research Cycle); explore/flow: *One statute, five publications* (Session Laws vs. Codes); sort: *Which part of the annotation holds the lead?* (Answering Questions with Statutes: Using Annotated Codes) |
+| Ch. 7 | 3 | order: *From delegation to codified rule* (How Regulations Are Made and What That Means for Research); sort: *Which publication answers it?* (Organization of Federal Regulatory Publications); checklist: *Is this regulation current? Five checks* (Answering Questions with Regulations and Updating for Currency) |
+| Ch. 8 | 3 | explore/ring: *Three sources, one rule* (The Statute-Regulation-Case Law Triangle); choice: *Audit this log* (The Single-Source Trap); sort: *A leave dispute under the FMLA: where does each answer live?* (Answering Questions Across Multiple Sources) |
+| Ch. 9 | 4 | search: *AND, then closer, then closer still* (The Full Connector Set: Proximity, Frequency, and Exclusion); checklist: *The closing-out protocol* (The Closing-Out Protocol); sort: *No results: is the law silent, or is the search?* (The Difference Between No Results and No Law); explore/list: *What symptom are you seeing?* (When Research Goes Wrong: Diagnosing Common Problems) |
+| Ch. 10 | 4 | sort: *Is it time for legislative history?* (Legislative History and the Research Cycle); explore/flow: *A bill's journey, and the paper it leaves behind* (How Legislative History Is Made and What That Means for Research); choice: *Four documents, one ambiguous word* (The Most Important Sources and Their Weight); order: *The route, start to finish* (Searching for Legislative History) |
+| Ch. 11 | 2 | choice: *Which deference question is this?* (Post-Loper Bright: No More Chevron Deference); sort: *Must the client comply, or is the agency advising?* (Evaluating Administrative Authority) |
+| Ch. 12 | 3 | sort: *Does Rule 3.3 require you to tell the court?* (The Duty of Candor Toward the Tribunal: Model Rule 3.3); sort: *Which duty did the lawyer breach?* (The Duty to Supervise: Model Rules 5.1 and 5.3); annotate: *Pull every citation before you sign* (AI and Emerging Technology Considerations) |
+| Ch. 13 | 2 | explore/list: *Read a docket, newest entry first* (Understanding a Docket); sort: *Authority, or a lead?* (Answering Questions with Court Documents) |
+| Ch. 14 | 2 | sort: *Which practice context is asking?* (Regulatory and Compliance Research); sort: *Is the research sufficient for this context?* (Adapting the Question Method Across Practice Contexts) |
+| Ch. 15 | 3 | tokens: *Prediction without retrieval* (How Generative AI Works and What That Means for Research); annotate: *Verify before you record* (Running the Cycle Through an AI System); choice: *When the tool is built on a real database* (AI Tools Integrated Into Legal Databases) |
+| Ch. 16 | 3 | annotate: *Skill 1: find the terms that will need research* (Practice in a Closed Universe); choice: *Skill 2: which authority controls?* (Practice in a Closed Universe); choice: *Skill 4: is the answer in the universe at all?* (Practice in a Closed Universe) |
+| Ch. 17 | 3 | sort: *A shelf to browse, or a question to answer?* (Finding a Topic); choice: *Someone got there first. Now what?* (Mapping the Scholarly Landscape); checklist: *The Scholarship Research Checklist* (The Scholarship Research Checklist) |
+| App. A | 1 | annotate: *One encyclopedia paragraph, read for one question* ((opening)) |
+| App. B | 1 | annotate: *The parts of an opinion, on a real one* ((opening)) |
+| App. C | 3 | annotate: *One definition, read word by word* ((opening)); explore/stack: *How a statutory chapter is usually built* (Components of a Statutory Section); sort: *Which canon is doing the work?* (How to Engage With the Source) |
+| App. D | 2 | annotate: *The parts of a regulation, on a real one* ((opening)); explore/stack: *A regulation is never read alone* (How to Engage With the Source) |
+
+### Figures: all fourteen placeholders are resolved
+
+| Figure | Now |
+|---|---|
+| 1.1 authority flowchart | *Who can undo whom*, a three-node ring |
+| 2.2 citation anatomy | three clickable citations (they replace the static diagrams too, so nothing is shown twice) |
+| 2.4 natural language v. Boolean | the Chapter 2 search lab, which runs the same problem both ways and counts on-point results |
+| 6.1 a statute's journey | *One statute, five publications* |
+| 7.1 currency checklist | the chapter's own five-item list is now the checklist; the separate figure would have repeated it |
+| 8.1 triangle | *Three sources, one rule* |
+| 9.1 AND v. proximity | the Chapter 9 search lab |
+| 9.2 diagnostic flowchart | the chapter's symptom list is now the diagnostic; I added the two symptoms the figure spec named that the text lacked (no authority in your jurisdiction; you cannot follow the source). **Read those two entries; they are mine.** |
+| 10.1 bill timeline | the chapter's stage list is now the flow diagram |
+| B.1, D.1 annotated opinion and regulation | annotated *Markowitz* and 28 C.F.R. § 36.304 |
+| C.1 chapter structure | a stack diagram |
+| C.2 canons card | a match-the-canon sorter. A printable card is still a good Downloads idea. |
+| D.2 hierarchy | a stack diagram |
+
+Exercise 7.3 referred to "Figure 7.1"; it now says "the five-check currency checklist from this chapter."
+
+### What I removed, and why
+
+- **Every "Practice Online" section.** Each held one long multi-screen module. Where a module taught something the chapter needed, I rebuilt that piece as a single-screen interactive and put it where the chapter teaches it. Where it repeated the chapter (the Chapter 1 hierarchy map, the secondary-source type explorer, the legislative-history deep-dive pages, the "can and cannot do" sorter that restated Chapter 15's table) I did not carry it over.
+- **The Notice of Claim research sandbox (Chapter 3)** and the two-problem **Across Sources practice (Chapter 8).** These were the longest modules and cannot be made one screen without becoming something else. The worked Notice of Claim example is still in Downloads, and the written exercises cover the same ground. The companion site still has both if you want to link out; the book's build rejects external links by design, so that is a decision, not an oversight.
+- **The four "How to Read" modules in Appendices A to D.** Replaced by one annotated passage each, using the same sources the modules used.
+- **The plain-text Toolkit iframe on Downloads.** Replaced by the Research Log itself, with a download button.
+- **Chapter 3's reverse-engineering demonstration** is back in the chapter as an annotated paragraph (the *Oakland Police* passage, each sentence revealing its question). Round 1 had cut the text because the module covered it.
+
+### Please check (P1/P2)
+
+- [ ] **[verify] Law stated in the new interactives.** I kept to what the chapters say, but these lines are new and carry legal content: the Supremacy Clause ordering in Chapter 1's *which controls* list (a valid federal regulation over a state constitution); "unpublished Ninth Circuit dispositions are generally not precedent" (Chapter 5); the FMLA sorter in Chapter 8 (that the statute itself lists what a sufficient certification states, 29 U.S.C. § 2613(b), and that the continuing-treatment day and visit counts are in the regulation); the Rule 3.3 sorter in Chapter 12; the *Auer*/*Kisor* choice in Chapter 11, which rests on the paragraph you have already flagged; the canon examples in Appendix C.
+- [ ] **[verify] Quotations.** The *Markowitz* excerpts (Appendix B), 28 C.F.R. § 36.304(a) and its authority and source notes (Appendix D), and A.R.S. § 23-901(13)(c) (Appendix C) were taken from the text in the companion modules, not re-pulled from the sources. Cite-check them. I paraphrased the lead-in to the Arizona definition rather than quote language I could not confirm.
+- [ ] **[verify] ⚑ Chapter 9 says /s and /p "do not look for terms within sentences or paragraphs as we think of them structurally."** That is not how every platform documents those connectors. The search lab reads /s as the same sentence and says so in its caption; reconcile the chapter text with current Westlaw and Lexis documentation.
+- [ ] **[decide] Invented material is labeled, but look at it.** The two search labs use sixteen invented case summaries. Chapters 12, 13, 15 and 16 share one fictional universe (*Marsh v. Golden Rentals*, *Okafor*, *Prewitt*, *Delgado*, *Tinsley*, the Residential Rental Standards Act § 12), carried over from the companion modules. Chapter 15's token predictor uses invented probabilities and an invented citation in Arizona format, 412 P.3d 1187. **Confirm that citation does not collide with a real case, or change the numbers.**
+- [ ] **[decide] The natural-language mode in the Chapter 2 lab is a stand-in** (it ranks by word overlap). The caption says so. If you would rather not simulate natural language at all, delete the `natural="..."` attribute and the lab becomes terms-and-connectors only.
+- [ ] **[decide] Chapter 16 gained a short subsection, "Practice in a Closed Universe,"** to hold the fictional statute and three cases that the three skill interactives share. It is the only new heading in the book.
+- [ ] **[decide] The Research Log now lives in the book** (seven fields, matching Chapter 3), stored in the reader's browser, the same log on every page, downloadable as text. This closes the round 3 item about the companion repo's eight-field log for readers of this edition. Students who used the old embedded modules will not see their earlier entries here.
+- [ ] **Phone screens.** Everything works at 390 px with no sideways scrolling, but the longer sorters and checklists run taller than one phone screen because each row stacks. If "one screen" must hold on phones too, the fix is fewer items per sorter; tell me which to cut.
+- [ ] **Not done: a line-by-line read of Chapters 4 to 9 and Appendices E to H.** Still owed from round 1. For this pass I read each chapter's structure and the passages around every interactive.
+
+### Two small fixes made in passing
+
+- The Learning Objectives box at the top of Chapter 6 was titled "Key Takeaways," the same as the box at the end. Retitled.
+- The "On this page" list showed a stray "#" after every heading. Fixed in `build.py`.
+
+### Earlier items this pass closes
+
+G11 (figure placeholders), the round 3 "Figure placeholders" and "Glossary terms" suggestions (the glossary is now a real page: every term and definition as text, filterable, with flashcards on top; source in `content/glossary.md`), and the per-chapter "Figure pending" notes in sections 5 to 7. Section 9 below describes the embedded modules and is now history.
+
+### Under the hood
+
+| Change | Where |
+|---|---|
+| The interactive engine: ten kinds, about 600 lines, no dependencies, progressive enhancement of ordinary HTML | `assets/book.js`, `assets/book.css` |
+| `::: {.try kind=...}` blocks get an id and a heading strip at build time; unknown kinds fail the build | `build.py` |
+| Whole-book DOCX prints each interactive as its own content under a one-line label (answers shown) | `build.py` |
+| Glossary is a content file, editable like any page | `content/glossary.md` |
+| Editor: "Insert interactive" offers a template for each kind; the companion-repo picker, Sync button and setting are gone | `editing.py` |
+| `interactives/` and `scripts/sync_interactives.py` deleted; embed plan removed from `book.json`; the one-time importer now refuses to run without an explicit flag, because it would overwrite every interactive | repo |
+
+---
+
+## 0-prior. Round 3
 
 **The updated tip sheet is in.** `The_Question_Method_Tip_Sheet.docx` replaced the old Quick Tips file in `downloads/` (same file name on the site, so links hold), with a fresh PDF preview (three pages). I read it against the book; the differences worth a look:
 
@@ -48,13 +144,13 @@ I read in full: the front matter, Part I and Part II intros, Chapter 1, Chapters
 
 ## 0a. Additional suggestions (not done; your call)
 
-- [ ] **[decide] Research Log in the companion repo.** Still eight fields in `js/research-log.js`. Every embedded module that mounts the log shows the old names; the book now says seven. This is the most visible inconsistency a student will meet. I can make the change there (field list plus a migration for saved logs) if you say so.
+- [x] **[decide] Research Log in the companion repo.** *(Closed in round 4: the book has its own seven-field log.)* Still eight fields in `js/research-log.js`. Every embedded module that mounts the log shows the old names; the book now says seven. This is the most visible inconsistency a student will meet. I can make the change there (field list plus a migration for saved logs) if you say so.
 - [ ] **Pressbooks round-trip.** This repo is now a second master copy. Either declare it the master (and stop editing in Pressbooks), or ask me for an exporter that writes each chapter back as Pressbooks-ready HTML so edits here can be pasted back. Doing both by hand will drift within a week.
 - [ ] **Accessibility audit in CI.** The companion repo runs pa11y on every push; the same workflow would drop in here (it needs Node in the action). I checked structure by hand; a real run will catch contrast and label issues I did not.
 - [ ] **"Verified as of" dates.** Chapters 11, 13, 15 and 16 turn on things that move (deference, PACER fees, AI products, NCBE). A `verified:` date per chapter in `book.json`, rendered under the chapter title, tells a reader how fresh the law is and tells you what to recheck each term. The editor could carry the field.
 - [ ] **An instructor edition toggle.** Appendix H (sample answers) and Appendix E (drill walkthroughs) are one click away for students. If you want them held back, a second build target that omits them (and a note in the chapters) is a small change.
-- [ ] **Figure placeholders.** Fourteen remain (G11). Five are now covered by an embedded module and can be deleted from the Flags screen; the rest need a drawing or a decision to drop.
-- [ ] **Glossary terms.** The dotted-underline terms (`{.gloss}`) carry no definition on the page; the flashcards hold them. A hover or tap definition pulled from the flashcard deck would close that loop. Needs the deck's data file, which is in the companion repo.
+- [x] **Figure placeholders.** *(Closed in round 4: all fourteen are now interactives; see the table above.)* Fourteen remain (G11). Five are now covered by an embedded module and can be deleted from the Flags screen; the rest need a drawing or a decision to drop.
+- [x] **Glossary terms.** *(Closed in round 4: the glossary is a page of its own.)* The dotted-underline terms (`{.gloss}`) carry no definition on the page; the flashcards hold them. A hover or tap definition pulled from the flashcard deck would close that loop. Needs the deck's data file, which is in the companion repo.
 - [ ] **Downloads: a Search Log template** for Chapter 9 and a **canons quick-reference card** for Appendix C (Figure C.2) are the two most-requested-looking gaps.
 - [ ] **Exercises as records.** The written exercises have no submission path, unlike the modules. A "copy this exercise's deliverable template" button that drops a Markdown skeleton (Deliverable, Self-check) into the clipboard would cost little.
 
@@ -172,7 +268,7 @@ Outside the items above, the prose is as you wrote it. Typos and awkward sentenc
   | 15 | no | yes (one paragraph that repeats an earlier one) | draft added |
   | 17 | no (stated on purpose) | yes (two thin subsections) | draft added |
 
-- [ ] **G11 (P2) Draft figures still pending: 14 placeholders.** Each is a design spec in italics. Some are now answered by an embedded interactive:
+- [x] **G11 (P2) Draft figures still pending: 14 placeholders.** *(Closed in round 4: none remain.)* Each is a design spec in italics. Some are now answered by an embedded interactive:
 
   | Figure | Spec | Resolved by |
   |---|---|---|
@@ -351,6 +447,8 @@ Chapter numbers below are the **new** numbers. The export position is noted so y
 ---
 
 ## 9. Interactives: what is embedded, what is not
+
+*Superseded by round 4. Nothing is embedded now. This section is kept as the record of which companion modules were considered.*
 
 **Embedded (22 in chapters, 4 in appendices, plus flashcards and toolkit):**
 

@@ -1,37 +1,10 @@
-/* Page behaviour for the book: (1) size embedded interactives to their content,
-   (2) remember the show/hide draft-flags choice, (3) highlight the current section in "On this page".
-   Everything degrades gracefully: with scripts off, iframes keep the height set in the HTML. */
+/* Page behaviour for the book: remember the show/hide draft-flags choice, highlight the current
+   section in "On this page", run the search page, and bring the in-text interactives to life.
+   Every interactive is ordinary page content (a list, a paragraph, a definition list) that this
+   script enhances in place: nothing is framed in from another site, and with scripts off the
+   content still reads as text. */
 (function () {
   "use strict";
-
-  /* 1. iframe auto-height (works when served over http(s); on file:// the browser blocks
-        reading the frame, so the fixed height in the markup stays). */
-  function fit(frame) {
-    try {
-      var doc = frame.contentDocument;
-      if (!doc || !doc.documentElement) return;
-      var min = parseInt(frame.getAttribute("data-minheight") || "480", 10);
-      var h = Math.max(doc.documentElement.scrollHeight, doc.body ? doc.body.scrollHeight : 0, min);
-      h = Math.min(h, 1000);   // long modules scroll inside the frame instead of stretching the chapter
-      frame.style.height = h + "px";
-    } catch (e) { /* cross-origin or file:// -- keep the fixed height */ }
-  }
-  function watch(frame) {
-    function go() {
-      fit(frame);
-      try {
-        var doc = frame.contentDocument;
-        if (window.ResizeObserver && doc && doc.body) {
-          new ResizeObserver(function () { fit(frame); }).observe(doc.body);
-        }
-        // pages inside the frame change height when the learner navigates inside the module
-        frame.contentWindow.addEventListener("pageshow", function () { setTimeout(function () { fit(frame); }, 50); });
-      } catch (e) {}
-    }
-    frame.addEventListener("load", go);
-  }
-  var frames = document.querySelectorAll(".embed iframe");
-  for (var i = 0; i < frames.length; i++) watch(frames[i]);
 
   /* 2. draft-flag toggle */
   var btn = document.getElementById("flagtoggle");
@@ -120,4 +93,544 @@
   }
   var t; q.addEventListener("input", function () { clearTimeout(t); t = setTimeout(run, 120); });
   if (q.value) run();
+})();
+
+/* 6. In-text interactives. Each is a <div class="try" data-kind="..."> written in the chapter's
+      Markdown (see README, "Interactives"). One screen each; no paging, no frames. */
+(function () {
+  "use strict";
+  var blocks = document.querySelectorAll(".try[data-kind]");
+  if (!blocks.length) return;
+
+  function h(tag, attrs, kids) {
+    var e = document.createElement(tag), k;
+    for (k in attrs || {}) {
+      if (k === "class") e.className = attrs[k];
+      else if (k === "html") e.innerHTML = attrs[k];
+      else if (k === "text") e.textContent = attrs[k];
+      else if (k.slice(0, 2) === "on") e.addEventListener(k.slice(2), attrs[k]);
+      else if (attrs[k] !== null && attrs[k] !== false) e.setAttribute(k, attrs[k]);
+    }
+    (kids || []).forEach(function (c) { if (c) e.appendChild(typeof c === "string" ? document.createTextNode(c) : c); });
+    return e;
+  }
+  function opt(el, name) { return el.getAttribute("data-" + name) || el.getAttribute(name) || ""; }
+  function kids(el, sel) { return Array.prototype.filter.call(el.children, function (c) { return c.matches(sel); }); }
+  function splitBar(s) { return s.split("|").map(function (x) { return x.trim(); }).filter(Boolean); }
+  /* an <li>'s own content (without the nested list that carries its feedback) */
+  function own(li) {
+    var c = li.cloneNode(true);
+    Array.prototype.slice.call(c.querySelectorAll("ul,ol")).forEach(function (n) { n.remove(); });
+    Array.prototype.slice.call(c.querySelectorAll("input")).forEach(function (n) { n.remove(); });
+    var lab = c.querySelector("label"); if (lab) { while (lab.firstChild) lab.parentNode.insertBefore(lab.firstChild, lab); lab.remove(); }
+    var ps = kids(c, "p"); if (ps.length === 1 && c.children.length === 1) return ps[0].innerHTML.trim();
+    return c.innerHTML.trim();
+  }
+  function fb(li) {
+    var sub = kids(li, "ul,ol")[0];
+    return sub ? kids(sub, "li").map(function (x) { return x.innerHTML; }).join("<br>") : "";
+  }
+  function isRight(li) { var i = li.querySelector("input[type=checkbox]"); return !!(i && i.checked); }
+  function topList(el) { return kids(el, "ul,ol")[0]; }
+  function shuffled(n, seed) {          /* stable, never the identity for n > 1 */
+    var a = [], i, j, t, x = seed * 9301 + 49297;
+    for (i = 0; i < n; i++) a.push(i);
+    for (i = n - 1; i > 0; i--) { x = (x * 9301 + 49297) % 233280; j = Math.floor(x / 233280 * (i + 1)); t = a[i]; a[i] = a[j]; a[j] = t; }
+    if (n > 1 && a.every(function (v, k) { return v === k; })) { t = a[0]; a[0] = a[n - 1]; a[n - 1] = t; }
+    return a;
+  }
+  var store = {
+    get: function (k, d) { try { var v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+    set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+  };
+  function live() { return h("div", { "class": "try-out", role: "status", "aria-live": "polite" }); }
+  function strip(s) { return s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(); }
+
+  var KINDS = {};
+
+  /* ---- choice: one question, feedback on every option -------------------------------- */
+  KINDS.choice = function (root) {
+    var list = topList(root); if (!list) return;
+    var items = kids(list, "li"), multi = items.filter(isRight).length > 1, out = live();
+    var box = h("div", { "class": "try-opts", role: "group" });
+    var btns = items.map(function (li, i) {
+      var b = h("button", { type: "button", "class": "try-opt", "aria-pressed": "false", html: own(li) });
+      b.addEventListener("click", function () {
+        if (multi) { b.setAttribute("aria-pressed", b.getAttribute("aria-pressed") === "true" ? "false" : "true"); b.classList.remove("ok", "no"); return; }
+        btns.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+        b.setAttribute("aria-pressed", "true");
+        var ok = isRight(li); b.classList.add(ok ? "ok" : "no");
+        out.innerHTML = '<p class="' + (ok ? "good" : "bad") + '"><strong>' + (ok ? "Yes." : "Not this one.") + "</strong> " + fb(li) + "</p>";
+      });
+      box.appendChild(b); return b;
+    });
+    list.replaceWith(box);
+    if (multi) {
+      box.insertAdjacentElement("afterend", h("p", { "class": "try-actions" }, [h("button", { type: "button", "class": "try-btn", text: "Check my picks", onclick: function () {
+        var html = "", all = true;
+        items.forEach(function (li, i) {
+          var picked = btns[i].getAttribute("aria-pressed") === "true", ok = picked === isRight(li);
+          btns[i].classList.remove("ok", "no"); if (picked) btns[i].classList.add(isRight(li) ? "ok" : "no");
+          if (!ok) all = false;
+          if (picked || !ok) html += '<p class="' + (ok ? "good" : "bad") + '"><strong>' + strip(own(li)) + ":</strong> " + (ok ? "" : (picked ? "Not this one. " : "You missed this one. ")) + fb(li) + "</p>";
+        });
+        out.innerHTML = (all ? '<p class="good"><strong>All correct.</strong></p>' : "") + html;
+      } })]));
+      box.insertAdjacentElement("beforebegin", h("p", { "class": "try-hint", text: "Select every answer that applies, then check." }));
+    }
+    root.appendChild(out);
+  };
+
+  /* ---- sort: put each item in a bin ---------------------------------------------------- */
+  KINDS.sort = function (root, idx) {
+    var list = topList(root); if (!list) return;
+    var items = kids(list, "li").map(function (li) {
+      var c = li.cloneNode(true), strongs, bin = "";
+      Array.prototype.slice.call(c.querySelectorAll("ul,ol")).forEach(function (n) { n.remove(); });
+      strongs = c.querySelectorAll("strong");
+      if (strongs.length) { bin = strongs[strongs.length - 1].textContent.trim(); strongs[strongs.length - 1].remove(); }
+      var ps = kids(c, "p"); var html = (ps.length ? ps[0].innerHTML : c.innerHTML).replace(/(\s|&nbsp;|[—–:-])+$/, "").trim();
+      return { html: html, bin: bin, fb: fb(li) };
+    });
+    var bins = splitBar(opt(root, "bins"));
+    if (!bins.length) items.forEach(function (it) { if (bins.indexOf(it.bin) < 0) bins.push(it.bin); });
+    var done = 0, score = h("p", { "class": "try-score", role: "status", "aria-live": "polite" });
+    var wrap = h("ol", { "class": "try-sort" });
+    function tally() { score.textContent = done + " of " + items.length + " placed" + (done === items.length ? ". All sorted." : ""); }
+    shuffled(items.length, idx + 3).forEach(function (k) {
+      var it = items[k], misses = 0, note = h("div", { "class": "try-note" });
+      var row = h("li", {}, [h("div", { "class": "try-item", html: it.html })]);
+      var bar = h("div", { "class": "try-bins", role: "group", "aria-label": "Choose a category" });
+      bins.forEach(function (b) {
+        var btn = h("button", { type: "button", "class": "try-bin", text: b });
+        btn.addEventListener("click", function () {
+          if (row.classList.contains("done")) return;
+          if (b === it.bin) {
+            row.classList.add("done"); btn.classList.add("ok"); done++;
+            Array.prototype.forEach.call(bar.children, function (x) { x.disabled = true; });
+            note.innerHTML = '<p class="good"><strong>' + b + ".</strong> " + it.fb + "</p>"; tally();
+          } else {
+            btn.classList.add("no"); btn.disabled = true; misses++;
+            note.innerHTML = '<p class="bad">Not ' + b.toLowerCase() + ". " + (misses > 1 ? "Look at what the item <em>is</em> before what it is about. " : "") + "Try again.</p>";
+          }
+        });
+        bar.appendChild(btn);
+      });
+      row.appendChild(bar); row.appendChild(note); wrap.appendChild(row);
+    });
+    list.replaceWith(wrap);
+    wrap.insertAdjacentElement("afterend", score); tally();
+  };
+
+  /* ---- order: arrange the rows, then check ---------------------------------------------- */
+  KINDS.order = function (root, idx) {
+    var list = topList(root); if (!list) return;
+    var items = kids(list, "li").map(function (li, i) { return { html: own(li), fb: fb(li), pos: i }; });
+    var cur = shuffled(items.length, idx + 7).map(function (k) { return items[k]; }), out = live();
+    var wrap = h("ol", { "class": "try-order" });
+    function draw(checked) {
+      wrap.innerHTML = "";
+      cur.forEach(function (it, i) {
+        var good = checked && it.pos === i;
+        var li = h("li", { "class": checked ? (good ? "ok" : "no") : "" }, [
+          h("span", { "class": "try-move" }, [
+            h("button", { type: "button", "aria-label": "Move up", disabled: i === 0 ? "" : null, text: "↑", onclick: function () { swap(i, i - 1); } }),
+            h("button", { type: "button", "aria-label": "Move down", disabled: i === cur.length - 1 ? "" : null, text: "↓", onclick: function () { swap(i, i + 1); } })
+          ]),
+          h("div", { "class": "try-item", html: it.html + (checked && allRight() && it.fb ? '<span class="try-why">' + it.fb + "</span>" : "") })
+        ]);
+        wrap.appendChild(li);
+      });
+    }
+    function allRight() { return cur.every(function (it, i) { return it.pos === i; }); }
+    function swap(a, b) {
+      var t = cur[a]; cur[a] = cur[b]; cur[b] = t; out.innerHTML = ""; draw(false);
+      var bs = wrap.children[b].querySelectorAll("button"); (bs[b < a ? 0 : 1].disabled ? bs[b < a ? 1 : 0] : bs[b < a ? 0 : 1]).focus();
+    }
+    list.replaceWith(wrap); draw(false);
+    wrap.insertAdjacentElement("afterend", h("p", { "class": "try-actions" }, [h("button", { type: "button", "class": "try-btn", text: "Check the order", onclick: function () {
+      draw(true);
+      var n = cur.filter(function (it, i) { return it.pos === i; }).length;
+      out.innerHTML = allRight() ? '<p class="good"><strong>That is the order.</strong> The reason for each position is now shown beside it.</p>'
+        : '<p class="bad"><strong>' + n + " of " + cur.length + " in place.</strong> The highlighted rows are right where they are. Move the others and check again.</p>";
+    } })]));
+    root.appendChild(out);
+  };
+
+  /* ---- explore: a diagram or set of parts; select one to read about it ------------------- */
+  KINDS.explore = function (root) {
+    var list = topList(root); if (!list) return;
+    var layout = opt(root, "layout") || "tabs";
+    var items = kids(list, "li").map(function (li) {
+      var c = li.cloneNode(true), st = c.querySelector("strong"), label = "", tag = "", x = null, y = null, m;
+      if (st) { label = st.innerHTML.replace(/[.:]\s*$/, ""); st.remove(); }
+      if ((m = label.match(/^(.*?)\s*\|\s*(.*)$/))) { label = m[1]; tag = m[2]; }
+      if (layout === "plot" && (m = tag.match(/^(\d+)\s*,\s*(\d+)$/))) { x = +m[1]; y = +m[2]; tag = ""; }
+      var ps = kids(c, "p"); if (ps.length && ps[0].innerHTML.trim() === "") ps[0].remove();
+      return { label: label, tag: tag, x: x, y: y, body: (c.children.length ? c.innerHTML : "<p>" + c.innerHTML + "</p>").replace(/^<p>\s+/, "<p>") };
+    });
+    var panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite" });
+    var fig = h("div", { "class": "try-fig try-" + layout, role: "group" });
+    var btns = items.map(function (it, i) {
+      var b = h("button", { type: "button", "class": "try-node", "aria-pressed": "false", html: "<span>" + it.label + "</span>" + (it.tag ? '<small>' + it.tag + "</small>" : "") });
+      b.addEventListener("click", function () { pick(i); });
+      return b;
+    });
+    function pick(i) {
+      btns.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
+      panel.innerHTML = '<p class="try-panel-h">' + items[i].label + (items[i].tag ? " <small>" + items[i].tag + "</small>" : "") + "</p>" + items[i].body;
+    }
+    if (layout === "ring") {
+      var n = items.length, edges = splitBar(opt(root, "edges")), both = opt(root, "arrows") === "both";
+      var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
+      svg.setAttribute("viewBox", "0 0 160 90"); svg.setAttribute("aria-hidden", "true");
+      svg.innerHTML = '<defs><marker id="qm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z"/></marker></defs>';
+      var pts = items.map(function (_it, i) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [80 + 52 * Math.cos(a), (n === 3 ? 50 : 45) + 32 * Math.sin(a)]; });
+      pts.forEach(function (p, i) {
+        if (n < 2) return;
+        var q = pts[(i + 1) % n], dx = q[0] - p[0], dy = q[1] - p[1], line = document.createElementNS(NS, "line");
+        var f = Math.min(Math.min(25 / Math.abs(dx || 1e-6), 10.5 / Math.abs(dy || 1e-6)), 0.45);   /* clip to the node boxes */
+        line.setAttribute("x1", p[0] + dx * f); line.setAttribute("y1", p[1] + dy * f);
+        line.setAttribute("x2", q[0] - dx * f); line.setAttribute("y2", q[1] - dy * f);
+        line.setAttribute("marker-end", "url(#qm-arrow)"); if (both) line.setAttribute("marker-start", "url(#qm-arrow)");
+        svg.appendChild(line);
+        if (edges[i]) fig.appendChild(h("span", { "class": "try-edge", style: "left:" + ((p[0] + q[0]) / 2 / 1.6) + "%;top:" + ((p[1] + q[1]) / 2 / 0.9) + "%", text: edges[i] }));
+      });
+      fig.appendChild(svg);
+      btns.forEach(function (b, i) { b.style.left = (pts[i][0] / 1.6) + "%"; b.style.top = (pts[i][1] / 0.9) + "%"; fig.appendChild(b); });
+    } else if (layout === "plot") {
+      fig.appendChild(h("span", { "class": "try-axis-y", text: opt(root, "ylabel") }));
+      fig.appendChild(h("span", { "class": "try-axis-x", text: opt(root, "xlabel") }));
+      var area = h("div", { "class": "try-plotarea" });
+      btns.forEach(function (b, i) { b.style.left = items[i].x + "%"; b.style.bottom = items[i].y + "%"; area.appendChild(b); });
+      fig.appendChild(area);
+    } else {
+      btns.forEach(function (b) { fig.appendChild(b); });
+    }
+    var shell = h("div", { "class": "try-explore try-explore-" + layout }, [fig, panel]);
+    list.replaceWith(shell); pick(0);
+  };
+
+  /* ---- annotate: a passage with marked spans; select a span to read the note -------------- */
+  KINDS.annotate = function (root) {
+    var marks = Array.prototype.slice.call(root.querySelectorAll(".m")); if (!marks.length) return;
+    var panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite", html: '<p class="try-hint">Select a highlighted part to read about it here.</p>' });
+    if (opt(root, "hint")) root.querySelector(".try-head").insertAdjacentElement("afterend", h("p", { "class": "try-lead", text: opt(root, "hint") }));
+    var count = h("p", { "class": "try-score" }), seen = 0;
+    if (opt(root, "layout") === "cite") root.classList.add("try-cite");
+    marks.forEach(function (m) {
+      var label = opt(m, "label"), note = opt(m, "note"), verdict = opt(m, "verdict");
+      m.setAttribute("role", "button"); m.setAttribute("tabindex", "0"); m.setAttribute("aria-pressed", "false");
+      if (label && root.classList.contains("try-cite")) {
+        var tok = h("span", { "class": "tok" }); while (m.firstChild) tok.appendChild(m.firstChild);
+        m.appendChild(tok); m.appendChild(h("small", { text: label }));
+      }
+      function open() {
+        marks.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
+        m.setAttribute("aria-pressed", "true");
+        if (!m.classList.contains("seen")) { m.classList.add("seen"); seen++; }
+        if (verdict) m.classList.add("v-" + verdict);
+        panel.innerHTML = (label ? '<p class="try-panel-h">' + label + "</p>" : "") + "<p>" + note + "</p>";
+        count.textContent = seen + " of " + marks.length + " read";
+      }
+      m.addEventListener("click", open);
+      m.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+    });
+    root.appendChild(panel); root.appendChild(count); count.textContent = "0 of " + marks.length + " read";
+  };
+
+  /* ---- checklist: tick boxes that remember ------------------------------------------------ */
+  KINDS.checklist = function (root, idx) {
+    var list = topList(root); if (!list) return;
+    var key = "qm:" + location.pathname + ":check:" + idx, state = store.get(key, {});
+    var score = h("p", { "class": "try-score", role: "status", "aria-live": "polite" });
+    var wrap = h(list.tagName.toLowerCase(), { "class": "try-check" + (kids(list, "li").length > 6 ? " cols" : "") }), boxes = [];
+    kids(list, "li").forEach(function (li, i) {
+      var id = "qmc-" + idx + "-" + i, cb = h("input", { type: "checkbox", id: id });
+      cb.checked = !!state[i]; boxes.push(cb);
+      cb.addEventListener("change", function () { state[i] = cb.checked; store.set(key, state); tally(); });
+      var extra = fb(li), text = own(li), m = text.match(/^<strong>(.*?)<\/strong>\s*([\s\S]*)$/);
+      if (m && m[2]) { text = m[1].replace(/[.:]\s*$/, ""); extra = m[2] + (extra ? "<br>" + extra : ""); }   /* bold lead is the label; the rest is the detail */
+      wrap.appendChild(h("li", {}, [cb, h("label", { "for": id, html: text }), extra ? h("div", { "class": "try-why", html: extra }) : null]));
+    });
+    function tally() { var n = boxes.filter(function (b) { return b.checked; }).length; score.textContent = n + " of " + boxes.length + " done" + (n === boxes.length ? ". Complete." : ""); }
+    list.replaceWith(wrap);
+    wrap.insertAdjacentElement("afterend", h("p", { "class": "try-actions" }, [score, h("button", { type: "button", "class": "try-btn ghost", text: "Clear", onclick: function () { boxes.forEach(function (b) { b.checked = false; }); state = {}; store.set(key, state); tally(); } })]));
+    tally();
+  };
+
+  /* ---- reveal: commit to an answer, then compare ------------------------------------------- */
+  KINDS.reveal = function (root, idx) {
+    var hr = kids(root, "hr")[0]; if (!hr) return;
+    var key = "qm:" + location.pathname + ":reveal:" + idx, ans = h("div", { "class": "try-answer", hidden: "" }), n;
+    while ((n = hr.nextSibling)) ans.appendChild(n);
+    var ta = h("textarea", { rows: "3", "aria-label": "Your answer", placeholder: opt(root, "placeholder") || "Write your answer first. It stays in this browser." });
+    ta.value = store.get(key, ""); ta.addEventListener("input", function () { store.set(key, ta.value); });
+    var btn = h("button", { type: "button", "class": "try-btn", "aria-expanded": "false", text: opt(root, "button") || "Compare with a model answer" });
+    btn.addEventListener("click", function () { var open = ans.hidden; ans.hidden = !open; btn.setAttribute("aria-expanded", String(open)); btn.textContent = open ? "Hide the model answer" : (opt(root, "button") || "Compare with a model answer"); });
+    hr.replaceWith(h("div", {}, [ta, h("p", { "class": "try-actions" }, [btn]), ans]));
+  };
+
+  /* ---- tokens: watch a sentence get predicted one piece at a time --------------------------- */
+  KINDS.tokens = function (root) {
+    var list = topList(root); if (!list) return;
+    var steps = kids(list, "li").map(function (li) {
+      var note = fb(li);
+      return { note: note, cands: strip(own(li)).split(/\s*;\s*/).map(function (c) { var m = c.match(/^(.*?)\s+(\d+)%$/); return m ? { t: m[1], p: +m[2] } : { t: c, p: 0 }; }) };
+    });
+    var i = 0, line = h("p", { "class": "try-line" }), bars = h("div", { "class": "try-bars" }), out = live();
+    var start = opt(root, "start");
+    var next = h("button", { type: "button", "class": "try-btn", text: "Predict the next piece" });
+    var reset = h("button", { type: "button", "class": "try-btn ghost", text: "Start over" });
+    function draw() {
+      line.innerHTML = "<span>" + start + "</span>" + steps.slice(0, i).map(function (s) { return " <mark>" + s.cands[0].t + "</mark>"; }).join("") + (i < steps.length ? ' <span class="try-caret">▁</span>' : "");
+      bars.innerHTML = "";
+      if (i < steps.length) steps[i].cands.forEach(function (c, k) {
+        bars.appendChild(h("div", { "class": "try-bar" + (k === 0 ? " top" : "") }, [h("span", { text: c.t }), h("i", { style: "width:" + c.p + "%" }), h("b", { text: c.p + "%" })]));
+      });
+      out.innerHTML = i > 0 && steps[i - 1].note ? "<p>" + steps[i - 1].note + "</p>" : "";
+      next.disabled = i >= steps.length;
+      next.textContent = i >= steps.length ? "Done" : "Predict the next piece";
+    }
+    next.addEventListener("click", function () { if (i < steps.length) { i++; draw(); } });
+    reset.addEventListener("click", function () { i = 0; draw(); });
+    list.replaceWith(h("div", { "class": "try-tokens" }, [line, h("p", { "class": "try-hint", text: "Candidates for the next piece, with the model's probability for each:" }), bars, h("p", { "class": "try-actions" }, [next, reset])]));
+    root.appendChild(out); draw();
+  };
+
+  /* ---- flashcards: a definition list you can flip through and filter ------------------------ */
+  KINDS.flashcards = function (root) {
+    var dl = root.querySelector("dl"); if (!dl) return;
+    var cards = [], dts = dl.querySelectorAll("dt");
+    Array.prototype.forEach.call(dts, function (dt) { var dd = dt.nextElementSibling; cards.push({ dt: dt, dd: dd, t: dt.innerHTML, d: dd ? dd.innerHTML : "" }); });
+    var pool = cards.slice(), i = 0, flipped = false;
+    var face = h("button", { type: "button", "class": "try-card", "aria-live": "polite" });
+    var pos = h("span", { "class": "try-score" });
+    function draw() {
+      if (!pool.length) { face.innerHTML = "<span>No term matches.</span>"; pos.textContent = ""; return; }
+      var c = pool[i];
+      face.innerHTML = flipped ? '<small>' + strip(c.t) + "</small><span class=\"def\">" + c.d + "</span>" : "<strong>" + c.t + "</strong><small>Select to see the definition</small>";
+      pos.textContent = (i + 1) + " of " + pool.length;
+    }
+    face.addEventListener("click", function () { flipped = !flipped; draw(); });
+    function go(d) { if (!pool.length) return; i = (i + d + pool.length) % pool.length; flipped = false; draw(); }
+    var filter = h("input", { type: "search", placeholder: "Filter terms", "aria-label": "Filter terms" });
+    filter.addEventListener("input", function () {
+      var q = filter.value.toLowerCase();
+      pool = cards.filter(function (c) { var hit = !q || (strip(c.t) + " " + strip(c.d)).toLowerCase().indexOf(q) >= 0; c.dt.hidden = !hit; if (c.dd) c.dd.hidden = !hit; return hit; });
+      i = 0; flipped = false; draw();
+    });
+    var bar = h("p", { "class": "try-actions" }, [
+      h("button", { type: "button", "class": "try-btn ghost", text: "← Previous", onclick: function () { go(-1); } }),
+      h("button", { type: "button", "class": "try-btn ghost", text: "Next →", onclick: function () { go(1); } }),
+      h("button", { type: "button", "class": "try-btn ghost", text: "Shuffle", onclick: function () { var o = shuffled(pool.length, Date.now() % 997); pool = o.map(function (k) { return pool[k]; }); i = 0; flipped = false; draw(); } }),
+      pos, filter]);
+    dl.insertAdjacentElement("beforebegin", face); dl.insertAdjacentElement("beforebegin", bar);
+    dl.classList.add("glosslist"); root.insertAdjacentElement("afterend", dl);   /* the full list reads as page text, below the cards */
+    draw();
+  };
+
+  /* ---- log: the seven-field Research Log entry, kept in this browser across the whole book --- */
+  KINDS.log = function (root) {
+    var KEY = "qm_book_research_log", entries = store.get(KEY, []);
+    var F = [["q", "Research Question", "Your current question, one question mark."], ["type", "Question Type", ""], ["method", "Method", "How you located the source."],
+             ["found", "Findings", "The rule, holding, or definition, in your own words."], ["src", "Source Consulted", "Citation."], ["next", "Next Question", "What you still need to know."], ["notes", "Notes", "Leads, flags, connections."]];
+    var TYPES = ["", "Definitional", "Exploratory (no-clue)", "Exploratory (foundational)", "Exploratory (survey)", "Focusing", "Application (fact-finding)", "Application (constructive)"];
+    var form = h("form", { "class": "try-log" }), inputs = {}, listEl = h("div", { "class": "try-loglist" }), out = live();
+    F.forEach(function (f, i) {
+      var id = "qml-" + f[0] + "-" + Math.random().toString(36).slice(2, 7), ctl;
+      if (f[0] === "type") { ctl = h("select", { id: id }); TYPES.forEach(function (t) { ctl.appendChild(h("option", { value: t, text: t || "Choose…" })); }); }
+      else if (f[0] === "found" || f[0] === "notes") ctl = h("textarea", { id: id, rows: "2", placeholder: f[2] });
+      else ctl = h("input", { id: id, type: "text", placeholder: f[2] });
+      inputs[f[0]] = ctl;
+      form.appendChild(h("div", { "class": "try-field f-" + f[0] }, [h("label", { "for": id, text: f[1] }), ctl]));
+    });
+    function text() {
+      return entries.map(function (e, i) { return "Cycle " + (i + 1) + "\n" + F.map(function (f) { return f[1] + ": " + (e[f[0]] || ""); }).join("\n"); }).join("\n\n");
+    }
+    function draw() {
+      listEl.innerHTML = "";
+      if (!entries.length) { listEl.appendChild(h("p", { "class": "try-hint", text: "No entries yet. The log is saved in this browser only, and it is the same log on every page of the book." })); return; }
+      var d = h("details", {}, [h("summary", { text: entries.length + " entr" + (entries.length === 1 ? "y" : "ies") + " in your log" })]);
+      entries.forEach(function (e, i) {
+        d.appendChild(h("div", { "class": "try-entry" }, [
+          h("p", { html: "<strong>Cycle " + (i + 1) + ".</strong> " + h("i", { text: e.q || "(no question)" }).innerHTML + (e.type ? " <small>" + e.type + "</small>" : "") }),
+          h("p", { "class": "small", text: (e.found ? "Findings: " + e.found + " " : "") + (e.src ? "Source: " + e.src + ". " : "") + (e.next ? "Next: " + e.next : "") }),
+          h("button", { type: "button", "class": "try-btn ghost small", text: "Delete", onclick: function () { entries.splice(i, 1); store.set(KEY, entries); draw(); } })
+        ]));
+      });
+      listEl.appendChild(d);
+      listEl.appendChild(h("p", { "class": "try-actions" }, [h("button", { type: "button", "class": "try-btn ghost", text: "Download the log (.txt)", onclick: function () {
+        var a = h("a", { href: URL.createObjectURL(new Blob([text()], { type: "text/plain" })), download: "research-log.txt" }); document.body.appendChild(a); a.click(); a.remove();
+      } })]));
+    }
+    form.appendChild(h("p", { "class": "try-actions" }, [h("button", { type: "submit", "class": "try-btn", text: "Add this entry to my log" })]));
+    form.addEventListener("submit", function (ev) {
+      ev.preventDefault();
+      var e = {}; F.forEach(function (f) { e[f[0]] = inputs[f[0]].value.trim(); });
+      if (!e.q) { out.innerHTML = '<p class="bad">Start with the question. Every entry is one question.</p>'; inputs.q.focus(); return; }
+      var warn = (e.q.match(/\?/g) || []).length > 1 ? " That entry holds more than one question mark. Consider splitting it: one question per cycle." : "";
+      entries = store.get(KEY, []); entries.push(e); store.set(KEY, entries);
+      F.forEach(function (f) { inputs[f[0]].value = ""; });
+      if (e.next) inputs.q.value = e.next;
+      out.innerHTML = '<p class="good"><strong>Saved as Cycle ' + entries.length + ".</strong>" + (e.next ? " Your next question is waiting in the first field." : "") + warn + "</p>";
+      draw();
+    });
+    root.appendChild(form); root.appendChild(out); root.appendChild(listEl); draw();
+  };
+
+  /* ---- search: a small corpus and a working terms-and-connectors engine ------------------------ */
+  KINDS.search = function (root) {
+    var list = topList(root); if (!list) return;
+    var STOP = "a an and are as at be but by can do does for from has have how i in is it my of on or that the their this to was what when which who will with under me you your our they them she her his him having because there".split(" ");
+    var docs = kids(list, "li").map(function (li) {
+      var c = li.cloneNode(true), st = c.querySelector("strong"), title = st ? st.textContent.replace(/[.:]\s*$/, "") : "", rel = false, m;
+      if (st) st.remove();
+      if ((m = title.match(/^(.*?)\s*\|\s*(.*)$/))) { title = m[1]; rel = /on point|relevant/i.test(m[2]) && !/off|not/i.test(m[2]); }
+      var paras = kids(c, "p").map(function (p) { return p.textContent.trim(); }).filter(Boolean);
+      if (!paras.length) paras = [c.textContent.trim()];
+      var words = [], pi, si = 0;
+      for (pi = 0; pi < paras.length; pi++) {
+        paras[pi].split(/(?<=[.?!])\s+/).forEach(function (sent) {
+          sent.replace(/[A-Za-z0-9§'’-]+|[^A-Za-z0-9§'’\s-]+|\s+/g, function (tok) {
+            words.push({ raw: tok, w: /[A-Za-z0-9]/.test(tok) ? tok.toLowerCase().replace(/[’']s$/, "").replace(/[’']/g, "") : null, s: si, p: pi });
+            return tok;
+          });
+          words.push({ raw: " ", w: null, s: si, p: pi }); si++;
+        });
+        words.push({ raw: "\n", w: null, s: si, p: pi });
+      }
+      var seq = []; words.forEach(function (t, k) { if (t.w) { t.i = seq.length; seq.push(k); } });
+      return { title: title, rel: rel, words: words, seq: seq };
+    });
+    function termRe(t) {
+      t = t.toLowerCase().replace(/[’']/g, "");
+      var bang = /!$/.test(t); t = t.replace(/!$/, "");
+      return new RegExp("^" + t.replace(/[.+?^${}()|[\]\\]/g, "\\$&").replace(/\*/g, "[a-z0-9]") + (bang ? "[a-z0-9-]*" : "") + "$");
+    }
+    /* tokenise and parse: OR binds tightest, then proximity, then AND, then NOT (Westlaw's order) */
+    function lex(q) {
+      var out = [], m, re = /\s*(\(|\)|"[^"]*"|“[^”]*”|\/\d+|\/[sp]\b|\+\d+|\+[sp]\b|pre\/\d+|w\/\d+|&|%|[^\s()"]+)/gi;
+      while ((m = re.exec(q))) {
+        var t = m[1], u = t.toUpperCase();
+        if (t === "(" || t === ")") out.push({ k: t });
+        else if (u === "AND" || t === "&") out.push({ k: "AND" });
+        else if (u === "OR") out.push({ k: "OR" });
+        else if (u === "NOT" || t === "%") { if (out.length && out[out.length - 1].k === "AND" && u === "NOT") out.pop(); out.push({ k: "NOT" }); }
+        else if (u === "BUT") continue;
+        else if (/^(\/|w\/)\d+$/i.test(t)) out.push({ k: "PROX", n: +t.replace(/\D/g, ""), ord: false });
+        else if (/^(\+|pre\/)\d+$/i.test(t)) out.push({ k: "PROX", n: +t.replace(/\D/g, ""), ord: true });
+        else if (/^[\/+][sp]$/i.test(t)) out.push({ k: "PROX", unit: t[1].toLowerCase(), ord: t[0] === "+" });
+        else if (/^["“]/.test(t)) out.push({ k: "T", phrase: t.slice(1, -1).trim().split(/\s+/).filter(Boolean).map(termRe), txt: '"' + t.slice(1, -1) + '"' });
+        else out.push({ k: "T", phrase: [termRe(t)], txt: t });
+      }
+      return out;
+    }
+    function parse(toks) {
+      var i = 0;
+      function atom() {
+        var t = toks[i];
+        if (!t) return null;
+        if (t.k === "(") { i++; var e = notx(); if (toks[i] && toks[i].k === ")") i++; return e; }
+        if (t.k === "T") { i++; return t; }
+        return null;
+      }
+      function orx() { var l = atom(), r; if (!l) return null; while (toks[i] && (toks[i].k === "OR" || toks[i].k === "T" || toks[i].k === "(")) { if (toks[i].k === "OR") i++; r = atom(); if (!r) break; l = { k: "OR", l: l, r: r }; } return l; }
+      function prox() { var l = orx(), op, r; while (l && toks[i] && toks[i].k === "PROX") { op = toks[i++]; r = orx(); if (!r) break; l = { k: "PROX", op: op, l: l, r: r }; } return l; }
+      function andx() { var l = prox(), r; while (l && toks[i] && toks[i].k === "AND") { i++; r = prox(); if (!r) break; l = { k: "AND", l: l, r: r }; } return l; }
+      function notx() { var l = andx(), r; while (l && toks[i] && toks[i].k === "NOT") { i++; r = andx(); if (!r) break; l = { k: "NOT", l: l, r: r }; } return l; }
+      return notx();
+    }
+    function show(n) {
+      if (!n) return "";
+      if (n.k === "T") return n.txt;
+      var op = n.k === "PROX" ? (n.op.unit ? (n.op.ord ? "+" : "/") + n.op.unit : (n.op.ord ? "+" : "/") + n.op.n) : n.k;
+      function par(c) { return c.k === "T" || c.k === n.k ? show(c) : "(" + show(c) + ")"; }
+      return par(n.l) + " " + op + " " + par(n.r);
+    }
+    function uniq(a) { var s = {}, o = []; a.forEach(function (x) { if (!s[x]) { s[x] = 1; o.push(x); } }); return o; }
+    function run(n, d) {            /* returns the word indexes (into d.seq) that satisfy the node, or [] */
+      var a, b, out = [];
+      if (n.k === "T") {
+        for (var s = 0; s + n.phrase.length <= d.seq.length; s++) {
+          for (var j = 0; j < n.phrase.length && n.phrase[j].test(d.words[d.seq[s + j]].w); j++) {}
+          if (j === n.phrase.length) for (j = 0; j < n.phrase.length; j++) out.push(s + j);
+        }
+        return uniq(out);
+      }
+      a = run(n.l, d); b = run(n.r, d);
+      if (n.k === "OR") return uniq(a.concat(b));
+      if (n.k === "AND") return a.length && b.length ? uniq(a.concat(b)) : [];
+      if (n.k === "NOT") return b.length ? [] : a;
+      a.forEach(function (x) { b.forEach(function (y) {
+        var wx = d.words[d.seq[x]], wy = d.words[d.seq[y]], ok;
+        if (n.op.unit) ok = n.op.unit === "s" ? wx.s === wy.s : wx.p === wy.p; else ok = Math.abs(y - x) <= n.op.n;
+        if (ok && n.op.ord) ok = y > x;
+        if (ok && x !== y) { out.push(x); out.push(y); }
+      }); });
+      return uniq(out);
+    }
+    function natural(q, d) {
+      var terms = uniq(q.toLowerCase().replace(/[^a-z0-9\s-]/g, " ").split(/\s+/).filter(function (t) { return t.length > 2 && STOP.indexOf(t) < 0; }));
+      var hits = [], distinct = 0;
+      terms.forEach(function (t) {
+        var stem = t.length > 4 ? t.replace(/(ing|ed|es|s)$/, "") : t, found = false;
+        d.seq.forEach(function (k, i) { if (d.words[k].w.indexOf(stem) === 0) { hits.push(i); found = true; } });
+        if (found) distinct++;
+      });
+      return { hits: uniq(hits), score: terms.length ? distinct / terms.length : 0, n: terms.length };
+    }
+    var presets = splitBar(opt(root, "queries")), nat = splitBar(opt(root, "natural"));
+    var mode = "tc", input = h("input", { type: "text", "class": "try-q", "aria-label": "Search", spellcheck: "false", autocomplete: "off" });
+    var read = h("p", { "class": "try-read" }), stats = h("p", { "class": "try-score", role: "status", "aria-live": "polite" }), res = h("ol", { "class": "try-results" });
+    var modeBar = h("div", { "class": "try-seg", role: "group", "aria-label": "Search mode" });
+    var chipBar = h("div", { "class": "try-chips" });
+    function setMode(m) {
+      mode = m;
+      Array.prototype.forEach.call(modeBar.children, function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === m)); });
+      chipBar.innerHTML = "";
+      (m === "nl" ? nat : presets).forEach(function (q) { chipBar.appendChild(h("button", { type: "button", "class": "try-chip", text: q, onclick: function () { input.value = q; go(); } })); });
+      input.placeholder = m === "nl" ? "Describe the issue in plain words" : "Terms and connectors: AND, OR, NOT, \"phrase\", !, *, /5, /s, /p";
+    }
+    if (nat.length) {
+      [["nl", "Natural language"], ["tc", "Terms and connectors"]].forEach(function (x) { modeBar.appendChild(h("button", { type: "button", "data-m": x[0], text: x[1], onclick: function () { setMode(x[0]); var l = x[0] === "nl" ? nat : presets; input.value = l[0] || ""; go(); } })); });
+    }
+    function go() {
+      var q = input.value.trim(), rows = [], tree = null;
+      res.innerHTML = ""; read.textContent = "";
+      if (!q) { stats.textContent = docs.length + " documents in this practice database. Run a search."; return; }
+      if (mode === "tc") { tree = parse(lex(q)); if (!tree) { stats.textContent = "The lab could not read that search."; return; } read.textContent = "Read as: " + show(tree); }
+      docs.forEach(function (d) {
+        var r = mode === "nl" ? natural(q, d) : { hits: run(tree, d), score: 1 };
+        rows.push({ d: d, hits: r.hits, score: r.hits.length ? r.score : 0 });
+      });
+      var got = rows.filter(function (r) { return r.hits.length; }), relAll = docs.filter(function (d) { return d.rel; }).length;
+      if (mode === "nl") got.sort(function (a, b) { return b.score - a.score || b.hits.length - a.hits.length; });
+      var relGot = got.filter(function (r) { return r.d.rel; }).length;
+      stats.innerHTML = "<strong>" + got.length + " of " + docs.length + "</strong> documents retrieved" + (mode === "nl" ? ", ranked by the engine's guess at relevance" : "") + "." +
+        (relAll ? " On point: <strong>" + relGot + " of the " + relAll + "</strong> on-point documents" + (got.length ? "; " + (got.length - relGot) + " result" + (got.length - relGot === 1 ? "" : "s") + " off point." : ".") : "");
+      got.forEach(function (r) {
+        var hit = {}; r.hits.forEach(function (i) { hit[r.d.seq[i]] = 1; });
+        var first = r.hits.length ? Math.min.apply(null, r.hits) : 0, sIdx = r.d.words[r.d.seq[first]].s, html = "";
+        r.d.words.forEach(function (t, k) {
+          if (Math.abs(t.s - sIdx) > 1 && !(mode === "tc" && hasHitIn(r, t.s))) return;
+          html += hit[k] ? "<mark>" + esc(t.raw) + "</mark>" : esc(t.raw);
+        });
+        res.appendChild(h("li", { "class": r.d.rel ? "rel" : "" }, [h("p", { "class": "r-t", html: esc(r.d.title) + (relAll ? ' <small class="' + (r.d.rel ? "on" : "off") + '">' + (r.d.rel ? "on point" : "off point") + "</small>" : "") }), h("p", { "class": "r-x", html: html.trim() })]));
+      });
+      var miss = rows.filter(function (r) { return !r.hits.length; });
+      if (miss.length) res.appendChild(h("li", { "class": "missed" }, [h("p", { "class": "r-t", html: "Not retrieved: " + miss.map(function (r) { return esc(r.d.title) + (r.d.rel ? ' <small class="on">on point</small>' : ""); }).join("; ") })]));
+    }
+    function hasHitIn(r, s) { return r.hits.some(function (i) { return r.d.words[r.d.seq[i]].s === s; }); }
+    function esc(s) { return s.replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+    var t; input.addEventListener("input", function () { clearTimeout(t); t = setTimeout(go, 150); });
+    var ui = h("div", { "class": "try-search" }, [nat.length ? modeBar : null, h("form", { onsubmit: function (e) { e.preventDefault(); go(); } }, [input, h("button", { type: "submit", "class": "try-btn", text: "Search" })]), chipBar, read, stats, res]);
+    list.replaceWith(ui);
+    setMode(nat.length ? "nl" : "tc"); input.value = (nat.length ? nat : presets)[0] || ""; go();
+  };
+
+  Array.prototype.forEach.call(blocks, function (root, idx) {
+    var k = root.getAttribute("data-kind");
+    if (KINDS[k]) { try { KINDS[k](root, idx); root.classList.add("live"); } catch (e) { if (window.console) console.error("interactive failed:", k, e); } }
+  });
 })();
