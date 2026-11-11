@@ -48,7 +48,16 @@ def pandoc_html(md_text):
                        input=md_text, capture_output=True, text=True, encoding="utf-8")
     if p.returncode:
         sys.exit("pandoc failed: " + p.stderr)
-    return p.stdout
+    return normalize_pandoc(p.stdout)
+
+
+def normalize_pandoc(frag):
+    """Make pandoc 3.1 and 3.13 write the same HTML, so the committed pages do not change with the
+    version on whoever's machine runs the build. Newer pandoc writes data-label where older wrote label,
+    and no longer puts header/odd/even classes on table rows (nothing here styles them)."""
+    frag = re.sub(r'(<span\b[^>]*?) label="', r'\1 data-label="', frag)
+    frag = re.sub(r'<tr class="(?:header|odd|even)">', "<tr>", frag)
+    return frag
 
 
 # --------------------------------------------------------------------------------------
@@ -197,7 +206,7 @@ def strip_flags(frag):
 
 def fix_tables(frag):
     # pandoc emits an empty <thead> for tables whose header row was blank
-    frag = re.sub(r"<thead>\s*<tr class=\"header\">(?:\s*<th[^>]*>\s*</th>)+\s*</tr>\s*</thead>", "", frag)
+    frag = re.sub(r"<thead>\s*<tr>(?:\s*<th[^>]*>\s*</th>)+\s*</tr>\s*</thead>", "", frag)
     frag = frag.replace("<table>", '<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table>').replace("</table>", "</table></div>")
     return frag
 
