@@ -1,6 +1,6 @@
 # The Question Method of Legal Research: Interactive Edition
 
-A static, GitHub Pages–ready edition of the textbook in which the interactives are part of the text: a clickable diagram, a quick sort, an annotated passage, or a working search lab sits in the paragraph that teaches the idea. Nothing is embedded from another site. First-pass draft.
+A static, GitHub Pages–ready edition of the textbook in which the interactives are part of the text: a clickable diagram, a quick sort, an annotated passage, or a working search lab sits in the paragraph that teaches the idea. Nothing is embedded from another site. 
 
 **Start with [`EDITING-NOTES.md`](EDITING-NOTES.md).** It lists everything that needs a decision, a fix, or a fact-check, with Part II in the most detail.
 
@@ -61,13 +61,13 @@ An interactive is a fenced block in the chapter's Markdown. Its content is ordin
 | `choice` | Answers one question; every option has feedback | A task list. `- [x]` marks the right answer; the indented bullet under each option is its feedback. |
 | `sort` | Places items in categories | `bins="A \| B"`. End each item with its category in bold; indented bullet = explanation. |
 | `order` | Arranges rows, then checks | A numbered list in the correct order. The page shuffles it. |
-| `explore` | Selects parts of a diagram | A list of `**Name \| tag.** text` items. `layout=` `tabs`, `flow`, `stack`, `list`, `ring` (add `edges="a \| b"` and `arrows="both"`), `plot` (`**Name \| x, y.**`, 0 to 100, with `xlabel` and `ylabel`), or `screen`. |
-| `annotate` | Selects marked phrases in a passage | `[phrase]{.m label="..." note="..."}`. `layout="cite"` shows a citation part by part; `verdict="ok"`, `"warn"` or `"bad"` colours a phrase once opened; `hint="..."` sets the instruction. |
-| `search` | Runs real terms-and-connectors searches | Each bullet is a document: `**Title \| on point.** text`. `queries="..."` lists presets separated by `\|` (write `&quot;` for a quotation mark); `natural="..."` adds a natural-language mode. Supports AND, OR, NOT, phrases, `!`, `*`, `/n`, `+n`, and `/s` and `/p` as stand-in word distances (15 and 50), since the real numbers are not published. |
+| `explore` | Selects parts of a diagram | A list of `**Name \| tag.** text` items. `layout=` `tabs`, `flow`, `stack`, `list`, `ring` (add `edges="a \| b"` and `arrows="both"`), `plot` (`**Name \| x, y.**`, 0 to 100, with `xlabel` and `ylabel`), or `database` (the Database Interface Explorer: five header tools, the search box, the filter, advanced search, then the browse tabs, each with a nested list of its collections, then the support link). For `ring`, write an edge as `forward ~ backward` to draw an arrow each way. |
+| `annotate` | Selects marked parts of a passage; the explanation opens beside it (under it on a phone) | `[phrase]{.m label="..." note="..."}`. `layout="cite"` shows a citation part by part; `verdict="ok"`, `"warn"` or `"bad"` colours a phrase once opened; `hint="..."` sets the instruction. |
+| `search` | Runs real terms-and-connectors searches | Each bullet is a document: `**Title \| on point.** text`. The reader builds a search with connector buttons; `queries="..."` lists the examples behind the *Show example searches* button, separated by `\|` (write `&quot;` for a quotation mark); `natural="..."` adds a natural-language mode. Supports AND, OR, NOT, phrases, `!`, `*`, `/n`, `+n`, and `/s` and `/p` as stand-in word distances (15 and 50), since the real numbers are not published. |
 | `checklist` | Ticks boxes that persist in the browser | A task list of `- [ ]` items; a bold lead becomes the label. |
 | `reveal` | Writes an answer, then compares | Prompt, a `---` line, then the model answer. |
 | `tokens` | Watches a sentence predicted piece by piece | `start="..."`; each bullet lists candidates as `word 70%; word 20%`, most likely first. |
-| `log` | Adds a seven-field Research Log entry | Empty block. One log, shared by every page, stored in the reader's browser. |
+| `switch` | Changes a setting (the courtroom, the practice context) and watches every row change | A table. First column: the rows. Each further column: one setting. A cell may open with a bold status such as `**Binding.**`. `label="..."` is the question above the buttons. |
 | `flashcards` | Flips through a definition list | Used by `content/glossary.md`. |
 
 Two rules keep them useful. Keep each one to a single screen: about six rows in a sorter. And do not let an interactive repeat the paragraph above it; give it new examples, or turn the paragraph's own list into the interactive.
@@ -78,8 +78,12 @@ Placeholders, missing pincites, and pending figures render as yellow chips. Hide
 
 ## Privacy and accessibility
 
-The site makes no external requests (fonts are self-hosted; `build.py` fails if a third-party URL appears). Student work (the Research Log, checklist ticks, drafted answers) lives in the reader's browser only. Pages carry a skip link, landmark regions, visible focus, and a reduced-motion override. Every interactive is built from buttons and form controls, works from the keyboard, and announces its feedback to screen readers; in print it appears as its own text.
+The site makes no external requests (fonts are self-hosted; `build.py` fails if a third-party URL appears). Anything a reader types or ticks stays in their own browser. Pages carry a skip link, landmark regions, visible focus, and a reduced-motion override. Every interactive is built from buttons and form controls, works from the keyboard, and announces its feedback to screen readers; in print it appears as its own text.
 
 ## Re-running the importer
 
 `scripts/import_pressbooks.py` **overwrites `content/`**, including every interactive written since the import. It is retired and will not run without `--i-know-this-overwrites-content`.
+
+## Look and fonts
+
+The pages follow the textbook: Lato for text, Zilla Slab for titles, navy and orange from the cover, teal section heads, crimson for defined terms and for the previous/next bar that stays at the bottom of the screen. Lato, Zilla Slab and IBM Plex Mono are in `assets/fonts/` under the SIL Open Font License; nothing is fetched from a font service. `"draft": false` in `book.json` keeps the yellow editorial flags off the published pages; set it to `true` to see them while editing.

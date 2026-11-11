@@ -269,7 +269,7 @@
       var ps = kids(c, "p"); if (ps.length && ps[0].innerHTML.trim() === "") ps[0].remove();
       return { label: label, tag: tag, x: x, y: y, body: (c.children.length ? c.innerHTML : "<p>" + c.innerHTML + "</p>").replace(/^<p>\s+/, "<p>") };
     });
-    var panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite" });
+    var panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite", "aria-label": "Details: " + (opt(root, "title") || "") });
     var fig = h("div", { "class": "try-fig try-" + layout, role: "group" });
     var btns = items.map(function (it, i) {
       var b = h("button", { type: "button", "class": "try-node", "aria-pressed": "false", html: "<span>" + it.label + "</span>" + (it.tag ? '<small>' + it.tag + "</small>" : "") });
@@ -278,26 +278,69 @@
     });
     function pick(i) {
       btns.forEach(function (b, k) { b.setAttribute("aria-pressed", k === i ? "true" : "false"); });
-      panel.innerHTML = '<p class="try-panel-h">' + items[i].label + (items[i].tag ? " <small>" + items[i].tag + "</small>" : "") + "</p>" + items[i].body;
+      panel.innerHTML = '<p class="try-panel-h">' + (layout === "database" && items[i].tag ? items[i].tag : items[i].label + (items[i].tag ? " <small>" + items[i].tag + "</small>" : "")) + "</p>" + items[i].body;
     }
     if (layout === "ring") {
-      var n = items.length, edges = splitBar(opt(root, "edges")), both = opt(root, "arrows") === "both";
+      var n = items.length, edges = opt(root, "edges").split("|").map(function (x) { return x.trim(); }), both = opt(root, "arrows") === "both";
       var NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg");
       svg.setAttribute("viewBox", "0 0 160 90"); svg.setAttribute("aria-hidden", "true");
       svg.innerHTML = '<defs><marker id="qm-arrow" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="5" markerHeight="5" orient="auto-start-reverse"><path d="M0 0L10 5L0 10z"/></marker></defs>';
       var pts = items.map(function (_it, i) { var a = -Math.PI / 2 + i * 2 * Math.PI / n; return [80 + 52 * Math.cos(a), (n === 3 ? 50 : 45) + 32 * Math.sin(a)]; });
+      /* an edge label may be "forward ~ backward": two arrows, one each way, each carrying its own label.
+         "~ backward" alone draws only the return arrow. */
+      function arrow(p, q, off, label, twoHeads) {
+        var dx = q[0] - p[0], dy = q[1] - p[1], len = Math.sqrt(dx * dx + dy * dy), ux = -dy / len, uy = dx / len;
+        var f = Math.min(Math.min(23 / Math.abs(dx || 1e-6), 9.5 / Math.abs(dy || 1e-6)), 0.45), line = document.createElementNS(NS, "line");
+        line.setAttribute("x1", p[0] + dx * f + ux * off); line.setAttribute("y1", p[1] + dy * f + uy * off);
+        line.setAttribute("x2", q[0] - dx * f + ux * off); line.setAttribute("y2", q[1] - dy * f + uy * off);
+        line.setAttribute("marker-end", "url(#qm-arrow)"); if (twoHeads) line.setAttribute("marker-start", "url(#qm-arrow)");
+        svg.appendChild(line);
+        if (!label) return;
+        /* the label sits beside its own arrow, never on it: a paired arrow keeps its side, a lone one takes the outside */
+        var mx = (p[0] + q[0]) / 2, my = (p[1] + q[1]) / 2, side = off ? 1 : ((mx + ux - 80) * (mx + ux - 80) + (my + uy - 45) * (my + uy - 45) > (mx - 80) * (mx - 80) + (my - 45) * (my - 45) ? 1 : -1);
+        var d = off + side * (Math.abs(ux) > 0.5 ? 13 : 7);
+        fig.appendChild(h("span", { "class": "try-edge", style: "left:" + ((mx + ux * d) / 1.6) + "%;top:" + ((my + uy * d) / 0.9) + "%", text: label }));
+      }
       pts.forEach(function (p, i) {
         if (n < 2) return;
-        var q = pts[(i + 1) % n], dx = q[0] - p[0], dy = q[1] - p[1], line = document.createElementNS(NS, "line");
-        var f = Math.min(Math.min(25 / Math.abs(dx || 1e-6), 10.5 / Math.abs(dy || 1e-6)), 0.45);   /* clip to the node boxes */
-        line.setAttribute("x1", p[0] + dx * f); line.setAttribute("y1", p[1] + dy * f);
-        line.setAttribute("x2", q[0] - dx * f); line.setAttribute("y2", q[1] - dy * f);
-        line.setAttribute("marker-end", "url(#qm-arrow)"); if (both) line.setAttribute("marker-start", "url(#qm-arrow)");
-        svg.appendChild(line);
-        if (edges[i]) fig.appendChild(h("span", { "class": "try-edge", style: "left:" + ((p[0] + q[0]) / 2 / 1.6) + "%;top:" + ((p[1] + q[1]) / 2 / 0.9) + "%", text: edges[i] }));
+        var q = pts[(i + 1) % n], e = edges[i] || "";
+        if (e.indexOf("~") >= 0) {
+          var parts = e.split("~").map(function (x) { return x.trim(); }), pair = parts[0] && parts[1];
+          if (parts[0]) arrow(p, q, pair ? 2.2 : 0, parts[0], false);
+          if (parts[1]) arrow(q, p, pair ? 2.2 : 0, parts[1], false);
+        } else arrow(p, q, 0, e, both);
       });
       fig.appendChild(svg);
       btns.forEach(function (b, i) { b.style.left = (pts[i][0] / 1.6) + "%"; b.style.top = (pts[i][1] / 0.9) + "%"; fig.appendChild(b); });
+    } else if (layout === "database") {
+      /* A generic legal database. Every control is one item of the list, in this order: five header
+         tools, the search box, the filter, advanced search, the browse tabs (items that carry a
+         nested list, shown as that tab's collections), and the support link. */
+      var tabsI = [], plain = [];
+      items.forEach(function (it, i) {
+        var d = document.createElement("div"); d.innerHTML = it.body; var ul = d.querySelector("ul");
+        if (ul) { it.links = Array.prototype.map.call(ul.children, function (li) { return li.textContent; }); ul.remove(); it.body = d.innerHTML; tabsI.push(i); } else plain.push(i);
+        btns[i].className = "hot"; btns[i].innerHTML = it.label;
+      });
+      var links = h("div", { "class": "db-links", "aria-hidden": "true" });
+      var head = h("div", { "class": "db-head" }, [h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" })]);
+      plain.slice(0, 5).forEach(function (i) { head.appendChild(btns[i]); });
+      var row = h("div", { "class": "db-row" }), search = h("div", { "class": "db-search" }, [row]);
+      if (plain[5] !== undefined) { btns[plain[5]].className = "hot db-box"; btns[plain[5]].innerHTML = "<span>" + items[plain[5]].label + "</span><b>Search</b>"; row.appendChild(btns[plain[5]]); }
+      if (plain[6] !== undefined) { btns[plain[6]].className = "hot db-filter"; btns[plain[6]].innerHTML = items[plain[6]].label + " \u25BE"; row.appendChild(btns[plain[6]]); }
+      if (plain[7] !== undefined) { btns[plain[7]].className = "hot db-adv"; search.appendChild(btns[plain[7]]); }
+      var tabbar = h("div", { "class": "db-tabs" });
+      tabsI.forEach(function (i) { btns[i].className = "hot db-tab"; tabbar.appendChild(btns[i]); btns[i].addEventListener("click", function () { showLinks(i); }); });
+      function showLinks(i) { links.innerHTML = ""; items[i].links.forEach(function (t) { links.appendChild(h("span", { text: t })); }); }
+      var foot = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
+      plain.slice(8).forEach(function (i) { foot.appendChild(btns[i]); });
+      fig.className = "try-db";
+      fig.appendChild(h("div", { "class": "db-bar", "aria-hidden": "true", html: "<i></i><i></i><i></i><span>your-legal-database.example</span><b>Demonstration</b>" }));
+      fig.appendChild(head); fig.appendChild(search); search.appendChild(tabbar); search.appendChild(links); fig.appendChild(foot);
+      if (tabsI.length) showLinks(tabsI[0]);
+      var seenN = 0, counter = h("p", { "class": "try-score", role: "status" });
+      btns.forEach(function (b) { b.addEventListener("click", function () { if (!b.classList.contains("seen")) { b.classList.add("seen"); seenN++; } counter.textContent = seenN + " of " + btns.length + " parts explored"; }); });
+      root._counter = counter; counter.textContent = "0 of " + btns.length + " parts explored";
     } else if (layout === "plot") {
       fig.appendChild(h("span", { "class": "try-axis-y", text: opt(root, "ylabel") }));
       fig.appendChild(h("span", { "class": "try-axis-x", text: opt(root, "xlabel") }));
@@ -308,22 +351,33 @@
       btns.forEach(function (b) { fig.appendChild(b); });
     }
     var shell = h("div", { "class": "try-explore try-explore-" + layout }, [fig, panel]);
-    list.replaceWith(shell); pick(0);
+    list.replaceWith(shell);
+    if (layout === "database") { shell.appendChild(root._counter); panel.innerHTML = '<p class="try-hint">Select any part of the screen to read about it here.</p>'; }
+    else pick(0);
   };
 
   /* ---- annotate: a passage with marked spans; select a span to read the note -------------- */
   KINDS.annotate = function (root) {
     var marks = Array.prototype.slice.call(root.querySelectorAll(".m")); if (!marks.length) return;
-    var panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite", html: '<p class="try-hint">Select a highlighted part to read about it here.</p>' });
-    if (opt(root, "hint")) root.querySelector(".try-head").insertAdjacentElement("afterend", h("p", { "class": "try-lead", text: opt(root, "hint") }));
-    var count = h("p", { "class": "try-score" }), seen = 0;
-    if (opt(root, "layout") === "cite") root.classList.add("try-cite");
+    var cite = opt(root, "layout") === "cite";
+    var panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite", "aria-label": "Explanation: " + (opt(root, "title") || ""), html: '<p class="try-hint">Select a highlighted part. Its explanation appears here.</p>' });
+    var count = h("p", { "class": "try-score" }), seen = 0, head = root.querySelector(".try-head");
+    if (cite) root.classList.add("try-cite");
+    /* the passage sits in a document card; the explanation stays beside it (or, on a small screen,
+       opens directly under the part that was selected) so the reader never has to hunt for it */
+    var doc = h("div", { "class": "try-doc" }), side = h("div", { "class": "try-side" }, [panel, count]);
+    Array.prototype.slice.call(root.children).forEach(function (c) { if (c !== head) doc.appendChild(c); });
+    root.appendChild(h("div", { "class": cite ? "try-under" : "try-two" }, [doc, side]));
+    if (opt(root, "hint")) head.insertAdjacentElement("afterend", h("p", { "class": "try-lead", text: opt(root, "hint") }));
+    var narrow = window.matchMedia("(max-width: 820px)");
     marks.forEach(function (m) {
-      var label = opt(m, "label"), note = opt(m, "note"), verdict = opt(m, "verdict");
+      var label = opt(m, "label"), note = opt(m, "note"), verdict = opt(m, "verdict"), par = m.parentElement;
       m.setAttribute("role", "button"); m.setAttribute("tabindex", "0"); m.setAttribute("aria-pressed", "false");
-      if (label && root.classList.contains("try-cite")) {
+      if (label && cite) {
         var tok = h("span", { "class": "tok" }); while (m.firstChild) tok.appendChild(m.firstChild);
         m.appendChild(tok); m.appendChild(h("small", { text: label }));
+      } else if (label && par && par.tagName === "P" && par.textContent.trim() === m.textContent.trim()) {
+        m.classList.add("blk"); par.classList.add("part"); par.insertBefore(h("span", { "class": "m-label", text: label }), m);   /* a whole part of the document: name it, as the page of an opinion would */
       }
       function open() {
         marks.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
@@ -332,11 +386,12 @@
         if (verdict) m.classList.add("v-" + verdict);
         panel.innerHTML = (label ? '<p class="try-panel-h">' + label + "</p>" : "") + "<p>" + note + "</p>";
         count.textContent = seen + " of " + marks.length + " read";
+        if (!cite) { if (narrow.matches) (m.closest("p,blockquote,li") || m).insertAdjacentElement("afterend", panel); else side.insertBefore(panel, count); }
       }
       m.addEventListener("click", open);
       m.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
     });
-    root.appendChild(panel); root.appendChild(count); count.textContent = "0 of " + marks.length + " read";
+    count.textContent = "0 of " + marks.length + " read";
   };
 
   /* ---- checklist: tick boxes that remember ------------------------------------------------ */
@@ -430,53 +485,39 @@
     draw();
   };
 
-  /* ---- log: the seven-field Research Log entry, kept in this browser across the whole book --- */
-  KINDS.log = function (root) {
-    var KEY = "qm_book_research_log", entries = store.get(KEY, []);
-    var F = [["q", "Research Question", "Your current question, one question mark."], ["type", "Question Type", ""], ["method", "Method", "How you located the source."],
-             ["found", "Findings", "The rule, holding, or definition, in your own words."], ["src", "Source Consulted", "Citation."], ["next", "Next Question", "What you still need to know."], ["notes", "Notes", "Leads, flags, connections."]];
-    var TYPES = ["", "Definitional", "Exploratory (no-clue)", "Exploratory (foundational)", "Exploratory (survey)", "Focusing", "Application (fact-finding)", "Application (constructive)"];
-    var form = h("form", { "class": "try-log" }), inputs = {}, listEl = h("div", { "class": "try-loglist" }), out = live();
-    F.forEach(function (f, i) {
-      var id = "qml-" + f[0] + "-" + Math.random().toString(36).slice(2, 7), ctl;
-      if (f[0] === "type") { ctl = h("select", { id: id }); TYPES.forEach(function (t) { ctl.appendChild(h("option", { value: t, text: t || "Choose…" })); }); }
-      else if (f[0] === "found" || f[0] === "notes") ctl = h("textarea", { id: id, rows: "2", placeholder: f[2] });
-      else ctl = h("input", { id: id, type: "text", placeholder: f[2] });
-      inputs[f[0]] = ctl;
-      form.appendChild(h("div", { "class": "try-field f-" + f[0] }, [h("label", { "for": id, text: f[1] }), ctl]));
+  /* ---- switch: one table, read under different conditions. The reader changes the setting and
+          watches every row change with it. Written as a table: first column the rows, each further
+          column a setting; a cell may open with a bold status ("**Binding.** why"). ------------------- */
+  KINDS["switch"] = function (root) {
+    var table = root.querySelector("table"); if (!table) return;
+    var heads = Array.prototype.slice.call(table.querySelectorAll("thead th")), rows = Array.prototype.slice.call(table.querySelectorAll("tbody tr"));
+    if (heads.length < 3) return;
+    var settings = heads.slice(1).map(function (th) { return th.innerHTML; }), seen = [];
+    var data = rows.map(function (tr) {
+      var tds = tr.children;
+      return { item: tds[0].innerHTML, cells: Array.prototype.slice.call(tds, 1).map(function (td) {
+        var c = td.cloneNode(true), st = c.querySelector("strong"), status = "";
+        if (st && c.textContent.trim().indexOf(st.textContent.trim()) === 0) { status = st.textContent.replace(/[.:]\s*$/, "").trim(); st.remove(); if (seen.indexOf(status) < 0) seen.push(status); }
+        return { status: status, note: c.innerHTML.trim() };
+      }) };
     });
-    function text() {
-      return entries.map(function (e, i) { return "Cycle " + (i + 1) + "\n" + F.map(function (f) { return f[1] + ": " + (e[f[0]] || ""); }).join("\n"); }).join("\n\n");
-    }
-    function draw() {
-      listEl.innerHTML = "";
-      if (!entries.length) { listEl.appendChild(h("p", { "class": "try-hint", text: "No entries yet. The log is saved in this browser only, and it is the same log on every page of the book." })); return; }
-      var d = h("details", {}, [h("summary", { text: entries.length + " entr" + (entries.length === 1 ? "y" : "ies") + " in your log" })]);
-      entries.forEach(function (e, i) {
-        d.appendChild(h("div", { "class": "try-entry" }, [
-          h("p", { html: "<strong>Cycle " + (i + 1) + ".</strong> " + h("i", { text: e.q || "(no question)" }).innerHTML + (e.type ? " <small>" + e.type + "</small>" : "") }),
-          h("p", { "class": "small", text: (e.found ? "Findings: " + e.found + " " : "") + (e.src ? "Source: " + e.src + ". " : "") + (e.next ? "Next: " + e.next : "") }),
-          h("button", { type: "button", "class": "try-btn ghost small", text: "Delete", onclick: function () { entries.splice(i, 1); store.set(KEY, entries); draw(); } })
-        ]));
+    var seg = h("div", { "class": "try-seg", role: "group", "aria-label": opt(root, "label") || heads[0].textContent }), list = h("ul", { "class": "try-switch" }), sum = h("p", { "class": "try-score", role: "status", "aria-live": "polite" });
+    function pick(k) {
+      Array.prototype.forEach.call(seg.children, function (b, i) { b.setAttribute("aria-pressed", String(i === k)); });
+      list.innerHTML = ""; var count = {};
+      data.forEach(function (r) {
+        var c = r.cells[k] || { status: "", note: "" }; if (c.status) count[c.status] = (count[c.status] || 0) + 1;
+        list.appendChild(h("li", { "class": c.status ? "s" + seen.indexOf(c.status) : "" }, [
+          h("div", { "class": "try-item", html: r.item }),
+          c.status ? h("span", { "class": "try-status", text: c.status }) : null,
+          h("div", { "class": "try-why", html: c.note })]));
       });
-      listEl.appendChild(d);
-      listEl.appendChild(h("p", { "class": "try-actions" }, [h("button", { type: "button", "class": "try-btn ghost", text: "Download the log (.txt)", onclick: function () {
-        var a = h("a", { href: URL.createObjectURL(new Blob([text()], { type: "text/plain" })), download: "research-log.txt" }); document.body.appendChild(a); a.click(); a.remove();
-      } })]));
+      sum.textContent = seen.length ? seen.filter(function (x) { return count[x]; }).map(function (x) { return count[x] + " " + x.toLowerCase(); }).join(", ") + "." : "";
     }
-    form.appendChild(h("p", { "class": "try-actions" }, [h("button", { type: "submit", "class": "try-btn", text: "Add this entry to my log" })]));
-    form.addEventListener("submit", function (ev) {
-      ev.preventDefault();
-      var e = {}; F.forEach(function (f) { e[f[0]] = inputs[f[0]].value.trim(); });
-      if (!e.q) { out.innerHTML = '<p class="bad">Start with the question. Every entry is one question.</p>'; inputs.q.focus(); return; }
-      var warn = (e.q.match(/\?/g) || []).length > 1 ? " That entry holds more than one question mark. Consider splitting it: one question per cycle." : "";
-      entries = store.get(KEY, []); entries.push(e); store.set(KEY, entries);
-      F.forEach(function (f) { inputs[f[0]].value = ""; });
-      if (e.next) inputs.q.value = e.next;
-      out.innerHTML = '<p class="good"><strong>Saved as Cycle ' + entries.length + ".</strong>" + (e.next ? " Your next question is waiting in the first field." : "") + warn + "</p>";
-      draw();
-    });
-    root.appendChild(form); root.appendChild(out); root.appendChild(listEl); draw();
+    settings.forEach(function (t, i) { seg.appendChild(h("button", { type: "button", html: t, onclick: function () { pick(i); } })); });
+    var wrap = table.closest(".table-wrap") || table;
+    wrap.replaceWith(h("div", {}, [h("p", { "class": "try-hint", text: opt(root, "label") || heads[0].textContent }), seg, list, sum]));
+    pick(0);
   };
 
   /* ---- search: a small corpus and a working terms-and-connectors engine ------------------------ */
@@ -584,24 +625,38 @@
       return { hits: uniq(hits), score: terms.length ? distinct / terms.length : 0, n: terms.length };
     }
     var presets = splitBar(opt(root, "queries")), nat = splitBar(opt(root, "natural"));
-    var mode = "tc", input = h("input", { type: "text", "class": "try-q", "aria-label": "Search", spellcheck: "false", autocomplete: "off" });
+    var mode = "tc", input = h("input", { type: "text", "class": "try-q", "aria-label": "Your search", spellcheck: "false", autocomplete: "off" });
     var read = h("p", { "class": "try-read" }), stats = h("p", { "class": "try-score", role: "status", "aria-live": "polite" }), res = h("ol", { "class": "try-results" });
     var modeBar = h("div", { "class": "try-seg", role: "group", "aria-label": "Search mode" });
-    var chipBar = h("div", { "class": "try-chips" });
+    var chipBar = h("div", { "class": "try-chips", hidden: "" }), build = h("div", { "class": "try-build", role: "group", "aria-label": "Add a connector to your search" });
+    var exBtn = h("button", { type: "button", "class": "try-btn ghost small", "aria-expanded": "false", text: "Show example searches" });
+    exBtn.addEventListener("click", function () { var open = chipBar.hidden; chipBar.hidden = !open; exBtn.setAttribute("aria-expanded", String(open)); exBtn.textContent = open ? "Hide example searches" : "Show example searches"; });
+    function insert(tok, caretBack) {          /* drop a connector in at the cursor */
+      var a = input.selectionStart === null ? input.value.length : input.selectionStart, b = input.selectionEnd === null ? a : input.selectionEnd, v = input.value;
+      var sel = v.slice(a, b), piece = tok === '""' ? '"' + sel + '"' : tok === "()" ? "(" + sel + ")" : tok === "!" ? "!" : (a && v[a - 1] !== " " && v[a - 1] !== "(" ? " " : "") + tok + " ";
+      input.value = v.slice(0, a) + piece + v.slice(b);
+      var pos = a + piece.length - ((tok === '""' || tok === "()") && !sel ? 1 : 0);
+      input.focus(); input.setSelectionRange(pos, pos); go();
+    }
+    [["AND", "both terms"], ["OR", "either term"], ["NOT", "exclude a term"], ['""', "exact phrase"], ["()", "group terms"], ["!", "any ending"], ["/5", "within 5 words"], ["/s", "close together"], ["/p", "loosely together"]].forEach(function (x) {
+      build.appendChild(h("button", { type: "button", "class": "try-chip", title: x[1], "aria-label": "Add " + (x[0] === '""' ? "quotation marks" : x[0] === "()" ? "parentheses" : x[0]) + ": " + x[1], text: x[0] === '""' ? '" "' : x[0] === "()" ? "( )" : x[0], onclick: function () { insert(x[0]); } }));
+    });
+    build.appendChild(h("button", { type: "button", "class": "try-chip", text: "Clear", onclick: function () { input.value = ""; input.focus(); go(); } }));
     function setMode(m) {
       mode = m;
       Array.prototype.forEach.call(modeBar.children, function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === m)); });
       chipBar.innerHTML = "";
       (m === "nl" ? nat : presets).forEach(function (q) { chipBar.appendChild(h("button", { type: "button", "class": "try-chip", text: q, onclick: function () { input.value = q; go(); } })); });
-      input.placeholder = m === "nl" ? "Describe the issue in plain words" : "Terms and connectors: AND, OR, NOT, \"phrase\", !, *, /5, /s, /p";
+      build.hidden = m === "nl";
+      input.placeholder = m === "nl" ? "Describe the issue in plain words" : "Type terms, and add connectors with the buttons below";
     }
     if (nat.length) {
-      [["nl", "Natural language"], ["tc", "Terms and connectors"]].forEach(function (x) { modeBar.appendChild(h("button", { type: "button", "data-m": x[0], text: x[1], onclick: function () { setMode(x[0]); var l = x[0] === "nl" ? nat : presets; input.value = l[0] || ""; go(); } })); });
+      [["nl", "Natural language"], ["tc", "Terms and connectors"]].forEach(function (x) { modeBar.appendChild(h("button", { type: "button", "data-m": x[0], text: x[1], onclick: function () { setMode(x[0]); input.value = ""; go(); input.focus(); } })); });
     }
     function go() {
       var q = input.value.trim(), rows = [], tree = null;
       res.innerHTML = ""; read.textContent = "";
-      if (!q) { stats.textContent = docs.length + " documents in this practice database. Run a search."; return; }
+      if (!q) { stats.textContent = docs.length + " documents in this practice database. " + (mode === "nl" ? "Describe the problem in your own words." : "Build a search, or open the examples."); return; }
       if (mode === "tc") { tree = parse(lex(q)); if (!tree) { stats.textContent = "The lab could not read that search."; return; } read.textContent = "Read as: " + show(tree) + (/[\/+][sp]\b/i.test(q) ? "   (in this lab /s stands in for /" + UNIT.s + " and /p for /" + UNIT.p + "; real platforms do not publish their numbers)" : ""); }
       docs.forEach(function (d) {
         var r = mode === "nl" ? natural(q, d) : { hits: run(tree, d), score: 1 };
@@ -627,9 +682,12 @@
     function hasHitIn(r, s) { return r.hits.some(function (i) { return r.d.words[r.d.seq[i]].s === s; }); }
     function esc(s) { return s.replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
     var t; input.addEventListener("input", function () { clearTimeout(t); t = setTimeout(go, 150); });
-    var ui = h("div", { "class": "try-search" }, [nat.length ? modeBar : null, h("form", { onsubmit: function (e) { e.preventDefault(); go(); } }, [input, h("button", { type: "submit", "class": "try-btn", text: "Search" })]), chipBar, read, stats, res]);
+    var ui = h("div", { "class": "try-search" }, [nat.length ? modeBar : null,
+      h("form", { onsubmit: function (e) { e.preventDefault(); go(); } }, [input, h("button", { type: "submit", "class": "try-btn", text: "Search" })]),
+      build, h("p", { "class": "try-actions" }, [exBtn]), chipBar, read, stats, res,
+      h("p", { "class": "try-fiction", text: "The cases in this practice database are fictional. They were written for instruction only and are not real authority." })]);
     list.replaceWith(ui);
-    setMode(nat.length ? "nl" : "tc"); input.value = (nat.length ? nat : presets)[0] || ""; go();
+    setMode(nat.length ? "nl" : "tc"); go();
   };
 
   Array.prototype.forEach.call(blocks, function (root, idx) {

@@ -69,9 +69,9 @@ def rel(depth, url):
 # Post-processing of a pandoc fragment
 # --------------------------------------------------------------------------------------
 TRY_RE = re.compile(r'<div class="try"([^>]*)>')
-TRY_LABEL = {"choice": "Check yourself", "sort": "Sort it", "order": "Put it in order", "explore": "Explore",
-             "annotate": "Read closely", "search": "Search lab", "checklist": "Checklist", "reveal": "Your turn",
-             "log": "Research Log", "tokens": "Watch it work", "flashcards": "Flashcards"}
+TRY_LABEL = {"choice": "Quick check", "sort": "Quick check", "order": "Put it in order", "explore": "Explore",
+             "switch": "Change the setting", "annotate": "Read closely", "search": "Search lab", "checklist": "Checklist",
+             "reveal": "Your turn", "tokens": "Watch it work", "flashcards": "Flashcards"}
 
 
 def render_try(frag):
@@ -93,8 +93,8 @@ def render_try(frag):
         rest = re.sub(r'\s*\b(kind|title)="[^"]*"', "", attrs)
         n[0] += 1
         return ('<div class="try" id="try-%d" data-kind="%s" data-title="%s"%s>'
-                '<p class="try-head"><span class="try-kind">%s</span> <strong>%s</strong></p>'
-                % (n[0], kind, title, rest, TRY_LABEL[kind], title))
+                '<p class="try-head"><strong>%s</strong></p>'
+                % (n[0], kind, title, rest, title))
 
     frag = TRY_RE.sub(sub, frag)
     return frag, n[0]
@@ -124,7 +124,7 @@ def autolink(frag, depth, page_url):
             if m.group(1):
                 n = int(m.group(2))
                 if n in CH and url_chapter(n) != page_url:
-                    return '%s <a class="xref" href="%s">%d</a>' % (m.group(1), rel(depth, url_chapter(n)), n)
+                    return '<a class="xref" href="%s">%s %d</a>' % (rel(depth, url_chapter(n)), m.group(1), n)
             else:
                 L = m.group(3)
                 if L in APP and url_app(L) != page_url:
@@ -232,13 +232,12 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
     pager_html = ""
     if pager:
         prev, nxt = pager
-        pl = '<a class="prev" href="%s"><span class="dir">&larr; Previous</span><span class="ttl">%s</span></a>' % (rel(depth, prev[0]), esc(prev[1])) if prev else "<span></span>"
-        nl = '<a class="next" href="%s"><span class="dir">Next &rarr;</span><span class="ttl">%s</span></a>' % (rel(depth, nxt[0]), esc(nxt[1])) if nxt else "<span></span>"
-        pager_html = '<nav class="pager" aria-label="Chapter navigation">%s%s</nav>' % (pl, nl)
+        pl = '<a class="prev" href="%s"><span aria-hidden="true">&larr;</span> <span class="dir">Previous:</span> <span class="ttl">%s</span></a>' % (rel(depth, prev[0]), esc(prev[1])) if prev else "<span></span>"
+        nl = '<a class="next" href="%s"><span class="dir">Next:</span> <span class="ttl">%s</span> <span aria-hidden="true">&rarr;</span></a>' % (rel(depth, nxt[0]), esc(nxt[1])) if nxt else "<span></span>"
+        pager_html = '<nav class="pager" aria-label="Previous and next page">%s%s</nav>' % (pl, nl)
     banner = ""
     if DRAFT:
-        banner = ('<div class="draftbar" role="note"><strong>First-pass draft.</strong> Yellow <span class="flag">flags</span> mark '
-                  'placeholders and open items; the full list is in <code>EDITING-NOTES.md</code>. '
+        banner = ('<div class="draftbar" role="note"><strong>Draft.</strong> Yellow <span class="flag">flags</span> mark open items. '
                   '<button type="button" id="flagtoggle" aria-pressed="false">Hide flags</button></div>')
     return """<!doctype html>
 <html lang="en">
@@ -246,8 +245,8 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%(title)s &mdash; %(book)s</title>
-%(desc)s<link rel="preload" href="%(base)sassets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="%(base)sassets/fonts/newsreader-400.woff2" as="font" type="font/woff2" crossorigin>
+%(desc)s<link rel="preload" href="%(base)sassets/fonts/lato-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="%(base)sassets/fonts/zilla-slab-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="%(base)sassets/book.css">
 </head>
 <body>
@@ -267,13 +266,13 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 <article class="page">
 %(kicker)s
 %(body)s
-%(pager)s
 </article>
 </main>
 <footer class="foot"><div class="wrap">
-  <span>%(book)s &mdash; %(sub)s. By %(author)s.</span>
-  <span>Student work stays in your browser. This site makes no external requests.</span>
+  <span>%(book)s. By %(author)s.</span>
+  <span>Nothing you type on these pages leaves your device.</span>
 </div></footer>
+%(pager)s
 <script src="%(base)sassets/book.js"></script>
 </body>
 </html>
@@ -326,9 +325,7 @@ def build_chapter(n):
     frag, ne = process(md, 1, url, "Chapter %d: %s" % (n, c["title"]))
     STATS["embeds"][n] = ne
     pid = c["part"]
-    kicker = ('<header class="chead"><p class="kick"><a href="%s">%s</a></p><h1><span class="num">Chapter %d</span> %s</h1>%s</header>'
-              % (rel(1, url_part(pid)), esc(PARTS[pid]["title"]), n, esc(c["title"]),
-                 ('<p class="chips"><span class="chip">%d interactive%s in the text</span></p>' % (ne, "" if ne == 1 else "s")) if ne else ""))
+    kicker = ('<header class="chead"><p class="num">Chapter %d</p><h1>%s</h1></header>' % (n, esc(c["title"])))
     write(url, shell("Chapter %d: %s" % (n, c["title"]), frag, 1, url, toc=toc_from(frag), pager=pager_for(url), kicker=kicker))
 
 
@@ -353,7 +350,7 @@ def build_part(pid):
 def build_appendix(a):
     url = url_app(a["letter"])
     frag, ne = process(read("content/appendices/%s.md" % a["slug"]), 1, url, "Appendix %s: %s" % (a["letter"], a["title"]))
-    kicker = '<header class="chead"><p class="kick">Appendix %s</p><h1>%s</h1></header>' % (a["letter"], esc(a["title"]))
+    kicker = '<header class="chead"><p class="num">Appendix %s</p><h1>%s</h1></header>' % (a["letter"], esc(a["title"]))
     write(url, shell("Appendix %s: %s" % (a["letter"], a["title"]), frag, 1, url, toc=toc_from(frag), pager=pager_for(url), kicker=kicker, wide=False))
 
 
@@ -382,15 +379,12 @@ def build_downloads():
         if d.get("preview"):
             extra = ' <a class="btn ghost" href="%s">Preview (PDF)</a>' % esc(d["preview"])
         cards.append(
-            '<li class="dl"><div><h3>%s</h3><p>%s</p><p class="dl-use"><strong>Use it:</strong> %s</p></div>'
+            '<li class="dl"><div><h2>%s</h2><p>%s</p><p class="dl-use"><strong>Use it:</strong> %s</p></div>'
             '<div class="dl-actions"><a class="btn" href="%s" download>Download %s <small>%s</small></a>%s</div></li>'
             % (esc(d["title"]), esc(d["desc"]), esc(d["use"]), esc(d["file"]), ext, file_size(path), extra))
     body = ('<header class="chead"><h1>Downloads</h1></header>'
-            '<p class="lede">Print them, fill them in, keep them beside every research task. Everything here is free to use and share in class.</p>'
+            '<p class="lede">Print these. Fill them in. Keep them beside you every time you research. Everything here is free to use and to share in class.</p>'
             '<ul class="dllist">%s</ul>'
-            '<h2>Your Research Log</h2>'
-            '<p>The Research Log you start in Chapter 3 lives in your browser and follows you through the book. Add an entry here, or download the whole log as a text file to submit or to paste into your own document.</p>'
-            '<div class="try" id="try-1" data-kind="log" data-title="One entry per question"><p class="try-head"><span class="try-kind">Research Log</span> <strong>One entry per question</strong></p></div>'
             % "".join(cards))
     write(url, shell("Downloads", body, 1, url, pager=pager_for(url)))
 
@@ -419,30 +413,28 @@ def build_home():
     def chapter_li(n):
         c = CH[n]
         ne = STATS["embeds"].get(n, 0)
-        chip = '<span class="chip">%d interactive%s</span>' % (ne, "" if ne == 1 else "s") if ne else ""
+        chip = ""
         return '<li><a href="%s"><span class="cn">%d</span><span class="ct">%s</span></a>%s</li>' % (url_chapter(n), n, esc(c["title"]), chip)
 
     front = "".join('<li><a href="%s"><span class="ct">%s</span></a></li>' % (url_front(f["slug"]), esc(f["title"])) for f in BOOK["front"])
     apps = "".join('<li><a href="%s"><span class="cn">%s</span><span class="ct">%s</span></a></li>' % (url_app(a["letter"]), a["letter"], esc(a["title"].split(":")[0])) for a in BOOK["appendices"])
     body = """
-<header class="chead hero"><p class="kick">Interactive edition &middot; first-pass draft</p>
+<header class="cover">
+<div class="qmarks" aria-hidden="true"><span>?</span><span>?</span><span>?</span></div>
+<p class="cover-kick">Ask. Answer. Repeat.</p>
 <h1>%(title)s</h1>
-<p class="lede">Ask one question, find the answer, write it down, and let that answer tell you what to ask next. Repeat until no substantive question remains. The <em>question</em>, not the database, drives the research.</p>
+<p class="cover-sub">Making the hidden curriculum of the research process visible</p>
+<p class="cover-by">By %(author)s</p>
 </header>
-<div class="howto"><h2>How this edition works</h2>
-<ul>
-<li><strong>Read and do in the same breath.</strong> The interactives are part of the text. A diagram you can click, a quick sort, a passage to read closely, a working search lab: each sits in the paragraph where the book teaches that idea, takes a minute or two, and fits on one screen.</li>
-<li><strong>Keep one Research Log.</strong> The log you start in Chapter 3 lives in your browser and is the same log on every page.</li>
-<li><strong>Your work stays with you.</strong> Nothing you type is sent anywhere. Download your log whenever you need to submit it.</li>
-<li><strong>Download the tools.</strong> The <a href="%(dl)s">Downloads page</a> has the Tip Sheet, the Research Log template, and a fully worked example.</li>
-</ul></div>
+<p class="lede">Ask one question. Find the answer. Write it down, and let that answer tell you what to ask next. Repeat until no substantive question remains. The <em>question</em> drives the research, whatever database happens to be open.</p>
+<p>This edition asks you to do things as you read. Change the courtroom and watch the same authority gain or lose its force. Run a search two ways and count what each one misses. Take a paragraph apart into the questions that built it. Read with your hands on the page.</p>
 <h2>Start here</h2><ul class="cardlist plain">%(front)s</ul>
 <h2><a href="%(p1)s">%(p1t)s</a></h2><ol class="cardlist">%(c1)s</ol>
 <h2><a href="%(p2)s">%(p2t)s</a></h2><ol class="cardlist">%(c2)s</ol>
 <h2>Appendices and resources</h2><ul class="cardlist">%(apps)s
 <li><a href="%(gl)s"><span class="cn">&#9733;</span><span class="ct">Glossary</span></a></li>
 <li><a href="%(dl)s"><span class="cn">&darr;</span><span class="ct">Downloads: tip sheet, log template, worked example</span></a></li></ul>
-""" % {"title": esc(TITLE), "dl": URL_DOWNLOADS, "gl": URL_GLOSSARY, "front": front, "p1": url_part("I"), "p1t": esc(PARTS["I"]["title"]),
+""" % {"title": esc(TITLE), "author": esc(BOOK["author"]), "dl": URL_DOWNLOADS, "gl": URL_GLOSSARY, "front": front, "p1": url_part("I"), "p1t": esc(PARTS["I"]["title"]),
        "p2": url_part("II"), "p2t": esc(PARTS["II"]["title"]), "apps": apps,
        "c1": "".join(chapter_li(n) for n in PARTS["I"]["chapters"]), "c2": "".join(chapter_li(n) for n in PARTS["II"]["chapters"])}
     write(url, shell("Contents", body, 0, url, pager=pager_for(url)))
@@ -481,7 +473,7 @@ def build_whole_book():
     def clean(md):
         # in-text interactives print as their own content (the list or passage), under a one-line label
         md = re.sub(r'(?m)^::: \{\.try kind="(\w+)"(?: title="([^"]*)")?[^}]*\}\s*$',
-                    lambda m: "**%s%s** *(interactive in the online edition)*\n" % (TRY_LABEL.get(m.group(1), "Interactive"), (": " + m.group(2)) if m.group(2) else ""), md)
+                    lambda m: ("**%s**\n" % m.group(2)) if m.group(2) else "", md)
         md = re.sub(r"\[((?:[^\[\]]|\[[^\]]*\])*)\]\{\.m\b[^}]*\}", r"\1", md)
         md = re.sub(r"\[((?:[^\[\]]|\\\[|\\\])*)\]\{\.flag\}", "", md)        # draft flags never go in the file
         md = re.sub(r"\[([^\]]*)\]\{\.box-title\}", r"**\1**", md)

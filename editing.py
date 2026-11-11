@@ -119,9 +119,9 @@ def embeds_in(text):
 # The in-text interactives. Each is ordinary Markdown inside a ::: {.try kind="..."} block; assets/book.js
 # turns it into the working interactive. The templates below are what the toolbar inserts.
 TEMPLATES = [
-    ("choice", "Check yourself", "One question, with feedback on every option. Mark the right answer with [x].",
+    ("choice", "Quick check (one question)", "One question, with feedback on every option. Mark the right answer with [x].",
      '::: {.try kind="choice" title="TITLE"}\nThe question.\n\n- [x] The right answer\n    - Why it is right.\n- [ ] A tempting wrong answer\n    - Why it is wrong.\n- [ ] Another wrong answer\n    - Why it is wrong.\n:::'),
-    ("sort", "Sort it", "Items the reader places in categories. End each item with its category in bold; the indented line is the explanation.",
+    ("sort", "Quick check (classify several items)", "Items the reader places in categories. End each item with its category in bold; the indented line is the explanation.",
      '::: {.try kind="sort" title="TITLE" bins="First | Second"}\n- An item **First**\n    - Why.\n- Another item **Second**\n    - Why.\n:::'),
     ("order", "Put it in order", "A numbered list written in the correct order. The page shuffles it.",
      '::: {.try kind="order" title="TITLE"}\nWhat to arrange, and from what to what.\n\n1. First\n    - Why it comes first.\n2. Second\n    - Why.\n3. Third\n    - Why.\n:::'),
@@ -137,8 +137,8 @@ TEMPLATES = [
      '::: {.try kind="reveal" title="TITLE"}\nThe prompt.\n\n---\n\nThe model answer.\n:::'),
     ("tokens", "Watch it work (prediction)", 'A sentence completed one piece at a time. Each bullet lists candidates with percentages, most likely first; the indented line is the comment shown after that step.',
      '::: {.try kind="tokens" title="TITLE" start="The opening words"}\n- likely 70%; possible 20%; unlikely 5%\n    - What to notice.\n:::'),
-    ("log", "Research Log entry", "The seven-field Research Log form. It is the same log on every page and is stored in the reader's browser.",
-     '::: {.try kind="log" title="One entry per question"}\n:::'),
+    ("switch", "Change the setting", "A table the reader reads under different conditions. First column: the rows. Each further column: one setting. A cell may open with a bold status, such as **Binding.**",
+     '::: {.try kind="switch" title="TITLE" label="Which court are you standing in?"}\nOne line telling the reader what to change.\n\n| Authority | First setting | Second setting |\n|---|---|---|\n| An item | **Binding.** Why. | **Persuasive.** Why. |\n:::'),
 ]
 
 

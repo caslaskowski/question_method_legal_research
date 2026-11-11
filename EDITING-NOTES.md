@@ -17,7 +17,25 @@ Tick the boxes as you go. Items marked ⚑ also show as yellow flags on the draf
 
 ---
 
-## 0. Round 4 (this pass): no embeds, one width, interactives written into the text
+## 0. Round 5 (this pass): the textbook's look, fewer and better interactives, `main`
+
+**Counts in the Round 4 section below are out of date.** There are now 43 interactives, not 68.
+
+- **Look.** Lato and Zilla Slab, navy and orange boxes, teal section heads, crimson defined terms, and a crimson previous/next bar fixed to the bottom of every screen, all taken from your Pressbooks pages. The home page is the cover. No back-to-top arrow.
+- **Cut.** Twenty-six quiz-style items that only restated the paragraph above them, the Research Log form (Chapter 3 and Downloads; the template in Downloads does that job), the checklists in Chapters 9 and 17 (plain lists again), the label pills, the per-chapter interactive counts, and "How this edition works."
+- **Added or rebuilt.** *Same authorities, different courtroom* (Chapter 1) and *Three practices, three settings* (Chapter 14): change a setting and every row changes. The **Database Interface Explorer** is now the one from your companion repository, with its own wording. The authority diagram has an arrow each way between courts and legislature. The search labs let the reader build a search with connector buttons, keep the examples behind a button, and carry a notice that the cases are fictional. The How-to passages name each part and open the explanation beside the text.
+- **Links.** "Chapter 15" is now one link, number and word together.
+- **Draft mode is off** (`"draft": false`), so the yellow flags and the draft banner no longer show to readers. The flags are still in the Markdown.
+- **Checked.** An automated accessibility audit (axe, WCAG 2.1 AA plus best practices) on twelve representative pages at desktop and phone widths: no violations. No page requests anything from another site.
+
+- [ ] **[verify] Chapter 1 courtroom table.** It says a federal court deciding an Arizona-law claim is bound by the Arizona Supreme Court and treats an Arizona Superior Court ruling as persuasive there. Confirm that is how you want Erie-type weight stated for first-years.
+- [ ] **The cover image spells the author "Lakowski."** The site uses "Laskowski."
+- [ ] **Voice.** I rewrote the home page, Downloads lede, lab captions, and diagram text. The remaining interactive feedback lines are short and plain but have not had a line edit from you.
+- [ ] **Appendix B's annotated opinion is taller than one screen** now that each part is labeled; the explanation box travels with the reader.
+
+---
+
+## 0. Round 4: no embeds, one width, interactives written into the text
 
 **What you asked for, and what I did with it.** No interactive is embedded any longer. Every iframe is gone, along with the vendored copy of the companion site (`interactives/`, about 1.5 MB) and the script that synced it. In their place the chapters carry **68 native interactives** (59 in the chapters, 7 in Appendices A to D, plus the glossary and the Research Log on the Downloads page). Each one is ordinary Markdown inside a `::: {.try kind="..."}` block, sits in the paragraph where the book teaches that idea, and fits on a single screen at desktop width. Nothing pages, nothing opens in a new tab, and with scripts off or on paper the block still reads as text.
 

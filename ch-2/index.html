@@ -5,8 +5,8 @@
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Chapter 2: Introduction to Legal Research Platforms &mdash; The Question Method of Legal Research</title>
 <meta name="description" content="Legal research platforms are commercial interfaces that index and make searchable the primary and secondary authorities that courts, legislatures, and agenci…">
-<link rel="preload" href="../assets/fonts/archivo-400.woff2" as="font" type="font/woff2" crossorigin>
-<link rel="preload" href="../assets/fonts/newsreader-400.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/lato-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<link rel="preload" href="../assets/fonts/zilla-slab-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="../assets/book.css">
 </head>
 <body>
@@ -20,14 +20,14 @@
     <a href="../search/index.html">Search</a>
   </nav>
 </div></header>
-<div class="draftbar" role="note"><strong>First-pass draft.</strong> Yellow <span class="flag">flags</span> mark placeholders and open items; the full list is in <code>EDITING-NOTES.md</code>. <button type="button" id="flagtoggle" aria-pressed="false">Hide flags</button></div>
+
 <main id="main" class="wrap ">
 <nav class="toc" aria-label="On this page"><details class="tocbox" open><summary><span class="th">On this page</span></summary><ol><li class="l2"><a href="#understanding-the-common-features">Understanding the Common Features</a></li><li class="l2"><a href="#citations-and-finding-known-sources">Citations and Finding Known Sources</a></li><li class="l3"><a href="#reading-a-legal-citation">Reading a Legal Citation</a></li><li class="l3"><a href="#finding-the-cited-source">Finding the Cited Source</a></li><li class="l2"><a href="#searching-for-authorities">Searching for Authorities</a></li><li class="l3"><a href="#core-terms-and-connectors">Core Terms and Connectors</a></li><li class="l3"><a href="#expansion-operators">Expansion Operators</a></li><li class="l2"><a href="#practical-search-strategy">Practical Search Strategy</a></li><li class="l2"><a href="#common-pitfalls">Common Pitfalls</a></li><li class="l2"><a href="#chapter-recap">Chapter Recap</a></li><li class="l2"><a href="#reviewing-through-practice">Reviewing Through Practice</a></li><li class="l3"><a href="#exercise-21--translate-the-question">Exercise 2.1 — Translate the Question</a></li><li class="l3"><a href="#exercise-22--two-modes-one-question">Exercise 2.2 — Two Modes, One Question</a></li><li class="l3"><a href="#exercise-23--retrieve-dont-search">Exercise 2.3 — Retrieve, Don’t Search</a></li></ol></details></nav>
 <article class="page">
-<header class="chead"><p class="kick"><a href="../part-i.html">Part I: Foundational Legal Research Topics</a></p><h1><span class="num">Chapter 2</span> Introduction to Legal Research Platforms</h1><p class="chips"><span class="chip">7 interactives in the text</span></p></header>
+<header class="chead"><p class="num">Chapter 2</p><h1>Introduction to Legal Research Platforms</h1></header>
 <p>Legal research platforms are commercial interfaces that index and make searchable the primary and secondary authorities that courts, legislatures, and agencies produce. The three major commercial platforms are Westlaw, Lexis+, and Bloomberg Law, and each provides its own research tools and editorial enhancements. Free alternatives, including Google Scholar, CourtListener, eCFR.gov, GovInfo.gov, and Congress.gov, provide access to many primary sources, though with fewer research tools than the commercial platforms and, often, less complete coverage of older or unreported material.</p>
 <p>Each platform organizes its content into searchable collections such as by source type (cases, statutes, regulations, secondary sources) and by jurisdiction. Before you run any search, set the appropriate jurisdiction and source-type filters. This one step saves an enormous amount of time by keeping irrelevant results out of your way. A search for “reasonable accommodation” run across all jurisdictions and all source types returns an unusable wall of results; the same search confined to Ninth Circuit cases returns a set you can actually read.</p>
-<p>This chapter is about how the platforms work and the mechanics of searching them (how to navigate and get filtered results). It is deliberately kept apart from the strategy of searching (what to search for and how to recognize the best source), which is the subject of Chapter <a class="xref" href="../ch-3/index.html">3</a>’s Question Method and the source-specific chapters that follow. Learning the mechanics first means that when strategy questions come up, you already know how to execute the search the strategy calls for.</p>
+<p>This chapter is about how the platforms work and the mechanics of searching them (how to navigate and get filtered results). It is deliberately kept apart from the strategy of searching (what to search for and how to recognize the best source), which is the subject of <a class="xref" href="../ch-3/index.html">Chapter 3</a>’s Question Method and the source-specific chapters that follow. Learning the mechanics first means that when strategy questions come up, you already know how to execute the search the strategy calls for.</p>
 <div class="objectives">
 <p><span class="box-title">Learning Objectives</span></p>
 <ul>
@@ -41,56 +41,90 @@
 </div>
 <h2 id="understanding-the-common-features">Understanding the Common Features <a class="anchor" href="#understanding-the-common-features" aria-label="Link to this section">#</a></h2>
 <p>Databases change, and they change often. Interfaces get redesigned, features get renamed, and new tools appear every year. A few features, though, are common across platforms and stable over time: a central search box, the ability to filter by jurisdiction and source type, a citator for validating authority, and some system of topical classification. If you learn the underlying concepts rather than the location of a particular button, your skills will carry from one platform to the next and survive the next interface redesign.</p>
-<div class="try" id="try-1" data-kind="explore" data-title="The parts every legal database has" data-layout="screen"><p class="try-head"><span class="try-kind">Explore</span> <strong>The parts every legal database has</strong></p>
-<p>A schematic search screen. No platform looks exactly like this, and every platform has all of it. Select a region to see what it is for and what it is called elsewhere.</p>
+<div class="try" id="try-1" data-kind="explore" data-title="Database Interface Explorer" data-layout="database"><p class="try-head"><strong>Database Interface Explorer</strong></p>
+<p>Every legal database is laid out a little differently, but the same parts are always there. Learn them once here, on a generic platform, and you can sit down at Westlaw, Lexis, Bloomberg Law, or a free database and find what you need without hunting. Select any part of the screen.</p>
 <ul>
-<li><strong>Search bar.</strong> Accepts a citation, a plain-language description, or a terms-and-connectors search. Most platforms guess which one you typed, so a stray connector word can change how your search is read.</li>
-<li><strong>Jurisdiction.</strong> Limits results to a court system or state. Set it before you search. An unfiltered search returns authority that could never bind your court, and it buries the authority that can.</li>
-<li><strong>Content type.</strong> Cases, statutes, regulations, secondary sources, briefs. The type of question you are asking tells you which to choose, which is the subject of Chapter <a class="xref" href="../ch-3/index.html">3</a>.</li>
-<li><strong>Browse and topics.</strong> Tables of contents, indexes, and the publisher’s topical classification (Key Numbers on Westlaw, topic headings on Lexis). Browsing shows you where a provision sits in its surroundings, which a search result never does.</li>
-<li><strong>Results and filters.</strong> The result list, with filters for date, court, reported status, and search-within-results. Narrowing after the search is usually faster than rebuilding the search.</li>
-<li><strong>Citator flag.</strong> The signal beside a document (KeyCite on Westlaw, Shepard’s on Lexis, BCite on Bloomberg Law) that later authority has treated it negatively. A flag is a prompt to read the later authority, never a verdict.</li>
+<li><strong>Menu | Main menu.</strong> Jumps to the platform’s major areas: your workspace, the products you subscribe to, settings, and sign-out. Every database has one. The icon and label move around, but it is almost always tucked into a top corner.</li>
+<li><strong>Folders | Folders and workspace.</strong> Where you save documents, searches, and notes into folders for a single matter. This is how you keep all the research for one project together and pick it back up later.</li>
+<li><strong>History | History.</strong> An automatic record of every search you ran and every document you opened, usually going back about a year. Invaluable when you need to retrace your steps or show what you already checked.</li>
+<li><strong>Alerts | Alerts and notifications.</strong> Tell the database to watch a search, a statute, or a case and notify you when something changes. This is how you keep your authority current without re-running everything by hand.</li>
+<li><strong>Account | Account and client matter.</strong> Sign-in, preferences, and, at a firm, the client-matter number your research time is billed to. Picking the right matter here is what keeps the client’s bill honest.</li>
+<li><strong>Search cases, statutes, regulations, secondary sources… | The search box.</strong> This is where most research begins. <em>How</em> you search changes everything: plain language casts a wide net, while a precise terms-and-connectors search controls exactly what comes back. The rest of this chapter teaches both.</li>
+<li><strong>All jurisdictions &amp; sources | Jurisdiction and content filter.</strong> Set this <em>before</em> you search. Limiting to the right jurisdiction and source type keeps out results that could never answer your question. Searching without setting it is the single most common beginner mistake, and it buries you in irrelevant hits.</li>
+<li><strong>Advanced Search | Advanced search.</strong> A guided form that builds a precise search for you, with separate fields and menus for connectors, dates, and jurisdictions, so you do not have to remember the syntax. A friendly on-ramp to terms-and-connectors searching.</li>
+<li><strong>Type | Browse by source type.</strong> Pick a source type when you already know what kind of law you need: a case, a statute, a regulation, or a secondary source.
+<ul>
+<li>Cases</li>
+<li>Statutes &amp; Codes</li>
+<li>Regulations &amp; Administrative Materials</li>
+<li>Secondary Sources</li>
+<li>Briefs, Pleadings &amp; Motions</li>
+<li>Forms</li>
+<li>News</li>
+</ul></li>
+<li><strong>Federal | Federal collections.</strong> The courts, codes, and agency materials of the national government. Start here when your issue is governed by federal law.
+<ul>
+<li>U.S. Supreme Court</li>
+<li>Courts of Appeals</li>
+<li>District Courts</li>
+<li>United States Code</li>
+<li>Code of Federal Regulations</li>
+<li>Federal Register</li>
+<li>Agency Decisions</li>
+</ul></li>
+<li><strong>State | State collections.</strong> Usually behind a state picker: choose your state, then the source type. Remember that only your state’s law, plus the federal law that reaches it, binds your court.
+<ul>
+<li>All States (picker)</li>
+<li>State Cases</li>
+<li>State Statutes</li>
+<li>State Regulations</li>
+<li>State Court Rules</li>
+</ul></li>
+<li><strong>Practice Area | Browse by practice area.</strong> Useful when you know the field but not the exact source. The platform gathers the relevant cases, statutes, regulations, and secondary sources for that area in one place.
+<ul>
+<li>Labor &amp; Employment</li>
+<li>Intellectual Property</li>
+<li>Health Law</li>
+<li>Bankruptcy</li>
+<li>Environmental</li>
+<li>Tax</li>
+<li>Family Law</li>
+</ul></li>
+<li><strong>Tools | Research tools.</strong> Things that are not a body of law: the citator that tells you whether authority is still good, multi-state surveys, alerts, folders, and citation helpers.
+<ul>
+<li>Citator</li>
+<li>50-State Surveys</li>
+<li>Alerts</li>
+<li>Folders</li>
+<li>History</li>
+<li>Advanced Search</li>
+<li>Citation Tools</li>
+</ul></li>
+<li><strong>Live chat &amp; support | Live chat and support.</strong> Most platforms staff reference attorneys or librarians by chat. Asking “where would I find X?” is completely legitimate and often the fastest way past a dead end. Use it.</li>
 </ul>
 </div>
 <h2 id="citations-and-finding-known-sources">Citations and Finding Known Sources <a class="anchor" href="#citations-and-finding-known-sources" aria-label="Link to this section">#</a></h2>
 <h3 id="reading-a-legal-citation">Reading a Legal Citation <a class="anchor" href="#reading-a-legal-citation" aria-label="Link to this section">#</a></h3>
 <p>A legal citation tells you three things: what type of source it is, where it was published, and when it was published. A <strong>case citation</strong> typically appears as <em>Party v. Party</em>, Volume Reporter Page (Court Year). The reporter and volume tell you where the opinion is published; the court and year, in the parenthetical, tell you immediately how much authority the case might carry in your jurisdiction.</p>
-<div class="try" id="try-2" data-kind="annotate" data-title="A case citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><span class="try-kind">Read closely</span> <strong>A case citation, part by part</strong></p>
+<div class="try" id="try-2" data-kind="annotate" data-title="A case citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><strong>A case citation, part by part</strong></p>
 <p><span class="m" label="Case name" data-note="The parties. Useful for recognizing the case and nothing else: a database does not index opinions by name alone, and many cases share party names."><em>Robles v. Domino’s Pizza, LLC</em>,</span> <span class="m" label="Volume" data-note="The volume of the reporter where the opinion is printed. Volume, reporter, and page together are the address, and the address is what you type to retrieve the case.">913</span> <span class="m" label="Reporter" data-note="The Federal Reporter, Third Series, which publishes opinions of the federal courts of appeals. The reporter abbreviation already tells you what level of court you are dealing with.">F.3d</span> <span class="m" label="First page" data-note="The page where the opinion begins. A second number after a comma would be a pincite, the exact page of the passage being cited.">898</span> <span class="m" label="Court" data-note="The deciding court. Read this before you read the opinion: it tells you whether the case can bind the court you are in or can only persuade it.">(9th Cir.</span> <span class="m" label="Year" data-note="The year of decision. An older case is not a weaker one, but the year tells you how much later law you need to check before relying on it.">2019)</span></p>
 </div>
 <p>A <strong>statute citation</strong> identifies the title and section of the code where the law lives: the title number, the code abbreviation, and the section symbol followed by the section number.</p>
-<div class="try" id="try-3" data-kind="annotate" data-title="A statute citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><span class="try-kind">Read closely</span> <strong>A statute citation, part by part</strong></p>
+<div class="try" id="try-3" data-kind="annotate" data-title="A statute citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><strong>A statute citation, part by part</strong></p>
 <p><span class="m" label="Title" data-note="The title of the code: its broad subject grouping. Title 42 of the United States Code is The Public Health and Welfare. A title number is a subject, not a volume.">42</span> <span class="m" label="Code" data-note="The United States Code, where federal statutes are arranged by subject. A state citation swaps in the state’s code abbreviation, such as A.R.S. for the Arizona Revised Statutes.">U.S.C.</span> <span class="m" label="Section" data-note="The section number: the unit you retrieve and read. Title plus section is the address.">§ 12182</span> <span class="m" label="Subsection" data-note="The subdivision inside the section. Cite as precisely as the text allows, because (a) and (b) of the same section often do different work.">(a)</span> <span class="m" label="Edition year" data-note="The edition of the code cited. It is not the year the statute was enacted, and it is no assurance the text is current. Currency is a separate check.">(2018)</span></p>
 </div>
 <p>A <strong>regulation citation</strong> follows the same logic as a statute but points to the Code of Federal Regulations rather than a statutory code.</p>
-<div class="try" id="try-4" data-kind="annotate" data-title="A regulation citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><span class="try-kind">Read closely</span> <strong>A regulation citation, part by part</strong></p>
+<div class="try" id="try-4" data-kind="annotate" data-title="A regulation citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><strong>A regulation citation, part by part</strong></p>
 <p><span class="m" label="Title" data-note="The title of the Code of Federal Regulations. Title 28 is Judicial Administration, where Department of Justice rules live. C.F.R. title numbers do not always match the U.S.C. title of the statute being implemented.">28</span> <span class="m" label="Code" data-note="The Code of Federal Regulations: agency rules arranged by subject. The abbreviation is your signal that this is a regulation, written by an agency under authority a statute delegated.">C.F.R.</span> <span class="m" label="Section" data-note="Part 36, section 303. The number before the point is the Part, a cluster of related rules that shares one authority note and, usually, one definitions section.">§ 36.303</span> <span class="m" label="Subsection" data-note="The subdivision inside the section.">(a)</span> <span class="m" label="Edition year" data-note="The annual edition cited. Regulations change more often than statutes, so the edition year is a starting point for the currency check Chapter 7 teaches.">(2023)</span></p>
 </div>
 <h3 id="finding-the-cited-source">Finding the Cited Source <a class="anchor" href="#finding-the-cited-source" aria-label="Link to this section">#</a></h3>
 <p>When you already have a citation, you are able to retrieve the authority in a legal database by entering relevant portions into the search bar. Enter only the location portions of the citation (volume, reporter, page, or title and section), not the party names or the year. The location portions are what the database indexes; the names and year are descriptive and can actually interfere with a clean retrieval.</p>
-<div class="try" id="try-5" data-kind="choice" data-title="Retrieve, don&#39;t search"><p class="try-head"><span class="try-kind">Check yourself</span> <strong>Retrieve, don&#39;t search</strong></p>
-<p>A memo cites <em>Robles v. Domino’s Pizza, LLC</em>, 913 F.3d 898 (9th Cir. 2019). What do you type to pull the opinion?</p>
-<ul class="task-list">
-<li><label><input type="checkbox" />Robles v. Domino’s Pizza, LLC, 913 F.3d 898 (9th Cir. 2019)</label>
-<ul>
-<li>It will often work, but the names and the parenthetical give the database more to misread. On some platforms a long string is run as a search and returns a list.</li>
-</ul></li>
-<li><label><input type="checkbox" checked="" />913 F.3d 898</label>
-<ul>
-<li>Volume, reporter, page. That is the address the database indexes, and it returns exactly one document.</li>
-</ul></li>
-<li><label><input type="checkbox" />Robles Domino’s 2019</label>
-<ul>
-<li>That is a search, not a retrieval. It returns every document mentioning those words, including later cases that merely cite <em>Robles</em>.</li>
-</ul></li>
-</ul>
-</div>
 <h2 id="searching-for-authorities">Searching for Authorities <a class="anchor" href="#searching-for-authorities" aria-label="Link to this section">#</a></h2>
 <p>When you do not already have a citation, when you do not yet know what you want to find, you have to search the database to discover sources that might be relevant. What to search for and how to spot the best results are covered in later chapters. This section is about the mechanics of searching a legal research system.</p>
-<p>There are two basic ways to search a legal database, and choosing between them is one of the first decisions you make when you sit down to research. Many systems have added semantic searching through generative AI chat interfaces. These are covered in Chapter <a class="xref" href="../ch-15/index.html">15</a>, but are best used after you understand and are able to make the critical judgments required when using the basic ways to search described below.</p>
+<p>There are two basic ways to search a legal database, and choosing between them is one of the first decisions you make when you sit down to research. Many systems have added semantic searching through generative AI chat interfaces. These are covered in <a class="xref" href="../ch-15/index.html">Chapter 15</a>, but are best used after you understand and are able to make the critical judgments required when using the basic ways to search described below.</p>
 <p><strong><span class="gloss">Natural language searching</span></strong> lets you type a description of your issue in plain terms, almost like asking a question. The database uses algorithms to rank results by how closely they match what you typed. It is a good way to start when you are still exploring and do not yet know the precise legal terminology, because it does not require you to know the magic words. It tolerates ordinary language and returns the documents it judges most relevant.</p>
 <p><strong><span class="gloss">Terms-and-connectors searching</span></strong> (also called Boolean searching) is more precise. Instead of letting the database guess what you want, you tell it exactly what to look for: which words must appear, which words must be near each other, which words to exclude. This is the right tool when you know what you are looking for and need to be sure you find everything relevant, because a well-built Boolean search returns every document that satisfies its logic and nothing that does not.</p>
-<p>Most research starts with natural language and moves to Boolean precision as your questions get more specific. You do not have to choose one over the other; they work well together. Chapter <a class="xref" href="../ch-9/index.html">9</a> covers the full precision toolkit once your research has narrowed. This chapter introduces the foundation you will build on there.</p>
+<p>Most research starts with natural language and moves to Boolean precision as your questions get more specific. You do not have to choose one over the other; they work well together. <a class="xref" href="../ch-9/index.html">Chapter 9</a> covers the full precision toolkit once your research has narrowed. This chapter introduces the foundation you will build on there.</p>
 <h3 id="core-terms-and-connectors">Core Terms and Connectors <a class="anchor" href="#core-terms-and-connectors" aria-label="Link to this section">#</a></h3>
 <ul>
 <li><strong>AND:</strong> both terms must appear somewhere in the document. Use it to require your concepts to co-occur. Example: landlord AND habitability. A document mentioning only one of the two will not be retrieved.</li>
@@ -101,41 +135,13 @@
 <h3 id="expansion-operators">Expansion Operators <a class="anchor" href="#expansion-operators" aria-label="Link to this section">#</a></h3>
 <p><strong>! (root expander)</strong> retrieves all words sharing the same root. Example: employ! retrieves <em>employ, employee, employer, employment,</em> and <em>employed</em> all at once. This keeps you from missing results because a source used a slightly different form of your term. Be careful, though, because the expander grabs words you did not intend. bit! retrieves <em>bite, biter, bitten,</em> and <em>biting,</em> but also <em>bitter, bitcoin,</em> and <em>bittersweet.</em> The longer and more distinctive the root, the safer the expansion.</p>
 <p><strong>* (single-character wildcard)</strong> fills exactly one character position. Example: wom*n retrieves <em>woman</em> and <em>women</em>. Use it when a word has common variant spellings or inflections that a root expander would not catch.</p>
-<div class="try" id="try-6" data-kind="sort" data-title="Does it widen the net or tighten it?" data-bins="Widens | Tightens"><p class="try-head"><span class="try-kind">Sort it</span> <strong>Does it widen the net or tighten it?</strong></p>
-<ul>
-<li>Adding OR lessor OR owner to landlord <strong>Widens</strong>
-<ul>
-<li>OR accepts any of the alternatives, so more documents qualify.</li>
-</ul></li>
-<li>Adding AND habitability to landlord <strong>Tightens</strong>
-<ul>
-<li>AND requires both concepts, so fewer documents qualify.</li>
-</ul></li>
-<li>Putting quotation marks around reasonable accommodation <strong>Tightens</strong>
-<ul>
-<li>The words must now appear together, in that order.</li>
-</ul></li>
-<li>Changing employee to employ! <strong>Widens</strong>
-<ul>
-<li>The root expander accepts every word beginning with those letters.</li>
-</ul></li>
-<li>Adding NOT prescription <strong>Tightens</strong>
-<ul>
-<li>Every document containing the excluded word is dropped, including relevant ones.</li>
-</ul></li>
-<li>Changing woman to wom*n <strong>Widens</strong>
-<ul>
-<li>The wildcard accepts either spelling.</li>
-</ul></li>
-</ul>
-</div>
 <h2 id="practical-search-strategy">Practical Search Strategy <a class="anchor" href="#practical-search-strategy" aria-label="Link to this section">#</a></h2>
 <p>A search string is your current research question translated into the database’s language, which is why a vague question produces a vague search. Two habits make the difference between a search that works and one that buries you.</p>
 <p>First, before you run anything, brainstorm both the lay term and the legal term for each concept: <em>fired</em> and <em>terminated</em> and <em>discharged;</em> or <em>landlord</em> and <em>lessor;</em> or <em>lease</em> and <em>rental agreement.</em> Lawyers, judges, and ordinary people describe the same thing in different words, and the source you need may use a word you did not think of. Use OR to gather all the variants for a single concept in one search.</p>
 <p>Second, connect your distinct concepts with AND so the results discuss all of them at once. A search like (fired OR terminated OR discharged) AND (disab! OR “medical condition”) requires both a separation concept and a disability concept to appear, which is far more useful than searching either one alone.</p>
-<p>Start broad. Connecting two or three core concepts with AND gives you a manageable set while you are still orienting yourself, and it forgives the fact that you do not yet know the precise terminology. As your questions get more specific, moving from exploratory to focusing to application, your searches should narrow to match, adding the precision tools from Chapter <a class="xref" href="../ch-9/index.html">9</a>: proximity connectors (/n, /s, /p), frequency operators (ATLEAST), and the strategies for closing out a project. The progression of your searches should track the progression of your questions.</p>
-<p>The practice database below holds eight invented case summaries. Five are on point for a client who believes she lost her job because of a medical condition; three are not. Run the same problem both ways and watch two numbers: how many documents come back, and how many of the on-point five are among them.</p>
-<div class="try" id="try-7" data-kind="search" data-title="One question, two ways to search" data-natural="Can my employer fire me for having a medical condition? | fired because of disability" data-queries="fired AND disability | (fired OR terminated OR discharged) AND (disab! OR &quot;medical condition&quot;) | (fired OR terminated OR discharged OR dismiss!) AND (disab! OR &quot;medical condition&quot; OR illness) | (fired OR terminated OR discharged) NOT prescription"><p class="try-head"><span class="try-kind">Search lab</span> <strong>One question, two ways to search</strong></p>
+<p>Start broad. Connecting two or three core concepts with AND gives you a manageable set while you are still orienting yourself, and it forgives the fact that you do not yet know the precise terminology. As your questions get more specific, moving from exploratory to focusing to application, your searches should narrow to match, adding the precision tools from <a class="xref" href="../ch-9/index.html">Chapter 9</a>: proximity connectors (/n, /s, /p), frequency operators (ATLEAST), and the strategies for closing out a project. The progression of your searches should track the progression of your questions.</p>
+<p>Try it yourself. The practice database below holds eight short case summaries, all fictional. Five are on point for a client who believes she lost her job because of a medical condition. Three are not. Search for her problem both ways and watch two numbers: how many documents come back, and how many of the on-point five are among them.</p>
+<div class="try" id="try-5" data-kind="search" data-title="One question, two ways to search" data-natural="Can my employer fire me for having a medical condition? | fired because of disability" data-queries="fired AND disability | (fired OR terminated OR discharged) AND (disab! OR &quot;medical condition&quot;) | (fired OR terminated OR discharged OR dismiss!) AND (disab! OR &quot;medical condition&quot; OR illness) | (fired OR terminated OR discharged) NOT prescription"><p class="try-head"><strong>One question, two ways to search</strong></p>
 <ul>
 <li><strong>Alvarez v. Copper Basin Mining | on point.</strong> The employer terminated a shift supervisor two days after she disclosed a seizure disorder. The court held that the timing supported an inference of disability discrimination.</li>
 <li><strong>Brandt v. Sonoran Freight | on point.</strong> A driver was fired after requesting leave for a medical condition. Summary judgment for the employer was reversed.</li>
@@ -146,15 +152,15 @@
 <li><strong>Greer v. Tucson Transit | off point.</strong> The city terminated a bus route contract. Riders with disabilities challenged the change under the public services provisions.</li>
 <li><strong>Hale v. Ironwood Apartments | off point.</strong> A landlord’s duty to repair does not depend on a tenant’s medical condition. The lease was terminated for nonpayment.</li>
 </ul>
-<p>The natural-language mode here is a simple stand-in that ranks documents by how many of your words they contain. Commercial engines are more sophisticated, but they behave the same way in kind: anything loosely matching comes back, in an order the engine guessed. The terms-and-connectors mode does exactly what you tell it. Try the first preset, then ask why a search with two sensible words found none of the five. Try the last one and see what NOT cost you. Then type your own.</p>
 </div>
+<p>The natural-language mode here is a simple stand-in that ranks documents by how many of your words they contain. Commercial engines are more sophisticated, but they behave the same way in kind: anything loosely matching comes back, in an order the engine guessed. The terms-and-connectors mode does exactly what you tell it, and nothing else. Build a search of your own with the connector buttons. If you get stuck, open the examples. Start with the first one and ask why two sensible words found none of the five. Then run the last and see what NOT cost you.</p>
 <div class="callout">
 <p><strong>Reflection Point.</strong> Why does the method have you draft the research question before you choose a database or a search syntax? (A short answer appears in <a class="xref" href="../appendices/i.html">Appendix I</a>.)</p>
 </div>
 <h2 id="common-pitfalls">Common Pitfalls <a class="anchor" href="#common-pitfalls" aria-label="Link to this section">#</a></h2>
 <p>The most frequent platform mistake is searching before setting the jurisdiction and source-type filters, which floods you with results from courts and source types that could never answer your question. After that comes leaning too hard on a single set of search terms; if you only ever search for “fired,” you will miss every case that says “terminated” or “discharged,” so brainstorm synonyms and join them with OR. NOT deserves its own caution, because it is easy to exclude a word that sometimes travels with the authority you actually want and quietly delete good results in the process. And the root expander rewards a little restraint: a short root like bit! drags in <em>bitcoin</em> and <em>bittersweet, along with the biting and bitten,</em> so reach for the longest, most distinctive root that still captures the variants you need.</p>
 <h2 id="chapter-recap">Chapter Recap <a class="anchor" href="#chapter-recap" aria-label="Link to this section">#</a></h2>
-<p>Legal research platforms are the infrastructure you use to reach primary and secondary authority. Understanding the difference between natural language and Boolean searching, and knowing when to use each, is the foundation of efficient research. Natural language gets you moving when you are unsure of the vocabulary; Boolean gives you control once you know what you are after. The expansion operators and connectors here form the basis of the precision toolkit you will develop in Chapter <a class="xref" href="../ch-9/index.html">9</a>.</p>
+<p>Legal research platforms are the infrastructure you use to reach primary and secondary authority. Understanding the difference between natural language and Boolean searching, and knowing when to use each, is the foundation of efficient research. Natural language gets you moving when you are unsure of the vocabulary; Boolean gives you control once you know what you are after. The expansion operators and connectors here form the basis of the precision toolkit you will develop in <a class="xref" href="../ch-9/index.html">Chapter 9</a>.</p>
 <div class="takeaways">
 <p><span class="box-title">Key Takeaways</span></p>
 <ul>
@@ -170,7 +176,7 @@
 <h3 id="exercise-21--translate-the-question">Exercise 2.1 — Translate the Question <a class="anchor" href="#exercise-21--translate-the-question" aria-label="Link to this section">#</a></h3>
 <p>A mail carrier was bitten by a customer’s dog while delivering a package, and she wants to know whether the dog’s owner is liable for her injuries. Identify the distinct concepts inside that question. There are at least three. For each concept, build a synonym set of at least three terms joined by OR, then connect the concept sets with AND into a single terms-and-connectors search. Watch for the root-expander trap the chapter warned about: a short root drags in everything that shares its letters, so test every truncated term against what it would actually sweep up.</p>
 <p><strong>Deliverable:</strong> your concept list, the synonym set for each, and the final search string.</p>
-<p><strong>Self-check:</strong> every concept has three or more synonyms, no synonym set relies on a single word, and any root expander you used survives the drag-in test. If a synonym set built honestly from plain, everyday language is a passing set at this stage; the legal terms of art for this area arrive with Chapter <a class="xref" href="../ch-4/index.html">4</a>’s toolkit, and no set fails here for lacking them.</p>
+<p><strong>Self-check:</strong> every concept has three or more synonyms, no synonym set relies on a single word, and any root expander you used survives the drag-in test. If a synonym set built honestly from plain, everyday language is a passing set at this stage; the legal terms of art for this area arrive with <a class="xref" href="../ch-4/index.html">Chapter 4</a>’s toolkit, and no set fails here for lacking them.</p>
 </div>
 <div id="ex-2-2" class="exercise">
 <h3 id="exercise-22--two-modes-one-question">Exercise 2.2 — Two Modes, One Question <a class="anchor" href="#exercise-22--two-modes-one-question" aria-label="Link to this section">#</a></h3>
@@ -180,19 +186,19 @@
 </div>
 <div id="ex-2-3" class="exercise">
 <h3 id="exercise-23--retrieve-dont-search">Exercise 2.3 — Retrieve, Don’t Search <a class="anchor" href="#exercise-23--retrieve-dont-search" aria-label="Link to this section">#</a></h3>
-<p>If you already have a citation, you do not search. You retrieve. Here are three citations, one case, one statute, one regulation: <em>Hazelwood School District v. Kuhlmeier</em>, 484 U.S. 260 (1988); 42 U.S.C. § 12101; and 29 C.F.R. § 1605.1. <span class="flag">[Cite-check note: verify these three retrieval targets, or substitute instructor-preferred citations; the exercise works with any three so long as the source types vary.]</span> For each, first label the citation’s anatomy, every location part and what it tells you, and then pull the document using only those location parts. No words in any search bar.</p>
+<p>If you already have a citation, you do not search. You retrieve. Here are three citations, one case, one statute, one regulation: <em>Hazelwood School District v. Kuhlmeier</em>, 484 U.S. 260 (1988); 42 U.S.C. § 12101; and 29 C.F.R. § 1605.1.  For each, first label the citation’s anatomy, every location part and what it tells you, and then pull the document using only those location parts. No words in any search bar.</p>
 <p><strong>Deliverable:</strong> the three labeled anatomies and, for each document, the retrieval path you used.</p>
 <p><strong>Self-check:</strong> if at any point you typed subject-matter words into a search box, you searched. Close the tab and retrieve properly. The skill being drilled is recognizing that a citation is an address, and addresses are for going to, not for asking about.</p>
 </div>
 <p>Sample answers for this chapter’s exercises appear in <a href="../appendices/h.html#chapter-2">Appendix H</a>.</p>
 
-<nav class="pager" aria-label="Chapter navigation"><a class="prev" href="../ch-1/index.html"><span class="dir">&larr; Previous</span><span class="ttl">Chapter 1: Foundations of Legal Authority</span></a><a class="next" href="../ch-3/index.html"><span class="dir">Next &rarr;</span><span class="ttl">Chapter 3: The Question Method of Legal Research</span></a></nav>
 </article>
 </main>
 <footer class="foot"><div class="wrap">
-  <span>The Question Method of Legal Research &mdash; Interactive Edition. By Cas Laskowski.</span>
-  <span>Student work stays in your browser. This site makes no external requests.</span>
+  <span>The Question Method of Legal Research. By Cas Laskowski.</span>
+  <span>Nothing you type on these pages leaves your device.</span>
 </div></footer>
+<nav class="pager" aria-label="Previous and next page"><a class="prev" href="../ch-1/index.html"><span aria-hidden="true">&larr;</span> <span class="dir">Previous:</span> <span class="ttl">Chapter 1: Foundations of Legal Authority</span></a><a class="next" href="../ch-3/index.html"><span class="dir">Next:</span> <span class="ttl">Chapter 3: The Question Method of Legal Research</span> <span aria-hidden="true">&rarr;</span></a></nav>
 <script src="../assets/book.js"></script>
 </body>
 </html>
