@@ -447,6 +447,9 @@ body.home .masthead{background:var(--navy);border-bottom-color:rgba(255,255,255,
 body.home .brand .mark,body.home .topnav a,body.home .menu summary{color:#fdf8ec;}
 body.home .brand .sub{color:var(--spark);}
 body.home .topnav a:hover{color:var(--spark);}
+body.home .menu-panel li a{color:var(--ink);}
+body.home .menu-panel li a:hover{color:var(--crimson);}
+body.home .menu-panel .mh a{color:inherit;}
 body.home main{padding-top:0;}
 body.home .cover{margin:0;padding:56px 24px 30px;}
 body.home .qmarks{height:230px;font-size:230px;}
