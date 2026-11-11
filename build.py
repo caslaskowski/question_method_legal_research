@@ -280,7 +280,7 @@ def describe(body):
     return (t[:157] + "\u2026") if len(t) > 160 else t
 
 
-def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker="", head=""):
+def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker="", head="", body_class=""):
     base = "../" * depth
     desc = describe(body)
     toc_html = ""
@@ -308,7 +308,7 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 <link rel="preload" href="%(base)sassets/fonts/zilla-slab-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="%(base)sassets/book.css">
 </head>
-<body>
+<body%(bc)s>
 <a class="skip" href="#main">Skip to content</a>
 <header class="masthead"><div class="wrap">
   <a class="brand" href="%(base)sindex.html"><span class="mark">%(book)s</span><span class="sub">%(sub)s</span></a>
@@ -338,7 +338,7 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 """ % {"title": esc(title), "book": esc(TITLE), "sub": esc(BOOK["subtitle"]), "base": base, "menu": nav_menu(depth),
        "dl": base + URL_DOWNLOADS, "gl": base + URL_GLOSSARY, "se": base + URL_SEARCH, "banner": banner,
        "desc": ('<meta name="description" content="%s">\n' % esc(desc)) if desc else "", "toc": toc_html, "pager": pager_html,
-       "body": body, "head": head, "wide": "wide" if wide else "", "author": esc(BOOK["author"]), "kicker": kicker}
+       "body": body, "head": head, "bc": (' class="%s"' % body_class) if body_class else "", "wide": "wide" if wide else "", "author": esc(BOOK["author"]), "kicker": kicker}
 
 
 # --------------------------------------------------------------------------------------
@@ -466,13 +466,13 @@ def build_404():
             'b.setAttribute("href",/\\.github\\.io$/.test(location.hostname)&&p[1]?"/"+p[1]+"/":"/");document.head.appendChild(b);})();</script>\n')
     body = ('<div class="lost"><div class="qmarks" aria-hidden="true"><span>?</span><span>?</span><span>?</span></div>'
             '<p class="lost-kick">404 F. Supp. Nowhere</p>'
-            '<h1>This page has been overruled.</h1>'
-            '<p class="lost-lede">We ran the citator and it came back all red flags. No such page in any reporter, in any jurisdiction. '
-            'It is, as they say, no longer good law.</p>'
+            '<h1>Authority not found.</h1>'
+            '<p class="lost-lede">We checked every reporter in every jurisdiction. Nothing binding, nothing persuasive, '
+            'not even a headnote. This page cannot be cited for anything.</p>'
             '<p class="lost-actions"><a class="btn" href="index.html">Return to binding authority</a> '
             '<a class="btn ghost" href="search/index.html">Motion to search</a></p>'
             '<p class="lost-foot">Objection sustained. The address you entered is stricken from the record.</p></div>')
-    write("404.html", shell("Page not found", body, 0, "404.html", head=head))
+    write("404.html", shell("Authority not found", body, 0, "404.html", head=head, body_class="home"))
 
 
 def build_home():
@@ -494,18 +494,21 @@ def build_home():
 <p class="cover-sub">Making the hidden curriculum of the research process visible</p>
 <p class="cover-by">By %(author)s</p>
 </header>
+<div class="cover-intro">
 <p class="lede">Ask one question. Find the answer. Write it down, and let that answer tell you what to ask next. Repeat until no substantive question remains. The <em>question</em> drives the research, whatever database happens to be open.</p>
 <p>This edition asks you to do things as you read. Change the courtroom and watch the same authority gain or lose its force. Run a search two ways and count what each one misses. Take a paragraph apart into the questions that built it. Read with your hands on the page.</p>
+<p class="cover-go"><a class="btn" href="%(first)s">Start reading</a></p>
+</div>
 <h2>Start here</h2><ul class="cardlist plain">%(front)s</ul>
 <h2><a href="%(p1)s">%(p1t)s</a></h2><ol class="cardlist">%(c1)s</ol>
 <h2><a href="%(p2)s">%(p2t)s</a></h2><ol class="cardlist">%(c2)s</ol>
 <h2>Appendices and resources</h2><ul class="cardlist">%(apps)s
 <li><a href="%(gl)s"><span class="cn">&#9733;</span><span class="ct">Glossary</span></a></li>
 <li><a href="%(dl)s"><span class="cn">&darr;</span><span class="ct">Downloads: tip sheet, log template, worked example</span></a></li></ul>
-""" % {"title": esc(TITLE), "author": esc(BOOK["author"]), "dl": URL_DOWNLOADS, "gl": URL_GLOSSARY, "front": front, "p1": url_part("I"), "p1t": esc(PARTS["I"]["title"]),
+""" % {"title": esc(TITLE), "author": esc(BOOK["author"]), "first": url_front(BOOK["front"][0]["slug"]), "dl": URL_DOWNLOADS, "gl": URL_GLOSSARY, "front": front, "p1": url_part("I"), "p1t": esc(PARTS["I"]["title"]),
        "p2": url_part("II"), "p2t": esc(PARTS["II"]["title"]), "apps": apps,
        "c1": "".join(chapter_li(n) for n in PARTS["I"]["chapters"]), "c2": "".join(chapter_li(n) for n in PARTS["II"]["chapters"])}
-    write(url, shell("Contents", body, 0, url, pager=pager_for(url)))
+    write(url, shell("Contents", body, 0, url, pager=pager_for(url), body_class="home"))
 
 
 # --------------------------------------------------------------------------------------

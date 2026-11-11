@@ -1,6 +1,6 @@
 {
  "inputs": {
-  "assets/book.css": "546733d0ffc9ce6a0ded29638684238b3cdf2e91f99aae57155ced1a2e2361a4",
+  "assets/book.css": "1dde1a0f5ef241a4021af111c7d07dddd0d3d0ae730bee36672396a076576941",
   "assets/book.js": "372f27b8adc9fefe7bac9d1b4e7377f3c11513e1742d3e526e6e0a7550907e0f",
   "assets/fonts/ibm-plex-mono-400.woff2": "08949f728dc52d528e69b1667d15c89a5686a4ee9a296ff90983985f99c380f7",
   "assets/fonts/lato-400-italic.woff2": "bca1d88ada544d9c80872d4da27133fab6d347361fa26e932b47ec9559088fd0",
@@ -10,7 +10,7 @@
   "assets/fonts/lato-900-normal.woff2": "08664859baab5ed98f0bf818ed77e38464ff1826dc6406d5ecbd651409afbd92",
   "assets/fonts/zilla-slab-700.woff2": "896b6ebb8cd10aca90bdff88a5a1b648cbc0d50751740bd5a6d012007aef9ebe",
   "book.json": "65659cda88eb084165c0a39345b5ef1a6a3a79823211bca0cf74d00ecd27674f",
-  "build.py": "866b85c9b57063ee381387951ee08528e1b8c5163380f0ffbd2a37a4e35accd0",
+  "build.py": "5a597ed84fb736982b97bc11fcfb8a131b56babbd701c4d38e889390c9d4ec1c",
   "content/appendices/a.md": "1f424869a46e0e1c138b5fab0fd9ea4ad33530afd0c59430cf4d65f77d75d797",
   "content/appendices/b.md": "3265bad8d30362c1dd9fae2e2bb31db8f26a5af9657a7233557b9681c9eb031c",
   "content/appendices/c.md": "6ba5e84d9c58fec48b9a87f83fc8944428af0f7d388d1df63081c20907d91199",

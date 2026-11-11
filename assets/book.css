@@ -441,3 +441,29 @@ h2:hover .anchor,h3:hover .anchor,.anchor:focus{opacity:1;}
 .lost .btn.ghost:hover{background:#fdf8ec;color:var(--navy);}
 .lost a:focus-visible{outline-color:#fff;}
 .lost-foot{font-style:italic;margin:24px auto 0;max-width:34em;color:#d9dce6;}
+/* home: the cover, carried down the page */
+body.home{background:var(--navy);color:#f1ecdf;}
+body.home .masthead{background:var(--navy);border-bottom-color:rgba(255,255,255,.18);}
+body.home .brand .mark,body.home .topnav a,body.home .menu summary{color:#fdf8ec;}
+body.home .brand .sub{color:var(--spark);}
+body.home .topnav a:hover{color:var(--spark);}
+body.home main{padding-top:0;}
+body.home .cover{margin:0;padding:56px 24px 30px;}
+body.home .qmarks{height:230px;font-size:230px;}
+body.home .qmarks span:nth-child(1){top:-66px;}
+body.home .qmarks span:nth-child(2){top:-26px;}
+body.home .qmarks span:nth-child(3){top:14px;}
+.cover-intro{max-width:46em;margin:0 auto 20px;text-align:center;}
+body.home .lede{color:#fdf8ec;}
+.cover-go{margin-top:26px;}
+body.home .btn{background:var(--spark);color:var(--navy);font-size:1.02rem;padding:12px 26px;letter-spacing:.06em;text-transform:uppercase;font-weight:900;}
+body.home .btn:hover{background:#fdf8ec;color:var(--navy);}
+body.home .page h2{color:var(--spark);border-bottom-color:rgba(217,127,69,.6);text-align:center;font-weight:900;letter-spacing:.24em;font-size:1rem;margin-top:3em;}
+body.home .page h2 a{color:inherit;}
+body.home .cardlist li{background:rgba(255,255,255,.06);border:1px solid rgba(255,255,255,.2);border-left:4px solid var(--spark);}
+body.home .cardlist li:hover{background:rgba(255,255,255,.13);border-left-color:#fdf8ec;}
+body.home .cardlist li a{color:#fdf8ec;}
+body.home .cardlist .cn{color:#f3b085;font-family:var(--slab);font-size:1.15rem;}
+body.home .foot{border-top-color:rgba(255,255,255,.18);color:#c9cedb;}
+body.home :focus-visible{outline-color:#fdf8ec;}
+body.home .lost{background:transparent;border-bottom:0;}
