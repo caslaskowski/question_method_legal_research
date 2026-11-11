@@ -20,7 +20,7 @@ Everything runs on your machine; the server listens on 127.0.0.1 only and makes 
 requests. It edits the same files you would edit by hand (content/*.md, book.json,
 downloads/), so nothing here is hidden from git.
 """
-import argparse, base64, glob, html, importlib, json, os, re, subprocess, sys, threading, webbrowser
+import argparse, base64, glob, html, importlib, json, os, re, shutil, subprocess, sys, threading, webbrowser
 from http.server import ThreadingHTTPServer, SimpleHTTPRequestHandler
 from urllib.parse import urlparse, parse_qs, unquote
 
@@ -622,8 +622,10 @@ def main():
     ap.add_argument("--port", type=int, default=8765)
     ap.add_argument("--no-browser", action="store_true")
     args = ap.parse_args()
-    if subprocess.run(["pandoc", "--version"], capture_output=True).returncode != 0:
-        sys.exit("pandoc is required (it renders the preview and the site). Install it from https://pandoc.org.")
+    if shutil.which("pandoc") is None:
+        sys.exit("pandoc is required (it renders the preview and the site) and was not found on your PATH.\n"
+                 "Install it from https://pandoc.org/installing.html (on Windows: winget install --id JohnMacFarlane.Pandoc),\n"
+                 "then close and reopen your terminal (or VS Code) so the new PATH is picked up, and run this again.")
     srv = ThreadingHTTPServer(("127.0.0.1", args.port), Handler)
     url = "http://127.0.0.1:%d/" % args.port
     print("Book editor at %s  (Ctrl+C to stop)" % url)
