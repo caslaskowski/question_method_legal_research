@@ -80,7 +80,9 @@ def rel(depth, url):
 TRY_RE = re.compile(r'<div class="try"([^>]*)>')
 TRY_LABEL = {"choice": "Quick check", "sort": "Quick check", "order": "Put it in order", "explore": "Explore",
              "switch": "Change the setting", "annotate": "Read closely", "search": "Search lab", "checklist": "Checklist",
-             "reveal": "Your turn", "tokens": "Watch it work", "flashcards": "Flashcards"}
+             "reveal": "Your turn", "tokens": "Watch it work", "flashcards": "Flashcards",
+             "resolve": "Bring it into focus", "cycle": "Watch the documents fill", "funnel": "Narrow the field",
+             "timeline": "Scrub the timeline", "path": "Choose the route"}
 
 
 def render_try(frag):

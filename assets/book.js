@@ -704,6 +704,252 @@
     setMode(nat.length ? "nl" : "tc"); go();
   };
 
+  /* shared bits for the kinds below */
+  function pill(kind) { return h("span", { "class": "try-pill k-" + kind.toLowerCase().replace(/[^a-z]+/g, "-"), text: kind }); }
+  function lead(li) {                 /* "<strong>Head.</strong> rest" -> { head, rest } */
+    var html = own(li), m = html.match(/^\s*<strong>([\s\S]*?)<\/strong>\s*([\s\S]*)$/);
+    return m ? { head: strip(m[1]).replace(/[.:]\s*$/, ""), rest: m[2].trim() } : { head: "", rest: html };
+  }
+
+  /* ---- resolve: a legal text whose unclear phrases sharpen one research step at a time. The passage
+          carries [phrase]{.m label="key"} marks. The list that follows has one item per key:
+          "**key.** the research question", with a nested list of steps, each "**Source | Kind.** finding".
+          Kinds: Statute, Regulation, Case, Preamble, Secondary, Guidance, History, Gap. Every step the
+          reader takes writes a Research Log entry. ---------------------------------------------------- */
+  KINDS.resolve = function (root) {
+    var list = topList(root), marks = Array.prototype.slice.call(root.querySelectorAll(".m")); if (!list || !marks.length) return;
+    var head = root.querySelector(".try-head"), items = {}, order = [];
+    kids(list, "li").forEach(function (li) {
+      var L = lead(li), steps = kids(li, "ul,ol")[0];
+      items[L.head.toLowerCase()] = { key: L.head, q: L.rest, taken: 0, steps: steps ? kids(steps, "li").map(function (s) {
+        var S = lead(s), parts = S.head.split("|").map(function (x) { return x.trim(); });
+        return { source: parts[0], kind: parts[1] || "Source", body: S.rest };
+      }) : [] };
+      order.push(L.head.toLowerCase());
+    });
+    list.remove();
+    var doc = h("div", { "class": "try-doc r-doc" }), panel = h("div", { "class": "try-panel r-panel", role: "region", "aria-live": "polite", "aria-label": "Research: " + (opt(root, "title") || "") });
+    Array.prototype.slice.call(root.children).forEach(function (c) { if (c !== head) doc.appendChild(c); });
+    if (opt(root, "source")) doc.appendChild(h("p", { "class": "r-src", text: opt(root, "source") }));
+    var log = h("ol", { "class": "r-log" }), logWrap = h("div", { "class": "r-logwrap" }, [h("p", { "class": "r-logh", html: "<strong>Research Log</strong> <span>written as you go</span>" }), log]);
+    var score = h("p", { "class": "try-score", role: "status", "aria-live": "polite" }), cur = null, nEntries = 0;
+    var reset = h("button", { type: "button", "class": "try-btn ghost small", text: "Start over" });
+    function badge(m, it) {
+      var b = m.querySelector(".r-badge"), n = it.steps.length, done = it.taken >= n, gap = done && n && /gap/i.test(it.steps[n - 1].kind);
+      b.textContent = !it.taken ? "?" : (done ? (gap ? "open" : "✓") : it.taken + "/" + n);
+      m.className = "m r-m " + (!it.taken ? "r0" : done ? (gap ? "r-gap" : "r-done") : "r-part") + (cur === it ? " r-sel" : "");
+      m.setAttribute("aria-pressed", String(cur === it));
+      m.setAttribute("aria-label", strip(m.textContent.replace(/[?✓]|open|\d\/\d/g, "")) + ": " + (!it.taken ? "not yet researched" : done ? (gap ? "researched, still open" : "resolved") : it.taken + " of " + n + " sources read"));
+    }
+    function tally() {
+      var done = 0, total = order.length;
+      order.forEach(function (k) { var it = items[k]; if (it.steps.length && it.taken >= it.steps.length) done++; });
+      score.textContent = done + " of " + total + " unclear phrases researched. " + nEntries + " log entr" + (nEntries === 1 ? "y" : "ies") + ".";
+    }
+    function draw() {
+      marks.forEach(function (m) { var it = items[(opt(m, "label") || "").toLowerCase()]; if (it) badge(m, it); });
+      panel.innerHTML = "";
+      if (!cur) { panel.appendChild(h("p", { "class": "try-hint", text: "Select a phrase that is out of focus. Its research question opens here." })); tally(); return; }
+      panel.appendChild(h("p", { "class": "try-panel-h", html: "Research question <small>" + cur.key + "</small>" }));
+      panel.appendChild(h("p", { "class": "r-q", html: cur.q }));
+      /* earlier steps fold to one line each, so the panel stays about a screen tall; the newest step is open */
+      cur.steps.slice(0, cur.taken).forEach(function (s, i) {
+        var last = i === cur.taken - 1, box = h("details", { "class": "r-step k-" + s.kind.toLowerCase().replace(/[^a-z]+/g, "-"), open: last ? "" : null }, [
+          h("summary", { "class": "r-steph" }, [pill(s.kind), h("strong", { html: s.source })]), h("p", { html: s.body })]);
+        panel.appendChild(box);
+      });
+      var n = cur.steps.length, left = n - cur.taken;
+      if (left > 0) {
+        var btn = h("button", { type: "button", "class": "try-btn", text: cur.taken ? "Take the next research step" : "Research it" });
+        btn.addEventListener("click", function () {
+          var s = cur.steps[cur.taken]; cur.taken++; nEntries++;
+          var found = strip(s.body).replace(/\s*Next question:.*$/, ""), cut = found.length > 170 ? found.slice(0, 170).replace(/\s+\S*$/, "") + "\u2026" : found;
+          log.appendChild(h("li", {}, [h("p", {}, [pill(s.kind), h("span", { "class": "r-lq", html: cur.q })]), h("p", { "class": "r-lf", html: "<b>Source:</b> " + s.source + " <b>Found:</b> " + cut })]));
+          logWrap.hidden = false; draw(); btn = panel.querySelector(".try-btn"); if (btn) btn.focus();
+        });
+        panel.appendChild(h("p", { "class": "try-actions" }, [btn, h("span", { "class": "try-hint", text: left + " source" + (left === 1 ? "" : "s") + " to go" })]));
+      } else {
+        var gap = n && /gap/i.test(cur.steps[n - 1].kind);
+        panel.appendChild(h("p", { "class": gap ? "r-end warn" : "r-end good", html: gap ? "<strong>As clear as the sources make it, and still open.</strong> The gap is the finding. Log it and move on." : "<strong>In focus.</strong> The phrase now means what the sources say it means. Notice how many cycles that took." }));
+      }
+      tally();
+    }
+    marks.forEach(function (m) {
+      var it = items[(opt(m, "label") || "").toLowerCase()]; if (!it) return;
+      m.setAttribute("role", "button"); m.setAttribute("tabindex", "0"); m.appendChild(h("sup", { "class": "r-badge", "aria-hidden": "true", text: "?" }));
+      function open() { cur = it; draw(); }
+      m.addEventListener("click", open);
+      m.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
+    });
+    reset.addEventListener("click", function () { order.forEach(function (k) { items[k].taken = 0; }); cur = null; nEntries = 0; log.innerHTML = ""; logWrap.hidden = true; draw(); });
+    logWrap.hidden = true;
+    root.appendChild(h("div", { "class": "try-two r-two" }, [doc, h("div", { "class": "try-side" }, [panel])]));
+    root.appendChild(logWrap);
+    root.appendChild(h("p", { "class": "try-actions" }, [score, reset]));
+    if (opt(root, "hint")) head.insertAdjacentElement("afterend", h("p", { "class": "try-lead", text: opt(root, "hint") }));
+    draw();
+  };
+
+  /* ---- cycle: replay a research demonstration while the three documents fill. One list item per cycle:
+          "**Q1 | Exploratory, no-clue.** the question", with nested lines whose bold lead says what they are:
+          Source, Found, Adds (new map questions, separated by |), Closes (map numbers answered, e.g. "1, 2"),
+          Outline (an entry), Note (a bracketed application note under the last outline entry), Aside. --------- */
+  KINDS.cycle = function (root) {
+    var list = topList(root); if (!list) return;
+    var cycles = kids(list, "li").map(function (li) {
+      var L = lead(li), parts = L.head.split("|").map(function (x) { return x.trim(); }), c = { id: parts[0], type: parts[1] || "", q: L.rest, adds: [], closes: [] };
+      var sub = kids(li, "ul,ol")[0];
+      if (sub) kids(sub, "li").forEach(function (s) {
+        var S = lead(s), k = S.head.toLowerCase();
+        if (k === "adds") c.adds = S.rest.split("|").map(function (x) { return x.trim(); }).filter(Boolean);
+        else if (k === "closes") c.closes = S.rest.replace(/<[^>]+>/g, "").split(/[,\s]+/).map(Number).filter(Boolean);
+        else c[k] = S.rest;
+      });
+      return c;
+    });
+    var i = 0, macro = opt(root, "macro");
+    var card = h("div", { "class": "cy-card", role: "region", "aria-live": "polite", "aria-label": "Current cycle" });
+    var map = h("ol", { "class": "cy-list cy-map" }), logL = h("ol", { "class": "cy-list cy-log" }), outL = h("ol", { "class": "cy-list cy-out" });
+    var prev = h("button", { type: "button", "class": "try-btn ghost", text: "← Back" }), next = h("button", { type: "button", "class": "try-btn", text: "Run the first cycle" }), pos = h("span", { "class": "try-score", role: "status" });
+    function col(title, sub, ol) { return h("div", { "class": "cy-col" }, [h("p", { "class": "cy-colh", html: "<strong>" + title + "</strong> <span>" + sub + "</span>" }), ol]); }
+    function draw() {
+      var mapQ = [], out = [], k;
+      map.innerHTML = ""; logL.innerHTML = ""; outL.innerHTML = "";
+      for (k = 0; k < i; k++) {
+        var c = cycles[k];
+        c.adds.forEach(function (q) { mapQ.push({ q: q, open: true, fresh: k === i - 1 }); });
+        c.closes.forEach(function (n) { if (mapQ[n - 1]) mapQ[n - 1].open = false; });
+        if (c.outline) out.push({ t: c.outline, notes: [], fresh: k === i - 1 });
+        if (c.note && out.length) { out[out.length - 1].notes.push(c.note); out[out.length - 1].fresh = k === i - 1; }
+      }
+      mapQ.forEach(function (m) { map.appendChild(h("li", { "class": (m.open ? "open" : "done") + (m.fresh ? " fresh" : "") }, [h("span", { "class": "cy-chip", text: m.open ? "open" : "answered" }), h("span", { html: m.q })])); });
+      if (!mapQ.length) map.appendChild(h("li", { "class": "empty", text: "Nothing yet." }));
+      for (k = 0; k < i; k++) logL.appendChild(h("li", { "class": k === i - 1 ? "fresh" : "" }, [h("span", { "class": "cy-chip", text: cycles[k].id }), h("span", { html: "<em>" + cycles[k].type + "</em> " + (cycles[k].source ? "— " + strip(cycles[k].source) : "") })]));
+      if (!i) logL.appendChild(h("li", { "class": "empty", text: "Nothing yet." }));
+      out.forEach(function (o) { outL.appendChild(h("li", { "class": o.fresh ? "fresh" : "" }, [h("span", { html: o.t }), o.notes.length ? h("span", { "class": "cy-note", html: o.notes.map(function (n) { return "[" + n + "]"; }).join(" ") }) : null])); });
+      if (!out.length) outL.appendChild(h("li", { "class": "empty", text: i ? "Still empty: the answer so far came from a secondary source." : "Nothing yet." }));
+      card.innerHTML = "";
+      if (!i) card.appendChild(h("p", { "class": "cy-macro", html: (macro ? "<strong>Macro question.</strong> " + macro + " " : "") + "<span class=\"try-hint\">The three documents below are empty. Run the cycles and watch each one fill.</span>" }));
+      else {
+        var c2 = cycles[i - 1];
+        card.appendChild(h("p", { "class": "cy-q" }, [h("span", { "class": "cy-chip big", text: c2.id }), pill(c2.type), h("span", { html: c2.q })]));
+        if (c2.source) card.appendChild(h("p", { html: "<b>Source.</b> " + c2.source }));
+        if (c2.found) card.appendChild(h("p", { html: "<b>Found.</b> " + c2.found }));
+        if (c2.aside) card.appendChild(h("p", { "class": "cy-aside", html: c2.aside }));
+      }
+      prev.disabled = !i; next.disabled = i >= cycles.length;
+      next.textContent = !i ? "Run the first cycle" : i >= cycles.length ? "Done" : "Next cycle";
+      pos.textContent = i ? "Cycle " + i + " of " + cycles.length : cycles.length + " cycles";
+    }
+    next.addEventListener("click", function () { if (i < cycles.length) { i++; draw(); } });
+    prev.addEventListener("click", function () { if (i) { i--; draw(); } });
+    var ui = h("div", { "class": "try-cycle" }, [card, h("p", { "class": "try-actions" }, [prev, next, pos]),
+      h("div", { "class": "cy-cols" }, [col("Research map", "where you are going", map), col("Research log", "where you have been", logL), col("Annotated outline", "what you know", outL)])]);
+    list.replaceWith(ui); draw();
+  };
+
+  /* ---- funnel: toggle filters and watch a results count collapse. start="48000" goal="300".
+          Items: "**Filter name | ÷ 40.** why it helps". --------------------------------------------------- */
+  KINDS.funnel = function (root) {
+    var list = topList(root); if (!list) return;
+    var start = +opt(root, "start") || 10000, goal = +opt(root, "goal") || 0, unit = opt(root, "unit") || "results";
+    var filters = kids(list, "li").map(function (li) {
+      var L = lead(li), parts = L.head.split("|").map(function (x) { return x.trim(); }), m = (parts[1] || "").match(/([÷\/x×])\s*([\d.]+)/i);
+      return { name: parts[0], f: m ? (/[x×]/i.test(m[1]) ? 1 / +m[2] : +m[2]) : 1, why: L.rest, on: false };
+    });
+    var count = h("p", { "class": "fn-count", role: "status", "aria-live": "polite" }), bar = h("div", { "class": "fn-bar" }, [h("i")]), verdict = h("p", { "class": "fn-verdict" });
+    var bins = h("div", { "class": "fn-filters", role: "group", "aria-label": "Filters" }), why = h("div", { "class": "try-panel fn-why" });
+    function fmt(n) { return Math.round(n).toString().replace(/\B(?=(\d{3})+(?!\d))/g, ","); }
+    function draw() {
+      var n = start; filters.forEach(function (f) { if (f.on) n = n / f.f; });
+      n = Math.max(1, n);
+      count.innerHTML = "<strong>" + fmt(n) + "</strong> " + unit;
+      bar.firstChild.style.width = (100 * Math.log(n) / Math.log(start)) + "%";
+      bar.className = "fn-bar" + (goal && n <= goal ? " ok" : "");
+      verdict.innerHTML = goal ? (n <= goal ? "<strong>A set you can actually read.</strong> Now the search terms can do their work." : n > start / 2 ? "<strong>A wall.</strong> No search term will dig you out of this; the filters have to." : "<strong>Still too many.</strong> Every one of these could never have answered the question.") : "";
+    }
+    filters.forEach(function (f) {
+      var b = h("button", { type: "button", "class": "fn-filter", "aria-pressed": "false", html: "<span>" + f.name + "</span><small>÷ " + (f.f >= 1 ? f.f : "1/" + Math.round(1 / f.f)) + "</small>" });
+      b.addEventListener("click", function () { f.on = !f.on; b.setAttribute("aria-pressed", String(f.on)); why.innerHTML = '<p class="try-panel-h">' + f.name + '</p><p>' + f.why + "</p>"; draw(); });
+      bins.appendChild(b);
+    });
+    why.innerHTML = '<p class="try-hint">Select a filter to apply it and read what it does.</p>';
+    list.replaceWith(h("div", { "class": "try-funnel" }, [count, bar, verdict, bins, why, h("p", { "class": "try-fiction", text: "The counts are illustrative. Real result counts vary by platform and by day; the collapse does not." })]));
+    draw();
+  };
+
+  /* ---- timeline: scrub a year and watch milestones light up. Items: "**1975 | California.** what happened".
+          from="1900" to="2000" start="1960" count="states" (the noun for the running count). ------------------ */
+  KINDS.timeline = function (root) {
+    var list = topList(root); if (!list) return;
+    var items = kids(list, "li").map(function (li) {
+      var L = lead(li), parts = L.head.split("|").map(function (x) { return x.trim(); });
+      return { year: +parts[0], place: parts[1] || "", body: L.rest };
+    }).filter(function (x) { return x.year; }).sort(function (a, b) { return a.year - b.year; });
+    var lo = +opt(root, "from") || items[0].year, hi = +opt(root, "to") || items[items.length - 1].year, year = +opt(root, "start") || lo, noun = opt(root, "count") || "milestones";
+    var range = h("input", { type: "range", min: lo, max: hi, step: 1, value: year, "aria-label": "Year" });
+    var readout = h("p", { "class": "tl-year", role: "status", "aria-live": "polite" }), track = h("div", { "class": "tl-track", role: "group", "aria-label": "Milestones" }), panel = h("div", { "class": "try-panel tl-panel" });
+    var play = h("button", { type: "button", "class": "try-btn ghost small", text: "Play" }), timer = null;
+    var years = []; items.forEach(function (it) { if (years.indexOf(it.year) < 0) years.push(it.year); });   /* one dot per year, however many milestones share it */
+    var dots = years.map(function (y) {
+      var here = items.filter(function (it) { return it.year === y; }), d = h("button", { type: "button", "class": "tl-dot" + (here.length > 1 ? " multi" : ""), "aria-label": y + ": " + here.map(function (it) { return strip(it.place); }).join("; "), style: "left:" + (100 * (y - lo) / (hi - lo)) + "%", text: here.length > 1 ? String(here.length) : "" });
+      d.addEventListener("click", function () { year = y; range.value = year; draw(); }); track.appendChild(d); return d;
+    });
+    function draw() {
+      var lit = items.filter(function (it) { return it.year <= year; }), now = items.filter(function (it) { return it.year === year; });
+      dots.forEach(function (d, k) { d.className = "tl-dot" + (d.textContent ? " multi" : "") + (years[k] <= year ? " lit" : "") + (years[k] === year ? " now" : ""); });
+      readout.innerHTML = "<strong>" + year + "</strong> <span>" + lit.length + " of " + items.length + " " + noun + " so far</span>";
+      var show = now.length ? now : lit.slice(-1);
+      panel.innerHTML = show.length ? show.map(function (it) { return '<p class="try-panel-h">' + it.year + " <small>" + it.place + "</small></p><p>" + it.body + "</p>"; }).join("") : '<p class="try-hint">Nothing on this timeline has happened yet. Drag the slider forward.</p>';
+      track.style.setProperty("--fill", (100 * (year - lo) / (hi - lo)) + "%");
+    }
+    range.addEventListener("input", function () { year = +range.value; stop(); draw(); });
+    function stop() { if (timer) { clearInterval(timer); timer = null; play.textContent = "Play"; } }
+    play.addEventListener("click", function () {
+      if (timer) { stop(); return; }
+      if (year >= hi) year = lo;
+      var fast = window.matchMedia("(prefers-reduced-motion: reduce)").matches;
+      play.textContent = "Pause";
+      timer = setInterval(function () { year = Math.min(hi, year + (fast ? 5 : 1)); range.value = year; draw(); if (year >= hi) stop(); }, fast ? 600 : 220);
+    });
+    list.replaceWith(h("div", { "class": "try-timeline" }, [readout, h("div", { "class": "tl-slider" }, [track, range]), h("p", { "class": "tl-ends", html: "<span>" + lo + "</span><span>" + hi + "</span>" }), h("p", { "class": "try-actions" }, [play, h("span", { "class": "try-hint", text: "Drag the slider, or select a dot." })]), panel]));
+    draw();
+  };
+
+  /* ---- path: choose a route and pay for it. Items are nodes: "**id | cost.** what happens here", each with a
+          nested list of choices "**target-id.** the choice". start="id" names the first node. The trail adds
+          up the costs ($0.30, 12 min). A node without choices ends the route. ------------------------------ */
+  KINDS.path = function (root) {
+    var list = topList(root); if (!list) return;
+    var nodes = {}, first = opt(root, "start");
+    kids(list, "li").forEach(function (li) {
+      var L = lead(li), parts = L.head.split("|").map(function (x) { return x.trim(); }), sub = kids(li, "ul,ol")[0];
+      nodes[parts[0]] = { id: parts[0], cost: parts[1] || "", body: L.rest, choices: sub ? kids(sub, "li").map(function (c) { var C = lead(c); return { to: C.head, text: C.rest }; }) : [] };
+      if (!first) first = parts[0];
+    });
+    var trail = [], card = h("div", { "class": "try-panel pa-card", role: "region", "aria-live": "polite" }), trailL = h("ol", { "class": "pa-trail" }), total = h("p", { "class": "pa-total", role: "status" });
+    function money(c) { var m = c.match(/([$£€]?)\s*([\d.]+)\s*(\w*)/); return m ? { n: +m[2], pre: m[1], unit: m[3] } : null; }
+    function sum() { var n = 0, pre = "", unit = ""; trail.forEach(function (id) { var m = money(nodes[id].cost); if (m) { n += m.n; pre = pre || m.pre; unit = unit || m.unit; } }); return pre ? pre + n.toFixed(2) : (n ? n + (unit ? " " + unit : "") : ""); }
+    function go(id) {
+      var n = nodes[id]; if (!n) return;
+      trail.push(id);
+      trailL.innerHTML = ""; trail.forEach(function (t, k) { trailL.appendChild(h("li", { "class": k === trail.length - 1 ? "now" : "" }, [h("span", { html: strip(nodes[t].body).split(/(?<=[.?!])\s/)[0] }), nodes[t].cost ? h("b", { text: nodes[t].cost }) : null])); });
+      var s = sum(); total.innerHTML = s ? "Running total: <strong>" + s + "</strong> over " + trail.length + " step" + (trail.length === 1 ? "" : "s") : trail.length + " step" + (trail.length === 1 ? "" : "s");
+      card.innerHTML = "";
+      card.appendChild(h("p", { html: n.body }));
+      if (n.choices.length) {
+        var opts = h("div", { "class": "try-opts" });
+        n.choices.forEach(function (c) { opts.appendChild(h("button", { type: "button", "class": "try-opt", html: c.text, onclick: function () { go(c.to); } })); });
+        card.appendChild(opts);
+      } else {
+        card.appendChild(h("p", { "class": "try-actions" }, [h("button", { type: "button", "class": "try-btn ghost", text: "Start over", onclick: function () { trail = []; go(first); } })]));
+      }
+      var b = card.querySelector("button"); if (b && trail.length > 1) b.focus();
+    }
+    list.replaceWith(h("div", { "class": "try-path" }, [card, h("div", { "class": "pa-side" }, [h("p", { "class": "cy-colh", html: "<strong>Your trail</strong> <span>what each step cost</span>" }), trailL, total])]));
+    go(first);
+  };
+
   Array.prototype.forEach.call(blocks, function (root, idx) {
     var k = root.getAttribute("data-kind");
     if (KINDS[k]) { try { KINDS[k](root, idx); root.classList.add("live"); } catch (e) { if (window.console) console.error("interactive failed:", k, e); } }

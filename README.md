@@ -69,6 +69,11 @@ An interactive is a fenced block in the chapter's Markdown. Its content is ordin
 | `tokens` | Watches a sentence predicted piece by piece | `start="..."`; each bullet lists candidates as `word 70%; word 20%`, most likely first. |
 | `switch` | Changes a setting (the courtroom, the practice context) and watches every row change | A table. First column: the rows. Each further column: one setting. A cell may open with a bold status such as `**Binding.**`. `label="..."` is the question above the buttons. |
 | `flashcards` | Flips through a definition list | Used by `content/glossary.md`. |
+| `resolve` | Brings an unclear legal text into focus one research step at a time, writing a Research Log as it goes | A quoted passage with `[phrase]{.m label="key"}` marks, then one list item per key: `**key.** the research question`, with nested steps `**Source \| Kind.** finding`. Kinds: Statute, Regulation, Case, Preamble, Secondary, Guidance, History, Gap (a Gap step last leaves the phrase open). `source="..."` captions the passage. |
+| `cycle` | Replays a research demonstration while the research map, log, and annotated outline fill | One item per cycle: `**Q1 \| Exploratory, no-clue.** question`, with nested lines led by **Source**, **Found**, **Adds** (map questions separated by `\|`), **Closes** (map numbers answered), **Outline** (an entry), **Note** (a bracketed application note), **Aside**. `macro="..."` shows the macro question first. |
+| `funnel` | Applies filters and watches a results count collapse | `start=` and `goal=` counts, `unit=` the noun. Items: `**Filter \| ÷ 40.** why it helps, and its risk`. |
+| `timeline` | Scrubs a year and watches milestones light up; can play | Items: `**1975 \| Place.** what happened`. `from=`, `to=`, `start=` set the range; `count=` names what is counted. Same-year items share one dot. |
+| `path` | Chooses a route and pays for it, step by step | Nodes: `**id \| $0.30.** what happens here`, each with nested choices `**target-id.** the choice`. `start=` names the first node; a node with no choices ends the route. Costs with a currency sign or a unit are summed. |
 
 Two rules keep them useful. Keep each one to a single screen: about six rows in a sorter. And do not let an interactive repeat the paragraph above it; give it new examples, or turn the paragraph's own list into the interactive.
 

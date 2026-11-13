@@ -17,6 +17,52 @@ Tick the boxes as you go. Items marked ⚑ also show as yellow flags on the draf
 
 ---
 
+## 0. Round 6 (this pass): explorable explanations, and the ambiguity resolvers
+
+**What you asked for.** A full pass for places where text could become something the reader operates, in the spirit of Seeing Theory and Nicky Case; two interactives that show ambiguity getting more detailed through research, one in Chapter 6 on a statute and one in Chapter 7 on a regulation; new text in your voice; and more ideas than I built. There are now 46 interactives in the chapters (36 before), and five new kinds of interactive that did not exist in the book.
+
+### Built this round
+
+| Where | Kind | What the reader does |
+|---|---|---|
+| Ch. 6, *Statutes and the Research Cycle* | **resolve** (new) | One sentence of Title VII, 42 U.S.C. § 2000e-2(a)(1), with five phrases out of focus. *Employer* resolves through the definitions section, which hands back a new undefined word (*employee*), then through *Walters* and *Clackamas*. *Terms, conditions, or privileges* is silent in the definitions and resolves through *Meritor* and *Muldrow*. *Because of* resolves through a neighboring subsection, § 2000e-2(m), and *Bostock*. *Religion* resolves through § 2000e(j), *Hardison*, and *Groff*. *Sex* resolves through § 2000e(k) and *Bostock*. Each step writes a Research Log entry beneath the text; the log is the payoff. |
+| Ch. 7, *Answering Questions with Regulations* (new section; *Updating for Currency* is now its own heading) | **resolve** (new) | One sentence of 29 C.F.R. § 1630.2(g)(1), the EEOC's definition of disability. *Physical or mental impairment* and *major life activities* resolve inside the Part's definitions. *Substantially limits* resolves through the rules of construction, then the **Federal Register preamble**, 76 Fed. Reg. 16978 (2011), explaining that the ADAAA was passed to overturn *Sutton* and *Toyota*, then *Summers v. Altarum* (4th Cir. 2014). *Regarded as* resolves through § 1630.2(l) and § 1630.15(f) and ends in a **gap** (what counts as "minor"), so the reader sees a research chain that ends honestly open. |
+| Ch. 3, *What the Demonstration Shows* | **cycle** (new) | The nine-cycle student-speech demonstration replayed in one screen: press *Next cycle* and watch the research map, research log, and annotated outline fill, questions move from open to answered, the outline stay empty after Q1, and the map grow at Q4 and Q7. |
+| Ch. 2, after the Database Interface Explorer | **funnel** (new) | A results count for "reasonable accommodation" that collapses as the reader applies jurisdiction, source, topic, and date filters. Every filter's note pairs its benefit with its risk. Counts are labelled illustrative. |
+| Ch. 1, *When Persuasive Becomes Binding* | **timeline** (new) | Scrub 1900 to 2000 and watch comparative negligence spread state by state; stop in 1974 and ask what you would have told a California client. **Dates and citations need a cite-check** (see below). |
+| Ch. 11, *Post-Loper Bright* | **timeline** (new) | *Skidmore* (1944) to *Loper Bright* (2024): what a court owes an agency's reading, rising, splitting, and falling. |
+| Ch. 13, *Understanding a Docket* | **path** (new) | Find the court's reasoning on a motion to dismiss with a PACER bill running. The cheapest route is $1.10; downloading everything is $14.70. Fee figures are called a stand-in on the page. |
+| Ch. 8, *Go to the Source* | switch | The Title VII sentence as an opinion quoted it and as the code reads: the definition, the exemption, the motivating-factor provision, and the amendment history are *missing* on one side and *present* on the other. |
+| Ch. 10, *The Most Important Sources and Their Weight* | order | The weight list is now a ranking exercise with the reasons as feedback; two floor statements (sponsor, opponent) show why floor debate is "variable." |
+| Ch. 16, *Practice Strategies* | sort | The excerpt-triage worked example is now a six-item triage the reader performs; the compressed-cycle commentary follows it. |
+
+Also this round: the Chapter 6 sorter's "substantially limited" feedback points to Chapter 7; Chapter 7 gained a learning objective for the preamble-and-case-law trace; the Chapter 3 demonstration's garbled "Mapping adding the rest" sentence, the duplicated paragraph after the Cycle 1 log entry, and a double comma are fixed; stray italics in Chapter 7 and the "they they" in Chapter 5 are fixed; three sentences built on the "not X. It is Y." pattern were rewritten (Chapters 10 and 15, Part II intro). The editor's *Insert interactive* menu offers templates for all five new kinds, and the README's table documents them.
+
+### Please check (P1)
+
+- [ ] **[verify] Chapter 6 resolver: every quotation and holding.** The quoted text of § 2000e-2(a)(1), § 2000e(b), (f), (j), (k), and § 2000e-2(m) was written from memory of the Code, not re-pulled. The case characterizations (*Walters*, *Clackamas*, *Meritor*, *Muldrow*, *Bostock*, *Hardison*, *Groff*) are standard but should be cite-checked, especially *Muldrow*'s "some harm" language and *Groff*'s "substantial in the overall context" formulation.
+- [ ] **[verify] Chapter 7 resolver.** § 1630.2(g), (h), (i), (j)(1), (l) and § 1630.15(f) are paraphrased closely; confirm the "not exhaustive" and "central importance to daily life" lines in (i), and the *Summers* characterization (temporary impairment; deference to the EEOC rule). The preamble citation, 76 Fed. Reg. 16978 (Mar. 25, 2011), is from memory. **[decide]** whether to keep the *Loper Bright* caution inside the *Summers* step or move it to Chapter 11.
+- [ ] **[verify] Chapter 1 timeline.** Twelve dates and nine citations, written from memory of the tort treatises. The 1965 (Maine), 1969 (Minnesota), and 1977 (Uniform Comparative Fault Act) entries are the ones I am least sure of. The page carries a hidden draft flag saying so.
+- [ ] **[verify] Chapter 11 timeline.** *Skidmore*, *Chevron*, *Auer*, *Christensen*, *Mead*, *Kisor*, *Loper Bright*: dates and citations are standard; confirm the *Kisor* factors wording against the paragraph you already flagged.
+- [ ] **[verify] Chapter 8 switch.** It asserts § 2000e-1(a) is the religious-organization exemption and that § 2000e-2(m) was added in 1991. Both are right to my knowledge; cite-check.
+- [ ] **[decide] Chapter 13 path.** Uses the fictional *Marsh v. Golden Rentals* docket from Chapters 12, 15 and 16 and invents an order (habitability claim pleaded; waiver clause unenforceable). The fee figures assume ten cents a page capped at three dollars; the page says they are a stand-in, and the existing PACER flag covers it.
+- [ ] **Voice.** All new text was written to the voice prompt: first-person ownership ("Students tend to believe this in the abstract and doubt it at the keyboard"), clustered rhetorical questions, benefit paired with risk in every funnel note, a charge at the end of each lead-in. I did not rewrite the chapters wholesale; the remaining prose is yours as it was, with the fixes listed above.
+
+### Not built, and worth building (ranked by what it would teach)
+
+1. **A research-map builder in Chapter 3, Beginning Your Research.** The reader is handed the three clients of Exercise 3.4 and drafts a first question in a box; the page diagnoses it (does it contain a term of art the file did not supply? is it compound?) with simple pattern checks and shows the map it would start. The `reveal` kind does half of this now; the diagnosis is the new part.
+2. **A "read for the answer" opinion in Chapter 5.** A short fictional opinion with a question stated above it. The reader highlights the sentences that answer the question; the page scores against the holding and flags any dictum selected, then shows the dispositive facts. This is Skill 3 of Chapter 16 made operable, and it pairs with the holding/dictum sorter.
+3. **A citator you can run, in Chapter 5 and again in Chapter 12.** Ten fictional cases with a treatment graph. The reader picks a case, sees its flag, opens the citing decisions, and must say which point of law the negative treatment reaches before the page lets them "cite" it. The *Plessy* lesson (a red flag on one point, good law on another) becomes a thing the reader does.
+4. **A preamble reader in Chapter 7 or 11.** A Federal Register page, schematically: summary, dates, supplementary information with comment-and-response pairs. The reader selects a comment and sees the agency's response, then the regulatory text the response produced. The resolve interactive points at the preamble; this would open it.
+5. **A synonym-coverage meter for Chapter 2.** The reader types OR-joined synonyms for one concept and a bar shows what share of the practice database's on-point documents the set would catch, document by document. The search lab can already run the query; the meter would make recall visible as a number that moves.
+6. **A "when to stop" dial for Chapter 9.** Hours spent on one axis, new authority found per hour on the other, with a fictional project's curve; the reader drags a marker to the hour they would close and reads what analytical closure, practical closure, and "just stopping" look like at that point.
+7. **A session-law-to-code tracer for Chapter 6.** One act broken into sections that scatter across three code titles when codified; the reader drags each section to the title it lands in, then sees the credit line that lets a researcher walk back.
+8. **A bill-text diff for Chapter 10.** Two versions of a sentence from a bill with the changed words highlighted; the reader is asked what the change signals and sees the committee report line that explains it.
+9. **The Research Log, live, on every page.** Round 4 had it and Round 5 cut it in favour of the spreadsheet. The resolve and cycle interactives now write logs of their own; a shared log that collected entries from every interactive the reader touches, downloadable at the end, would make the book's central tool something the reader has used before the first exercise asks them to.
+10. **A glossary that teaches by contrast.** Pairs of terms that students confuse (holding and dictum, binding and persuasive, session law and code, Federal Register and CFR) shown two at a time with one line each; the reader guesses which is which before the cards flip.
+
+---
+
 ## 0. Round 5 (this pass): the textbook's look, fewer and better interactives, `main`
 
 **Counts in the Round 4 section below are out of date.** There are now 43 interactives, not 68.
