@@ -72,7 +72,7 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Findings | The standard does not authorize viewpoint-based censorship or restrictions unconnected to any educational purpose. Answers the question partially. The limits are clear; the closest analogues are still being gathered. |
 | Source Consulted | *Dean v. Utica Community Schools*, 345 F. Supp. 2d 799 (E.D. Mich. 2004) \[slot for a second on-point case in the cite-check pass\] |
 | Next Question | When is a school publication a public forum “by policy or by practice”? (*Dean* turned on this; it is already parked at outline II.c.) |
-| Notes | FALSE HIT logged and discarded: *Kennedy v. Bremerton* (teacher prayer; different doctrine). The precise question is what caught it. |
+| Notes | FALSE HIT logged and discarded: *Kennedy v. Bremerton* (coach’s prayer; different doctrine). The precise question is what caught it. |
 
 | **Field** | **Entry** |
 |---|---|

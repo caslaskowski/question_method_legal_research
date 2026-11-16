@@ -5,16 +5,16 @@ administrative adjudication
 :   An agency’s own dispute-resolution process: an administrative law judge hears the case, with appeal to the agency head and then to federal court; published decisions may serve as precedent within the agency and are often the most detailed interpretations of a regulation available. (Chapter 11)
 
 ALR annotation
-:   An article in American Law Reports collecting and analyzing the case law of many jurisdictions on a narrow legal issue; a primary tool for survey questions. (Chapter 4)
+:   An article in American Law Reports collecting and analyzing the case law of many jurisdictions on a narrow legal issue; a main tool for survey questions. (Chapter 4)
 
 ambiguity spotting (Skill 1)
-:   Reading a legal text and identifying the terms, phrases, or provisions whose meaning requires interpretive research — undefined terms, vague standards, terms of art, structural ambiguities, scope questions. (Chapter 16)
+:   Reading a legal text and identifying the terms, phrases, or provisions whose meaning requires interpretive research: undefined terms, vague standards, terms of art, structural ambiguities, scope questions. (Chapter 16)
 
 analytical closure
 :   The judgment that research is complete because every question has been answered or identified as genuinely open, the rule and its application are covered, and further research would only refine wording. (Chapter 3)
 
 annotated code
-:   A statutory code enhanced with editorial notes: case annotations, cross-references to regulations and secondary sources, and history notes. (Chapter 5)
+:   A statutory code enhanced with editorial notes: case annotations, cross-references to regulations and secondary sources, and history notes. (Chapter 6)
 
 annotated outline
 :   The running document that records the product of research: each question's synthesized answer, organized under the structure the final document will take. (Chapter 3)
@@ -38,7 +38,7 @@ citator
 :   A tool (KeyCite or Shepard's) that tracks an authority's subsequent history and treatment, showing whether it remains good law. (Chapter 5)
 
 closed universe
-:   The provided-materials exam format: a fixed set of sources over which you run a compressed Question Method cycle — nothing outside the set may be relied on. (Chapter 16)
+:   The provided-materials exam format: a fixed set of sources over which you run a compressed Question Method cycle; nothing outside the set may be relied on. (Chapter 16)
 
 closing-out protocol
 :   The systematic end-of-project sequence: run a final sweep, update every case and statute, check the currency of secondary sources, evaluate the outline for gaps, and document the closure decision. (Chapter 9)
@@ -53,7 +53,7 @@ common law
 :   Judge-made law developed case by case through judicial decision. (Chapter 1)
 
 competence (Rule 1.1)
-:   The duty to bring the legal knowledge, skill, thoroughness, and preparation the matter requires — making research quality itself an ethical obligation; Comment 8 extends it to understanding the benefits and risks of technology. (Chapter 12)
+:   The duty to bring the legal knowledge, skill, thoroughness, and preparation the matter requires, making research quality itself an ethical obligation; Comment 8 extends it to understanding the benefits and risks of technology. (Chapter 12)
 
 constructive application
 :   Answering an application question no decision squarely addresses by building the rule from the cases that exist and reasoning by analogy. (Chapter 3)
@@ -83,7 +83,7 @@ focusing question
 :   A question asking what the specific governing rule, standard, or test is; the move from secondary to primary authority. (Chapter 3)
 
 FOIA request
-:   A request under the Freedom of Information Act for agency records not otherwise published — a research route to materials the agency has not made public. (Chapter 11)
+:   A request under the Freedom of Information Act for agency records not otherwise published, a research route to materials the agency has not made public. (Chapter 11)
 
 frequency operator
 :   A search operator requiring a term to appear at least n times in a document (ATLEAST3(preemption)), retrieving documents that discuss the term substantively rather than in passing. (Chapter 9)
@@ -104,7 +104,7 @@ hornbook
 :   A one-volume treatise summarizing an area of law, written primarily for students. (Chapter 4)
 
 intra-jurisdiction source ranking (Skill 2)
-:   Given a collection of authorities from a single jurisdiction, ranking them correctly by binding effect — a supreme court over a court of appeals; a statute over common law on the same subject. (Chapter 16)
+:   Given a collection of authorities from a single jurisdiction, ranking them correctly by binding effect: a supreme court over a court of appeals; a statute over common law on the same subject. (Chapter 16)
 
 legislative history
 :   The documents produced as a bill moves through the legislature, used to uncover legislative intent when statutory text is ambiguous. (Chapter 10)
@@ -122,7 +122,7 @@ Notice of Proposed Rulemaking (NPRM)
 :   The Federal Register notice proposing a rule and opening the public comment period; the record of the agency's intent. (Chapter 7)
 
 opinion letter
-:   An agency’s written answer to a specific question, often from a specific regulated party — narrow by design, and revealing of how the agency applies its own rules to concrete facts. (Chapter 11)
+:   An agency’s written answer to a specific question, often from a specific regulated party; narrow by design, and revealing of how the agency applies its own rules to concrete facts. (Chapter 11)
 
 persuasive authority
 :   Authority a court may consider but need not follow: primary authority from other jurisdictions, lower or coordinate courts, secondary sources, and dicta. (Chapter 1)
@@ -137,7 +137,7 @@ primary authority
 :   The law itself: constitutions, statutes, regulations, case law, and treaties. (Chapter 1)
 
 proximity connector
-:   A search connector specifying how close together terms must appear — /n within n words in either order (landlord /5 heat), /s same sentence, /p same paragraph — dramatically cutting false positives as questions narrow. (Chapter 9)
+:   A search connector specifying how close together terms must appear (/n within n words in either order, as in landlord /5 heat; /s same sentence; /p same paragraph), dramatically cutting false positives as questions narrow. (Chapter 9)
 
 Question Method
 :   The research method this book teaches: write a single research question, research it, record the answer scoped to that question, and let the answer produce the next question, repeating until closure. (Chapter 3)
@@ -149,7 +149,7 @@ research closure
 :   The professional judgment that research is good enough for its purpose; it comes in analytical and practical forms. (Chapter 3)
 
 research gap identification (Skill 4)
-:   Recognizing when a source set does not fully answer the question and articulating what would fill the gap — distinguishing ‘the law is genuinely unclear’ from ‘I have not yet found the answer.’ (Chapter 16)
+:   Recognizing when a source set does not fully answer the question and articulating what would fill the gap, distinguishing ‘the law is genuinely unclear’ from ‘I have not yet found the answer.’ (Chapter 16)
 
 Research Log
 :   The running record of the research process: each question, its type, the source consulted, the scoped answer, the citation, and the next question. (Chapter 3)
@@ -182,15 +182,15 @@ stare decisis
 :   The doctrine that courts stand by precedent: their own prior decisions and those of the courts above them. (Chapter 1)
 
 supervisory duties (Rules 5.1 & 5.3)
-:   The duties requiring lawyers with supervisory authority to make reasonable efforts to ensure that subordinate lawyers’ and nonlawyers’ work — including delegated research — conforms to professional obligations. (Chapter 12)
+:   The duties requiring lawyers with supervisory authority to make reasonable efforts to ensure that subordinate lawyers’ and nonlawyers’ work, including delegated research, conforms to professional obligations. (Chapter 12)
 
 terms and connectors
-:   The precision search mode built from Boolean operators, proximity connectors, expanders, and phrase searching. (Chapter 17)
+:   The precision search mode built from Boolean operators, proximity connectors, expanders, and phrase searching. (Chapter 2)
 
 transactional research closure
 :   The transactional closure criterion: all applicable regulatory requirements identified, tax implications analyzed, comparable transactions reviewed for market terms, risk factors addressed in the deal documentation, and due diligence complete. (Chapter 14)
 
 treatise
-:   A comprehensive scholarly treatment of a single area of law, often multivolume, organized to give the field's structure. (Chapter 3)
+:   A comprehensive scholarly treatment of a single area of law, often multivolume, organized to give the field's structure. (Chapter 4)
 
 :::

@@ -33,7 +33,7 @@ Reading a judicial opinion is harder than it sounds, and it helps to say that ou
 
 **Disposition.** What the court actually orders: affirmed, reversed, remanded, vacated, or some combination. “Affirmed” means the lower court’s decision stands. “Reversed” means it is overturned. “Remanded” means the case goes back down for further proceedings consistent with the opinion.
 
-*Two further distinctions that go deeper than reading mechanics, the difference between a holding and dictum, and how to read concurrences and dissents, are covered in Chapter 5, Beyond the Basics.*
+*Two further distinctions, holding versus dictum and how to read concurrences and dissents, are covered in Chapter 5, Beyond the Basics.*
 
 ## How to Engage With the Source
 

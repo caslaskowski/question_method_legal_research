@@ -1,6 +1,6 @@
 [\[Draft: rewritten for the new chapter order, with Legislative History and Advanced Administrative Research first. Edit freely.\]]{.flag}
 
-Part I introduced the process. Part II provides the knowledge to apply everything you have learned to more complex and varied legal research processes. The sources get more specialized, the contexts more demanding, and the stakes more explicitly professional.
+Part I introduced the process. Part II applies everything you have learned to more complex and varied research. The sources get more specialized, the contexts more demanding, and the stakes more explicitly professional.
 
 Part II opens where Part I left off, with statutes and regulations. Chapter 10 takes up legislative history, the record of what a legislature said while it was writing the law. Chapter 11 takes up the materials agencies produce beyond the regulations themselves, including where agency interpretations stand after *Loper Bright*. Both answer the question Chapters 6 and 7 leave behind: the text is on the page, so what does it mean in practice? Each follows the familiar template, so you will know exactly what to ask of it.
 
