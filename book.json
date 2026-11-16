@@ -250,11 +250,18 @@
  ],
  "downloads": [
   {
-   "file": "Question_Method_Quick_Tips.docx",
-   "title": "The Question Method Tip Sheet",
-   "desc": "Quick tips, the four question types with where to look for each, and a research checklist in three parts: before you start, every cycle (rinse and repeat), and checking out.",
-   "use": "Keep it beside you for every assignment. Run the checklist against your Research Log and research map before you call a project done.",
-   "preview": "Question_Method_Quick_Tips.pdf"
+   "file": "Question_Method_Quick_Reference.docx",
+   "title": "The Question Method Quick Reference",
+   "desc": "Quick tips, the four question types with where to look for each, and the three tools (research map, research log, annotated outline) with why each one earns its place.",
+   "use": "Keep it beside you for every assignment. When a search stalls, check which question type you are holding and whether the source matches it.",
+   "preview": "Question_Method_Quick_Reference.pdf"
+  },
+  {
+   "file": "Question_Method_Research_Checklist.docx",
+   "title": "The Research Checklist",
+   "desc": "The cycle as a checklist in three parts: before you start, every cycle (rinse and repeat, including the Quick Check), and checking out.",
+   "use": "Run it against your Research Log and research map before you call a project done. The checking-out list is the closure test.",
+   "preview": "Question_Method_Research_Checklist.pdf"
   },
   {
    "file": "Research_Log_Template.xlsx",
@@ -266,7 +273,7 @@
    "file": "Worked_Example_Notice_of_Claim.docx",
    "title": "Worked Example: Research Map, Research Log, and Annotated Outline",
    "desc": "One Arizona notice-of-claim problem run through all three tools, so you can see how a question moves from the map to the log to the outline.",
-   "use": "Read it first, then try the Notice of Claim sandbox in Chapter 3 and build your own.",
+   "use": "Read it beside Chapter 3's full demonstration, then run one cycle of your own on the same problem and compare your log to this one.",
    "preview": "Worked_Example_Notice_of_Claim.pdf"
   },
   {

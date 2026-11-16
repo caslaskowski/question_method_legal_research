@@ -513,7 +513,7 @@ def build_home():
 <h2><a href="%(p2)s">%(p2t)s</a></h2><ol class="cardlist">%(c2)s</ol>
 <h2>Appendices and resources</h2><ul class="cardlist">%(apps)s
 <li><a href="%(gl)s"><span class="cn">&#9733;</span><span class="ct">Glossary</span></a></li>
-<li><a href="%(dl)s"><span class="cn">&darr;</span><span class="ct">Downloads: tip sheet, log template, worked example</span></a></li></ul>
+<li><a href="%(dl)s"><span class="cn">&darr;</span><span class="ct">Downloads: quick reference, checklist, log template, worked example</span></a></li></ul>
 """ % {"title": esc(TITLE), "author": esc(BOOK["author"]), "first": url_front(BOOK["front"][0]["slug"]), "dl": URL_DOWNLOADS, "gl": URL_GLOSSARY, "front": front, "p1": url_part("I"), "p1t": esc(PARTS["I"]["title"]),
        "p2": url_part("II"), "p2t": esc(PARTS["II"]["title"]), "apps": apps,
        "c1": "".join(chapter_li(n) for n in PARTS["I"]["chapters"]), "c2": "".join(chapter_li(n) for n in PARTS["II"]["chapters"])}
