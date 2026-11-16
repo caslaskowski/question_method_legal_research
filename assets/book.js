@@ -259,8 +259,9 @@
 
   /* ---- explore: a diagram or set of parts; select one to read about it ------------------- */
   KINDS.explore = function (root) {
-    var list = topList(root); if (!list) return;
     var layout = opt(root, "layout") || "tabs";
+    if (layout === "database") return dbExplorer(root);
+    var list = topList(root); if (!list) return;
     var items = kids(list, "li").map(function (li) {
       var c = li.cloneNode(true), st = c.querySelector("strong"), label = "", tag = "", x = null, y = null, m;
       if (st) { label = st.innerHTML.replace(/[.:]\s*$/, ""); st.remove(); }
@@ -326,35 +327,6 @@
         else { b.style.left = (pts[i][0] / 1.6) + "%"; b.style.top = (pts[i][1] / 0.9) + "%"; }
         fig.appendChild(b);
       });
-    } else if (layout === "database") {
-      /* A generic legal database. Every control is one item of the list, in this order: five header
-         tools, the search box, the filter, advanced search, the browse tabs (items that carry a
-         nested list, shown as that tab's collections), and the support link. */
-      var tabsI = [], plain = [];
-      items.forEach(function (it, i) {
-        var d = document.createElement("div"); d.innerHTML = it.body; var ul = d.querySelector("ul");
-        if (ul) { it.links = Array.prototype.map.call(ul.children, function (li) { return li.textContent; }); ul.remove(); it.body = d.innerHTML; tabsI.push(i); } else plain.push(i);
-        btns[i].className = "hot"; btns[i].innerHTML = it.label;
-      });
-      var links = h("div", { "class": "db-links", "aria-hidden": "true" });
-      var head = h("div", { "class": "db-head" }, [h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" })]);
-      plain.slice(0, 5).forEach(function (i) { head.appendChild(btns[i]); });
-      var row = h("div", { "class": "db-row" }), search = h("div", { "class": "db-search" }, [row]);
-      if (plain[5] !== undefined) { btns[plain[5]].className = "hot db-box"; btns[plain[5]].innerHTML = "<span>" + items[plain[5]].label + "</span><b>Search</b>"; row.appendChild(btns[plain[5]]); }
-      if (plain[6] !== undefined) { btns[plain[6]].className = "hot db-filter"; btns[plain[6]].innerHTML = items[plain[6]].label + " \u25BE"; row.appendChild(btns[plain[6]]); }
-      if (plain[7] !== undefined) { btns[plain[7]].className = "hot db-adv"; search.appendChild(btns[plain[7]]); }
-      var tabbar = h("div", { "class": "db-tabs" });
-      tabsI.forEach(function (i) { btns[i].className = "hot db-tab"; tabbar.appendChild(btns[i]); btns[i].addEventListener("click", function () { showLinks(i); }); });
-      function showLinks(i) { links.innerHTML = ""; items[i].links.forEach(function (t) { links.appendChild(h("span", { text: t })); }); }
-      var foot = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
-      plain.slice(8).forEach(function (i) { foot.appendChild(btns[i]); });
-      fig.className = "try-db";
-      fig.appendChild(h("div", { "class": "db-bar", "aria-hidden": "true", html: "<i></i><i></i><i></i><span>your-legal-database.example</span><b>Demonstration</b>" }));
-      fig.appendChild(head); fig.appendChild(search); search.appendChild(tabbar); search.appendChild(links); fig.appendChild(foot);
-      if (tabsI.length) showLinks(tabsI[0]);
-      var seenN = 0, counter = h("p", { "class": "try-score", role: "status" });
-      btns.forEach(function (b) { b.addEventListener("click", function () { if (!b.classList.contains("seen")) { b.classList.add("seen"); seenN++; } counter.textContent = seenN + " of " + btns.length + " parts explored"; }); });
-      root._counter = counter; counter.textContent = "0 of " + btns.length + " parts explored";
     } else if (layout === "plot") {
       fig.appendChild(h("span", { "class": "try-axis-y", text: opt(root, "ylabel") }));
       fig.appendChild(h("span", { "class": "try-axis-x", text: opt(root, "xlabel") }));
@@ -366,46 +338,236 @@
     }
     var shell = h("div", { "class": "try-explore try-explore-" + layout }, [fig, panel]);
     list.replaceWith(shell);
-    if (layout === "database") { shell.appendChild(root._counter); panel.innerHTML = '<p class="try-hint">Select any part of the screen to read about it here.</p>'; }
-    else pick(0);
+    pick(0);
   };
 
-  /* ---- annotate: a passage with marked spans; select a span to read the note -------------- */
+  /* ---- the Database Interface Explorer: a generic legal database, three screens ----------
+     Each top-level list in the block is one screen, named by the bold paragraph before it
+     (Start page, Results, Document by default). Every list item is one part of that screen, in
+     the order README.md gives; a nested list is the part's sub-items (a tab's collections, the
+     filter facets). find="question => part name | ..." adds a find-it challenge. */
+  function parseParts(list) {
+    return kids(list, "li").map(function (li) {
+      var c = li.cloneNode(true), st = c.querySelector("strong"), label = "", tag = "", m;
+      if (st) { label = st.innerHTML.replace(/[.:]\s*$/, ""); st.remove(); }
+      if ((m = label.match(/^(.*?)\s*\|\s*(.*)$/))) { label = m[1]; tag = m[2]; }
+      var ul = c.querySelector("ul"), links = [];
+      if (ul) { links = Array.prototype.map.call(ul.children, function (x) { return x.textContent.trim(); }); ul.remove(); }
+      var ps = kids(c, "p"); if (ps.length && ps[0].innerHTML.trim() === "") ps[0].remove();
+      return { label: label, tag: tag || label.replace(/<[^>]+>/g, ""), links: links, body: (c.children.length ? c.innerHTML : "<p>" + c.innerHTML + "</p>").replace(/^<p>\s+/, "<p>") };
+    });
+  }
+  function dbExplorer(root) {
+    var head = root.querySelector(".try-head"), names = ["Start page", "Results", "Document"], screens = [], pending = null;
+    Array.prototype.slice.call(root.children).forEach(function (c) {
+      if (c.tagName === "P" && c.children.length === 1 && c.firstElementChild.tagName === "STRONG" && c.textContent.trim() === c.firstElementChild.textContent.trim()) { pending = c; return; }
+      if (c.tagName === "UL" || c.tagName === "OL") {
+        screens.push({ name: pending ? pending.textContent.replace(/[.:]\s*$/, "").trim() : names[screens.length] || "Screen " + (screens.length + 1), parts: parseParts(c), list: c });
+        if (pending) pending.remove(); pending = null;
+      }
+    });
+    if (!screens.length) return;
+    var all = [], panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite", "aria-label": "Details: " + (opt(root, "title") || ""), html: '<p class="try-hint">Select any part of the screen to read about it here.</p>' });
+    var counter = h("p", { "class": "try-score", role: "status" }), seenN = 0, finding = null;
+    function hot(it, cls, html) {
+      var b = h("button", { type: "button", "class": "hot " + (cls || ""), "aria-pressed": "false", html: html || it.label });
+      it.btn = b; all.push(it);
+      b.addEventListener("click", function () {
+        all.forEach(function (x) { x.btn.setAttribute("aria-pressed", "false"); });
+        b.setAttribute("aria-pressed", "true");
+        if (!b.classList.contains("seen")) { b.classList.add("seen"); seenN++; }
+        panel.innerHTML = '<p class="try-panel-h">' + it.tag + "</p>" + it.body;
+        counter.textContent = seenN + " of " + all.length + " parts explored";
+        if (finding) finding.check(it);
+      });
+      return b;
+    }
+    function chips(list) { var d = h("div", { "class": "db-links", "aria-hidden": "true" }); list.forEach(function (t) { d.appendChild(h("span", { text: t })); }); return d; }
+    function at(parts, i) { return parts[i]; }
+    /* screen 1: the start page */
+    function startScreen(sc) {
+      var P = sc.parts, tabsI = [], plain = [];
+      P.forEach(function (it, i) { if (it.links.length) tabsI.push(i); else plain.push(i); });
+      var fig = h("div", { "class": "db-screen" });
+      var hd = h("div", { "class": "db-head" }, [h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" })]);
+      plain.slice(0, 5).forEach(function (i) { hd.appendChild(hot(P[i])); });
+      var row = h("div", { "class": "db-row" }), search = h("div", { "class": "db-search" }, [row]);
+      if (at(P, plain[5])) row.appendChild(hot(P[plain[5]], "db-box", "<span>" + P[plain[5]].label + "</span><b>Search</b>"));
+      if (at(P, plain[6])) row.appendChild(hot(P[plain[6]], "db-filter", P[plain[6]].label + " \u25BE"));
+      if (at(P, plain[7])) search.appendChild(hot(P[plain[7]], "db-adv"));
+      var tabbar = h("div", { "class": "db-tabs" }), links = h("div", { "class": "db-links", "aria-hidden": "true" });
+      function showLinks(i) { links.innerHTML = ""; P[i].links.forEach(function (t) { links.appendChild(h("span", { text: t })); }); }
+      tabsI.forEach(function (i) { var b = hot(P[i], "db-tab"); tabbar.appendChild(b); b.addEventListener("click", function () { showLinks(i); }); });
+      search.appendChild(tabbar); search.appendChild(links); if (tabsI.length) showLinks(tabsI[0]);
+      var foot = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
+      plain.slice(8).forEach(function (i) { foot.appendChild(hot(P[i])); });
+      fig.appendChild(hd); fig.appendChild(search); fig.appendChild(foot);
+      return fig;
+    }
+    /* screen 2: a results list. Order: filters (with facets), count, sort, search within, then the
+       parts of one result: title, citation line, snippet, citator flag, save to folder. */
+    function resultsScreen(sc) {
+      var P = sc.parts, fig = h("div", { "class": "db-screen" });
+      var hd = h("div", { "class": "db-head" }, [h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" }), h("span", { "class": "db-crumb", "aria-hidden": "true", text: "Cases \u203A duty of care /s invitee /s park" })]);
+      var side = h("div", { "class": "db-side" }), main = h("div", { "class": "db-main" });
+      if (at(P, 0)) { var fb = hot(P[0], "db-facets", "<b>" + P[0].label + "</b>" + P[0].links.map(function (t) { return "<span>" + t + " \u25BE</span>"; }).join("")); side.appendChild(fb); }
+      var bar = h("div", { "class": "db-resbar" });
+      if (at(P, 1)) bar.appendChild(hot(P[1], "db-count"));
+      if (at(P, 2)) bar.appendChild(hot(P[2], "db-sort", P[2].label + " \u25BE"));
+      main.appendChild(bar);
+      if (at(P, 3)) main.appendChild(hot(P[3], "db-within", "<span>" + P[3].label + "</span>"));
+      var card = h("div", { "class": "db-result" }), top = h("div", { "class": "db-restop" });
+      if (at(P, 7)) top.appendChild(hot(P[7], "db-flag", '<i class="flag red" aria-hidden="true"></i>' + P[7].label));
+      if (at(P, 4)) top.appendChild(hot(P[4], "db-restitle"));
+      if (at(P, 8)) top.appendChild(hot(P[8], "db-save", "\u2606 " + P[8].label));
+      card.appendChild(top);
+      if (at(P, 5)) card.appendChild(hot(P[5], "db-rescite"));
+      if (at(P, 6)) card.appendChild(hot(P[6], "db-snip"));
+      main.appendChild(card);
+      main.appendChild(h("div", { "class": "db-result ghost", "aria-hidden": "true", html: '<div class="db-restop"><span class="db-flagq"><i class="flag yellow"></i>Caution</span><span class="db-t">Reyes v. Pima County Parks Dep\u2019t</span></div><div class="db-c">221 Ariz. 304, 211 P.3d 1183 (Ct. App. 2009)</div><div class="db-s">\u2026the county\u2019s duty to <mark>invitees</mark> at a public <mark>park</mark> extends to hazards it should discover\u2026</div>' }));
+      main.appendChild(h("div", { "class": "db-result ghost", "aria-hidden": "true", html: '<div class="db-restop"><span class="db-t">Booth v. State</span></div><div class="db-c">207 Ariz. 61, 83 P.3d 61 (Ct. App. 2004)</div><div class="db-s">\u2026the State owed no <mark>duty</mark> to a trespasser on unimproved land\u2026</div>' }));
+      var foot = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
+      P.slice(9).forEach(function (it) { foot.appendChild(hot(it)); });
+      fig.appendChild(hd); fig.appendChild(h("div", { "class": "db-cols" }, [side, main])); fig.appendChild(foot);
+      return fig;
+    }
+    /* screen 3: one document. Order: caption, citator flag and treatment, synopsis or headnotes,
+       the text, citing references, history, table of contents, copy with citation, add to
+       folder, previous and next result, search-term navigation. */
+    function documentScreen(sc) {
+      var P = sc.parts, fig = h("div", { "class": "db-screen" });
+      var hd = h("div", { "class": "db-head" }, [h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" })]);
+      var tools = h("div", { "class": "db-tools" });
+      if (at(P, 9)) tools.appendChild(hot(P[9], "db-tool", "\u2039 " + P[9].label + " \u203A"));
+      if (at(P, 10)) tools.appendChild(hot(P[10], "db-tool"));
+      if (at(P, 7)) tools.appendChild(hot(P[7], "db-tool"));
+      if (at(P, 8)) tools.appendChild(hot(P[8], "db-tool", "\u2606 " + P[8].label));
+      P.slice(11).forEach(function (it) { tools.appendChild(hot(it, "db-tool")); });
+      var body = h("div", { "class": "db-docbody" }), docc = h("div", { "class": "db-doc" }), side = h("div", { "class": "db-doctabs" });
+      if (at(P, 0)) docc.appendChild(hot(P[0], "db-doctitle"));
+      if (at(P, 1)) docc.appendChild(hot(P[1], "db-flag", '<i class="flag yellow" aria-hidden="true"></i>' + P[1].label));
+      if (at(P, 2)) docc.appendChild(hot(P[2], "db-syn", "<b>Synopsis</b>" + P[2].label));
+      if (at(P, 3)) docc.appendChild(hot(P[3], "db-text", "<b>Opinion</b>" + P[3].label));
+      [4, 5, 6].forEach(function (i) { if (at(P, i)) side.appendChild(hot(P[i], "db-doctab")); });
+      body.appendChild(docc); body.appendChild(side);
+      var foot = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
+      fig.appendChild(hd); fig.appendChild(tools); fig.appendChild(body); fig.appendChild(foot);
+      return fig;
+    }
+    var builders = [startScreen, resultsScreen, documentScreen], figs = screens.map(function (sc, i) { return (builders[i] || startScreen)(sc); });
+    /* the browser chrome, with one tab per screen */
+    var tabs = h("div", { "class": "db-wintabs", role: "tablist", "aria-label": "Screens of the demonstration database" }), tabBtns = screens.map(function (sc, i) {
+      var b = h("button", { type: "button", role: "tab", "class": "db-wintab", "aria-selected": i ? "false" : "true", text: sc.name });
+      b.addEventListener("click", function () { showScreen(i); });
+      return b;
+    });
+    tabBtns.forEach(function (b) { tabs.appendChild(b); });
+    var bar = h("div", { "class": "db-bar" }, [h("i"), h("i"), h("i"), tabs, h("b", { text: "Demonstration" })]);
+    var fig = h("div", { "class": "try-db", role: "group" }, [bar]);
+    figs.forEach(function (f, i) { f.hidden = i > 0; fig.appendChild(f); });
+    function showScreen(i) { figs.forEach(function (f, k) { f.hidden = k !== i; }); tabBtns.forEach(function (b, k) { b.setAttribute("aria-selected", k === i ? "true" : "false"); }); }
+    /* the find-it challenge */
+    var find = opt(root, "find") ? splitBar(opt(root, "find")).map(function (x) { var m = x.match(/^(.*?)\s*=>\s*(.*)$/); return m ? { q: m[1], tag: m[2] } : null; }).filter(Boolean) : [];
+    var actions = h("p", { "class": "try-actions" }), quiz = null;
+    if (find.length) {
+      var startBtn = h("button", { type: "button", "class": "try-btn ghost", text: "Test yourself: find it on the screen" });
+      quiz = h("div", { "class": "db-quiz", role: "region", "aria-live": "polite", hidden: "" });
+      var k = 0, right = 0;
+      function tagOf(x) { return x.replace(/<[^>]+>/g, "").toLowerCase().replace(/\s+/g, " ").trim(); }
+      function screenOf(tag) { for (var i = 0; i < screens.length; i++) { for (var j = 0; j < screens[i].parts.length; j++) if (tagOf(screens[i].parts[j].tag) === tagOf(tag)) return screens[i].name; } return ""; }
+      function ask() {
+        if (k >= find.length) { quiz.innerHTML = '<p class="good"><strong>' + right + " of " + find.length + " found on the first try.</strong> Every part you needed is somewhere on these three screens, whichever platform you sit down at.</p>"; finding = null; return; }
+        quiz.innerHTML = '<p><strong>Find it (' + (k + 1) + " of " + find.length + "):</strong> " + find[k].q + "</p>";
+        var skip = h("button", { type: "button", "class": "try-btn small ghost", text: "Skip" }); skip.addEventListener("click", function () { k++; ask(); });
+        quiz.appendChild(h("p", { "class": "try-actions" }, [skip]));
+        finding = { tried: false, check: function (it) {
+          if (tagOf(it.tag) === tagOf(find[k].tag)) { if (!finding.tried) right++; var n = h("p", { "class": "good", html: "<strong>Found it.</strong> " + it.tag + ". Next one in a moment." }); quiz.appendChild(n); k++; setTimeout(ask, 1400); }
+          else { finding.tried = true; var sc = screenOf(find[k].tag); quiz.appendChild(h("p", { "class": "bad", html: "<strong>Not that one.</strong> That is the " + it.tag.toLowerCase() + ". " + (sc ? "Look on the " + sc + " screen." : "Try again.") })); }
+        } };
+      }
+      startBtn.addEventListener("click", function () { var on = quiz.hidden; quiz.hidden = !on; startBtn.textContent = on ? "Stop the challenge" : "Test yourself: find it on the screen"; if (on) { k = 0; right = 0; ask(); } else finding = null; });
+      actions.appendChild(startBtn);
+    }
+    var shell = h("div", { "class": "try-explore try-explore-database" }, [fig, panel]);
+    screens[0].list.replaceWith(shell);
+    screens.slice(1).forEach(function (sc) { sc.list.remove(); });
+    shell.appendChild(counter); if (quiz) { shell.appendChild(actions); shell.appendChild(quiz); }
+    counter.textContent = "0 of " + all.length + " parts explored";
+  }
+
+  /* ---- annotate: a passage with marked spans; select a span to read the note --------------
+     Options on the block: parts="unlabeled" hides the part names in the passage, so the reader
+     meets the document as it is printed and learns what each sentence is by selecting it.
+     lenses="A | B" adds a switch that reads the same passage two ways; each mark then carries
+     label/note for the first lens and label2/note2 for the second (hint2 for the second hint). */
   KINDS.annotate = function (root) {
     var marks = Array.prototype.slice.call(root.querySelectorAll(".m")); if (!marks.length) return;
-    var cite = opt(root, "layout") === "cite";
+    var cite = opt(root, "layout") === "cite", unlabeled = opt(root, "parts") === "unlabeled";
+    var lenses = opt(root, "lenses") ? splitBar(opt(root, "lenses")) : [], lens = 0, current = null;
+    var hints = [opt(root, "hint"), opt(root, "hint2"), opt(root, "hint3")];
+    function sfx(k) { return k ? String(k + 1) : ""; }
+    function L(m, k) { return opt(m, "label" + sfx(k)) || opt(m, "label"); }
+    function N(m, k) { return opt(m, "note" + sfx(k)) || opt(m, "note"); }
     var panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite", "aria-label": "Explanation: " + (opt(root, "title") || ""), html: '<p class="try-hint">Select a highlighted part. Its explanation appears here.</p>' });
-    var count = h("p", { "class": "try-score" }), seen = 0, head = root.querySelector(".try-head");
+    var count = h("p", { "class": "try-score", role: "status" }), seen = lenses.length ? lenses.map(function () { return 0; }) : [0], head = root.querySelector(".try-head");
     if (cite) root.classList.add("try-cite");
+    if (unlabeled) root.classList.add("try-unlabeled");
     /* the passage sits in a document card; the explanation stays beside it (or, on a small screen,
        opens directly under the part that was selected) so the reader never has to hunt for it */
     var doc = h("div", { "class": "try-doc" }), side = h("div", { "class": "try-side" }, [panel, count]);
     Array.prototype.slice.call(root.children).forEach(function (c) { if (c !== head) doc.appendChild(c); });
     root.appendChild(h("div", { "class": cite ? "try-under" : "try-two" }, [doc, side]));
-    if (opt(root, "hint")) head.insertAdjacentElement("afterend", h("p", { "class": "try-lead", text: opt(root, "hint") }));
+    var lead = h("p", { "class": "try-lead", text: hints[0] });
+    if (hints[0]) head.insertAdjacentElement("afterend", lead);
+    if (lenses.length > 1) {
+      /* the lens switch: the same passage, read for a different purpose */
+      var seg = h("div", { "class": "try-seg try-lens", role: "group", "aria-label": "Read it" }), segBtns = lenses.map(function (name, k) {
+        var b = h("button", { type: "button", "class": "try-btn" + (k ? " ghost" : ""), "aria-pressed": k ? "false" : "true", text: name });
+        b.addEventListener("click", function () { setLens(k); });
+        return b;
+      });
+      segBtns.forEach(function (b) { seg.appendChild(b); });
+      (hints[0] ? lead : head).insertAdjacentElement("afterend", h("p", { "class": "try-actions" }, [h("span", { "class": "try-read", text: "Read it:" }), seg]));
+    }
+    function setLens(k) {
+      lens = k;
+      if (segBtns) segBtns.forEach(function (b, i) { b.setAttribute("aria-pressed", i === k ? "true" : "false"); b.classList.toggle("ghost", i !== k); });
+      marks.forEach(function (x) { x.classList.toggle("seen", !!x._seen[k]); });
+      if (hints[k]) lead.textContent = hints[k];
+      if (current) show(current); else panel.innerHTML = '<p class="try-hint">Select a highlighted part. Its explanation appears here.</p>';
+      tally();
+    }
+    function tally() { count.textContent = seen[lens] + " of " + marks.length + " read" + (lenses.length > 1 ? " (" + lenses[lens] + ")" : ""); }
     var narrow = window.matchMedia("(max-width: 820px)");
+    function show(m) {
+      var label = L(m, lens), note = N(m, lens), verdict = opt(m, "verdict");
+      if (!m._seen[lens]) { m._seen[lens] = true; seen[lens]++; }
+      m.classList.add("seen");
+      if (verdict) m.classList.add("v-" + verdict);
+      panel.innerHTML = (label ? '<p class="try-panel-h">' + label + "</p>" : "") + "<p>" + note + "</p>";
+      tally();
+      if (!cite) { if (narrow.matches) (m.closest("p,blockquote,li") || m).insertAdjacentElement("afterend", panel); else side.insertBefore(panel, count); }
+    }
     marks.forEach(function (m) {
-      var label = opt(m, "label"), note = opt(m, "note"), verdict = opt(m, "verdict"), par = m.parentElement;
+      var label = opt(m, "label"), par = m.parentElement;
+      m._seen = {};
       m.setAttribute("role", "button"); m.setAttribute("tabindex", "0"); m.setAttribute("aria-pressed", "false");
       if (label && cite) {
         var tok = h("span", { "class": "tok" }); while (m.firstChild) tok.appendChild(m.firstChild);
         m.appendChild(tok); m.appendChild(h("small", { text: label }));
       } else if (label && par && par.tagName === "P" && par.textContent.trim() === m.textContent.trim()) {
-        m.classList.add("blk"); par.classList.add("part"); par.insertBefore(h("span", { "class": "m-label", text: label }), m);   /* a whole part of the document: name it, as the page of an opinion would */
+        m.classList.add("blk"); par.classList.add("part");
+        if (!unlabeled) par.insertBefore(h("span", { "class": "m-label", text: label }), m);   /* a whole part of the document: name it, as the page of an opinion would */
       }
       function open() {
         marks.forEach(function (x) { x.setAttribute("aria-pressed", "false"); });
-        m.setAttribute("aria-pressed", "true");
-        if (!m.classList.contains("seen")) { m.classList.add("seen"); seen++; }
-        if (verdict) m.classList.add("v-" + verdict);
-        panel.innerHTML = (label ? '<p class="try-panel-h">' + label + "</p>" : "") + "<p>" + note + "</p>";
-        count.textContent = seen + " of " + marks.length + " read";
-        if (!cite) { if (narrow.matches) (m.closest("p,blockquote,li") || m).insertAdjacentElement("afterend", panel); else side.insertBefore(panel, count); }
+        m.setAttribute("aria-pressed", "true"); current = m;
+        show(m);
       }
       m.addEventListener("click", open);
       m.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
     });
-    count.textContent = "0 of " + marks.length + " read";
+    tally();
   };
 
   /* ---- checklist: tick boxes that remember ------------------------------------------------ */

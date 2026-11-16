@@ -433,6 +433,9 @@ def file_size(path):
     return "%d KB" % max(1, round(s / 1024))
 
 
+FILE_KIND = {"DOCX": "Word document", "XLSX": "Excel spreadsheet", "PDF": "PDF", "CSV": "CSV spreadsheet", "TXT": "plain text file"}
+
+
 def build_downloads():
     url = URL_DOWNLOADS
     items = BOOK["downloads"]
@@ -443,13 +446,18 @@ def build_downloads():
             print("  warning: missing download", path)
             continue
         ext = d["file"].rsplit(".", 1)[-1].upper()
+        kind = FILE_KIND.get(ext, ext + " file")
+        size = file_size(path)
         extra = ""
         if d.get("preview"):
-            extra = ' <a class="btn ghost" href="%s">Preview (PDF)</a>' % esc(d["preview"])
+            extra = (' <a class="btn ghost" href="%s" aria-label="Preview %s as a PDF, opens in this tab">Preview (PDF)</a>'
+                     % (esc(d["preview"]), esc(d["title"])))
+        # The visible button says only "Download DOCX"; the label tells a screen reader what the
+        # file is, what kind of file it is, and how big it is.
         cards.append(
-            '<li class="dl"><div><h2>%s</h2><p>%s</p><p class="dl-use"><strong>Use it:</strong> %s</p></div>'
-            '<div class="dl-actions"><a class="btn" href="%s" download>Download %s <small>%s</small></a>%s</div></li>'
-            % (esc(d["title"]), esc(d["desc"]), esc(d["use"]), esc(d["file"]), ext, file_size(path), extra))
+            '<li class="dl"><div><h2 id="dl-%d">%s</h2><p>%s</p><p class="dl-use"><strong>Use it:</strong> %s</p></div>'
+            '<div class="dl-actions"><a class="btn" href="%s" download aria-label="Download %s, %s, %s">Download %s <small>%s</small></a>%s</div></li>'
+            % (len(cards) + 1, esc(d["title"]), esc(d["desc"]), esc(d["use"]), esc(d["file"]), esc(d["title"]), kind, size, ext, size, extra))
     body = ('<header class="chead"><h1>Downloads</h1></header>'
             '<p class="lede">Print these. Fill them in. Keep them beside you every time you research. Everything here is free to use and to share in class.</p>'
             '<ul class="dllist">%s</ul>'
