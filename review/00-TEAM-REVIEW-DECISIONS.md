@@ -119,3 +119,28 @@ Serve the site (`python3 -m http.server`); fonts are blocked under `file://`.
 - **Glossary**: the new entries in the flashcards. **Downloads**: untouched except the rebuilt DOCX files; once the `book.json` fields are set, check the footer and page two of the whole-book DOCX. **Print preview**: the footer line at the end, masthead and pager hidden.
 
 The headless check after each stage (every page over HTTP; the sorts, order, checklist and annotate exercised) reported no console errors.
+
+## 6. Knowledge checks added
+
+Eighteen `choice` interactives modelled on Chapter 5's "Read the flag, then read the case": a short scenario, one question, three or four options, feedback on every option, the right answer being the method's move rather than the quick one. Each sits immediately after the paragraph it tests, adds no other prose, and was built with `python3 build.py` ending in "checks passed" (commits `d044231`, `5b7b5c7`, `46a5842`, `db50a24`). Chapters 12 and 14 were left without one because their existing interactives (the Rule 3.3 sort and the citation annotate; the three-practices switch) already practise the judgments a check there would test; Chapter 16 already had two. Where two options are defensible the feedback says so.
+
+| File | Title | The judgment it tests |
+|---|---|---|
+| ch-01 | Which door first? | Unsure whether an area is statutory or common law: start in a secondary source rather than guess the level of law |
+| ch-02 | A wall of results | Too many results: set jurisdiction and source-type filters rather than scroll, exclude with NOT, or change search mode |
+| ch-03 | Eleven at night, and a case that looks perfect | The Quick Check: when tired, write the two lines for future you and stop, rather than log a case or run a Checkpoint you cannot judge |
+| ch-04 | Twenty more pages | Stop reading a secondary source when the question is answered; mine the footnotes and map the rest as later questions |
+| ch-05 | A cold search, or let the editors hand you the case | A focusing question's entry point: let a secondary source or annotation hand you the leading case (a keyword search is defensible, slower); the application question comes later |
+| ch-06 | No definition in the section you are reading | Read the chapter's definitions section before the Notes of Decisions, ordinary meaning, or a case search |
+| ch-07 | From the statute to its regulation | Reaching the regulation: the annotated code's Implementing Regulations note and retrieval, before a CFR keyword search (the agency site is a defensible route) |
+| ch-08 | How do I know I have found everything? | Coverage on a complex project: audit the log by authority type and run the return pass; no new sources is not closure |
+| ch-09 | Nothing new in the last three searches | Is the research closed: run the six-step protocol; a meetable deadline is not practical closure |
+| ch-10 | Is it time to open the record? | The entry ticket to legislative history: cases and regulations first, the record only if the ambiguity survives them |
+| ch-11 | The number is in the manual, not the rule | Agency guidance: log it with its authority level first, neither as the rule nor left out |
+| ch-13 | Six citations in a brief | A brief's citations are leads to read for the proposition, not findings for the outline |
+| ch-15 | Three questions, one chatbot | Which question types to bring to a general-purpose generative tool: exploratory and focusing, verified; application to a database and citator |
+| ch-17 | An article in your area | Preemption: read the near neighbor for its thesis and write the contribution sentence before pivoting |
+| a.md | Six footnoted cases | Which footnoted case to read for a focusing question in your state; log the rest as leads |
+| c.md | The rule squarely covers your client | Read scope, definitions and exceptions before concluding the operative section reaches the client; headings do not bind |
+| d.md | The number is not in the CFR | An incorporated standard is law: "what does it require?" is the next research question |
+| e.md | Your Q3 is not the model's Q3 | Comparing a chain to the model: the test is whether each question was earned by the answer before it, not whether the order matches |
