@@ -2,6 +2,19 @@ This appendix holds the model chains and answers for the single-source drills in
 
 Your questions will not match the model’s word for word, and they should not. What matters is whether each of your questions was earned by the answer before it. Where your chain diverged from the model’s, ask which version can point to the stated answer that produced its next question. Divergence can be a good sign. A question that arrived from nowhere is the thing to fix.
 
+::: {.try kind="choice" title="Your Q3 is not the model's Q3"}
+You have finished the Chapter 6 drill and opened this appendix to compare. Your third question is not the model's third question: you asked about the penalty provision where the model asked about exceptions. What do you conclude?
+
+- [ ] Your chain is wrong. Rewrite Q3 to match the model and rerun from there.
+    - The model is one defensible route. Matching its wording teaches you to copy a chain, and the drill exists to teach you to build one.
+- [x] Ask whether your Q3 was earned by your Q2's answer. If it was, the order is a choice, and a defensible one; note it and compare the rest.
+    - Both the penalty and the exceptions are sibling questions the operative provision raised. Which you took first is a judgment, and the test is that you can point to the answer that produced it. A question that arrived from nowhere is the thing to fix.
+- [ ] The model is wrong. Your order is more logical.
+    - Perhaps, for your reasons, and you should say what they are. The comparison asks one thing of both chains: does each question follow from the answer before it?
+- [ ] Skip the comparison for Q3 and check only the answers.
+    - The answers are scoped to their questions, so a comparison that ignores the questions cannot tell you much. The questions are where the method lives.
+:::
+
 A note on the answers. The answers here are scoped to their questions. Where the governing law is settled, they anchor to real authority; where a specific number, holding, or citation would go, you will see brackets. Confirm every anchored authority and fill every bracket against current primary law before you rely on any of this. The citations illustrate the method. They do not substitute for your own verification, and each walkthrough ends with a short reminder of what to check.
 
 ## The Chapter 4 Drill: Where Do I Even Start?

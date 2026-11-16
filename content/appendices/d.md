@@ -37,6 +37,19 @@ If reading a statute calls for close attention to text, reading a regulation cal
 
 **Follow incorporations by reference.** Regulations sometimes incorporate outside standards (ASTM, ANSI, ISO) by reference. The incorporated standard has the force of law even though its text never appears in the CFR, so “what does the incorporated standard require?” is a real research question, not a detail you can skip.
 
+::: {.try kind="choice" title="The number is not in the CFR"}
+Your client asks how much force a guardrail on the site must withstand. The regulation says guardrails must meet a named ANSI standard, incorporated by reference, and the CFR section prints no number. What do you tell the client?
+
+- [ ] That the regulation sets no specific requirement.
+    - It does. The incorporated standard has the force of law even though its text never appears in the CFR. Telling the client there is no number is telling the client the law is silent when it is not.
+- [x] Nothing yet. “What does the incorporated standard require?” is your next research question, and you locate the standard before you answer.
+    - The CFR has handed you a citation to a document outside itself, and the method treats that like any other lead: retrieve, read, log. Many incorporated standards are available through the agency or a standards reading room.
+- [ ] That compliance is a technical question for the client's engineer.
+    - The engineer will need the standard too, and the client asked you what the law requires. The standard is part of the law. How the site meets it is the engineer's question.
+- [ ] Cite the CFR section and let the client find the standard.
+    - A citation to a pointer is not an answer. If you cannot say what the standard requires, your outline has a gap at the one point the client asked about.
+:::
+
 **Confirm currency before you rely on it.** Regulations change frequently. Verify you are reading the current version using the eCFR, the List of CFR Sections Affected (LSA), the Federal Register, and a citator. Stopping at the CFR text without checking for recent amendments is one of the most common regulatory research errors.
 
 ::: {.try kind="explore" layout="stack" title="What you read alongside a regulation"}

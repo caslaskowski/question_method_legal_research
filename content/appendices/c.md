@@ -15,6 +15,19 @@ Arizona’s workers’ compensation definitions treat as a compensable injury [a
 
 **Structural Provisions.** Scope and applicability clauses, general rules, specific obligations, exceptions, enforcement and penalty provisions, and effective dates. Knowing where a provision sits in that structure tells you how it interacts with the rest. Give exception language particular respect: phrases like “except that,” “provided, however,” and “unless” carry as much weight as the rule itself, because a client whose conduct falls within an exception is not subject to the statute no matter how squarely the general rule seems to apply.
 
+::: {.try kind="choice" title="The rule squarely covers your client"}
+Section 4 of a state statute states a general rule that plainly requires what your client failed to do. You have read § 4 twice and it is unambiguous. Is the statutory question answered?
+
+- [ ] Yes. Log § 4 as the rule and move to the cases that have applied it.
+    - You have read one section of a scheme. A client whose conduct falls within an exception is outside the statute no matter how squarely the general rule reads, and exceptions often sit several sections away.
+- [x] Not yet. Read the chapter's scope section, its definitions, and its exceptions before you conclude § 4 reaches the client.
+    - The operative provision is almost never the whole answer. “Except that,” “unless,” and “notwithstanding” carry as much weight as the rule, and a defined term in § 4 may mean something narrower than it appears. Read the section in its context, then log.
+- [ ] Yes, if the section heading describes your client's situation.
+    - Headings are often the codifier's description, and courts treat them as non-binding. The scope and applicability clause is where the statute says whom it reaches.
+- [ ] No. A statute never answers a question without a case construing it.
+    - Statutes often do, when the text is clear and the definitions and exceptions are read with it. The cases come when the text leaves something open.
+:::
+
 **Cross-References.** Statutes refer to other sections constantly. Each cross-reference incorporates additional rules, so follow every one rather than reading a section in isolation.
 
 **History and Credits.** Found at the end of the statutory text or in the annotations, the history notes tell you when the section was enacted and how it has been amended over time. They also supply the Public Law number and Statutes at Large citation you will need if an ambiguity sends you into legislative history research (Chapter 10).
