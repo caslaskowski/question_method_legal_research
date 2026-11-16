@@ -120,8 +120,12 @@ th,td{border:1px solid var(--rule-strong);padding:8px 12px;text-align:left;verti
 th{background:var(--navy);color:#fff;font-weight:700;}
 td p{font-size:inherit;margin:0;}
 @media print{
-  .masthead,.toc,.pager,.draftbar,.foot,.try-actions,.try-bins,.try-move,.try-q,.try-seg,.try-chips{display:none!important;}
+  @page{margin:2cm;}
+  .masthead,.toc,.pager,.draftbar,.try-actions,.try-bins,.try-move,.try-q,.try-seg,.try-chips,.noprint{display:none!important;}
   body{padding-bottom:0;}
+  .foot{display:block;font-size:.8rem;color:#000;border-top:1px solid #000;padding-top:6px;margin-top:24px;}
+  .foot .wrap{display:block;}
+  a[href^="http"]::after{content:" (" attr(href) ")";font-size:.85em;}
 }
 
 /* previous / next: a bar that stays at the bottom of the screen */

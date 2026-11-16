@@ -295,6 +295,32 @@ def describe(body):
     return (t[:157] + "\u2026") if len(t) > 160 else t
 
 
+def pub_meta(page_url):
+    """License, canonical URL and edition metadata, from the optional book.json fields (nothing until the author sets them)."""
+    out = []
+    if BOOK.get("license_url"):
+        out.append('<link rel="license" href="%s">' % esc(BOOK["license_url"]))
+    if BOOK.get("url"):
+        out.append('<link rel="canonical" href="%s%s">' % (esc(BOOK["url"].rstrip("/") + "/"), page_url))
+    if BOOK.get("license"):
+        out.append('<meta name="dcterms.rights" content="%s">' % esc(BOOK["license"]))
+    if BOOK.get("edition_date"):
+        out.append('<meta name="dcterms.date" content="%s">' % esc(BOOK["edition_date"]))
+    return "".join(x + "\n" for x in out)
+
+
+def pub_line():
+    """The footer's license and edition, when book.json has them; also what a printed page carries."""
+    bits = []
+    if BOOK.get("license"):
+        bits.append(('<a rel="license" href="%s">%s</a>' % (esc(BOOK["license_url"]), esc(BOOK["license"]))) if BOOK.get("license_url") else esc(BOOK["license"]))
+    if BOOK.get("edition"):
+        bits.append(esc(BOOK["edition"]) + ((", " + esc(BOOK["edition_date"])) if BOOK.get("edition_date") else ""))
+    if BOOK.get("url"):
+        bits.append(esc(BOOK["url"]))
+    return "".join(" " + b + "." for b in bits)
+
+
 def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker="", head="", body_class=""):
     base = "../" * depth
     desc = describe(body)
@@ -319,7 +345,8 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>%(title)s &mdash; %(book)s</title>
-%(head)s%(desc)s<link rel="preload" href="%(base)sassets/fonts/lato-400-normal.woff2" as="font" type="font/woff2" crossorigin>
+<meta name="author" content="%(author)s">
+%(head)s%(desc)s%(pubmeta)s<link rel="preload" href="%(base)sassets/fonts/lato-400-normal.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="preload" href="%(base)sassets/fonts/zilla-slab-700.woff2" as="font" type="font/woff2" crossorigin>
 <link rel="stylesheet" href="%(base)sassets/book.css">
 </head>
@@ -343,8 +370,8 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 </article>
 </main>
 <footer class="foot"><div class="wrap">
-  <span>%(book)s. By %(author)s.</span>
-  <span>Nothing you type on these pages leaves your device.</span>
+  <span>%(book)s. By %(author)s.%(publine)s</span>
+  <span class="noprint">Nothing you type on these pages leaves your device.</span>
 </div></footer>
 %(pager)s
 <script src="%(base)sassets/book.js"></script>
@@ -353,7 +380,8 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
 """ % {"title": esc(title), "book": esc(TITLE), "sub": esc(BOOK["subtitle"]), "base": base, "menu": nav_menu(depth),
        "dl": base + URL_DOWNLOADS, "gl": base + URL_GLOSSARY, "se": base + URL_SEARCH, "banner": banner,
        "desc": ('<meta name="description" content="%s">\n' % esc(desc)) if desc else "", "toc": toc_html, "pager": pager_html,
-       "body": body, "head": head, "bc": (' class="%s"' % body_class) if body_class else "", "wide": "wide" if wide else "", "author": esc(BOOK["author"]), "kicker": kicker}
+       "body": body, "head": head, "bc": (' class="%s"' % body_class) if body_class else "", "wide": "wide" if wide else "", "author": esc(BOOK["author"]), "kicker": kicker,
+       "pubmeta": pub_meta(page_url), "publine": pub_line()}
 
 
 # --------------------------------------------------------------------------------------
@@ -555,7 +583,12 @@ def build_study_guide():
 
 def build_whole_book():
     """One DOCX of the whole book, for reading offline or printing. Interactives become a one-line pointer."""
-    parts = ['---\ntitle: "%s"\nsubtitle: "%s"\nauthor: "%s"\n---\n' % (TITLE, BOOK["subtitle"], BOOK["author"])]
+    meta = 'title: "%s"\nsubtitle: "%s"\nauthor: "%s"\n' % (TITLE, BOOK["subtitle"], BOOK["author"])
+    if BOOK.get("edition_date"):
+        meta += 'date: "%s"\n' % BOOK["edition_date"]
+    if BOOK.get("license"):
+        meta += 'rights: "%s"\n' % BOOK["license"]
+    parts = ["---\n" + meta + "---\n"]
     def clean(md):
         # in-text interactives print as their own content (the list or passage), under a one-line label
         md = re.sub(r'(?m)^::: \{\.try kind="(\w+)"(?: title="([^"]*)")?[^}]*\}\s*$',
@@ -599,7 +632,8 @@ def check():
                 pages.append(os.path.join(dp, fn))
     for pg in pages:
         s = open(pg, encoding="utf-8").read()
-        for m in re.finditer(r'(?:src|href)="(https?:)?//[^"]+"', s):
+        # rel="license" and rel="canonical" (from book.json, when set) are metadata the browser never fetches
+        for m in re.finditer(r'(?:src|href)="(https?:)?//[^"]+"', re.sub(r'<(?:link|a) rel="(?:license|canonical)"[^>]*>', "", s)):
             problems.append("%s: external reference %s" % (os.path.relpath(pg, ROOT), m.group(0)))
         ids = re.findall(r' id="([^"]+)"', s)
         dup = {i for i in ids if ids.count(i) > 1}
@@ -607,7 +641,7 @@ def check():
             problems.append("%s: duplicate ids %s" % (os.path.relpath(pg, ROOT), sorted(dup)[:5]))
         for m in re.finditer(r'(?:href|src)="([^"#?]+)(#[^"]*)?"', s):
             u = m.group(1)
-            if re.match(r"^(mailto:|data:|javascript:)", u) or u.startswith("/"):
+            if re.match(r"^(mailto:|data:|javascript:|https?://)", u) or u.startswith("/"):
                 continue
             target = os.path.normpath(os.path.join(os.path.dirname(pg), u))
             if not os.path.exists(target):

@@ -44,7 +44,7 @@ Sometimes your jurisdiction has no law on the precise question, but a neighborin
 
 **Question 1 (Focusing).** What must a defendant show to prevail on a Nevada anti-SLAPP special motion to dismiss?
 
-**Answer, scoped to the question.** Nevada’s anti-SLAPP statute (NRS 41.635-41.670) sets up a two-step special motion. First, the defendant must show the claim is based on a protected “good faith communication in furtherance of the right to petition or the right to free speech in direct connection with an issue of public concern.” If the defendant carries that burden, the second step shifts to the plaintiff to show a probability of prevailing on the claim.
+**Answer, scoped to the question.** Nevada’s anti-SLAPP statute (NRS 41.635–41.670) sets up a two-step special motion. First, the defendant must show the claim is based on a protected “good faith communication in furtherance of the right to petition or the right to free speech in direct connection with an issue of public concern.” If the defendant carries that burden, the second step shifts to the plaintiff to show a probability of prevailing on the claim.
 
 The motion turns first on whether the client’s posts are protected. The relevant protected category here is speech on a matter of public concern made in a public forum. So the next question is whether posts in this particular forum qualify, and here the facts about where and to whom the client spoke start to matter.
 
@@ -72,7 +72,7 @@ Because Nevada borrowed the statute from California and its courts read the para
 
 ## ADA Website Accessibility (Chapter 8)
 
-**Research Question:** Must a business make its website accessible to persons with disabilities under the ADA?
+**Macro question:** Must a business make its website accessible to persons with disabilities under the ADA?
 
 **Step 1, Secondary Source (Orientation).** Begin with *Am. Jur. 2d* or a disability law treatise. The secondary source identifies 42 U.S.C. § 12182 (Title III, public accommodations) as the key statutory provision and notes that courts are divided on whether websites count as “public accommodations.” Next question: does Title III apply to websites?
 

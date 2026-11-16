@@ -70,7 +70,19 @@ An interactive is a fenced block in the chapter's Markdown. Its content is ordin
 | `switch` | Changes a setting (the courtroom, the practice context) and watches every row change | A table. First column: the rows. Each further column: one setting. A cell may open with a bold status such as `**Binding.**`. `label="..."` is the question above the buttons. |
 | `flashcards` | Flips through a definition list | Used by `content/glossary.md`. |
 
-Two rules keep them useful. Keep each one to a single screen: about six rows in a sorter. And do not let an interactive repeat the paragraph above it; give it new examples, or turn the paragraph's own list into the interactive.
+Two rules keep them useful. Keep each one to a single screen: about six rows in a sorter. And do not let an interactive repeat the paragraph above it; give it new examples, or turn the paragraph's own list into the interactive. In print and in the DOCX the answers are visible beside the items; the interactives are for the screen, the text is for the record.
+
+## Adapting this book for your course
+
+Everything you would change is in `content/` and `book.json`; nothing in `build.py`, `assets/` or the built folders needs to be touched. Keep the attribution to the author and say what you changed; the license the author chooses governs the rest (see the `license` fields in `book.json`, which the footer, the page metadata and the DOCX read once they are set).
+
+- **Title, author, subtitle, publication facts:** `book.json` (`title`, `subtitle`, `author`, and the `license`, `license_url`, `url`, `edition` and `edition_date` fields, which are null until the author sets them).
+- **Jurisdiction:** the Arizona material is confined to Chapter 1 (hierarchy examples), Appendix A (the premises-liability secondary source), Appendix B (*Markowitz*), Appendix C (A.R.S. § 23-901), the Chapter 3 Notice of Claim sandbox and the Worked Example in `downloads/`. `grep -n "Arizona\|A\.R\.S\.\|Ariz\." content/` lists every line. The Chapter 3 demonstration, the organic-labeling thread and all of Part II are federal.
+- **Hypotheticals and the fictional universe:** every search lab (`kind="search"`) and sorter holds its own fictional cases; rewrite the bullets and keep the `**Title | on point.**` form. The eight fictional employment cases in Chapter 2 and the four in Chapter 9 are the only "universe"; nothing else depends on them.
+- **Real cases:** every real case is cited in full on first use in each chapter, in a reporter a free database resolves; keep that rule when you substitute your own cases, and label invented cases as fictional in the sentence before the interactive, as Chapters 2 and 9 do.
+- **Hiding answers:** Appendices E, H and I are student-visible. Remove them from `book.json` `appendices` for a student build and keep a second `book.json` for the instructor build.
+- **Downloads:** replace the files in `downloads/` and their entries in `book.json` `downloads`; the Research Log template, the whole-book DOCX and the two study aids regenerate on every build.
+- **Rebuild:** `python3 build.py`, then commit the output; CI checks that the committed site matches the sources.
 
 ## Draft flags
 
@@ -86,4 +98,4 @@ The site makes no external requests (fonts are self-hosted; `build.py` fails if 
 
 ## Look and fonts
 
-The pages follow the textbook: Lato for text, Zilla Slab for titles, navy and orange from the cover, teal section heads, crimson for defined terms and for the previous/next bar that stays at the bottom of the screen. Lato, Zilla Slab and IBM Plex Mono are in `assets/fonts/` under the SIL Open Font License; nothing is fetched from a font service. `"draft": false` in `book.json` keeps the yellow editorial flags off the published pages; set it to `true` to see them while editing.
+The pages follow the textbook: Lato for text, Zilla Slab for titles, navy and orange from the cover, teal section heads, crimson for defined terms and for the previous/next bar that stays at the bottom of the screen. Lato, Zilla Slab and IBM Plex Mono are in `assets/fonts/` under the SIL Open Font License, whose text and the three copyright notices are in `assets/fonts/OFL.txt`; nothing is fetched from a font service. `"draft": false` in `book.json` keeps the yellow editorial flags off the published pages; set it to `true` to see them while editing.

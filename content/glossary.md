@@ -41,7 +41,7 @@ Checkpoint
 :   The pause that asks whether the research is working: are the sources current, authoritative, and from the right jurisdiction, and did the sequence of questions capture the full scope of the issue? Taken whenever the research feels off, and formally before closing out. (Chapter 3)
 
 citator
-:   A tool (KeyCite or Shepard's) that tracks an authority's subsequent history and treatment, showing whether it remains good law. (Chapter 5)
+:   A tool, such as KeyCite or Shepard's, that tracks an authority's subsequent history and treatment, showing whether it remains good law. Free sources list citing cases without the treatment signals. (Chapter 5)
 
 closed universe
 :   The provided-materials exam format: a fixed set of sources over which you run a compressed Question Method cycle; nothing outside the set may be relied on. (Chapter 16)

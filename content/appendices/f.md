@@ -42,7 +42,7 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Findings | A curricular student newspaper is not a public forum unless school officials have opened it, by policy or by practice, for indiscriminate use by the general public or some segment of it. Absent that, educators may exercise editorial control over the style and content of student speech in school-sponsored expressive activities so long as their actions are reasonably related to legitimate pedagogical concerns. The Court distinguished *Tinker*: tolerating student speech is a different question from affirmatively promoting it. Answers the question fully, for the governing rule. The rule arrives with undefined working parts, each a sub-question. |
 | Source Consulted | *Hazelwood School District v. Kuhlmeier*, 484 U.S. 260 (1988) |
 | Next Question | What makes a student publication “school-sponsored” under *Hazelwood*? |
-| Notes | Sub-questions mapped onto the outline under item II, in the rule’s own order: (a) school-sponsored; (b) legitimate pedagogical concern; (c) public forum “by policy or by practice.” |
+| Notes | Sub-questions mapped onto the outline under item 2, in the rule’s own order: (a) school-sponsored; (b) legitimate pedagogical concern; (c) public forum “by policy or by practice.” |
 
 | **Field** | **Entry** |
 |---|---|
@@ -52,7 +52,7 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Findings | School-sponsored expressive activities are those that students, parents, and members of the public might reasonably perceive to bear the imprimatur of the school: fairly characterized as part of the curriculum, whether or not they occur in a traditional classroom setting, so long as they are supervised by faculty and designed to impart particular knowledge or skills. Answers the question fully. The opinion defines its own term. |
 | Source Consulted | *Hazelwood*, 484 U.S. 260 |
 | Next Question | What is a “legitimate pedagogical concern” under *Hazelwood*? |
-| Notes | Research pause taken: application bracketed at outline II.a (journalism class; faculty advisor; published under the school’s name). |
+| Notes | Research pause taken: application bracketed at outline 2.1 (journalism class; faculty advisor; published under the school’s name). |
 
 | **Field** | **Entry** |
 |---|---|
@@ -62,7 +62,7 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Findings | The opinion illustrates more than it defines: ensuring participants learn what the activity is designed to teach, that readers are not exposed to material inappropriate for their maturity, and that a speaker’s views are not erroneously attributed to the school; a school may decline to sponsor speech that is ungrammatical, poorly written, inadequately researched, biased, vulgar, or unsuitable for immature audiences. In the case itself, the privacy of pregnant students, the fairness owed a criticized parent, and younger readers’ exposure to frank material qualified. Answers the question fully as to the recognized categories; the outer limits remain open. |
 | Source Consulted | *Hazelwood*, 484 U.S. 260 |
 | Next Question | In what circumstances have courts found that a school’s removal of a student newspaper article was not reasonably related to legitimate pedagogical concerns? |
-| Notes | Research pause: the file’s account of the removal (articles the principal did not like; no profanity, threats, or illegality) maps onto no recognized category; bracketed at II.b. That is what makes the outer-limits cases the next question. |
+| Notes | Research pause: the file’s account of the removal (articles the principal did not like; no profanity, threats, or illegality) maps onto no recognized category; bracketed at 2.2. That is what makes the outer-limits cases the next question. |
 
 | **Field** | **Entry** |
 |---|---|
@@ -71,7 +71,7 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Method | Case law search plus a citator trace of *Hazelwood*, looking for negative or distinguishing treatment. No lead on the map. |
 | Findings | The standard does not authorize viewpoint-based censorship or restrictions unconnected to any educational purpose. Answers the question partially. The limits are clear; the closest analogues are still being gathered. |
 | Source Consulted | *Dean v. Utica Community Schools*, 345 F. Supp. 2d 799 (E.D. Mich. 2004) \[slot for a second on-point case in the cite-check pass\] |
-| Next Question | When is a school publication a public forum “by policy or by practice”? (*Dean* turned on this; it is already parked at outline II.c.) |
+| Next Question | When is a school publication a public forum “by policy or by practice”? (*Dean* turned on this; it is already parked at outline 3.) |
 | Notes | FALSE HIT logged and discarded: *Kennedy v. Bremerton* (coach’s prayer; different doctrine). The precise question is what caught it. |
 
 | **Field** | **Entry** |
@@ -82,7 +82,7 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Findings | School facilities are nonpublic forums unless school authorities have, by policy or by practice, opened them for indiscriminate use by the general public or some segment of it. *Dean* runs the inquiry on a student paper by examining the written policy and the paper’s actual practice: who exercised control over content, whether students made the publication decisions in fact, and how the paper functioned over time. Answers the question fully as to the test. Applying it stalled on missing facts. |
 | Source Consulted | *Hazelwood*, 484 U.S. 260; *Dean*, 345 F. Supp. 2d 799 |
 | Next Question | None for the databases. Fact-gathering task opened instead: client call on who decides content, any prior control by the advisor or principal, and whether outside contributions have ever been accepted. |
-| Notes | The writing step revealed the missing facts; those are investigation, not research. Client answers suggest the paper has been run as a nonpublic forum. Forum status bracketed at II.c as a point the other side may contest, on *Dean*’s model. |
+| Notes | The writing step revealed the missing facts; those are investigation, not research. Client answers suggest the paper has been run as a nonpublic forum. Forum status bracketed at 3 as a point the other side may contest, on *Dean*’s model. |
 
 | **Field** | **Entry** |
 |---|---|
