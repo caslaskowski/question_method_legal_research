@@ -25,6 +25,19 @@ Secondary sources are the ones that talk *about* the law rather than *being* the
 
 **Mine the footnotes for primary authority, in the order your question dictates.** This is where my student’s question comes back. When a passage’s footnotes point to half a dozen cases, you do not read all six. You read the one that answers the question you are holding right now, and you log the rest as later questions with their citations noted. The narrative tells you what the law is; the footnotes tell you where to confirm it.
 
+::: {.try kind="choice" title="Six footnoted cases"}
+The sentence in the encyclopedia entry that answers your question carries a footnote citing six cases from three states. Your question is a focusing one about your own state's rule. Which do you read?
+
+- [ ] All six. The entry chose them for a reason.
+    - It chose them to support a national summary. Reading all six answers a survey question you did not ask and costs an afternoon.
+- [x] The one from your state that states the rule, and log the other five as leads with the footnote's citations.
+    - You read the case that answers the question you are holding. The others stay on the map with their citations, so that if a later question asks how other states have read the rule, the leads are waiting.
+- [ ] None. Cite the encyclopedia; it states the rule clearly.
+    - The entry is a map. With rare exceptions, the authority you cite is the case the footnote points to, and you cite it only after reading it.
+- [ ] The most recent one, whatever state it comes from.
+    - Recency answers a currency question. Jurisdiction is a different question, and a fresh decision from another state persuades at most, while the older in-state case may bind.
+:::
+
 **Confirm against primary authority, and check currency.** A secondary source can be out of date, can oversimplify, or can simply be wrong. Use it to find and understand the law, then go read the primary authority it points to and verify the rule yourself. Note the source’s “current through” date or check its pocket part, because doctrine described in an older edition may since have changed.
 
 **Cite primary authority, not the secondary source.** With narrow exceptions (a Restatement section a court has adopted, a leading treatise on an unsettled point), you build your argument on the primary authority the secondary source led you to, not on the secondary source itself.
