@@ -70,9 +70,9 @@ Check your chain against this walkthrough one question at a time.
 
 **\*Relevance discovered:** Suppose the state follows the prior-similar-incidents test. Then whether earlier crimes occurred at or near this store, and how similar, how recent, and how numerous they were, suddenly matters, facts you had no reason to gather until the test revealed them. Had the state used the totality test instead, a broader set of facts would matter: neighborhood crime, lighting, the nature of the business. Note the facts the chosen test makes relevant.\*
 
-**Q3. Under that test, were there enough similar prior crimes at this location to make the assault foreseeable?** *(Application, fact-finding)*
+**Q3. Under that test, how many prior crimes, how similar and how recent, have courts required before holding an assault foreseeable?** *(Application, fact-finding)*
 
-*Answer:* The student finds state decisions applying the test to comparable facts and compares them to the client’s facts, identifying which facts the courts treated as dispositive: the number, proximity, recency, and similarity of any prior incidents.
+*Answer:* The student finds state decisions applying the test and pins down which facts the courts treated as dispositive: the number, proximity, recency, and similarity of prior incidents. Then a research pause: the comparison to this store’s own history goes into the outline in brackets, under the foreseeability element.
 
 *If the analogous cases line up one way, the duty question resolves. If they split or are distinguishable, deepen into the closest analog.*
 
@@ -82,7 +82,7 @@ Check your chain against this walkthrough one question at a time.
 
 **\*Precision trap:** A search will surface cases on an employer’s duty to its employees, or a landlord’s duty to tenants. Those involve a different special relationship and a different line of authority. The precise question, a business owner’s duty to a customer, lets you set them aside rather than chase them.\*
 
-**Closure.** Analytical. The case law establishes the general no-duty rule, the special-relationship exception, the foreseeability test the state follows, and how analogous cases apply it to the client’s facts. Every question is answered or identified as genuinely close, all within case law, and you can now state whether a duty likely existed. Whether the store then breached that duty, and questions of causation and damages, are separate elements, but the attorney asked only about duty, so you have reached closure on the assigned question. Flag the remaining elements as out of scope.
+**Closure.** Analytical. The case law establishes the general no-duty rule, the special-relationship exception, the foreseeability test the state follows, and how analogous cases have applied it; the client’s facts sit beside those cases in the outline’s brackets. Every question is answered or identified as genuinely close, all within case law, and you can now state whether a duty likely existed. Whether the store then breached that duty, and questions of causation and damages, are separate elements, but the attorney asked only about duty, so you have reached closure on the assigned question. Flag the remaining elements as out of scope.
 
 **What this drill builds.** Moving from a focusing question to fact-driven application, identifying the dispositive facts in an opinion and comparing them to a client’s facts, distinguishing adverse authority, and using a precisely scoped question to discard the wrong line of cases. These are the named case-law competencies the chapter teaches.
 
@@ -206,9 +206,9 @@ This is the model for the capstone. Check your chain against it one question at 
 
 **\*Relevance discovered:** Whether the client will fly over people, near airports in controlled airspace, or at night now matters, because the regulation conditions its requirements on exactly those facts. Gather them.\*
 
-**Q4. Does the client’s planned operation fall within Part 107’s limits, or does it need a waiver or authorization?** *(Application: regulation and agency guidance)*
+**Q4. How has the FAA applied Part 107’s operational limits, including when it requires a waiver or authorization, to flights like the client’s planned one?** *(Application: regulation and agency guidance)*
 
-*Answer:* Reading Part 107 together with FAA guidance reveals how the operational limits apply and the process for authorization or a waiver, for example airspace authorization to operate in controlled airspace. A currency check matters here, because the drone rules have evolved, including Remote ID requirements and rules on operations over people, so confirm the current version through the eCFR and FAA guidance. \[Apply the limits to the client’s facts and confirm currency.\]
+*Answer:* Reading Part 107 together with FAA guidance reveals how the operational limits apply and the process for authorization or a waiver, for example airspace authorization to operate in controlled airspace. A currency check matters here, because the drone rules have evolved, including Remote ID requirements and rules on operations over people, so confirm the current version through the eCFR and FAA guidance. \[Confirm currency, then take a research pause and bracket the application to this client’s planned flights in the outline.\]
 
 *The federal-compliance picture resolves. The remaining thread is the state-law exposure, a lateral move to a different body of law.*
 

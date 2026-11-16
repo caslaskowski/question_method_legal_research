@@ -59,7 +59,7 @@ An interactive is a fenced block in the chapter's Markdown. Its content is ordin
 | `kind` | What the reader does | How to write it |
 |---|---|---|
 | `choice` | Answers one question; every option has feedback | A task list. `- [x]` marks the right answer; the indented bullet under each option is its feedback. |
-| `sort` | Places items in categories | `bins="A \| B"`. End each item with its category in bold; indented bullet = explanation. |
+| `sort` | Places items in categories | `bins="A \| B"`. End each item with its category in bold; indented bullet = explanation. A second indented bullet, if present, is shown when the reader picks the wrong category. |
 | `order` | Arranges rows, then checks | A numbered list in the correct order. The page shuffles it. |
 | `explore` | Selects parts of a diagram | A list of `**Name \| tag.** text` items. `layout=` `tabs`, `flow`, `stack`, `list`, `ring` (add `edges="a \| b"` and `arrows="both"`), `plot` (`**Name \| x, y.**`, 0 to 100, with `xlabel` and `ylabel`), or `database` (the Database Interface Explorer: five header tools, the search box, the filter, advanced search, then the browse tabs, each with a nested list of its collections, then the support link). For `ring`, write an edge as `forward ~ backward` to draw an arrow each way. |
 | `annotate` | Selects marked parts of a passage; the explanation opens beside it (under it on a phone) | `[phrase]{.m label="..." note="..."}`. `layout="cite"` shows a citation part by part; `verdict="ok"`, `"warn"` or `"bad"` colours a phrase once opened; `hint="..."` sets the instruction. |

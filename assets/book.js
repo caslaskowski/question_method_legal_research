@@ -190,12 +190,13 @@
       strongs = c.querySelectorAll("strong");
       if (strongs.length) { bin = strongs[strongs.length - 1].textContent.trim(); strongs[strongs.length - 1].remove(); }
       var ps = kids(c, "p"); var html = (ps.length ? ps[0].innerHTML : c.innerHTML).replace(/(\s|&nbsp;|[—–:-])+$/, "").trim();
-      return { html: html, bin: bin, fb: fb(li) };
+      var subs = kids(li, "ul,ol")[0], notes = subs ? kids(subs, "li").map(function (x) { return x.innerHTML; }) : [];
+      return { html: html, bin: bin, fb: notes[0] || "", miss: notes[1] || "" };
     });
     var bins = splitBar(opt(root, "bins"));
     if (!bins.length) items.forEach(function (it) { if (bins.indexOf(it.bin) < 0) bins.push(it.bin); });
     var done = 0, score = h("p", { "class": "try-score", role: "status", "aria-live": "polite" });
-    var wrap = h("ol", { "class": "try-sort" });
+    var wrap = h("ol", { "class": "try-sort" + (bins.length > 3 ? " many" : "") });
     function tally() { score.textContent = done + " of " + items.length + " placed" + (done === items.length ? ". All sorted." : ""); }
     shuffled(items.length, idx + 3).forEach(function (k) {
       var it = items[k], misses = 0, note = h("div", { "class": "try-note" });
@@ -211,7 +212,7 @@
             note.innerHTML = '<p class="good"><strong>' + b + ".</strong> " + it.fb + "</p>"; tally();
           } else {
             btn.classList.add("no"); btn.disabled = true; misses++;
-            note.innerHTML = '<p class="bad">Not ' + b.toLowerCase() + ". " + (misses > 1 ? "Look at what the item <em>is</em> before what it is about. " : "") + "Try again.</p>";
+            note.innerHTML = '<p class="bad">Not ' + b.toLowerCase() + ". " + (it.miss ? it.miss + " " : (misses > 1 ? "Look at what the item <em>is</em> before what it is about. " : "")) + "Try again.</p>";
           }
         });
         bar.appendChild(btn);
@@ -237,7 +238,8 @@
             h("button", { type: "button", "aria-label": "Move up", disabled: i === 0 ? "" : null, text: "↑", onclick: function () { swap(i, i - 1); } }),
             h("button", { type: "button", "aria-label": "Move down", disabled: i === cur.length - 1 ? "" : null, text: "↓", onclick: function () { swap(i, i + 1); } })
           ]),
-          h("div", { "class": "try-item", html: it.html + (checked && allRight() && it.fb ? '<span class="try-why">' + it.fb + "</span>" : "") })
+          h("div", { "class": "try-item", html: it.html + (checked && allRight() && it.fb ? '<span class="try-why">' + it.fb + "</span>" : "") }),
+          checked ? h("span", { "class": "try-mark", text: good ? "\u2713 in place" : "\u2717 move" }) : null
         ]);
         wrap.appendChild(li);
       });
@@ -252,7 +254,7 @@
       draw(true);
       var n = cur.filter(function (it, i) { return it.pos === i; }).length;
       out.innerHTML = allRight() ? '<p class="good"><strong>That is the order.</strong> The reason for each position is now shown beside it.</p>'
-        : '<p class="bad"><strong>' + n + " of " + cur.length + " in place.</strong> The highlighted rows are right where they are. Move the others and check again.</p>";
+        : '<p class="bad"><strong>' + n + " of " + cur.length + " in place.</strong> The rows marked \u201cin place\u201d are right where they are. Move the others and check again.</p>";
     } })]));
     root.appendChild(out);
   };
@@ -375,7 +377,7 @@
     var marks = Array.prototype.slice.call(root.querySelectorAll(".m")); if (!marks.length) return;
     var cite = opt(root, "layout") === "cite";
     var panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite", "aria-label": "Explanation: " + (opt(root, "title") || ""), html: '<p class="try-hint">Select a highlighted part. Its explanation appears here.</p>' });
-    var count = h("p", { "class": "try-score" }), seen = 0, head = root.querySelector(".try-head");
+    var count = h("p", { "class": "try-score", role: "status", "aria-live": "polite" }), seen = 0, head = root.querySelector(".try-head");
     if (cite) root.classList.add("try-cite");
     /* the passage sits in a document card; the explanation stays beside it (or, on a small screen,
        opens directly under the part that was selected) so the reader never has to hunt for it */

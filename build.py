@@ -207,7 +207,13 @@ def strip_flags(frag):
 def fix_tables(frag):
     # pandoc emits an empty <thead> for tables whose header row was blank
     frag = re.sub(r"<thead>\s*<tr>(?:\s*<th[^>]*>\s*</th>)+\s*</tr>\s*</thead>", "", frag)
-    frag = frag.replace("<table>", '<div class="table-wrap" tabindex="0" role="region" aria-label="Table"><table>').replace("</table>", "</table></div>")
+    def wrap(m):
+        # name the scrollable region after the nearest heading above the table, so a screen reader
+        # hears "Table, <section name>" instead of "Table" for every table on the page
+        heads = re.findall(r'<h[1-4][^>]*\sid="([^"]+)"', frag[:m.start()])
+        label = ' aria-labelledby="%s"' % heads[-1] if heads else ' aria-label="Table"'
+        return '<div class="table-wrap" tabindex="0" role="region"%s><table>' % label
+    frag = re.sub(r"<table>", wrap, frag).replace("</table>", "</table></div>")
     return frag
 
 
