@@ -1,4 +1,34 @@
-Every term the book defines, in one place. Flip through the terms as flashcards, or filter the full list beneath them. In the chapters, a dotted underline marks the spot where each term is first defined.
+Every term the book defines, in one place. Start with the pairs that students mix up: two definitions, two terms, and you decide which is which before the card tells you. Then flip through the whole set as flashcards, or filter the full list beneath them. In the chapters, a dotted underline marks the spot where each term is first defined.
+
+::: {.try kind="pairs" title="Tell them apart"}
+- **holding | dictum.** The test is necessity: did the court have to decide it to reach its result?
+    - The court’s resolution of the specific legal question raised by the specific facts before it. Binding on the courts below.
+    - What the court said along the way that it did not need to decide: an aside, a hypothetical, a view on a question not presented. Persuasive at most.
+- **binding authority | persuasive authority.** Binding is a relationship between a source and a particular court, never a property of the source alone.
+    - Law a court must follow: its own jurisdiction’s constitution, statutes, and regulations, the decisions of the courts above it in the same system, and the federal law that applies there.
+    - Authority a court may be influenced by and is free to reject: other jurisdictions’ law, decisions of courts at the same level or below, and every secondary source.
+- **session laws | code.** The same enacted words, arranged two ways: by date and by subject.
+    - Statutes published chronologically as enacted, like the Statutes at Large. Where you find the text exactly as passed, with the provisions that were never codified.
+    - Session laws in force, rearranged by subject and updated as amendments pass, like the United States Code. What you cite, and where each section sits beside its definitions and exceptions.
+- **Federal Register | Code of Federal Regulations.** The register is a daily diary; the CFR is the filing cabinet.
+    - The daily publication of proposed rules, final rules, and notices, in the order they issue, with the preambles that explain them.
+    - The annual codification of regulations in force, arranged by subject into fifty titles, without the reasoning that produced them.
+- **analytical closure | practical closure.** Both are legitimate; only one of them is a judgment about the research itself.
+    - The judgment that the research is substantively complete: the governing rule is identified, the counterarguments met, the outline accounts for the question, and more research would only change the wording.
+    - A stop forced by an external constraint, a budget, a deadline set by the client, a supervisor’s instruction, documented in the log with what remains unresearched.
+- **authority note | source note.** Two short notes under every CFR Part, pointing in opposite directions.
+    - The citation to the statute that empowers the agency to issue the Part. The link back to the enabling legislation, and the start of any argument that the rule exceeds it.
+    - The citation to the Federal Register document that created or last amended the Part. The thread you pull to reach the preamble.
+- **focusing question | application question.** One asks for the rule; the other asks how the rule has operated on facts.
+    - A question that asks what the specific legal rule governing an issue is: the standard, the test, the elements. Usually the moment research crosses from secondary to primary authority.
+    - A question that asks how a rule works once applied to particular facts, answered by finding decided cases with facts like the client’s, or by building the rule from related contexts when none exists.
+- **slip law | session laws.** First one, then all of them.
+    - A single enacted statute published on its own, shortly after enactment, identified by its public law number. The first official text of a new law.
+    - All the acts of a legislative session, bound in order of passage.
+- **headnote | holding.** One is written by an editor; the other is what the court decided.
+    - A brief editor-written summary of a point of law in a case, keyed to the passage it summarizes. A navigation tool with no authority of its own.
+    - The court’s own resolution of the question before it, in the court’s words, which is the only thing you cite.
+:::
 
 ::: {.try kind="flashcards" title="Every defined term"}
 administrative adjudication

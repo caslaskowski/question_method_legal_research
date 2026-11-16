@@ -2,7 +2,7 @@
 
 A static, GitHub Pages–ready edition of the textbook in which the interactives are part of the text: a clickable diagram, a quick sort, an annotated passage, or a working search lab sits in the paragraph that teaches the idea. Nothing is embedded from another site. 
 
-**Start with [`EDITING-NOTES.md`](EDITING-NOTES.md).** It lists everything that needs a decision, a fix, or a fact-check, with Part II in the most detail.
+**Start with [`TO-DECIDE.md`](TO-DECIDE.md).** It lists everything that needs a decision, a fix, or a fact-check. [`EDITING-NOTES.md`](EDITING-NOTES.md) is the archive of what changed in each round.
 
 ## Editing without touching the code
 
@@ -73,7 +73,18 @@ An interactive is a fenced block in the chapter's Markdown. Its content is ordin
 | `cycle` | Replays a research demonstration while the research map, log, and annotated outline fill | One item per cycle: `**Q1 \| Exploratory, no-clue.** question`, with nested lines led by **Source**, **Found**, **Adds** (map questions separated by `\|`), **Closes** (map numbers answered), **Outline** (an entry), **Note** (a bracketed application note), **Aside**. `macro="..."` shows the macro question first. |
 | `funnel` | Applies filters and watches a results count collapse | `start=` and `goal=` counts, `unit=` the noun. Items: `**Filter \| ÷ 40.** why it helps, and its risk`. |
 | `timeline` | Scrubs a year and watches milestones light up; can play | Items: `**1975 \| Place.** what happened`. `from=`, `to=`, `start=` set the range; `count=` names what is counted. Same-year items share one dot. |
+| `draft` | Writes a first research question for a client and has it diagnosed (compound, borrowed vocabulary, no question mark, wrong type), then compares it with a model | One item per client: `**Client \| expected type.** the file`, with nested lines led by **Not yet yours** (terms separated by `\|`), **Model**, **Map**. `types="..."` names the type buttons. |
+| `highlight` | Reads a short opinion for one question: selects the answering sentences, gets scored, then sees the dispositive facts | Mark each sentence `[..]{.m tag="answer" note="..."}`; tags are `answer`, `dictum`, `facts`, `dispositive`, `procedure`, `other`. `question="..."` states the question. |
+| `citator` | Picks a case, reads its flag and citing decisions, and asks whether it may be cited for a given point of law | Each item is a case `**Name \| year \| court.** summary`, with nested `**Holds.** point` lines and `**Citing case (year) \| treatment \| n.** note` lines. Negative treatments colour the flag; `n` is the point reached. |
+| `preamble` | Reads a Federal Register final rule: selects a comment, reads the agency's response and the rule text it produced | Items `**Title \| kind.** text` with kind `header`, `summary`, `dates`, `comment`, `source`; a comment carries nested **Response** and **Rule text** lines. |
+| `curve` | Drags to the hour they would stop and reads whether that is closure | `hours=`, `budget=`, `unit=`. Items `**hour \| must.** finding` (`must` marks a finding closure cannot do without). |
+| `diff` | Compares two versions of a bill's text with the changed words marked, says what the change signals, then reads the report | First paragraph as introduced, second as reported; a task list (`[x]` is right); `---`; the report line. `versions="A \| B"`, `ask="..."`. |
+| `pairs` | Assigns two confusable terms to two definitions before the card tells them | Items `**term A \| term B.** why they differ`, with two nested lines: A's definition, then B's. |
 | `path` | Chooses a route and pays for it, step by step | Nodes: `**id \| $0.30.** what happens here`, each with nested choices `**target-id.** the choice`. `start=` names the first node; a node with no choices ends the route. Costs with a currency sign or a unit are summed. |
+
+The search lab also takes `terms="a | b | ..."`: every term the reader could need, offered as chips to select or drag into the search, beside a coverage meter (one square per document) and *Show the search as a tree*, which draws the parsed search with a count on every term and connector.
+
+**The shared Research Log.** A *Research Log* button in the masthead of every page opens a log kept in the reader's browser (`localStorage`, key `qm:log:v1`, last 400 entries). The `resolve`, `citator`, `draft`, `highlight`, and `path` kinds add an entry when the reader takes a step; the panel lists entries newest first, downloads them as text, and clears. Nothing is sent anywhere. Other kinds can write to it with `window.qmLog.add({q, type, source, found, next})`.
 
 Two rules keep them useful. Keep each one to a single screen: about six rows in a sorter. And do not let an interactive repeat the paragraph above it; give it new examples, or turn the paragraph's own list into the interactive.
 

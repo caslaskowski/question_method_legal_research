@@ -652,16 +652,40 @@
       var pos = a + piece.length - ((tok === '""' || tok === "()") && !sel ? 1 : 0);
       input.focus(); input.setSelectionRange(pos, pos); go();
     }
+    function dragChip(b, tok) { b.setAttribute("draggable", "true"); b.addEventListener("dragstart", function (e) { e.dataTransfer.setData("text/plain", tok + " "); }); }
     [["AND", "both terms"], ["OR", "either term"], ["NOT", "exclude a term"], ['""', "exact phrase"], ["()", "group terms"], ["!", "any ending"], ["/5", "within 5 words"], ["/s", "close together"], ["/p", "loosely together"]].forEach(function (x) {
-      build.appendChild(h("button", { type: "button", "class": "try-chip", title: x[1], "aria-label": "Add " + (x[0] === '""' ? "quotation marks" : x[0] === "()" ? "parentheses" : x[0]) + ": " + x[1], text: x[0] === '""' ? '" "' : x[0] === "()" ? "( )" : x[0], onclick: function () { insert(x[0]); } }));
+      var b = h("button", { type: "button", "class": "try-chip", title: x[1], "aria-label": "Add " + (x[0] === '""' ? "quotation marks" : x[0] === "()" ? "parentheses" : x[0]) + ": " + x[1], text: x[0] === '""' ? '" "' : x[0] === "()" ? "( )" : x[0], onclick: function () { insert(x[0]); } });
+      if (x[0] !== '""' && x[0] !== "()") dragChip(b, x[0]);
+      build.appendChild(b);
     });
     build.appendChild(h("button", { type: "button", "class": "try-chip", text: "Clear", onclick: function () { input.value = ""; input.focus(); go(); } }));
+    /* every term the reader might need, as chips: select one (or drag it) to drop it into the search */
+    var termList = splitBar(opt(root, "terms")), terms = null;
+    if (termList.length) {
+      terms = h("div", { "class": "try-terms", role: "group", "aria-label": "Terms to use" });
+      termList.forEach(function (t) { var b = h("button", { type: "button", "class": "try-chip term", text: t, onclick: function () { insert(t); } }); dragChip(b, t); terms.appendChild(b); });
+    }
+    input.addEventListener("drop", function () { setTimeout(go, 0); });
+    /* coverage meter: one square per document, filled when the search retrieves it */
+    var meter = h("div", { "class": "try-meter", "aria-hidden": "true" }), meterText = h("p", { "class": "visually-hidden", role: "status" });
+    /* the search as a tree, the way the big platforms draw it: every term with its own count, every connector with the count it produced */
+    var treeBox = h("div", { "class": "try-tree", hidden: "" }), treeBtn = h("button", { type: "button", "class": "try-btn ghost small", "aria-expanded": "false", text: "Show the search as a tree" });
+    treeBtn.addEventListener("click", function () { var open = treeBox.hidden; treeBox.hidden = !open; treeBtn.setAttribute("aria-expanded", String(open)); treeBtn.textContent = open ? "Hide the tree" : "Show the search as a tree"; });
+    function countDocs(n) { return docs.filter(function (d) { return run(n, d).length; }).length; }
+    function treeNode(n) {
+      var label, cls;
+      if (n.k === "T") { label = n.txt; cls = /^"/.test(n.txt) ? "phrase" : "term"; }
+      else { label = n.k === "PROX" ? (n.op.unit ? (n.op.ord ? "+" : "/") + n.op.unit : (n.op.ord ? "+" : "/") + n.op.n) : n.k.toLowerCase(); cls = "op"; }
+      var el = h("div", { "class": "st-node" }, [h("span", { "class": "st-pill " + cls }, [h("span", { text: label }), h("b", { text: String(countDocs(n)) })])]);
+      if (n.k !== "T") el.appendChild(h("div", { "class": "st-kids" }, [treeNode(n.l), treeNode(n.r)]));
+      return el;
+    }
     function setMode(m) {
       mode = m;
       Array.prototype.forEach.call(modeBar.children, function (b) { b.setAttribute("aria-pressed", String(b.getAttribute("data-m") === m)); });
       chipBar.innerHTML = "";
       (m === "nl" ? nat : presets).forEach(function (q) { chipBar.appendChild(h("button", { type: "button", "class": "try-chip", text: q, onclick: function () { input.value = q; go(); } })); });
-      build.hidden = m === "nl";
+      build.hidden = m === "nl"; if (terms) terms.hidden = m === "nl"; treeBtn.hidden = m === "nl";
       input.placeholder = m === "nl" ? "Describe the issue in plain words" : "Type terms, and add connectors with the buttons below";
     }
     if (nat.length) {
@@ -670,13 +694,24 @@
     function go() {
       var q = input.value.trim(), rows = [], tree = null;
       res.innerHTML = ""; read.textContent = "";
-      if (!q) { stats.textContent = docs.length + " documents in this practice database. " + (mode === "nl" ? "Describe the problem in your own words." : "Build a search, or open the examples."); return; }
+      if (!q) { stats.textContent = docs.length + " documents in this practice database. " + (mode === "nl" ? "Describe the problem in your own words." : "Build a search, or open the examples."); meter.innerHTML = ""; treeBox.innerHTML = ""; return; }
       if (mode === "tc") { tree = parse(lex(q)); if (!tree) { stats.textContent = "The lab could not read that search."; return; } read.textContent = "Read as: " + show(tree) + (/[\/+][sp]\b/i.test(q) ? "   (in this lab /s stands in for /" + UNIT.s + " and /p for /" + UNIT.p + "; real platforms do not publish their numbers)" : ""); }
       docs.forEach(function (d) {
         var r = mode === "nl" ? natural(q, d) : { hits: run(tree, d), score: 1 };
         rows.push({ d: d, hits: r.hits, score: r.hits.length ? r.score : 0 });
       });
       var got = rows.filter(function (r) { return r.hits.length; }), relAll = docs.filter(function (d) { return d.rel; }).length;
+      meter.innerHTML = ""; meterText.textContent = "";
+      if (relAll) {
+        var onRow = h("div", { "class": "m-row" }, [h("span", { "class": "m-lab", text: "On point" })]), offRow = h("div", { "class": "m-row" }, [h("span", { "class": "m-lab", text: "Off point" })]);
+        rows.forEach(function (r) { (r.d.rel ? onRow : offRow).appendChild(h("i", { "class": (r.hits.length ? "hit " : "") + (r.d.rel ? "on" : "off"), title: r.d.title })); });
+        var onGot = rows.filter(function (r) { return r.d.rel && r.hits.length; }).length, offGot = rows.filter(function (r) { return !r.d.rel && r.hits.length; }).length;
+        onRow.appendChild(h("span", { "class": "m-n", text: onGot + " of " + relAll + " caught" })); offRow.appendChild(h("span", { "class": "m-n", text: offGot + " of " + (docs.length - relAll) + " let in" }));
+        meter.appendChild(onRow); meter.appendChild(offRow);
+        meterText.textContent = "Coverage: " + onGot + " of " + relAll + " on-point documents caught; " + offGot + " of " + (docs.length - relAll) + " off-point documents let in.";
+      }
+      treeBox.innerHTML = "";
+      if (mode === "tc" && tree) treeBox.appendChild(h("div", { "class": "st-root" }, [h("span", { "class": "st-pill root", text: got.length + " result" + (got.length === 1 ? "" : "s") + " found" }), h("div", { "class": "st-kids" }, [treeNode(tree)])]));
       if (mode === "nl") got.sort(function (a, b) { return b.score - a.score || b.hits.length - a.hits.length; });
       var relGot = got.filter(function (r) { return r.d.rel; }).length;
       stats.innerHTML = "<strong>" + got.length + " of " + docs.length + "</strong> documents retrieved" + (mode === "nl" ? ", ranked by the engine's guess at relevance" : "") + "." +
@@ -698,7 +733,7 @@
     var t; input.addEventListener("input", function () { clearTimeout(t); t = setTimeout(go, 150); });
     var ui = h("div", { "class": "try-search" }, [nat.length ? modeBar : null,
       h("form", { onsubmit: function (e) { e.preventDefault(); go(); } }, [input, h("button", { type: "submit", "class": "try-btn", text: "Search" })]),
-      build, h("p", { "class": "try-actions" }, [exBtn]), chipBar, read, stats, res,
+      terms, build, h("p", { "class": "try-actions" }, [exBtn, treeBtn]), chipBar, treeBox, read, stats, meter, meterText, res,
       h("p", { "class": "try-fiction", text: "The cases in this practice database are fictional. They were written for instruction only and are not real authority." })]);
     list.replaceWith(ui);
     setMode(nat.length ? "nl" : "tc"); go();
@@ -764,6 +799,7 @@
         btn.addEventListener("click", function () {
           var s = cur.steps[cur.taken]; cur.taken++; nEntries++;
           var found = strip(s.body).replace(/\s*Next question:.*$/, ""), cut = found.length > 170 ? found.slice(0, 170).replace(/\s+\S*$/, "") + "\u2026" : found;
+          logAdd({ q: strip(cur.q), type: "Definitional", source: strip(s.source), found: found, next: (strip(s.body).match(/Next question:\s*(.*)$/) || [])[1] || "" });
           log.appendChild(h("li", {}, [h("p", {}, [pill(s.kind), h("span", { "class": "r-lq", html: cur.q })]), h("p", { "class": "r-lf", html: "<b>Source:</b> " + s.source + " <b>Found:</b> " + cut })]));
           logWrap.hidden = false; draw(); btn = panel.querySelector(".try-btn"); if (btn) btn.focus();
         });
@@ -943,11 +979,291 @@
         card.appendChild(opts);
       } else {
         card.appendChild(h("p", { "class": "try-actions" }, [h("button", { type: "button", "class": "try-btn ghost", text: "Start over", onclick: function () { trail = []; go(first); } })]));
+        logAdd({ q: strip(nodes[first].body).split(/(?<=[.?!])\s/).slice(-1)[0], type: "Procedural", source: "Docket route, " + trail.length + " steps", found: "Reached the document" + (s ? " at a cost of " + s : "") + "." });
       }
       var b = card.querySelector("button"); if (b && trail.length > 1) b.focus();
     }
     list.replaceWith(h("div", { "class": "try-path" }, [card, h("div", { "class": "pa-side" }, [h("p", { "class": "cy-colh", html: "<strong>Your trail</strong> <span>what each step cost</span>" }), trailL, total])]));
     go(first);
+  };
+
+  function logAdd(e) { if (window.qmLog) window.qmLog.add(e); }
+  function wordDiff(a, b) {           /* word-level LCS diff: [{t, k}] with k = same | del | ins */
+    var A = a.split(/(\s+)/).filter(Boolean), B = b.split(/(\s+)/).filter(Boolean), n = A.length, m = B.length, L = [], i, j, out = [];
+    for (i = 0; i <= n; i++) { L.push([]); for (j = 0; j <= m; j++) L[i].push(0); }
+    for (i = n - 1; i >= 0; i--) for (j = m - 1; j >= 0; j--) L[i][j] = A[i] === B[j] ? L[i + 1][j + 1] + 1 : Math.max(L[i + 1][j], L[i][j + 1]);
+    i = 0; j = 0;
+    while (i < n && j < m) { if (A[i] === B[j]) { out.push({ t: A[i], k: "same" }); i++; j++; } else if (L[i + 1][j] >= L[i][j + 1]) { out.push({ t: A[i], k: "del" }); i++; } else { out.push({ t: B[j], k: "ins" }); j++; } }
+    while (i < n) out.push({ t: A[i++], k: "del" }); while (j < m) out.push({ t: B[j++], k: "ins" });
+    return out;
+  }
+
+  /* ---- draft: write a first research question and have it diagnosed. One item per client:
+          "**Client | expected type.** the file", with nested lines led by "Not yet yours" (terms of art the file
+          did not supply, separated by |), "Model" (the model question) and "Map" (the questions it would start, |). ---- */
+  KINDS.draft = function (root, idx) {
+    var list = topList(root); if (!list) return;
+    var TYPES = splitBar(opt(root, "types")) || [];
+    if (!TYPES.length) TYPES = ["Vocabulary first", "Exploratory", "Focusing", "Definitional", "Application"];
+    var clients = kids(list, "li").map(function (li) {
+      var L = lead(li), parts = L.head.split("|").map(function (x) { return x.trim(); }), c = { name: parts[0], type: parts[1] || "", file: L.rest, terms: [], model: "", map: [] }, sub = kids(li, "ul,ol")[0];
+      if (sub) kids(sub, "li").forEach(function (x) { var X = lead(x), k = X.head.toLowerCase(); if (k.indexOf("not yet") === 0) c.terms = strip(X.rest).split("|").map(function (t) { return t.trim().toLowerCase(); }).filter(Boolean); else if (k === "model") c.model = X.rest; else if (k === "map") c.map = X.rest.split("|").map(function (t) { return t.trim(); }).filter(Boolean); });
+      return c;
+    });
+    var cur = 0, key = "qm:" + location.pathname + ":draft:" + idx, saved = store.get(key, {});
+    var tabs = h("div", { "class": "try-seg", role: "group", "aria-label": "Choose a client" }), file = h("div", { "class": "try-panel dr-file" });
+    var ta = h("textarea", { rows: "2", "aria-label": "Your first research question", placeholder: "Write the first question you would log. One question, one question mark." });
+    var typeBar = h("div", { "class": "fn-filters", role: "group", "aria-label": "What type of question is it?" }), picked = "";
+    var out = live(), model = h("div", { "class": "try-answer", hidden: "" });
+    var diag = h("button", { type: "button", "class": "try-btn", text: "Diagnose my question" }), cmp = h("button", { type: "button", "class": "try-btn ghost", text: "Compare with the model question", hidden: "" });
+    function pickType(t) { picked = t; Array.prototype.forEach.call(typeBar.children, function (b) { b.setAttribute("aria-pressed", String(b.textContent === t)); }); }
+    TYPES.forEach(function (t) { typeBar.appendChild(h("button", { type: "button", "class": "fn-filter", "aria-pressed": "false", text: t, onclick: function () { pickType(t); } })); });
+    function show(i) {
+      cur = i; Array.prototype.forEach.call(tabs.children, function (b, k) { b.setAttribute("aria-pressed", String(k === i)); });
+      file.innerHTML = '<p class="try-panel-h">' + clients[i].name + "</p><p>" + clients[i].file + "</p>";
+      ta.value = saved[i] || ""; pickType(""); out.innerHTML = ""; model.hidden = true; cmp.hidden = true;
+    }
+    clients.forEach(function (c, i) { tabs.appendChild(h("button", { type: "button", text: c.name, onclick: function () { show(i); } })); });
+    ta.addEventListener("input", function () { saved[cur] = ta.value; store.set(key, saved); });
+    diag.addEventListener("click", function () {
+      var q = ta.value.trim(), c = clients[cur], notes = [], low = q.toLowerCase(), ok = true;
+      if (!q) { out.innerHTML = '<p class="bad">Write the question first.</p>'; return; }
+      if (q.indexOf("?") < 0) { notes.push("<p class=\"bad\"><strong>Write it as a question.</strong> A topic can be browsed forever. A question can be answered, and answered means done.</p>"); ok = false; }
+      if ((q.match(/\?/g) || []).length > 1 || /\?\s*\S/.test(q) || /\b(and|, and) (what|how|whether|does|is|can|when|which)\b/i.test(q)) { notes.push("<p class=\"bad\"><strong>Two questions are sharing a sentence.</strong> Split them. Each needs its own source, its own answer, and its own log entry.</p>"); ok = false; }
+      var leaked = c.terms.filter(function (t) { return low.indexOf(t) >= 0; });
+      if (leaked.length) { notes.push("<p class=\"bad\"><strong>The file did not hand you “" + leaked[0] + ".”</strong> A term of art belongs in a question only after the file supplied it or an earlier answer turned it up. Where did this one come from?</p>"); ok = false; }
+      if (/\b(my client|our client|the client|she|he|her son|his daughter)\b/i.test(q) && /\b(can|may|is|does|did|will)\b/i.test(q.split(/\s+/).slice(0, 2).join(" "))) { notes.push("<p class=\"bad\"><strong>No database holds your file.</strong> A question that starts from the client’s facts is a writing question. Ask what the law says first; apply it to the client in the outline.</p>"); ok = false; }
+      if (q.split(/\s+/).length < 6) { notes.push("<p class=\"bad\"><strong>Too short to search.</strong> A vague question gives you vague results. Say what you need to know, in terms that reflect what you currently understand.</p>"); ok = false; }
+      if (picked && c.type && picked.toLowerCase() !== c.type.toLowerCase()) { notes.push("<p class=\"bad\"><strong>Check the type.</strong> Reread your diagnosis of what you already know. The model treats this client’s first question as <em>" + c.type + "</em>.</p>"); ok = false; }
+      if (!picked) notes.push("<p class=\"bad\"><strong>Name the type.</strong> The type tells you which source to open first.</p>");
+      if (ok && picked) notes.push("<p class=\"good\"><strong>Nothing to flag.</strong> One question, no borrowed vocabulary, written where your knowledge actually is. Now compare it with the model and the map it would start.</p>");
+      out.innerHTML = notes.join(""); cmp.hidden = false;
+    });
+    cmp.addEventListener("click", function () {
+      var c = clients[cur]; model.hidden = false;
+      model.innerHTML = '<p><strong>Model first question</strong> <span class="try-pill">' + c.type + "</span></p><p>" + c.model + "</p>" + (c.map.length ? '<p><strong>The map it would start</strong></p><ol class="cy-list cy-map">' + c.map.map(function (q) { return '<li class="open"><span class="cy-chip">open</span><span>' + q + "</span></li>"; }).join("") + "</ol>" : "");
+      logAdd({ q: ta.value.trim(), type: picked || "(untyped)", source: "Drafted in Chapter 3, " + c.name, found: "First question drafted and diagnosed. Model: " + strip(c.model) });
+    });
+    list.replaceWith(h("div", { "class": "try-draft" }, [tabs, file, ta, h("p", { "class": "try-hint", text: "What type of question is it?" }), typeBar, h("p", { "class": "try-actions" }, [diag, cmp]), out, model]));
+    show(0);
+  };
+
+  /* ---- highlight: read an opinion for one question. The passage's sentences carry [..]{.m tag="answer|dictum|facts|dispositive|procedure" note="..."}.
+          The reader selects the sentences that answer the question, then checks. question="..." --------------------------- */
+  KINDS.highlight = function (root) {
+    var marks = Array.prototype.slice.call(root.querySelectorAll(".m")); if (!marks.length) return;
+    var head = root.querySelector(".try-head"), doc = h("div", { "class": "try-doc hl-doc" }), panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite" }), checked = false;
+    Array.prototype.slice.call(root.children).forEach(function (c) { if (c !== head) doc.appendChild(c); });
+    var q = opt(root, "question"), qline = h("p", { "class": "hl-q", html: "<strong>Read for this question:</strong> " + q });
+    var check = h("button", { type: "button", "class": "try-btn", text: "Check my reading" }), facts = h("button", { type: "button", "class": "try-btn ghost", text: "Show the dispositive facts", hidden: "" }), reset = h("button", { type: "button", "class": "try-btn ghost small", text: "Start over" });
+    marks.forEach(function (m) {
+      m.setAttribute("role", "button"); m.setAttribute("tabindex", "0"); m.setAttribute("aria-pressed", "false"); m.classList.add("hl-s");
+      function toggle() { if (checked) return; m.setAttribute("aria-pressed", m.getAttribute("aria-pressed") === "true" ? "false" : "true"); }
+      m.addEventListener("click", toggle); m.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); toggle(); } });
+    });
+    panel.innerHTML = '<p class="try-hint">Select every sentence that answers the question. Nothing else. Then check.</p>';
+    check.addEventListener("click", function () {
+      checked = true; var html = "", hit = 0, need = 0, dicta = 0;
+      marks.forEach(function (m) {
+        var on = m.getAttribute("aria-pressed") === "true", tag = (opt(m, "tag") || "other").toLowerCase(), note = opt(m, "note");
+        if (tag === "answer") need++;
+        if (on && tag === "answer") { hit++; m.classList.add("hl-ok"); html += '<p class="good"><strong>Yes.</strong> ' + note + "</p>"; }
+        else if (on && tag === "dictum") { dicta++; m.classList.add("hl-no"); html += '<p class="bad"><strong>Dictum.</strong> ' + note + "</p>"; }
+        else if (on) { m.classList.add("hl-no"); html += '<p class="bad"><strong>Not the answer.</strong> ' + note + "</p>"; }
+        else if (tag === "answer") { m.classList.add("hl-miss"); html += '<p class="bad"><strong>Missed.</strong> ' + note + "</p>"; }
+      });
+      panel.innerHTML = '<p class="try-panel-h">' + hit + " of " + need + " answering sentence" + (need === 1 ? "" : "s") + " found" + (dicta ? ", " + dicta + " dictum selected" : "") + "</p>" + html;
+      check.hidden = true; facts.hidden = false;
+      logAdd({ q: q, type: "Focusing", source: "Read for the answer, Chapter 5", found: hit + " of " + need + " answering sentences found; " + dicta + " dictum selected." });
+    });
+    facts.addEventListener("click", function () {
+      var html = "";
+      marks.forEach(function (m) { if ((opt(m, "tag") || "").toLowerCase() === "dispositive") { m.classList.add("hl-fact"); html += "<p>" + opt(m, "note") + "</p>"; } });
+      panel.innerHTML = '<p class="try-panel-h">Dispositive facts</p><p class="try-hint">Change any of these and the court’s reasoning no longer reaches its result. Everything else in the opinion is background.</p>' + html; facts.hidden = true;
+    });
+    reset.addEventListener("click", function () { checked = false; marks.forEach(function (m) { m.setAttribute("aria-pressed", "false"); m.className = "m hl-s"; }); panel.innerHTML = '<p class="try-hint">Select every sentence that answers the question. Nothing else. Then check.</p>'; check.hidden = false; facts.hidden = true; });
+    head.insertAdjacentElement("afterend", qline);
+    root.appendChild(h("div", { "class": "try-two" }, [doc, h("div", { "class": "try-side" }, [panel])]));
+    root.appendChild(h("p", { "class": "try-actions" }, [check, facts, reset]));
+  };
+
+  /* ---- citator: a citator the reader can run. Each item is a case: "**Name | year | court.** summary", with nested
+          "**Holds.** a point of law" lines (numbered in order) and "**Citing case (year) | treatment | n.** note" lines,
+          where treatment is followed, cited, distinguished, criticized, questioned, limited, overruled in part, overruled,
+          superseded, or disapproved, and n is the point it reaches. The reader picks a case, reads the citator, and says which
+          point they want to cite it for; the page says whether the history reaches that point. ------------------------------ */
+  KINDS.citator = function (root) {
+    var list = topList(root); if (!list) return;
+    var RED = /overrul|supersed|revers|disapprov|abrogat/i, YEL = /distinguish|critici|question|limit/i;
+    var cases = kids(list, "li").map(function (li) {
+      var L = lead(li), parts = L.head.split("|").map(function (x) { return x.trim(); }), c = { name: parts[0], year: parts[1] || "", court: parts[2] || "", summary: L.rest, points: [], cites: [] }, sub = kids(li, "ul,ol")[0];
+      if (sub) kids(sub, "li").forEach(function (x) {
+        var X = lead(x), p = X.head.split("|").map(function (y) { return y.trim(); });
+        if (/^holds?$/i.test(p[0])) c.points.push(X.rest); else c.cites.push({ by: p[0], treat: p[1] || "cited", n: +p[2] || 0, note: X.rest });
+      });
+      c.flag = c.cites.some(function (t) { return RED.test(t.treat); }) ? "red" : c.cites.some(function (t) { return YEL.test(t.treat); }) ? "yellow" : "green";
+      return c;
+    });
+    var picker = h("div", { "class": "ct-list", role: "group", "aria-label": "Cases in the practice citator" }), view = h("div", { "class": "try-panel ct-view", role: "region", "aria-live": "polite" }), out = live();
+    function flagEl(f) { return h("span", { "class": "ct-flag f-" + f, text: f === "red" ? "Red flag" : f === "yellow" ? "Yellow flag" : "No negative treatment" }); }
+    function show(c) {
+      Array.prototype.forEach.call(picker.children, function (b) { b.setAttribute("aria-pressed", String(b.textContent === c.name)); });
+      view.innerHTML = ""; out.innerHTML = "";
+      view.appendChild(h("p", { "class": "try-panel-h" }, [h("em", { text: c.name }), h("small", { text: (c.year ? " (" + c.year + ")" : "") + (c.court ? " · " + c.court : "") }), flagEl(c.flag)]));
+      view.appendChild(h("p", { html: c.summary }));
+      var pts = h("ol", { "class": "ct-points" }); c.points.forEach(function (p) { pts.appendChild(h("li", { html: p })); });
+      view.appendChild(h("p", { "class": "ct-h", text: "Points of law in the opinion" })); view.appendChild(pts);
+      view.appendChild(h("p", { "class": "ct-h", text: "Citing decisions (select one to read the treatment)" }));
+      var rows = h("div", { "class": "ct-cites" });
+      if (!c.cites.length) rows.appendChild(h("p", { "class": "try-hint", text: "No citing decisions yet. An unflagged case is not a verified one; it is an uncited one." }));
+      c.cites.forEach(function (t) {
+        var cls = RED.test(t.treat) ? "neg" : YEL.test(t.treat) ? "warn" : "pos";
+        rows.appendChild(h("details", { "class": "ct-cite " + cls }, [h("summary", {}, [h("span", { "class": "try-pill k-" + cls, text: t.treat }), h("strong", { html: t.by }), t.n ? h("small", { text: "point " + t.n }) : null]), h("p", { html: t.note })]));
+      });
+      view.appendChild(rows);
+      view.appendChild(h("p", { "class": "ct-h", text: "I want to cite this case for:" }));
+      var ask = h("div", { "class": "try-opts" });
+      c.points.forEach(function (p, i) {
+        ask.appendChild(h("button", { type: "button", "class": "try-opt", html: "Point " + (i + 1) + ": " + p, onclick: function () {
+          var reach = c.cites.filter(function (t) { return t.n === i + 1 && (RED.test(t.treat) || YEL.test(t.treat)); }), dead = reach.filter(function (t) { return RED.test(t.treat); });
+          var msg, verdict;
+          if (dead.length) { verdict = "Do not cite it for this point."; msg = "The negative treatment reaches exactly this point: " + dead.map(function (t) { return "<em>" + strip(t.by) + "</em> (" + t.treat + ")"; }).join("; ") + ". Cite the later decision instead, and if it cuts against you, Chapter 12 says you may have to disclose it."; }
+          else if (reach.length) { verdict = "Citable, with care."; msg = "A later court " + reach[0].treat + " this point in <em>" + strip(reach[0].by) + "</em>. Read that opinion before you rely on this one, and be ready to say why its facts differ from yours."; }
+          else if (c.flag === "red") { verdict = "Citable for this point."; msg = "The red flag is real, and it attaches to a different point of law. Say so in the citation’s subsequent history so no one thinks you missed it."; }
+          else if (c.flag === "yellow") { verdict = "Citable for this point."; msg = "The yellow flag concerns another point. A signal starts an inquiry, and you have just finished it."; }
+          else { verdict = "Citable."; msg = "No negative treatment on any point. Now read the opinion for the proposition before you cite it; a clean flag is not a reading."; }
+          out.innerHTML = '<p class="' + (dead.length ? "bad" : "good") + '"><strong>' + verdict + "</strong> " + msg + "</p>";
+          logAdd({ q: "Is " + strip(c.name) + " still good law for point " + (i + 1) + "?", type: "Verification", source: "Practice citator", found: verdict + " " + strip(msg) });
+        } }));
+      });
+      view.appendChild(ask);
+    }
+    cases.forEach(function (c) { picker.appendChild(h("button", { type: "button", "class": "ct-case f-" + c.flag, "aria-pressed": "false", html: "<em>" + c.name + "</em>" + (c.year ? " <small>" + c.year + "</small>" : ""), onclick: function () { show(c); } })); });
+    list.replaceWith(h("div", { "class": "try-citator" }, [picker, view, out, h("p", { "class": "try-fiction", text: "Every case in this citator is fictional. The flags behave the way KeyCite and Shepard’s flags behave: they attach to the case, while the treatment attaches to points of law." })]));
+    show(cases[0]);
+  };
+
+  /* ---- preamble: a Federal Register final rule, read the way a researcher reads it. Items: "**Title | kind.** text", where kind is
+          header, summary, dates, comment, source. A comment carries nested "**Response.** ..." and "**Rule text.** ..." lines. ---- */
+  KINDS.preamble = function (root) {
+    var list = topList(root); if (!list) return;
+    var parts = kids(list, "li").map(function (li) {
+      var L = lead(li), p = L.head.split("|").map(function (x) { return x.trim(); }), it = { title: p[0], kind: (p[1] || "").toLowerCase(), body: L.rest }, sub = kids(li, "ul,ol")[0];
+      if (sub) kids(sub, "li").forEach(function (x) { var X = lead(x), k = X.head.toLowerCase(); if (k === "response") it.response = X.rest; else if (k.indexOf("rule") === 0) it.rule = X.rest; });
+      return it;
+    });
+    var page = h("div", { "class": "fr-page" }), side = h("div", { "class": "try-panel fr-side", role: "region", "aria-live": "polite" }), seen = 0, count = h("p", { "class": "try-score", role: "status" });
+    var comments = parts.filter(function (p) { return p.kind === "comment"; });
+    parts.forEach(function (p) {
+      if (p.kind === "comment") {
+        var b = h("button", { type: "button", "class": "fr-comment", "aria-pressed": "false", html: "<small>Comment</small>" + p.title + "<span>" + p.body + "</span>" });
+        b.addEventListener("click", function () {
+          Array.prototype.forEach.call(page.querySelectorAll(".fr-comment"), function (x) { x.setAttribute("aria-pressed", "false"); }); b.setAttribute("aria-pressed", "true");
+          if (!b.classList.contains("seen")) { b.classList.add("seen"); seen++; count.textContent = seen + " of " + comments.length + " comments read"; }
+          side.innerHTML = '<p class="try-panel-h">The agency’s response</p><p>' + (p.response || "") + "</p>" + (p.rule ? '<p class="fr-ruleh">The words it produced, as codified</p><blockquote class="fr-rule">' + p.rule + "</blockquote><p class=\"try-hint\">In the CFR you see only the quotation. The reason above it lives here, in the Federal Register, and nowhere else.</p>" : "");
+        });
+        page.appendChild(b);
+      } else page.appendChild(h("div", { "class": "fr-" + (p.kind || "part") }, [h("p", { "class": "fr-h", text: p.title }), h("p", { html: p.body })]));
+    });
+    side.innerHTML = '<p class="try-hint">Select a comment to read how the agency answered it and the rule text the answer produced.</p>';
+    count.textContent = "0 of " + comments.length + " comments read";
+    list.replaceWith(h("div", { "class": "try-preamble" }, [page, h("div", { "class": "try-side" }, [side, count])]));
+  };
+
+  /* ---- curve: when to stop. hours="40" budget="12". Items: "**hour | must.** what was found at that hour" (must marks a finding
+          without which closure is not honest). The reader drags to the hour they would stop and reads what that choice means. ---- */
+  KINDS.curve = function (root) {
+    var list = topList(root); if (!list) return;
+    var H = +opt(root, "hours") || 40, budget = +opt(root, "budget") || 0, unit = opt(root, "unit") || "hours";
+    var items = kids(list, "li").map(function (li) { var L = lead(li), p = L.head.split("|").map(function (x) { return x.trim(); }); return { at: +p[0], must: /must/i.test(p[1] || ""), body: L.rest }; }).filter(function (x) { return x.at >= 0; }).sort(function (a, b) { return a.at - b.at; });
+    var W = 320, Hh = 120, NS = "http://www.w3.org/2000/svg", svg = document.createElementNS(NS, "svg"); svg.setAttribute("viewBox", "0 0 " + W + " " + Hh); svg.setAttribute("class", "cv-chart"); svg.setAttribute("aria-hidden", "true");
+    function x(t) { return 8 + (W - 16) * t / H; } function y(n) { return Hh - 14 - (Hh - 28) * n / items.length; }
+    var path = "M" + x(0) + " " + y(0), n = 0;
+    items.forEach(function (it) { path += " H" + x(it.at) + " V" + y(++n); }); path += " H" + x(H);
+    var line = document.createElementNS(NS, "path"); line.setAttribute("d", path); line.setAttribute("class", "cv-line"); svg.appendChild(line);
+    if (budget) { var bl = document.createElementNS(NS, "line"); bl.setAttribute("x1", x(budget)); bl.setAttribute("x2", x(budget)); bl.setAttribute("y1", 4); bl.setAttribute("y2", Hh - 14); bl.setAttribute("class", "cv-budget"); svg.appendChild(bl); var bt = document.createElementNS(NS, "text"); bt.setAttribute("x", x(budget) + 3); bt.setAttribute("y", 12); bt.setAttribute("class", "cv-txt"); bt.textContent = "budget"; svg.appendChild(bt); }
+    var dots = items.map(function (it, i) { var c = document.createElementNS(NS, "circle"); c.setAttribute("cx", x(it.at)); c.setAttribute("cy", y(i + 1)); c.setAttribute("r", 4); c.setAttribute("class", "cv-dot" + (it.must ? " must" : "")); svg.appendChild(c); return c; });
+    var marker = document.createElementNS(NS, "line"); marker.setAttribute("y1", 4); marker.setAttribute("y2", Hh - 14); marker.setAttribute("class", "cv-mark"); svg.appendChild(marker);
+    var ax = document.createElementNS(NS, "text"); ax.setAttribute("x", W - 8); ax.setAttribute("y", Hh - 2); ax.setAttribute("class", "cv-txt"); ax.setAttribute("text-anchor", "end"); ax.textContent = unit + " →"; svg.appendChild(ax);
+    var ay = document.createElementNS(NS, "text"); ay.setAttribute("x", 2); ay.setAttribute("y", 12); ay.setAttribute("class", "cv-txt"); ay.textContent = "new authority found ↑"; svg.appendChild(ay);
+    var range = h("input", { type: "range", min: 0, max: H, step: 1, value: Math.round(H / 4), "aria-label": "Hour at which you stop" }), read = h("p", { "class": "tl-year", role: "status", "aria-live": "polite" }), panel = h("div", { "class": "try-panel" });
+    function draw() {
+      var t = +range.value, got = items.filter(function (it) { return it.at <= t; }), left = items.filter(function (it) { return it.at > t; }), mustLeft = left.filter(function (it) { return it.must; }), last = items.length ? items[items.length - 1].at : 0, lastMust = items.filter(function (it) { return it.must; }).slice(-1)[0];
+      marker.setAttribute("x1", x(t)); marker.setAttribute("x2", x(t)); dots.forEach(function (d, i) { d.classList.toggle("lit", items[i].at <= t); });
+      read.innerHTML = "<strong>" + t + "</strong> <span>" + unit + " in: " + got.length + " of " + items.length + " findings made</span>";
+      var verdict;
+      if (mustLeft.length) verdict = '<p class="bad"><strong>You stopped. You did not close.</strong> Still unfound: ' + mustLeft.map(function (it) { return strip(it.body).split(/(?<=[.?!])\s/)[0]; }).join(" ") + "</p>";
+      else if (t <= last + 2) verdict = '<p class="good"><strong>Analytical closure is defensible here.</strong> Every finding the analysis needs is in, the outline accounts for the question, and the log can say why you stopped.</p>';
+      else verdict = '<p class="bad"><strong>The last new authority arrived at hour ' + last + ".</strong> Every hour since is polish, and the client is paying for it. Closure was available " + (t - last) + " hours ago.</p>";
+      if (budget && t > budget) verdict += '<p class="bad"><strong>Past the budget.</strong> Practical closure arrived at hour ' + budget + (lastMust && lastMust.at > budget ? ", before the research was done. The honest move was to stop there, write down what remained, and tell the supervisor." : ". If you kept going, someone has to approve the overrun.") + "</p>";
+      panel.innerHTML = verdict + (got.length ? '<p class="ct-h">Found so far</p><ul class="cv-found">' + got.map(function (it) { return "<li><b>" + it.at + "h</b> " + it.body + (it.must ? ' <span class="try-pill k-case">needed</span>' : "") + "</li>"; }).join("") + "</ul>" : '<p class="try-hint">Nothing yet. Drag forward.</p>');
+    }
+    range.addEventListener("input", draw);
+    list.replaceWith(h("div", { "class": "try-curve" }, [read, svg, h("div", { "class": "tl-slider cv-slider" }, [range]), h("p", { "class": "tl-ends", html: "<span>0</span><span>" + H + " " + unit + "</span>" }), panel]));
+    draw();
+  };
+
+  /* ---- diff: two versions of a bill's text. First paragraph as introduced, second as reported or enacted, then a task list asking
+          what the change signals (the [x] option is right), then a --- line and the committee report's explanation. ------------- */
+  KINDS.diff = function (root) {
+    var ps = kids(root, "p").filter(function (p) { return !p.classList.contains("try-head") && !p.classList.contains("try-lead"); }), list = topList(root), hr = kids(root, "hr")[0];
+    if (ps.length < 2) return;
+    var a = ps[0].innerHTML, b = ps[1].innerHTML, labels = splitBar(opt(root, "versions")); if (labels.length < 2) labels = ["As introduced", "As reported"];
+    var seg = h("div", { "class": "try-seg", role: "group", "aria-label": "Version" }), text = h("p", { "class": "df-text" }), mode = 2;
+    function draw() {
+      Array.prototype.forEach.call(seg.children, function (x, i) { x.setAttribute("aria-pressed", String(i === mode)); });
+      if (mode === 0) text.innerHTML = a; else if (mode === 1) text.innerHTML = b;
+      else text.innerHTML = wordDiff(strip(a), strip(b)).map(function (w) { return w.k === "same" ? w.t : "<" + (w.k === "del" ? "del" : "ins") + ">" + w.t + "</" + (w.k === "del" ? "del" : "ins") + ">"; }).join("");
+    }
+    [labels[0], labels[1], "What changed"].forEach(function (t, i) { seg.appendChild(h("button", { type: "button", text: t, onclick: function () { mode = i; draw(); } })); });
+    ps[0].replaceWith(h("div", { "class": "try-diff" }, [seg, text])); ps[1].remove(); draw();
+    var after = h("div", { "class": "try-answer", hidden: "" }), n;
+    if (hr) { while ((n = hr.nextSibling)) after.appendChild(n); hr.replaceWith(after); }
+    if (list) {
+      var items = kids(list, "li"), box = h("div", { "class": "try-opts" }), out = live();
+      items.forEach(function (li) {
+        var btn = h("button", { type: "button", "class": "try-opt", html: own(li) });
+        btn.addEventListener("click", function () {
+          Array.prototype.forEach.call(box.children, function (x) { x.classList.remove("ok", "no"); });
+          var ok = isRight(li); btn.classList.add(ok ? "ok" : "no");
+          out.innerHTML = '<p class="' + (ok ? "good" : "bad") + '"><strong>' + (ok ? "Yes." : "Not this one.") + "</strong> " + fb(li) + "</p>";
+          if (ok) after.hidden = false;
+        });
+        box.appendChild(btn);
+      });
+      list.replaceWith(h("div", {}, [h("p", { "class": "try-hint", text: opt(root, "ask") || "What does the change signal?" }), box, out]));
+    }
+  };
+
+  /* ---- pairs: terms students confuse, two at a time. Items: "**term A | term B.**" with two nested lines, A's definition then B's.
+          The reader is shown the two definitions and assigns the terms before the card flips. ------------------------------------- */
+  KINDS.pairs = function (root) {
+    var list = topList(root); if (!list) return;
+    var pairs = kids(list, "li").map(function (li) { var L = lead(li), t = L.head.split("|").map(function (x) { return x.trim(); }), sub = kids(li, "ul,ol")[0], d = sub ? kids(sub, "li").map(function (x) { return own(x); }) : []; return { a: t[0], b: t[1] || "", da: d[0] || "", db: d[1] || "", why: L.rest }; }).filter(function (p) { return p.b && p.db; });
+    var i = 0, flip = false, score = 0, tried = 0, card = h("div", { "class": "pr-card" }), out = live(), pos = h("span", { "class": "try-score" });
+    var next = h("button", { type: "button", "class": "try-btn ghost", text: "Next pair →" });
+    function draw() {
+      var p = pairs[i], first = flip ? p.b : p.a, second = flip ? p.a : p.b, d1 = flip ? p.db : p.da, d2 = flip ? p.da : p.db, answered = false;
+      card.innerHTML = ""; out.innerHTML = "";
+      card.appendChild(h("p", { "class": "pr-h", html: "<em>" + p.a + "</em> or <em>" + p.b + "</em>? Which definition is which?" }));
+      [[d1, first], [d2, second]].forEach(function (row, k) {
+        var def = h("div", { "class": "pr-def" }, [h("p", { html: row[0] })]), opts = h("div", { "class": "try-seg" });
+        [p.a, p.b].forEach(function (t) { opts.appendChild(h("button", { type: "button", text: t, onclick: function () {
+          if (answered) return; answered = true; tried++;
+          var ok = t === row[1]; if (ok) score++;
+          Array.prototype.forEach.call(opts.children, function (x) { x.setAttribute("aria-pressed", String(x.textContent === t)); });
+          var other = card.querySelectorAll(".pr-def")[1 - k].querySelector(".try-seg"); Array.prototype.forEach.call(other.children, function (x) { x.setAttribute("aria-pressed", String(x.textContent === (k ? first : second))); });
+          card.querySelectorAll(".pr-def").forEach(function (d, j) { d.insertBefore(h("span", { "class": "pr-tag", text: j === 0 ? first : second }), d.firstChild); });
+          out.innerHTML = '<p class="' + (ok ? "good" : "bad") + '"><strong>' + (ok ? "Right." : "The other way round.") + "</strong> " + p.why + "</p>";
+          pos.textContent = score + " of " + tried + " right";
+        } })); });
+        def.appendChild(opts); card.appendChild(def);
+      });
+      pos.textContent = tried ? score + " of " + tried + " right" : (i + 1) + " of " + pairs.length;
+    }
+    next.addEventListener("click", function () { i = (i + 1) % pairs.length; flip = Math.random() < 0.5; draw(); });
+    list.replaceWith(h("div", { "class": "try-pairs" }, [card, out, h("p", { "class": "try-actions" }, [next, pos])]));
+    flip = Math.random() < 0.5; draw();
   };
 
   Array.prototype.forEach.call(blocks, function (root, idx) {
@@ -988,4 +1304,44 @@
   tip.addEventListener("mouseleave", later);
   document.addEventListener("keydown", function (e) { if (e.key === "Escape") hide(); });
   document.addEventListener("click", function (e) { if (!tip.contains(e.target)) hide(); });
+})();
+
+/* 8. The reader's Research Log: one log for the whole book, kept in this browser. Interactives add entries
+      (every step of a resolver, every citator verdict, every drafted question); the reader opens it from the
+      masthead, downloads it as text, or clears it. Nothing leaves the device. */
+(function () {
+  var KEY = "qm:log:v1";
+  function all() { try { return JSON.parse(localStorage.getItem(KEY) || "[]"); } catch (e) { return []; } }
+  function save(a) { try { localStorage.setItem(KEY, JSON.stringify(a.slice(-400))); } catch (e) {} }
+  var nav = document.querySelector(".topnav"); if (!nav) return;
+  var btn = document.createElement("button"); btn.type = "button"; btn.id = "qm-logbtn"; btn.setAttribute("aria-expanded", "false"); btn.setAttribute("aria-controls", "qm-logpanel");
+  var panel = document.createElement("aside"); panel.id = "qm-logpanel"; panel.hidden = true; panel.setAttribute("aria-label", "Your Research Log");
+  function esc(t) { return String(t || "").replace(/[&<>]/g, function (c) { return { "&": "&amp;", "<": "&lt;", ">": "&gt;" }[c]; }); }
+  function count() { var n = all().length; btn.textContent = "Research Log" + (n ? " (" + n + ")" : ""); }
+  function render() {
+    var a = all(), html = '<div class="lg-head"><strong>Your Research Log</strong><span>' + a.length + ' entr' + (a.length === 1 ? "y" : "ies") + ', kept in this browser only</span><button type="button" class="lg-close" aria-label="Close">×</button></div>';
+    if (!a.length) html += '<p class="lg-empty">Empty so far. The resolvers in Chapters 6 and 7, the citator in Chapter 5, the first-question drafter in Chapter 3, and the docket route in Chapter 13 each write entries here as you work them. Treat it as the log Chapter 3 asks you to keep: question, type, source, findings, next question.</p>';
+    else html += '<ol class="lg-list">' + a.slice().reverse().map(function (e) { return "<li><p class=\"lg-q\"><span class=\"lg-type\">" + esc(e.type) + "</span>" + esc(e.q) + "</p><p class=\"lg-f\"><b>Source</b> " + esc(e.source) + "</p><p class=\"lg-f\"><b>Findings</b> " + esc(e.found) + "</p>" + (e.next ? "<p class=\"lg-f\"><b>Next question</b> " + esc(e.next) + "</p>" : "") + "<p class=\"lg-meta\">" + esc(e.page) + " · " + esc(e.when) + "</p></li>"; }).join("") + "</ol>";
+    html += '<p class="lg-actions"><button type="button" class="try-btn small" id="lg-dl">Download as text</button> <button type="button" class="try-btn ghost small" id="lg-clear">Clear the log</button></p>';
+    panel.innerHTML = html;
+    panel.querySelector(".lg-close").addEventListener("click", close);
+    panel.querySelector("#lg-clear").addEventListener("click", function () { if (confirm("Clear every entry in your Research Log?")) { save([]); render(); count(); } });
+    panel.querySelector("#lg-dl").addEventListener("click", function () {
+      var txt = "RESEARCH LOG\n\n" + all().map(function (e, i) { return (i + 1) + ". Research Question: " + e.q + "\n   Question Type: " + e.type + "\n   Source Consulted: " + e.source + "\n   Findings: " + e.found + (e.next ? "\n   Next Question: " + e.next : "") + "\n   (" + e.page + ", " + e.when + ")\n"; }).join("\n");
+      var blob = new Blob([txt], { type: "text/plain" }), u = URL.createObjectURL(blob), a2 = document.createElement("a"); a2.href = u; a2.download = "research-log.txt"; document.body.appendChild(a2); a2.click(); a2.remove(); setTimeout(function () { URL.revokeObjectURL(u); }, 500);
+    });
+  }
+  function open() { render(); panel.hidden = false; btn.setAttribute("aria-expanded", "true"); var c = panel.querySelector(".lg-close"); if (c) c.focus(); }
+  function close() { panel.hidden = true; btn.setAttribute("aria-expanded", "false"); btn.focus(); }
+  btn.addEventListener("click", function () { if (panel.hidden) open(); else close(); });
+  document.addEventListener("keydown", function (e) { if (e.key === "Escape" && !panel.hidden) close(); });
+  nav.appendChild(btn); document.body.appendChild(panel); count();
+  window.qmLog = {
+    add: function (e) {
+      var a = all(), t = document.title.replace(/\s*&mdash;.*$|\s*—.*$/, ""), d = new Date();
+      a.push({ q: e.q || "", type: e.type || "", source: e.source || "", found: e.found || "", next: e.next || "", page: t, when: d.toLocaleDateString() + " " + d.toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }) });
+      save(a); count(); if (!panel.hidden) render();
+    },
+    all: all
+  };
 })();

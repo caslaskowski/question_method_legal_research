@@ -82,7 +82,9 @@ TRY_LABEL = {"choice": "Quick check", "sort": "Quick check", "order": "Put it in
              "switch": "Change the setting", "annotate": "Read closely", "search": "Search lab", "checklist": "Checklist",
              "reveal": "Your turn", "tokens": "Watch it work", "flashcards": "Flashcards",
              "resolve": "Bring it into focus", "cycle": "Watch the documents fill", "funnel": "Narrow the field",
-             "timeline": "Scrub the timeline", "path": "Choose the route"}
+             "timeline": "Scrub the timeline", "path": "Choose the route",
+             "draft": "Draft it", "highlight": "Read for the answer", "citator": "Run the citator", "preamble": "Open the preamble",
+             "curve": "When to stop", "diff": "What changed", "pairs": "Tell them apart"}
 
 
 def render_try(frag):
@@ -454,6 +456,7 @@ def build_downloads():
             % (esc(d["title"]), esc(d["desc"]), esc(d["use"]), esc(d["file"]), ext, file_size(path), extra))
     body = ('<header class="chead"><h1>Downloads</h1></header>'
             '<p class="lede">Print these. Fill them in. Keep them beside you every time you research. Everything here is free to use and to share in class.</p>'
+            '<p>One more log is already running: the <strong>Research Log</strong> button at the top of every page collects an entry each time you work one of the book\u2019s interactives, and it downloads as a text file. It stays in your browser and never leaves your device.</p>'
             '<ul class="dllist">%s</ul>'
             % "".join(cards))
     write(url, shell("Downloads", body, 1, url, pager=pager_for(url)))
