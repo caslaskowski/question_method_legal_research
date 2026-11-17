@@ -1,4 +1,4 @@
-Chapter 3’s demonstration shows selected Research Log entries and outline snapshots so the walkthrough can keep moving. This appendix holds the whole record: the complete Research Log, the finished annotated outline, and a **case chart** of every authority the chain touched. It is the version of the apparatus you would actually hand a supervisor, or reopen yourself after two weeks away from the file. Appendix E’s bracket convention applies here too: brackets mean *verify against current law before relying on this*, and the citations illustrate the method rather than substitute for your own verification.
+Chapter 3’s demonstration shows selected Research Log entries and outline snapshots so the walkthrough can keep moving. This appendix holds the whole record: the complete Research Log, the finished annotated outline, and a **case chart** of every authority the chain touched. It is the version of the record you would actually hand a supervisor, or reopen yourself after two weeks away from the file. Appendix E’s bracket convention applies here too: brackets mean *verify against current law before relying on this*, and the citations illustrate the method rather than substitute for your own verification.
 
 ## The Complete Research Log
 
@@ -78,7 +78,7 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 |---|---|
 | **8. Research Question** | When is a school-sponsored student publication a public forum rather than a nonpublic forum? |
 | Question Type | Focusing |
-| Method | Read *Dean*, the case the previous search surfaced. |
+| Method | Read *Dean*, the case the previous search turned up. |
 | Findings | School facilities are nonpublic forums unless school authorities have, by policy or by practice, opened them for indiscriminate use by the general public or some segment of it. *Dean* runs the inquiry on a student paper by examining the written policy and the paper’s actual practice: who exercised control over content, whether students made the publication decisions in fact, and how the paper functioned over time. Answers the question fully as to the test. Applying it stalled on missing facts. |
 | Source Consulted | *Hazelwood*, 484 U.S. 260; *Dean*, 345 F. Supp. 2d 799 |
 | Next Question | None for the databases. Fact-gathering task opened instead: client call on who decides content, any prior control by the advisor or principal, and whether outside contributions have ever been accepted. |
@@ -92,7 +92,7 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Findings | \[Research would reveal; run the search.\] Still open. Discovered while drafting from the outline, and logged as a new cycle rather than a failure of the initial research. |
 | Source Consulted | \[To be supplied.\] |
 | Next Question | None identified; this is the final open thread before closure. |
-| Notes | The removed articles all concern cultural holidays, events, and celebrations, an observation that surfaced only in drafting. |
+| Notes | The removed articles all concern cultural holidays, events, and celebrations, an observation that came up only in drafting. |
 
 
 ## The Finished Annotated Outline

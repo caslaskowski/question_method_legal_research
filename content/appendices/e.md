@@ -1,4 +1,4 @@
-This appendix holds the model chains and answers for the single-source drills in Chapters 4 through 8. The scenarios live in their chapters; the walkthroughs live here, so you cannot read the answer by accident while you are supposed to be attempting it. Come here in two situations. If you are stuck, read just far enough to get unstuck, then go back and finish your own chain. If you are done, compare your chain to the model, one question at a time.
+This appendix holds the model chains and answers for the single-source drills in Chapters 4 through 8. The scenarios stay in their chapters, and the walkthroughs are here, so you cannot read an answer by accident while you are supposed to be attempting it. Come here in two situations. If you are stuck, read just far enough to get unstuck, then go back and finish your own chain. If you are done, compare your chain to the model, one question at a time.
 
 Your questions will not match the model’s word for word, and they should not. What matters is whether each of your questions was earned by the answer before it. Where your chain diverged from the model’s, ask which version can point to the stated answer that produced its next question. Divergence can be a good sign. A question that arrived from nowhere is the thing to fix.
 
@@ -8,11 +8,11 @@ You have finished the Chapter 6 drill and opened this appendix to compare. Your 
 - [ ] Your chain is wrong. Rewrite Q3 to match the model and rerun from there.
     - The model is one defensible route. Matching its wording teaches you to copy a chain, and the drill exists to teach you to build one.
 - [x] Ask whether your Q3 was earned by your Q2's answer. If it was, the order is a choice, and a defensible one; note it and compare the rest.
-    - Both the penalty and the exceptions are sibling questions the operative provision raised. Which you took first is a judgment, and the test is that you can point to the answer that produced it. A question that arrived from nowhere is the thing to fix.
+    - Both the penalty and the exceptions are sibling questions the operative provision raised. Which you took first is a judgment, and the test is that you can point to the answer that produced it. The question to fix is the one that arrived from nowhere.
 - [ ] The model is wrong. Your order is more logical.
     - Perhaps, for your reasons, and you should say what they are. The comparison asks one thing of both chains: does each question follow from the answer before it?
 - [ ] Skip the comparison for Q3 and check only the answers.
-    - The answers are scoped to their questions, so a comparison that ignores the questions cannot tell you much. The questions are where the method lives.
+    - The answers are scoped to their questions, so a comparison that ignores the questions cannot tell you much. The method is in the questions.
 :::
 
 A note on the answers. The answers here are scoped to their questions. Where the governing law is settled, they anchor to real authority; where a specific number, holding, or citation would go, you will see brackets. Confirm every anchored authority and fill every bracket against current primary law before you rely on any of this. The citations illustrate the method. They do not substitute for your own verification, and each walkthrough ends with a short reminder of what to check.
@@ -23,11 +23,11 @@ Check your chain against this walkthrough one question at a time.
 
 **Why this is a secondary-source-only exercise.** This is the one source type that earns a single-source drill honestly, because mapping an unfamiliar landscape is what secondary sources are for. You begin with no legal vocabulary at all, and the whole task is to acquire it, see the structure of the area, and collect the citations a later researcher will follow. The drill ends at the boundary the method draws between secondary and primary authority: the moment your next question can only be answered by a case or a statute, you have reached the edge of this exercise.
 
-**Where the researcher’s knowledge starts.** No vocabulary. She knows the words “fired” and “social media” and nothing else legal. So the first move is acquisition: a plain-language search whose only job is to surface the terms of art. After that, the questions run exploratory, then foundational, then survey, all inside secondary sources.
+**Where the researcher’s knowledge starts.** No vocabulary. She knows the words “fired” and “social media” and nothing else legal. So the first move is acquisition: a plain-language search whose only job is to turn up the terms of art. After that, the questions run exploratory, then foundational, then survey, all inside secondary sources.
 
 **Q1. Can an employer fire someone for what they posted on social media?** *(Definitional / orientation, general search)*
 
-*Answer:* A plain-language search surfaces the governing default and its name: most U.S. employment is “at-will,” meaning either side may end the relationship for almost any reason, including something the employee posted, unless an exception applies. The search also signals that exceptions and “protected activity” exist.
+*Answer:* A plain-language search turns up the governing default and its name: most U.S. employment is “at-will,” meaning either side may end the relationship for almost any reason, including something the employee posted, unless an exception applies. The search also signals that exceptions and “protected activity” exist.
 
 *The student now has the term “at-will” and can query a legal encyclopedia. The next question asks what that doctrine actually holds.*
 
@@ -43,7 +43,7 @@ Check your chain against this walkthrough one question at a time.
 
 *The student now has the doctrinal structure but not whether this state recognizes it. That is a survey question. The treatise also confirmed the encyclopedia’s hint that a separate law may protect certain activity regardless of at-will, which becomes a sibling thread.*
 
-**\*Relevance discovered:** Only now do two facts matter. The post concerned unpaid overtime, a wage right, which maps onto the public-policy exception. And the post criticized a manager about pay, which maps onto the separate “protected activity” thread. Note these facts now, because the law just revealed they bear on the rule.\*
+**\*Relevance discovered:** Only now do two facts matter. The post concerned unpaid overtime, a wage right, which maps onto the public-policy exception. And the post criticized a manager about pay, which maps onto the separate “protected activity” thread. Note these facts now, because the law just showed you that they matter.\*
 
 **Q4. How does this state treat the public-policy exception?** *(Survey: ALR annotation, 50-state survey, or state encyclopedia)*
 
@@ -53,7 +53,7 @@ Check your chain against this walkthrough one question at a time.
 
 **Q5. Is there a separate law that protects employees who complain together about wages or working conditions?** *(Foundational / definitional, sibling: labor-law secondary source)*
 
-*Answer:* A labor-law secondary source surfaces the term of art: “protected concerted activity” under the National Labor Relations Act. It explains that the protection can reach even non-union private employees, names the agency that enforces it, and adds the caveat that it generally protects collective rather than purely individual complaints. It cites the governing statute and leading decisions.
+*Answer:* A labor-law secondary source supplies the term of art: “protected concerted activity” under the National Labor Relations Act. It explains that the protection can reach even non-union private employees, names the agency that enforces it, and adds the caveat that it generally protects collective rather than purely individual complaints. It cites the governing statute and leading decisions.
 
 *Whether one employee’s solo post qualifies is a focusing question for the statute and the cases, out of scope here. Record the citations.*
 
@@ -75,7 +75,7 @@ Check your chain against this walkthrough one question at a time.
 
 *Answer:* Locating the leading state appellate decision (through headnotes, a topic-and-key-number search, and a citator) reveals the general rule and its exception: ordinarily there is no duty to protect another from a third party’s criminal conduct, but courts recognize an exception when a special relationship exists, such as business and customer, and the harm was foreseeable. \[Confirm the state’s exact formulation in the leading case.\]
 
-*The duty turns on two requirements the answer just surfaced: a special relationship and foreseeability. The business-customer relationship appears to satisfy the first, so foreseeability is the live question. Deepen into it.*
+*The duty depends on two requirements the answer just named: a special relationship and foreseeability. The business-customer relationship appears to satisfy the first, so foreseeability is the live question. Dig into it.*
 
 **Q2. What makes a third party’s criminal act foreseeable enough to create this duty?** *(Focusing, deeper)*
 
@@ -93,9 +93,9 @@ Check your chain against this walkthrough one question at a time.
 
 *Answer:* The student locates the most factually analogous decisions, pins down which facts each court treated as outcome-determinative, and distinguishes the cases that cut the other way.
 
-**\*Precision trap:** A search will surface cases on an employer’s duty to its employees, or a landlord’s duty to tenants. Those involve a different special relationship and a different line of authority. The precise question, a business owner’s duty to a customer, lets you set them aside rather than chase them.\*
+**\*Precision trap:** A search will turn up cases on an employer’s duty to its employees, or a landlord’s duty to tenants. Those involve a different special relationship and a different line of authority. The precise question, a business owner’s duty to a customer, lets you set them aside rather than chase them.\*
 
-**Closure.** Analytical. The case law establishes the general no-duty rule, the special-relationship exception, the foreseeability test the state follows, and how analogous cases have applied it; the client’s facts sit beside those cases in the outline’s brackets. Every question is answered or identified as genuinely close, all within case law, and you can now state whether a duty likely existed. Whether the store then breached that duty, and questions of causation and damages, are separate elements, but the attorney asked only about duty, so you have reached closure on the assigned question. Flag the remaining elements as out of scope.
+**Closure.** Analytical. The case law establishes the general no-duty rule, the special-relationship exception, the foreseeability test the state follows, and how analogous cases have applied it; the client’s facts are written beside those cases in the outline’s brackets. Every question is answered or identified as genuinely close, all within case law, and you can now state whether a duty likely existed. Whether the store then breached that duty, and questions of causation and damages, are separate elements, but the attorney asked only about duty, so you have reached closure on the assigned question. Flag the remaining elements as out of scope.
 
 **What this drill builds.** Moving from a focusing question to fact-driven application, identifying the dispositive facts in an opinion and comparing them to a client’s facts, distinguishing adverse authority, and using a precisely scoped question to discard the wrong line of cases. These are the named case-law competencies the chapter teaches.
 
@@ -113,15 +113,15 @@ Check your chain against this walkthrough one question at a time.
 
 *Answer:* Locating the provision in the annotated Penal Code (from the attorney’s pointer, or through the code’s finding aids) reveals California’s all-party-consent rule: Penal Code section 632 prohibits intentionally recording a “confidential communication” without the consent of all parties to it. \[Read section 632 for the exact prohibition and its mental-state requirement.\]
 
-*The prohibition turns on a defined term, “confidential communication,” and on “consent.” Check the definitions before going further.*
+*The prohibition rests on a defined term, “confidential communication,” and on “consent.” Check the definitions before going further.*
 
 **Q2. What counts as a confidential communication under the statute?** *(Definitional, statute’s definitions section)*
 
-*Answer:* Scanning the chapter’s section headings turns up the definitions within the same chapter, and they resolve the term: research reveals it turns on whether a party had an objectively reasonable expectation that the conversation was not being overheard or recorded, which excludes conversations held where the parties could reasonably expect to be overheard. \[Confirm the statutory definition’s exact wording.\]
+*Answer:* Scanning the chapter’s section headings turns up the definitions within the same chapter, and they resolve the term: research reveals that it depends on whether a party had an objectively reasonable expectation that the conversation was not being overheard or recorded, which excludes conversations held where the parties could reasonably expect to be overheard. \[Confirm the statutory definition’s exact wording.\]
 
 *Two things follow. Whether this call is confidential is now the crux, and it depends on the source’s reasonable expectation, a fact that becomes relevant here. And the phrase reasonable expectation is a standard the text does not fully resolve, which is an ambiguity to flag.*
 
-**\*Relevance discovered:** The call is a one-on-one phone interview, a private exchange, which bears directly on whether the source reasonably expected it not to be recorded. Note this fact now, because the definition is what made it matter.\*
+**\*Relevance discovered:** The call is a one-on-one phone interview, a private exchange, which matters directly to whether the source reasonably expected it not to be recorded. Note this fact now, because the definition is what made it matter.\*
 
 **Q3. Does the statute contain any exception that covers recording for journalism, or recording one’s own conversation?** *(Focusing, sibling: read in context for exceptions)*
 
@@ -147,15 +147,15 @@ Check your chain against this walkthrough one question at a time.
 
 Check your chain against this walkthrough one question at a time.
 
-**Why this is a regulations-only exercise.** The operative requirement here lives in the Code of Federal Regulations. The enabling statute sets the agency’s authority, but the height triggers, the accepted systems, and the technical specifications are in the regulation. So this is a regulation-only drill, and you practice reading a CFR section in full: the authority note that links it to its statute, the definitions section that controls its terms, the operative shall and must, the exceptions and thresholds, any incorporation of an outside standard, and the currency check the chapter stresses above all others.
+**Why this is a regulations-only exercise.** The operative requirement here is in the Code of Federal Regulations. The enabling statute sets the agency’s authority, but the height triggers, the accepted systems, and the technical specifications are in the regulation. So this is a regulation-only drill, and you practice reading a CFR section in full: the authority note that links it to its statute, the definitions section that controls its terms, the operative shall and must, the exceptions and thresholds, any incorporation of an outside standard, and the currency check the chapter stresses above all others.
 
-**Where the researcher’s knowledge starts.** Firm grip on the entry point. You are pointed to the OSHA construction regulations, though you may not yet know the specific part. Locating it is the first move, so you start with a focusing question. Notice, too, that the client’s ask bundles three questions, whether protection is required, at what height, and what counts as acceptable, and the method takes them one at a time, starting with the trigger.
+**Where the researcher’s knowledge starts.** Firm grip on the entry point. You are pointed to the OSHA construction regulations, though you may not yet know the specific part. Locating it is the first move, so you start with a focusing question. The client’s request also bundles three questions, whether protection is required, at what height, and what counts as acceptable, and the method takes them one at a time, starting with the trigger.
 
 **Q1. At what height do OSHA’s construction regulations require an employer to provide fall protection?** *(Focusing)*
 
-*Answer:* Browsing the CFR’s structure, Title 29, then the construction standards at Part 1926, then the part’s table of contents, reveals that fall protection sits in Subpart M, with the duty provision at section 1926.501: employers must provide fall protection for employees working at heights of six feet or more above a lower level. \[Read section 1926.501 for the exact trigger and the surfaces it covers.\]
+*Answer:* Browsing the CFR’s structure, Title 29, then the construction standards at Part 1926, then the part’s table of contents, reveals that fall protection is in Subpart M, with the duty provision at section 1926.501: employers must provide fall protection for employees working at heights of six feet or more above a lower level. \[Read section 1926.501 for the exact trigger and the surfaces it covers.\]
 
-*At twenty feet the requirement is plainly triggered. The next questions are what counts as acceptable protection, and whether any exception changes the picture. Deepen, then check siblings.*
+*At twenty feet the requirement is plainly triggered. The next questions are what counts as acceptable protection, and whether any exception changes the picture. Go deeper first, then check the sibling questions.*
 
 **Q2. What forms of fall protection does the regulation accept?** *(Focusing, deeper)*
 
@@ -197,13 +197,13 @@ Check your chain against this walkthrough one question at a time.
 
 This is the model for the capstone. Check your chain against it one question at a time, and pay particular attention to the moments where the model switches source types: those switches are the skill.
 
-**Why this is the capstone.** The single-source drills walled off one source at a time. This one tears the walls down. A real question like commercial drone photography is governed by an overlapping set of authorities, a federal statute, federal regulations, agency guidance, and a residual overlay of state law, and the skill this chapter teaches is moving fluidly among them while keeping a single question in view. Watch how each answer hands you a question pointed at a different source. That is the orientation step, restored.
+**Why this is the capstone.** The single-source drills walled off one source at a time. This one tears the walls down. A real question like commercial drone photography is governed by an overlapping set of authorities, a federal statute, federal regulations, agency guidance, and a residual overlay of state law, and the skill this chapter teaches is moving fluidly among them while keeping a single question in view. Watch how each answer hands you a question pointed at a different source. With the walls down, the orientation step is back.
 
 **Where the researcher’s knowledge starts.** No grip on the area, though you have the plain words drone and commercial. So you start in a secondary source, exploratory, to orient and acquire the vocabulary, exactly the step the single-source drills handed you for free.
 
 **Q1. What law governs flying a drone for commercial purposes?** *(Exploratory, no-clue: secondary source)*
 
-*Answer:* Orientation surfaces the landscape and the terms of art: commercial small-drone operation is regulated mainly by the Federal Aviation Administration under federal aviation law; the operative federal rules are known as Part 107; an operator generally needs a remote pilot certificate; and a separate overlay of state and local law addresses privacy and trespass. The source cites the governing statute and regulations.
+*Answer:* Orientation gives you the landscape and the terms of art: commercial small-drone operation is regulated mainly by the Federal Aviation Administration under federal aviation law; the operative federal rules are known as Part 107; an operator generally needs a remote pilot certificate; and a separate overlay of state and local law addresses privacy and trespass. The source cites the governing statute and regulations.
 
 *The landscape names three threads: the federal statute that grants FAA authority, the Part 107 regulations, and the state-law overlay. Start at the source of federal authority and work toward the statute, then the regulation.*
 
@@ -211,7 +211,7 @@ This is the model for the capstone. Check your chain against it one question at 
 
 *Answer:* Statutory research reveals that Congress gave the FAA authority over the national airspace and, through the FAA reauthorization legislation addressing unmanned aircraft systems, directed the agency to integrate small drones into that airspace. This establishes the FAA’s authority and the framework its regulations operate within. \[Confirm the specific authorizing provisions.\]
 
-*This confirms that the FAA may regulate and that the operative requirements live in its regulations. Move to the regulation.*
+*This confirms that the FAA may regulate and that the operative requirements are in its regulations. Move to the regulation.*
 
 **Q3. Under the FAA’s regulations, what must a commercial drone operator actually do?** *(Focusing: regulation)*
 
@@ -235,7 +235,7 @@ This is the model for the capstone. Check your chain against it one question at 
 
 *Answer:* Statutory and case-law research reveals the jurisdiction’s specific provisions and how its courts have applied trespass and privacy doctrines to overflight and aerial imaging. \[Confirm the state statutes and the analogous cases.\]
 
-*This resolves the residual exposure as far as current law allows, and surfaces where the law is genuinely open, on preemption and on novel privacy claims.*
+*This resolves the residual exposure as far as current law allows, and shows where the law is genuinely open, on preemption and on novel privacy claims.*
 
 **Synthesis.** Your annotated outline now holds three things: the federal regulatory requirements from Part 107, certification, registration, operational limits, and the waiver process, grounded in the FAA’s statutory authority; the agency guidance and the currency confirmation; and the residual state-law privacy and trespass exposure together with the open preemption question. Each step’s next question pointed to a different source type: secondary to orient, statute for authority, regulation for the operative rules, guidance for application, statute and case law for the state overlay. That is multi-source research working as designed. You can now advise the client on what to do to fly legally and on what exposure remains.
 
