@@ -15,7 +15,7 @@ Secondary sources are the ones that talk *about* the law rather than *being* the
 
 **Currency and Supplementation Information.** Print treatises and encyclopedias update through pocket parts and supplements; online versions show a “current through” date. Knowing how a source updates, and when it was last updated, tells you how far to trust it before you verify against primary authority.
 
-**Editorial Apparatus.** Cross-references to related sections, research references to other secondary sources, and (in annotated works like ALR) summaries organized by jurisdiction or by factual scenario.
+**Editorial Additions.** Cross-references to related sections, research references to other secondary sources, and (in annotated works like ALR) summaries organized by jurisdiction or by factual scenario.
 
 ## How to Engage With the Source
 
