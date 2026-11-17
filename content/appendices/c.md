@@ -2,7 +2,7 @@ Reading statutory text is a different skill from reading case law. Opinions expl
 
 
 ::: {.try kind="annotate" title="One definition, read word by word" hint="Your client developed a lung condition after years in a cold, damp packing room. Is it an “occupational disease”? Select each marked phrase of Arizona’s definition, A.R.S. § 23-901(13)(c)."}
-Arizona’s workers’ compensation definitions treat as a compensable injury [an occupational disease]{.m label="The defined term" note="A statutory definition overrides ordinary meaning. Whatever you or a dictionary would call an occupational disease is beside the point. Only this sentence counts."} that is due to causes and conditions [characteristic of and peculiar to]{.m label="The narrowing words" note="Both words work. A disease any workplace or any life could produce is not occupational merely because this job produced it. Next question: how have Arizona courts read “peculiar to”?"} a particular trade, occupation, process or employment, and [not the ordinary diseases to which the general public is exposed]{.m label="An exclusion" note="A second, independent condition. If the public catches the condition just as readily, it is outside the definition even if the job also caused it. Two facts about the packing room just became relevant."}, and [subject to section 23-901.01 or 23-901.09 or, for heart-related, perivascular or pulmonary cases, section 23-1105]{.m label="Cross-references" note="The definition is not finished at its last word. It sends you to whichever section governs your kind of claim, and each of those sections adds requirements. Open them before you decide the definition is met."}.
+Arizona’s workers’ compensation definitions treat as a compensable injury [an occupational disease]{.m label="The defined term" note="A statutory definition overrides ordinary meaning. Whatever you or a dictionary would call an occupational disease is beside the point. Only this sentence counts."} that is due to causes and conditions [characteristic of and peculiar to]{.m label="The narrowing words" note="Both words do work. A disease any workplace or any life could produce is not occupational merely because this job produced it. Next question: how have Arizona courts read “peculiar to”?"} a particular trade, occupation, process or employment, and [not the ordinary diseases to which the general public is exposed]{.m label="An exclusion" note="This is a second, independent condition. If the public catches the condition just as readily, it is outside the definition even if the job also caused it. Two facts about the packing room just became relevant."}, and [subject to section 23-901.01 or 23-901.09 or, for heart-related, perivascular or pulmonary cases, section 23-1105]{.m label="Cross-references" note="The definition is not finished at its last word. It sends you to whichever section governs your kind of claim, and each of those sections adds requirements. Open them before you decide the definition is met."}.
 :::
 
 ## Components of a Statutory Section
@@ -19,7 +19,7 @@ Arizona’s workers’ compensation definitions treat as a compensable injury [a
 Section 4 of a state statute states a general rule that plainly requires what your client failed to do. You have read § 4 twice and it is unambiguous. Is the statutory question answered?
 
 - [ ] Yes. Log § 4 as the rule and move to the cases that have applied it.
-    - You have read one section of a scheme. A client whose conduct falls within an exception is outside the statute no matter how squarely the general rule reads, and exceptions often sit several sections away.
+    - You have read one section of a scheme. A client whose conduct falls within an exception is outside the statute no matter how squarely the general rule reads, and exceptions are often several sections away.
 - [x] Not yet. Read the chapter's scope section, its definitions, and its exceptions before you conclude § 4 reaches the client.
     - The operative provision is almost never the whole answer. “Except that,” “unless,” and “notwithstanding” carry as much weight as the rule, and a defined term in § 4 may mean something narrower than it appears. Read the section in its context, then log.
 - [ ] Yes, if the section heading describes your client's situation.
@@ -35,9 +35,9 @@ Section 4 of a state statute states a general rule that plainly requires what yo
 ::: {.try kind="explore" layout="stack" title="How a statutory chapter is usually built"}
 - **Scope and applicability.** *Does this chapter reach my client at all?* Read it first. Many research questions end here.
 - **Definitions.** *What do the operative words mean in this chapter?* A defined term controls every section that uses it, and it may differ from the same word in a neighboring chapter.
-- **General rule.** *What is required, prohibited, or permitted?* The provision you came for. It is almost never the whole answer.
-- **Specific obligations.** *What exactly must be done, by whom, and when?* The detail that turns the general rule into conduct.
-- **Exceptions.** *Is my client’s conduct carved out?* Look for “notwithstanding,” “except,” and “unless.” An exception often sits several sections away from the rule it qualifies.
+- **General rule.** *What is required, prohibited, or permitted?* This is the provision you came for, and it is almost never the whole answer.
+- **Specific obligations.** *What exactly must be done, by whom, and when?* The detail that turns the general rule into something a person must actually do.
+- **Exceptions.** *Is my client’s conduct carved out?* Look for “notwithstanding,” “except,” and “unless.” An exception is often several sections away from the rule it qualifies.
 - **Enforcement and penalties.** *Who can enforce this, and what follows from a violation?* Whether a private person may sue is frequently its own research question.
 - **Effective date.** *Did this text govern on the date that matters?* Sometimes found only in the session law.
 :::
