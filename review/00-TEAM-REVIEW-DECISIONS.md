@@ -144,3 +144,11 @@ Eighteen `choice` interactives modelled on Chapter 5's "Read the flag, then read
 | c.md | The rule squarely covers your client | Read scope, definitions and exceptions before concluding the operative section reaches the client; headings do not bind |
 | d.md | The number is not in the CFR | An incorporated standard is law: "what does it require?" is the next research question |
 | e.md | Your Q3 is not the model's Q3 | Comparing a chain to the model: the test is whether each question was earned by the answer before it, not whether the order matches |
+
+
+## 7. Second round of the author's requests
+
+- **License and citation.** `book.json` now carries CC BY 4.0, the Bluebook citation (*Cas Laskowski, The Question Method of Legal Research (2d ed. 2026)*), the site URL and the instructor contact; every footer, the page metadata, the DOCX and `LICENSE.md` read them. The URL is the GitHub Pages address for this repository; change it in `book.json` if the book lives elsewhere.
+- **For instructors.** A link in every footer and a note on the Downloads page tell instructors to email the author for the instructor edition.
+- **Chapter 6.** Both definitions-based interactives are gone. In their place: an annotated fictional security-deposit section (*Did that subsection answer you? Read the whole section*), where the answer in (a) is changed by (b), switched off by (c), and bounded by (e); and a switch (*Same section, three questions*) that reads the same annotated code page for a focusing, an exploratory and an application question.
+- **Chapter 16.** A new section, *Three Research Performance Tasks, in Miniature*, sketches the NCBE task shape and three invented tasks (negligent entrustment, a health-club contract, a holographic will), each ending in the four research questions the method writes before the writing step. The compressed-cycle paragraph now puts "how does it apply to this client" after the sources have been asked how they applied the rule.

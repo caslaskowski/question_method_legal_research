@@ -80,11 +80,15 @@ An interactive is a fenced block in the chapter's Markdown. Its content is ordin
 
 Two rules keep them useful. Keep each one to a single screen: about six rows in a sorter. And do not let an interactive repeat the paragraph above it; give it new examples, or turn the paragraph's own list into the interactive. In print and in the DOCX the answers are visible beside the items; the interactives are for the screen, the text is for the record.
 
+## License, citation and the instructor edition
+
+The book is licensed [CC BY 4.0](https://creativecommons.org/licenses/by/4.0/); `LICENSE.md` has the details and the fonts' separate license. Cite it as *Cas Laskowski, The Question Method of Legal Research (2d ed. 2026)*. The `cite_as`, `license`, `url`, `edition` and `instructor_email` fields in `book.json` feed the footer of every page, the page metadata, the DOCX and the Downloads page; change them there. Instructors who want the instructor edition (sample answers held back, notes on running the exercises) email the author at the address in `book.json`; the footer and the Downloads page carry that link.
+
 ## Adapting this book for your course
 
-Everything you would change is in `content/` and `book.json`; nothing in `build.py`, `assets/` or the built folders needs to be touched. Keep the attribution to the author and say what you changed; the license the author chooses governs the rest (see the `license` fields in `book.json`, which the footer, the page metadata and the DOCX read once they are set).
+Everything you would change is in `content/` and `book.json`; nothing in `build.py`, `assets/` or the built folders needs to be touched. Keep the attribution to the author and say what you changed; CC BY 4.0 governs the rest.
 
-- **Title, author, subtitle, publication facts:** `book.json` (`title`, `subtitle`, `author`, and the `license`, `license_url`, `url`, `edition` and `edition_date` fields, which are null until the author sets them).
+- **Title, author, subtitle, publication facts:** `book.json` (`title`, `subtitle`, `author`, `license`, `license_url`, `url`, `edition`, `edition_date`, `cite_as` and `instructor_email`).
 - **Jurisdiction:** the Arizona material is confined to Chapter 1 (hierarchy examples), Appendix A (the premises-liability secondary source), Appendix B (*Markowitz*), Appendix C (A.R.S. § 23-901), the Chapter 3 Notice of Claim sandbox and the Worked Example in `downloads/`. `grep -n "Arizona\|A\.R\.S\.\|Ariz\." content/` lists every line. The Chapter 3 demonstration, the organic-labeling thread and all of Part II are federal.
 - **Hypotheticals and the fictional universe:** every search lab (`kind="search"`) and sorter holds its own fictional cases; rewrite the bullets and keep the `**Title | on point.**` form. The eight fictional employment cases in Chapter 2 and the four in Chapter 9 are the only "universe"; nothing else depends on them.
 - **Real cases:** every real case is cited in full on first use in each chapter, in a reporter a free database resolves; keep that rule when you substitute your own cases, and label invented cases as fictional in the sentence before the interactive, as Chapters 2 and 9 do.

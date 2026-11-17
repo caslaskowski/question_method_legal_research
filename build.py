@@ -309,15 +309,30 @@ def pub_meta(page_url):
     return "".join(x + "\n" for x in out)
 
 
+def cite_html():
+    """The recommended citation (Bluebook form for a book: author, title, edition and year), with the
+    title in <cite>. book.json's cite_as is plain text; the title is italicised here by matching it."""
+    c = BOOK.get("cite_as")
+    if not c:
+        return ""
+    t = BOOK["title"]
+    return esc(c).replace(esc(t), "<cite>" + esc(t) + "</cite>", 1)
+
+
 def pub_line():
-    """The footer's license and edition, when book.json has them; also what a printed page carries."""
+    """The footer's citation, license and instructor contact, when book.json has them; also what a printed page carries."""
     bits = []
-    if BOOK.get("license"):
-        bits.append(('<a rel="license" href="%s">%s</a>' % (esc(BOOK["license_url"]), esc(BOOK["license"]))) if BOOK.get("license_url") else esc(BOOK["license"]))
-    if BOOK.get("edition"):
+    if BOOK.get("cite_as"):
+        bits.append("Cite as: " + cite_html())
+    elif BOOK.get("edition"):
         bits.append(esc(BOOK["edition"]) + ((", " + esc(BOOK["edition_date"])) if BOOK.get("edition_date") else ""))
+    if BOOK.get("license"):
+        lic = ('<a rel="license" href="%s">%s</a>' % (esc(BOOK["license_url"]), esc(BOOK["license"]))) if BOOK.get("license_url") else esc(BOOK["license"])
+        bits.append("Licensed under " + lic + ": share and adapt it with attribution")
     if BOOK.get("url"):
         bits.append(esc(BOOK["url"]))
+    if BOOK.get("instructor_email"):
+        bits.append('<a class="instructors" href="mailto:%s?subject=Instructor%%20edition%%2C%%20The%%20Question%%20Method%%20of%%20Legal%%20Research">For instructors: email the author for the instructor edition</a>' % esc(BOOK["instructor_email"]))
     return "".join(" " + b + "." for b in bits)
 
 
@@ -492,10 +507,15 @@ def build_downloads():
             '<li class="dl"><div><h2 id="dl-%d">%s</h2><p>%s</p><p class="dl-use"><strong>Use it:</strong> %s</p></div>'
             '<div class="dl-actions"><a class="btn" href="%s" download aria-label="Download %s, %s, %s">Download %s <small>%s</small></a>%s</div></li>'
             % (len(cards) + 1, esc(d["title"]), esc(d["desc"]), esc(d["use"]), esc(d["file"]), esc(d["title"]), kind, size, ext, size, extra))
+    instructors = ""
+    if BOOK.get("instructor_email"):
+        instructors = ('<p class="lede instructors-note"><strong>For instructors:</strong> an instructor edition exists, with the sample answers held back from students and notes on running the exercises. '
+                       '<a href="mailto:%s?subject=Instructor%%20edition%%2C%%20The%%20Question%%20Method%%20of%%20Legal%%20Research">Email the author</a> and say where you teach.</p>'
+                       % esc(BOOK["instructor_email"]))
     body = ('<header class="chead"><h1>Downloads</h1></header>'
             '<p class="lede">Print these. Fill them in. Keep them beside you every time you research. Everything here is free to use and to share in class.</p>'
-            '<ul class="dllist">%s</ul>'
-            % "".join(cards))
+            + instructors +
+            '<ul class="dllist">%s</ul>' % "".join(cards))
     write(url, shell("Downloads", body, 1, url, pager=pager_for(url)))
 
 
@@ -595,7 +615,7 @@ def build_whole_book():
     if BOOK.get("edition_date"):
         meta += 'date: "%s"\n' % BOOK["edition_date"]
     if BOOK.get("license"):
-        meta += 'rights: "%s"\n' % BOOK["license"]
+        meta += 'rights: "%s. Cite as: %s."\n' % (BOOK["license"], BOOK["cite_as"]) if BOOK.get("cite_as") else 'rights: "%s"\n' % BOOK["license"]
     parts = ["---\n" + meta + "---\n"]
     def clean(md):
         # in-text interactives print as their own content (the list or passage), under a one-line label

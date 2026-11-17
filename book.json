@@ -2,11 +2,13 @@
  "title": "The Question Method of Legal Research",
  "subtitle": "Interactive Edition",
  "author": "Cas Laskowski",
- "license": null,
- "license_url": null,
- "url": null,
- "edition": null,
- "edition_date": null,
+ "license": "CC BY 4.0",
+ "license_url": "https://creativecommons.org/licenses/by/4.0/",
+ "url": "https://caslaskowski.github.io/question_method_legal_research/",
+ "edition": "2d ed.",
+ "edition_date": "2026",
+ "cite_as": "Cas Laskowski, The Question Method of Legal Research (2d ed. 2026)",
+ "instructor_email": "claskowski@arizona.edu",
  "draft": false,
  "front": [
   {
