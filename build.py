@@ -547,39 +547,39 @@ def build_404():
 
 
 def build_home():
+    """The home page: a short hero in the manner of a course site, one thematic visual (the cycle),
+    and nothing else. The chapters, appendices, glossary and downloads are in the Contents menu."""
     url = URL_HOME
-
-    def chapter_li(n):
-        c = CH[n]
-        ne = STATS["embeds"].get(n, 0)
-        chip = ""
-        return '<li><a href="%s"><span class="cn">%d</span><span class="ct">%s</span></a>%s</li>' % (url_chapter(n), n, esc(c["title"]), chip)
-
-    front = "".join('<li><a href="%s"><span class="ct">%s</span></a></li>' % (url_front(f["slug"]), esc(f["title"])) for f in BOOK["front"])
-    apps = "".join('<li><a href="%s"><span class="cn">%s</span><span class="ct">%s</span></a></li>' % (url_app(a["letter"]), a["letter"], esc(a["title"].split(":")[0])) for a in BOOK["appendices"])
+    ring = [
+        ("1. Write the question", "What do I currently need to know?", "You cannot write the question without noticing the edge of your own knowledge. Noticing that edge is the skill."),
+        ("2. Research the answer", "What is the best way to find this out?", "Naming the type of question turns a guess about where to look into a choice."),
+        ("3. Synthesize findings", "Did I find what I needed?", "Add your findings to the log, and if you found the answer, add it to the outline."),
+        ("4. Identify the next question", "Where should I go next?", "The answer you just wrote down tells you. Then the cycle turns again."),
+        ("Quick Check", "Am I in a headspace to keep going?", "A short, honest look at yourself rather than at the research. If the answer is no, write the next step down for future you and pivot."),
+        ("Checkpoint", "Is my overall approach working?", "Self-evaluation, and it belongs to no single step. Pause whenever the research feels off, and always before you close out."),
+    ]
+    items = "".join("<li><strong>%s.</strong> <em>%s</em> %s</li>" % (esc(n), esc(q), esc(t)) for n, q, t in ring)
     body = """
-<header class="cover">
-<div class="qmarks" aria-hidden="true"><span>?</span><span>?</span><span>?</span></div>
+<header class="hero">
 <p class="cover-kick">Ask. Answer. Repeat.</p>
 <h1>%(title)s</h1>
-<p class="cover-sub">Making the hidden curriculum of the research process visible</p>
-<p class="cover-by">By %(author)s</p>
+<p class="cover-sub">Making the hidden curriculum of the research process visible. By %(author)s.</p>
+<p class="lede">Ask one question. Find the answer. Write it down, and let that answer tell you what to ask next. Repeat until no substantive question remains. The <em>question</em> drives the research, whatever database happens to be open. This edition asks you to do things as you read: change the courtroom and watch an authority gain or lose its force, run a search two ways and count what each one misses, take a paragraph apart into the questions that built it.</p>
+<p class="cover-go"><a class="btn" href="%(first)s">Start reading</a> <a class="btn ghost" href="%(method)s">Go straight to the method</a> <a class="btn ghost" href="%(dl)s">Downloads</a></p>
 </header>
-<div class="cover-intro">
-<p class="lede">Ask one question. Find the answer. Write it down, and let that answer tell you what to ask next. Repeat until no substantive question remains. The <em>question</em> drives the research, whatever database happens to be open.</p>
-<p>This edition asks you to do things as you read. Change the courtroom and watch the same authority gain or lose its force. Run a search two ways and count what each one misses. Take a paragraph apart into the questions that built it. Read with your hands on the page.</p>
-<p class="cover-go"><a class="btn" href="%(first)s">Start reading</a></p>
+<hr class="home-rule">
+<section class="home-cycle">
+<h2>One cycle, run until the questions run out</h2>
+<p class="home-note">Four steps turn, and the fourth is the turning. Two pauses keep you honest: the Quick Check on yourself before each new question, and the Checkpoint on the research whenever it feels off. Select any part.</p>
+<div class="try" id="try-home" data-kind="explore" data-title="The cycle" layout="ring" center="last">
+<p class="try-head"><strong>The cycle</strong></p>
+<ul>%(items)s</ul>
 </div>
-<h2>Start here</h2><ul class="cardlist plain">%(front)s</ul>
-<h2><a href="%(p1)s">%(p1t)s</a></h2><ol class="cardlist">%(c1)s</ol>
-<h2><a href="%(p2)s">%(p2t)s</a></h2><ol class="cardlist">%(c2)s</ol>
-<h2>Appendices and resources</h2><ul class="cardlist">%(apps)s
-<li><a href="%(gl)s"><span class="cn">&#9733;</span><span class="ct">Glossary</span></a></li>
-<li><a href="%(dl)s"><span class="cn">&darr;</span><span class="ct">Downloads: quick reference, checklist, log template, worked example</span></a></li></ul>
-""" % {"title": esc(TITLE), "author": esc(BOOK["author"]), "first": url_front(BOOK["front"][0]["slug"]), "dl": URL_DOWNLOADS, "gl": URL_GLOSSARY, "front": front, "p1": url_part("I"), "p1t": esc(PARTS["I"]["title"]),
-       "p2": url_part("II"), "p2t": esc(PARTS["II"]["title"]), "apps": apps,
-       "c1": "".join(chapter_li(n) for n in PARTS["I"]["chapters"]), "c2": "".join(chapter_li(n) for n in PARTS["II"]["chapters"])}
-    write(url, shell("Contents", body, 0, url, pager=pager_for(url), body_class="home"))
+</section>
+<hr class="home-rule">
+<p class="home-foot">Seventeen chapters, nine appendices, a glossary and a search box, all under <strong>Contents</strong> at the top of every page. Part I is the method and the sources; Part II takes it into legislative history, agencies, ethics, dockets, practice settings, generative AI, the NextGen bar exam and scholarship.</p>
+""" % {"title": esc(TITLE), "author": esc(BOOK["author"]), "first": url_front(BOOK["front"][0]["slug"]), "method": url_chapter(3), "dl": URL_DOWNLOADS, "items": items}
+    write(url, shell("Home", body, 0, url, pager=pager_for(url), body_class="home"))
 
 
 # --------------------------------------------------------------------------------------
