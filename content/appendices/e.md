@@ -1,16 +1,16 @@
 This appendix holds the model chains and answers for the single-source drills in Chapters 4 through 8. The scenarios stay in their chapters, and the walkthroughs are here, so you cannot read an answer by accident while you are supposed to be attempting it. Come here in two situations. If you are stuck, read just far enough to get unstuck, then go back and finish your own chain. If you are done, compare your chain to the model, one question at a time.
 
-Your questions will not match the model’s word for word, and they should not. What matters is whether each of your questions was earned by the answer before it. Where your chain diverged from the model’s, ask which version can point to the stated answer that produced its next question. Divergence can be a good sign. A question that arrived from nowhere is the thing to fix.
+Your questions will not match the model’s word for word, and they should not. What matters is whether each of your questions follows from the answer before it and stays in the chain you were running down: one element, through its sub-issues, until the rule can be written and applied, before you move sideways to the next. Where your chain diverged from the model’s, ask which version can point to the stated answer that produced its next question. Divergence can be a good sign. A question that arrived from nowhere, or that jumped to another element before the first was finished, is the thing to fix.
 
 ::: {.try kind="choice" title="Your Q3 is not the model's Q3"}
 You have finished the Chapter 6 drill and opened this appendix to compare. Your third question is not the model's third question: you asked about the penalty provision where the model asked about exceptions. What do you conclude?
 
 - [ ] Your chain is wrong. Rewrite Q3 to match the model and rerun from there.
     - The model is one defensible route. Matching its wording teaches you to copy a chain, and the drill exists to teach you to build one.
-- [x] Ask whether your Q3 was earned by your Q2's answer. If it was, the order is a choice, and a defensible one; note it and compare the rest.
-    - Both the penalty and the exceptions are sibling questions the operative provision raised. Which you took first is a judgment, and the test is that you can point to the answer that produced it. The question to fix is the one that arrived from nowhere.
+- [x] Ask whether your Q3 follows from your Q2's answer and stays in the chain you were running down the statute. If it does, which sibling you took first is your call, and a defensible one; note it and compare the rest.
+    - The penalty and the exceptions are both sub-issues of the same prohibition, raised by reading section 632 in context. Taking one before the other does not leave the chain. The test is that you can point to the answer that produced your Q3. The question to fix is the one that arrived from nowhere, or that moved to a different element before this one was finished.
 - [ ] The model is wrong. Your order is more logical.
-    - Perhaps, for your reasons, and you should say what they are. The comparison asks one thing of both chains: does each question follow from the answer before it?
+    - Perhaps, for your reasons, and you should say what they are. The comparison asks one thing of both chains: does each question follow from the answer before it, and does the chain finish one sub-issue before it moves to the next?
 - [ ] Skip the comparison for Q3 and check only the answers.
     - The answers are scoped to their questions, so a comparison that ignores the questions cannot tell you much. The method is in the questions.
 :::
@@ -21,7 +21,7 @@ A note on the answers. The answers here are scoped to their questions. Where the
 
 Check your chain against this walkthrough one question at a time.
 
-**Why this is a secondary-source-only exercise.** This is the one source type that earns a single-source drill honestly, because mapping an unfamiliar landscape is what secondary sources are for. You begin with no legal vocabulary at all, and the whole task is to acquire it, see the structure of the area, and collect the citations a later researcher will follow. The drill ends at the boundary the method draws between secondary and primary authority: the moment your next question can only be answered by a case or a statute, you have reached the edge of this exercise.
+**Why this is a secondary-source-only exercise.** This is the one source type that can carry a single-source drill honestly, because mapping an unfamiliar landscape is what secondary sources are for. You begin with no legal vocabulary at all, and the whole task is to acquire it, see the structure of the area, and collect the citations a later researcher will follow. The drill ends at the boundary the method draws between secondary and primary authority: the moment your next question can only be answered by a case or a statute, you have reached the edge of this exercise.
 
 **Where the researcher’s knowledge starts.** No vocabulary. She knows the words “fired” and “social media” and nothing else legal. So the first move is acquisition: a plain-language search whose only job is to turn up the terms of art. After that, the questions run exploratory, then foundational, then survey, all inside secondary sources.
 
