@@ -33,6 +33,8 @@ Section 4 of a state statute states a general rule that plainly requires what yo
 **History and Credits.** Found at the end of the statutory text or in the annotations, the history notes tell you when the section was enacted and how it has been amended over time. They also supply the Public Law number and Statutes at Large citation you will need if an ambiguity sends you into legislative history research (Chapter 10).
 
 ::: {.try kind="explore" layout="stack" title="How a statutory chapter is usually built"}
+Select each layer of a chapter, top to bottom, to see the question it answers and why it is read in that order.
+
 - **Scope and applicability.** *Does this chapter reach my client at all?* Read it first. Many research questions end here.
 - **Definitions.** *What do the operative words mean in this chapter?* A defined term controls every section that uses it, and it may differ from the same word in a neighboring chapter.
 - **General rule.** *What is required, prohibited, or permitted?* This is the provision you came for, and it is almost never the whole answer.
@@ -56,6 +58,8 @@ Section 4 of a state statute states a general rule that plainly requires what yo
 - **Rule of Lenity.** Ambiguous criminal statutes are read in favor of the defendant.
 
 ::: {.try kind="sort" title="Which canon is doing the work?" bins="Expressio unius | Ejusdem generis | Surplusage | Lenity"}
+Each item is a reading a court gave a statute. Name the canon of construction that produced it.
+
 - A statute exempts “hospitals, clinics, and nursing homes.” A court holds that a veterinary practice is not exempt. **Expressio unius**
     - The legislature listed what it meant to exempt. Naming three implies the rest were left out.
 - A statute covers “cars, trucks, motorcycles, and other vehicles.” A court holds that it does not reach a canoe. **Ejusdem generis**

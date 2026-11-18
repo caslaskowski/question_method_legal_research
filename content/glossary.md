@@ -166,6 +166,9 @@ persuasive authority
 plurality opinion
 :   The opinion with the most votes short of a majority, when no single opinion wins a majority; it binds only as to its narrowest common ground. (Chapter 5)
 
+pocket part
+:   A paperback supplement slipped into a pocket inside the back cover of a bound volume of a code or treatise. It holds everything that has changed since the volume was printed, so the bound text is current only to the date of its pocket part. Check it, or the online equivalent, before relying on the bound text. (Chapter 6)
+
 practical closure
 :   Stopping research because an external limit, a deadline, a budget, or an instruction, forces the stop, with what remains documented. (Chapter 3)
 

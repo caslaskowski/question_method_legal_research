@@ -53,6 +53,8 @@ Your client asks how much force a guardrail on the site must withstand. The regu
 **Confirm currency before you rely on it.** Regulations change frequently. Verify you are reading the current version using the eCFR, the List of CFR Sections Affected (LSA), the Federal Register, and a citator. Stopping at the CFR text without checking for recent amendments is one of the most common regulatory research errors.
 
 ::: {.try kind="explore" layout="stack" title="What you read alongside a regulation"}
+Select each document to see what it adds to the regulation and when to read it.
+
 - **Authorizing statute | start here.** Sets the mandate and the limit. If the regulation seems to reach further than the statute, that gap is itself a research question.
 - **Regulation | the operative text.** What is required, of whom, in the agency’s words. Read with its Part’s definitions.
 - **Federal Register preamble | why.** The agency’s explanation and its answers to comments. Persuasive evidence of meaning, found through the source note.

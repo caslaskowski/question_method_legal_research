@@ -4,6 +4,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 
 **Macro question** (written once, at the top): Can the principal remove articles he does not like from the school-run student newspaper without violating the First Amendment?
 
+### Entry 1: Q1, the legal landscape
+
 | **Field** | **Entry** |
 |---|---|
 | **1. Research Question** | How has First Amendment free speech protection been applied to students in school environments? |
@@ -13,6 +15,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Source Consulted | Legal encyclopedia entry, “Students, Constitutional Rights” \[Encyclopedia entry citation, with currency date\] |
 | Next Question | What are the bounds of student free speech rights in school? |
 | Notes | *Tinker* is foundational. Our paper is produced in a journalism class, so the school-sponsored branch (*Hazelwood*) is the thread to pull, but *Hazelwood* seems to build on *Fraser*, so *Fraser* gets a read after *Tinker*. The entry used “legitimate pedagogical concerns” without defining it; parked as a future definitional question. |
+
+### Entry 2: Q2, the foundation
 
 | **Field** | **Entry** |
 |---|---|
@@ -24,6 +28,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Next Question | How do courts balance a student’s free speech rights against the school’s basic educational mission? |
 | Notes | Personal-expression branch; our facts sit on the school-sponsored branch. *Tinker* applies student rights “in light of the special characteristics of the school environment,” which is the balance the mapped *Fraser* question asks about. |
 
+### Entry 3: Q3, the balance
+
 | **Field** | **Entry** |
 |---|---|
 | **3. Research Question** | How do courts balance a student’s free speech rights against the school’s basic educational mission? |
@@ -33,6 +39,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Source Consulted | *Bethel School District No. 403 v. Fraser*, 478 U.S. 675 (1986) |
 | Next Question | What free speech protection applies to a school-sponsored student publication? |
 | Notes | The unnumbered *Hazelwood* entry now takes number 4. |
+
+### Entry 4: Q4, school-sponsored publications
 
 | **Field** | **Entry** |
 |---|---|
@@ -44,6 +52,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Next Question | What makes a student publication “school-sponsored” under *Hazelwood*? |
 | Notes | Sub-questions mapped onto the outline under item 2, in the rule’s own order: (a) school-sponsored; (b) legitimate pedagogical concern; (c) public forum “by policy or by practice.” |
 
+### Entry 5: Q5, “school-sponsored”
+
 | **Field** | **Entry** |
 |---|---|
 | **5. Research Question** | What makes a student publication “school-sponsored” under *Hazelwood*? |
@@ -53,6 +63,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Source Consulted | *Hazelwood*, 484 U.S. 260 |
 | Next Question | What is a “legitimate pedagogical concern” under *Hazelwood*? |
 | Notes | Research pause taken: application bracketed at outline 2.1 (journalism class; faculty advisor; published under the school’s name). |
+
+### Entry 6: Q6, “legitimate pedagogical concern”
 
 | **Field** | **Entry** |
 |---|---|
@@ -64,6 +76,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Next Question | In what circumstances have courts found that a school’s removal of a student newspaper article was not reasonably related to legitimate pedagogical concerns? |
 | Notes | Research pause: the file’s account of the removal (articles the principal did not like; no profanity, threats, or illegality) maps onto no recognized category; bracketed at 2.2. That is what makes the outer-limits cases the next question. |
 
+### Entry 7: Q7, the outer limits
+
 | **Field** | **Entry** |
 |---|---|
 | **7. Research Question** | In what circumstances have courts found that a school’s removal of a student newspaper article was not reasonably related to legitimate pedagogical concerns? |
@@ -74,6 +88,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Next Question | When is a school publication a public forum “by policy or by practice”? (*Dean* turned on this; it is already parked at outline 3.) |
 | Notes | FALSE HIT logged and discarded: *Kennedy v. Bremerton* (coach’s prayer; different doctrine). The precise question is what caught it. |
 
+### Entry 8: Q8, the public forum question
+
 | **Field** | **Entry** |
 |---|---|
 | **8. Research Question** | When is a school-sponsored student publication a public forum rather than a nonpublic forum? |
@@ -83,6 +99,8 @@ Chapter 3’s demonstration shows selected Research Log entries and outline snap
 | Source Consulted | *Hazelwood*, 484 U.S. 260; *Dean*, 345 F. Supp. 2d 799 |
 | Next Question | None for the databases. Fact-gathering task opened instead: client call on who decides content, any prior control by the advisor or principal, and whether outside contributions have ever been accepted. |
 | Notes | The writing step revealed the missing facts; those are investigation, not research. Client answers suggest the paper has been run as a nonpublic forum. Forum status bracketed at 3 as a point the other side may contest, on *Dean*’s model. |
+
+### Entry 9: Q9, the late gap fill
 
 | **Field** | **Entry** |
 |---|---|
