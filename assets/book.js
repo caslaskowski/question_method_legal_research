@@ -360,7 +360,7 @@
     });
   }
   function dbExplorer(root) {
-    var head = root.querySelector(".try-head"), names = ["Start page", "Results", "Document"], screens = [], pending = null;
+    var head = root.querySelector(".try-head"), names = ["Start page", "Results", "Case", "Statute", "Regulation"], screens = [], pending = null;
     Array.prototype.slice.call(root.children).forEach(function (c) {
       if (c.tagName === "P" && c.children.length === 1 && c.firstElementChild.tagName === "STRONG" && c.textContent.trim() === c.firstElementChild.textContent.trim()) { pending = c; return; }
       if (c.tagName === "UL" || c.tagName === "OL") {
@@ -370,7 +370,7 @@
     });
     if (!screens.length) return;
     var all = [], panel = h("div", { "class": "try-panel", role: "region", "aria-live": "polite", "aria-label": "Details: " + (opt(root, "title") || ""), html: '<p class="try-hint">Select any part of the screen to read about it here.</p>' });
-    var counter = h("p", { "class": "try-score", role: "status" }), seenN = 0, finding = null;
+    var counter = h("p", { "class": "try-score", role: "status", "aria-live": "polite" }), seenN = 0, finding = null;
     function hot(it, cls, html) {
       var b = h("button", { type: "button", "class": "hot " + (cls || ""), "aria-pressed": "false", html: html || it.label });
       it.btn = b; all.push(it);
@@ -384,79 +384,113 @@
       });
       return b;
     }
-    function chips(list) { var d = h("div", { "class": "db-links", "aria-hidden": "true" }); list.forEach(function (t) { d.appendChild(h("span", { text: t })); }); return d; }
     function at(parts, i) { return parts[i]; }
+    function logo() { return h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" }); }
+    function foot(P, from) { var f = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]); P.slice(from).forEach(function (it) { f.appendChild(hot(it)); }); return f; }
+    var AI = '<i class="ai" aria-hidden="true">✦</i>';
     /* screen 1: the start page */
     function startScreen(sc) {
       var P = sc.parts, tabsI = [], plain = [];
       P.forEach(function (it, i) { if (it.links.length) tabsI.push(i); else plain.push(i); });
       var fig = h("div", { "class": "db-screen" });
-      var hd = h("div", { "class": "db-head" }, [h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" })]);
+      var hd = h("div", { "class": "db-head" }, [logo()]);
       plain.slice(0, 5).forEach(function (i) { hd.appendChild(hot(P[i])); });
       var row = h("div", { "class": "db-row" }), search = h("div", { "class": "db-search" }, [row]);
       if (at(P, plain[5])) row.appendChild(hot(P[plain[5]], "db-box", "<span>" + P[plain[5]].label + "</span><b>Search</b>"));
-      if (at(P, plain[6])) row.appendChild(hot(P[plain[6]], "db-filter", P[plain[6]].label + " \u25BE"));
+      if (at(P, plain[6])) row.appendChild(hot(P[plain[6]], "db-filter", P[plain[6]].label + " ▾"));
       if (at(P, plain[7])) search.appendChild(hot(P[plain[7]], "db-adv"));
       var tabbar = h("div", { "class": "db-tabs" }), links = h("div", { "class": "db-links", "aria-hidden": "true" });
       function showLinks(i) { links.innerHTML = ""; P[i].links.forEach(function (t) { links.appendChild(h("span", { text: t })); }); }
       tabsI.forEach(function (i) { var b = hot(P[i], "db-tab"); tabbar.appendChild(b); b.addEventListener("click", function () { showLinks(i); }); });
       search.appendChild(tabbar); search.appendChild(links); if (tabsI.length) showLinks(tabsI[0]);
-      var foot = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
-      plain.slice(8).forEach(function (i) { foot.appendChild(hot(P[i])); });
-      fig.appendChild(hd); fig.appendChild(search); fig.appendChild(foot);
+      var f = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
+      plain.slice(8).forEach(function (i) { f.appendChild(hot(P[i])); });
+      fig.appendChild(hd); fig.appendChild(search); fig.appendChild(f);
       return fig;
     }
-    /* screen 2: a results list. Order: filters (with facets), count, sort, search within, then the
-       parts of one result: title, citation line, snippet, citator flag, save to folder. */
+    /* screen 2: a results list. Order: the suggested answer, the filter rail (nested: its other
+       facets), content type (nested: the types with counts), jurisdiction, source, the count, sort,
+       search within results, then one result's title, citation line, snippet, citator flag, save,
+       and the summarize button. */
     function resultsScreen(sc) {
       var P = sc.parts, fig = h("div", { "class": "db-screen" });
-      var hd = h("div", { "class": "db-head" }, [h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" }), h("span", { "class": "db-crumb", "aria-hidden": "true", text: "Cases \u203A duty of care /s invitee /s park" })]);
+      var hd = h("div", { "class": "db-head" }, [logo(), h("span", { "class": "db-crumb", "aria-hidden": "true", text: "Cases › duty of care /s invitee /s park" })]);
       var side = h("div", { "class": "db-side" }), main = h("div", { "class": "db-main" });
-      if (at(P, 0)) { var fb = hot(P[0], "db-facets", "<b>" + P[0].label + "</b>" + P[0].links.map(function (t) { return "<span>" + t + " \u25BE</span>"; }).join("")); side.appendChild(fb); }
+      if (at(P, 1)) side.appendChild(hot(P[1], "db-facets", "<b>" + P[1].label + "</b>"));
+      if (at(P, 2)) side.appendChild(hot(P[2], "db-facet db-types", "<b>" + P[2].label + " ▾</b>" + P[2].links.map(function (t) { var m = t.match(/^(.*?)\s*\((.*)\)$/); return "<span>" + (m ? m[1] + "<i>" + m[2] + "</i>" : t) + "</span>"; }).join("")));
+      if (at(P, 3)) side.appendChild(hot(P[3], "db-facet", P[3].label + " ▾"));
+      if (at(P, 4)) side.appendChild(hot(P[4], "db-facet", P[4].label + " ▾"));
+      if (at(P, 1)) P[1].links.forEach(function (t) { side.appendChild(h("span", { "class": "db-facet quiet", "aria-hidden": "true", text: t + " ▾" })); });
+      if (at(P, 0)) main.appendChild(hot(P[0], "db-answer", "<b>" + AI + P[0].label + "</b><span>Public land held open to visitors carries a duty to take some precautions against hazards the possessor should foresee; the duty does not depend on posted warnings. <u>Markowitz</u>; <u>Reyes</u>. Generated summary. Verify in the sources.</span>"));
       var bar = h("div", { "class": "db-resbar" });
-      if (at(P, 1)) bar.appendChild(hot(P[1], "db-count"));
-      if (at(P, 2)) bar.appendChild(hot(P[2], "db-sort", P[2].label + " \u25BE"));
+      if (at(P, 5)) bar.appendChild(hot(P[5], "db-count"));
+      if (at(P, 6)) bar.appendChild(hot(P[6], "db-sort", P[6].label + " ▾"));
       main.appendChild(bar);
-      if (at(P, 3)) main.appendChild(hot(P[3], "db-within", "<span>" + P[3].label + "</span>"));
+      if (at(P, 7)) main.appendChild(hot(P[7], "db-within", "<span>" + P[7].label + "</span>"));
       var card = h("div", { "class": "db-result" }), top = h("div", { "class": "db-restop" });
-      if (at(P, 7)) top.appendChild(hot(P[7], "db-flag", '<i class="flag red" aria-hidden="true"></i>' + P[7].label));
-      if (at(P, 4)) top.appendChild(hot(P[4], "db-restitle"));
-      if (at(P, 8)) top.appendChild(hot(P[8], "db-save", "\u2606 " + P[8].label));
+      if (at(P, 11)) top.appendChild(hot(P[11], "db-flag", '<i class="flag red" aria-hidden="true"></i>' + P[11].label));
+      if (at(P, 8)) top.appendChild(hot(P[8], "db-restitle"));
+      if (at(P, 12)) top.appendChild(hot(P[12], "db-save", "☆ " + P[12].label));
       card.appendChild(top);
-      if (at(P, 5)) card.appendChild(hot(P[5], "db-rescite"));
-      if (at(P, 6)) card.appendChild(hot(P[6], "db-snip"));
+      if (at(P, 9)) card.appendChild(hot(P[9], "db-rescite"));
+      if (at(P, 13)) card.appendChild(hot(P[13], "db-summ", AI + P[13].label));
+      if (at(P, 10)) card.appendChild(hot(P[10], "db-snip"));
       main.appendChild(card);
-      main.appendChild(h("div", { "class": "db-result ghost", "aria-hidden": "true", html: '<div class="db-restop"><span class="db-flagq"><i class="flag yellow"></i>Caution</span><span class="db-t">Reyes v. Pima County Parks Dep\u2019t</span></div><div class="db-c">221 Ariz. 304, 211 P.3d 1183 (Ct. App. 2009)</div><div class="db-s">\u2026the county\u2019s duty to <mark>invitees</mark> at a public <mark>park</mark> extends to hazards it should discover\u2026</div>' }));
-      main.appendChild(h("div", { "class": "db-result ghost", "aria-hidden": "true", html: '<div class="db-restop"><span class="db-t">Booth v. State</span></div><div class="db-c">207 Ariz. 61, 83 P.3d 61 (Ct. App. 2004)</div><div class="db-s">\u2026the State owed no <mark>duty</mark> to a trespasser on unimproved land\u2026</div>' }));
-      var foot = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
-      P.slice(9).forEach(function (it) { foot.appendChild(hot(it)); });
-      fig.appendChild(hd); fig.appendChild(h("div", { "class": "db-cols" }, [side, main])); fig.appendChild(foot);
+      main.appendChild(h("div", { "class": "db-result ghost", "aria-hidden": "true", html: '<div class="db-restop"><span class="db-flagq"><i class="flag yellow"></i>Caution</span><span class="db-t">Reyes v. Pima County Parks Dep’t</span></div><div class="db-c">221 Ariz. 304, 211 P.3d 1183 (Ct. App. 2009)</div><div class="db-s">…the county’s duty to <mark>invitees</mark> at a public <mark>park</mark> extends to hazards it should discover…</div>' }));
+      fig.appendChild(hd); fig.appendChild(h("div", { "class": "db-cols" }, [side, main])); fig.appendChild(foot(P, 14));
       return fig;
     }
-    /* screen 3: one document. Order: caption, citator flag and treatment, synopsis or headnotes,
-       the text, citing references, history, table of contents, copy with citation, add to
-       folder, previous and next result, search-term navigation. */
-    function documentScreen(sc) {
+    /* screen 3: one case. Order: caption, citator flag and treatment, synopsis, a headnote, the
+       headnote's classification link, the opinion text, citing references, history, outline, copy
+       with citation, add to folder, previous and next, search-term navigation, summarize. */
+    function caseScreen(sc) {
       var P = sc.parts, fig = h("div", { "class": "db-screen" });
-      var hd = h("div", { "class": "db-head" }, [h("span", { "class": "db-logo", html: "<em>LR</em>LegalResearch" })]);
+      var hd = h("div", { "class": "db-head" }, [logo()]);
       var tools = h("div", { "class": "db-tools" });
-      if (at(P, 9)) tools.appendChild(hot(P[9], "db-tool", "\u2039 " + P[9].label + " \u203A"));
-      if (at(P, 10)) tools.appendChild(hot(P[10], "db-tool"));
-      if (at(P, 7)) tools.appendChild(hot(P[7], "db-tool"));
-      if (at(P, 8)) tools.appendChild(hot(P[8], "db-tool", "\u2606 " + P[8].label));
-      P.slice(11).forEach(function (it) { tools.appendChild(hot(it, "db-tool")); });
+      if (at(P, 11)) tools.appendChild(hot(P[11], "db-tool", "‹ " + P[11].label + " ›"));
+      if (at(P, 12)) tools.appendChild(hot(P[12], "db-tool"));
+      if (at(P, 9)) tools.appendChild(hot(P[9], "db-tool"));
+      if (at(P, 10)) tools.appendChild(hot(P[10], "db-tool", "☆ " + P[10].label));
+      if (at(P, 13)) tools.appendChild(hot(P[13], "db-tool db-ai", AI + P[13].label));
       var body = h("div", { "class": "db-docbody" }), docc = h("div", { "class": "db-doc" }), side = h("div", { "class": "db-doctabs" });
       if (at(P, 0)) docc.appendChild(hot(P[0], "db-doctitle"));
       if (at(P, 1)) docc.appendChild(hot(P[1], "db-flag", '<i class="flag yellow" aria-hidden="true"></i>' + P[1].label));
       if (at(P, 2)) docc.appendChild(hot(P[2], "db-syn", "<b>Synopsis</b>" + P[2].label));
-      if (at(P, 3)) docc.appendChild(hot(P[3], "db-text", "<b>Opinion</b>" + P[3].label));
-      [4, 5, 6].forEach(function (i) { if (at(P, i)) side.appendChild(hot(P[i], "db-doctab")); });
+      if (at(P, 3) || at(P, 4)) {
+        var hn = h("div", { "class": "db-headnote" }, [h("b", { text: "Headnote 1" })]);
+        if (at(P, 4)) hn.appendChild(hot(P[4], "db-topic", P[4].label));
+        if (at(P, 3)) hn.appendChild(hot(P[3], "db-hn", P[3].label));
+        docc.appendChild(hn);
+      }
+      if (at(P, 5)) docc.appendChild(hot(P[5], "db-text", "<b>Opinion</b>" + P[5].label));
+      [6, 7, 8].forEach(function (i) { if (at(P, i)) side.appendChild(hot(P[i], "db-doctab")); });
       body.appendChild(docc); body.appendChild(side);
-      var foot = h("div", { "class": "db-foot" }, [h("span", { text: "Demonstration platform" })]);
-      fig.appendChild(hd); fig.appendChild(tools); fig.appendChild(body); fig.appendChild(foot);
+      fig.appendChild(hd); fig.appendChild(tools); fig.appendChild(body); fig.appendChild(foot(P, 14));
       return fig;
     }
-    var builders = [startScreen, resultsScreen, documentScreen], figs = screens.map(function (sc, i) { return (builders[i] || startScreen)(sc); });
+    /* screens 4 and 5: a statute or a regulation. Order: the hierarchy, the effective date, the
+       section text, Notes of Decisions, History and versions, Citing references, Table of
+       Contents, previous and next section, Outline, the source note, copy with citation. */
+    function codeScreen(sc) {
+      var P = sc.parts, fig = h("div", { "class": "db-screen" });
+      var hd = h("div", { "class": "db-head" }, [logo()]);
+      var tabs = h("div", { "class": "db-doctabs-top" }, [h("span", { "class": "db-doctab-top on", "aria-hidden": "true", text: "Document" })]);
+      [3, 4, 5].forEach(function (i) { if (at(P, i)) tabs.appendChild(hot(P[i], "db-doctab-top", P[i].label + (i === 4 ? " ▾" : ""))); });
+      var tools = h("div", { "class": "db-tools" });
+      if (at(P, 6)) tools.appendChild(hot(P[6], "db-tool"));
+      if (at(P, 7)) tools.appendChild(hot(P[7], "db-tool", "‹ § ›"));
+      if (at(P, 8)) tools.appendChild(hot(P[8], "db-tool"));
+      if (at(P, 10)) tools.appendChild(hot(P[10], "db-tool"));
+      var docc = h("div", { "class": "db-doc" });
+      if (at(P, 0)) docc.appendChild(hot(P[0], "db-crumbs", P[0].links.map(function (t, i) { return '<span style="padding-left:' + (i * 14) + 'px">' + t + "</span>"; }).join("") || P[0].label));
+      if (at(P, 1)) docc.appendChild(hot(P[1], "db-eff"));
+      if (at(P, 2)) docc.appendChild(hot(P[2], "db-text", "<b>" + (sc.name) + "</b>" + P[2].label));
+      if (at(P, 9)) docc.appendChild(hot(P[9], "db-credit", "<b>Source</b>" + P[9].label));
+      fig.appendChild(hd); fig.appendChild(tabs); fig.appendChild(tools); fig.appendChild(docc); fig.appendChild(foot(P, 11));
+      return fig;
+    }
+    var byName = { start: startScreen, "start page": startScreen, results: resultsScreen, "case": caseScreen, document: caseScreen, statute: codeScreen, regulation: codeScreen };
+    var figs = screens.map(function (sc, i) { return (byName[sc.name.toLowerCase()] || [startScreen, resultsScreen, caseScreen, codeScreen, codeScreen][i] || startScreen)(sc); });
     /* the browser chrome, with one tab per screen */
     var tabs = h("div", { "class": "db-wintabs", role: "tablist", "aria-label": "Screens of the demonstration database" }), tabBtns = screens.map(function (sc, i) {
       var b = h("button", { type: "button", role: "tab", "class": "db-wintab", "aria-selected": i ? "false" : "true", text: sc.name });
@@ -478,12 +512,12 @@
       function tagOf(x) { return x.replace(/<[^>]+>/g, "").toLowerCase().replace(/\s+/g, " ").trim(); }
       function screenOf(tag) { for (var i = 0; i < screens.length; i++) { for (var j = 0; j < screens[i].parts.length; j++) if (tagOf(screens[i].parts[j].tag) === tagOf(tag)) return screens[i].name; } return ""; }
       function ask() {
-        if (k >= find.length) { quiz.innerHTML = '<p class="good"><strong>' + right + " of " + find.length + " found on the first try.</strong> Every part you needed is somewhere on these three screens, whichever platform you sit down at.</p>"; finding = null; return; }
+        if (k >= find.length) { quiz.innerHTML = '<p class="good"><strong>' + right + " of " + find.length + " found on the first try.</strong> Every part you needed is somewhere on these screens, whichever platform you sit down at.</p>"; finding = null; return; }
         quiz.innerHTML = '<p><strong>Find it (' + (k + 1) + " of " + find.length + "):</strong> " + find[k].q + "</p>";
         var skip = h("button", { type: "button", "class": "try-btn small ghost", text: "Skip" }); skip.addEventListener("click", function () { k++; ask(); });
         quiz.appendChild(h("p", { "class": "try-actions" }, [skip]));
         finding = { tried: false, check: function (it) {
-          if (tagOf(it.tag) === tagOf(find[k].tag)) { if (!finding.tried) right++; var n = h("p", { "class": "good", html: "<strong>Found it.</strong> " + it.tag + ". Next one in a moment." }); quiz.appendChild(n); k++; setTimeout(ask, 1400); }
+          if (tagOf(it.tag) === tagOf(find[k].tag)) { if (!finding.tried) right++; quiz.appendChild(h("p", { "class": "good", html: "<strong>Found it.</strong> " + it.tag + ". Next one in a moment." })); k++; setTimeout(ask, 1400); }
           else { finding.tried = true; var sc = screenOf(find[k].tag); quiz.appendChild(h("p", { "class": "bad", html: "<strong>Not that one.</strong> That is the " + it.tag.toLowerCase() + ". " + (sc ? "Look on the " + sc + " screen." : "Try again.") })); }
         } };
       }
@@ -557,6 +591,7 @@
       if (label && cite) {
         var tok = h("span", { "class": "tok" }); while (m.firstChild) tok.appendChild(m.firstChild);
         m.appendChild(tok); m.appendChild(h("small", { text: label }));
+        if (opt(m, "pull")) m.classList.add("pull");
       } else if (label && par && par.tagName === "P" && par.textContent.trim() === m.textContent.trim()) {
         m.classList.add("blk"); par.classList.add("part");
         if (!unlabeled) par.insertBefore(h("span", { "class": "m-label", text: label }), m);   /* a whole part of the document: name it, as the page of an opinion would */
@@ -570,6 +605,17 @@
       m.addEventListener("keydown", function (e) { if (e.key === "Enter" || e.key === " ") { e.preventDefault(); open(); } });
     });
     tally();
+    if (cite && opt(root, "pull")) {
+      /* which parts you type to retrieve the document: a toggle outlines them and shows the string */
+      var pullBtn = h("button", { type: "button", "class": "try-btn ghost small", "aria-pressed": "false", text: "Show what you type to retrieve it" });
+      var pullOut = h("p", { "class": "try-pull", role: "status", hidden: "" });
+      pullBtn.addEventListener("click", function () {
+        var on = !root.classList.contains("pull-on"); root.classList.toggle("pull-on", on);
+        pullBtn.setAttribute("aria-pressed", String(on)); pullOut.hidden = !on;
+        pullOut.innerHTML = on ? "Type into the search box: <code>" + opt(root, "pull") + "</code>. The outlined parts are the address; the rest is description." : "";
+      });
+      side.appendChild(h("p", { "class": "try-actions" }, [pullBtn])); side.appendChild(pullOut);
+    }
   };
 
   /* ---- checklist: tick boxes that remember ------------------------------------------------ */

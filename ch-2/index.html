@@ -46,8 +46,8 @@
 </div>
 <h2 id="understanding-the-common-features">Understanding the Common Features <a class="anchor" href="#understanding-the-common-features" aria-label="Link to this section">#</a></h2>
 <p>Databases change, and they change often. Interfaces get redesigned, features get renamed, and new tools appear every year. A few features, though, are common across platforms and stable over time: a central search box, the ability to filter by jurisdiction and source type, a citator for validating authority, and some system of topical classification. If you learn the underlying concepts rather than the location of a particular button, your skills will carry from one platform to the next and survive the next interface redesign.</p>
-<div class="try" id="try-1" data-kind="explore" data-title="Database Interface Explorer" data-layout="database" data-find="Limit a search to Arizona courts before you run it =&gt; Jurisdiction and content filter | See every search you ran last week =&gt; History | Find out whether a case in your results is still good law =&gt; Citator flag | Narrow a results list to the last five years =&gt; Filters | Pull the citation into your log in one step =&gt; Copy with citation | Find the later cases that cite the opinion you are reading =&gt; Citing references"><p class="try-head"><strong>Database Interface Explorer</strong></p>
-<p>Every legal database is laid out a little differently, but the same parts are always there. Learn them once here, on a generic platform with three screens, and you can sit down at Westlaw, Lexis, Bloomberg Law, or a free database and find what you need without hunting. Select any part of a screen, and switch screens with the tabs at the top of the window.</p>
+<div class="try" id="try-1" data-kind="explore" data-title="Database Interface Explorer" data-layout="database" data-find="Limit a search to Arizona courts before you run it =&gt; Jurisdiction and content filter | See every search you ran last week =&gt; History | Narrow a results list to cases only, leaving out the secondary sources =&gt; Content type | Find out whether a case in your results is still good law =&gt; Citator flag | Find every other case the editors filed under the same point of law =&gt; Classification link | Read the version of a statute that was in force two years ago =&gt; History and versions | See the cases that have construed the regulation you are reading =&gt; Notes of Decisions"><p class="try-head"><strong>Database Interface Explorer</strong></p>
+<p>Every legal database is laid out a little differently, but the same parts are always there. Learn them once here, on a generic platform with five screens, and you can sit down at Westlaw, Lexis, Bloomberg Law, or a free database and find what you need without hunting. Select any part of a screen, and switch screens with the tabs at the top of the window.</p>
 <p><strong>Start page.</strong></p>
 <ul>
 <li><strong>Menu | Main menu.</strong> Jumps to the platform’s major areas: your workspace, the products you subscribe to, settings, and sign-out. Every database has one. The icon and label move around, but it is almost always tucked into a top corner.</li>
@@ -56,9 +56,9 @@
 <li><strong>Alerts | Alerts and notifications.</strong> Tell the database to watch a search, a statute, or a case and notify you when something changes. This is how you keep your authority current without re-running everything by hand.</li>
 <li><strong>Account | Account and client matter.</strong> Sign-in, preferences, and, at a firm, the client-matter number your research time is billed to. Picking the right matter here is what keeps the client’s bill honest.</li>
 <li><strong>Search cases, statutes, regulations, secondary sources… | The search box.</strong> This is where most research begins. <em>How</em> you search changes everything: plain language casts a wide net, while a precise terms-and-connectors search controls exactly what comes back. The rest of this chapter teaches both.</li>
-<li><strong>All jurisdictions &amp; sources | Jurisdiction and content filter.</strong> Set this <em>before</em> you search. Limiting to the right jurisdiction and source type keeps out results that could never answer your question. Searching without setting it is the single most common beginner mistake, and it buries you in irrelevant hits.</li>
+<li><strong>All jurisdictions &amp; sources | Jurisdiction and content filter.</strong> Set this <em>before</em> you search. Limiting to the right jurisdiction and content type keeps out results that could never answer your question. Searching without setting it is the single most common beginner mistake, and it buries you in irrelevant hits.</li>
 <li><strong>Advanced Search | Advanced search.</strong> A guided form that builds a precise search for you, with separate fields and menus for connectors, dates, and jurisdictions, so you do not have to remember the syntax. A friendly on-ramp to terms-and-connectors searching.</li>
-<li><strong>Type | Browse by source type.</strong> Pick a source type when you already know what kind of law you need: a case, a statute, a regulation, or a secondary source.
+<li><strong>Type | Browse by content type.</strong> Pick a content type when you already know what kind of law you need: a case, a statute, a regulation, or a secondary source.
 <ul>
 <li>Cases</li>
 <li>Statutes &amp; Codes</li>
@@ -78,7 +78,7 @@
 <li>Federal Register</li>
 <li>Agency Decisions</li>
 </ul></li>
-<li><strong>State | State collections.</strong> Usually behind a state picker: choose your state, then the source type. Remember that only your state’s law, plus the federal law that reaches it, binds your court.
+<li><strong>State | State collections.</strong> Usually behind a state picker: choose your state, then the content type. Remember that only your state’s law, plus the federal law that reaches it, binds your court.
 <ul>
 <li>All States (picker)</li>
 <li>State Cases</li>
@@ -101,84 +101,141 @@
 <li>Forms and drafting</li>
 <li>Litigation analytics</li>
 </ul></li>
-<li><strong>Live chat &amp; support | Reference support.</strong> Every commercial platform staffs a help line with reference attorneys, and your law library staffs one with librarians. Both are free to you as a student. Asking is not cheating. Experienced researchers ask all the time.</li>
+<li><strong>Live chat &amp; support | Reference support.</strong> Every commercial platform staffs a help line with reference attorneys, and your law library staffs one with librarians. Both are free to you as a student. Asking is not cheating; it is what the experts do.</li>
 </ul>
 <p><strong>Results.</strong></p>
 <ul>
-<li><strong>Filters | Filters.</strong> The left rail narrows a results list after the search runs: by jurisdiction, court, date, source type, and whether the opinion is reported. A search that returns four hundred hits is not a bad search yet. Try the filters first.
+<li><strong>Suggested answer | Suggested answer.</strong> A generated paragraph that answers a plain-language search, with the sources it drew on linked underneath. Treat it as a lead, not a finding: read the linked sources, and log those. <a class="xref" href="../ch-15/index.html">Chapter 15</a> explains why the paragraph can be wrong even when the sources are right.</li>
+<li><strong>Filters | Filter rail.</strong> The left rail narrows a results list after the search runs. Three of its facets are easy to confuse, so each has its own entry below. A search that returns four hundred hits is not a bad search until you have tried the filters.
 <ul>
-<li>Jurisdiction</li>
 <li>Court</li>
 <li>Date</li>
-<li>Source type</li>
 <li>Reported status</li>
 </ul></li>
+<li><strong>Content type | Content type.</strong> What kind of document: cases, statutes and court rules, regulations, administrative decisions and guidance, secondary sources, briefs, forms. The counts beside each tell you where your terms live. Narrowing to one type is usually the first filter to set.
+<ul>
+<li>Overview (15)</li>
+<li>Cases (499)</li>
+<li>Trial Court Orders (20)</li>
+<li>Statutes &amp; Court Rules (38)</li>
+<li>Secondary Sources (104)</li>
+<li>Regulations (50)</li>
+<li>Administrative Decisions &amp; Guidance (10,000)</li>
+</ul></li>
+<li><strong>Jurisdiction | Jurisdiction.</strong> Which jurisdiction issued the authority: a state, the federal system, or a particular court within either. This is about who made the law, not what kind of document it is.</li>
+<li><strong>Source | Source.</strong> The particular publication within a content type: for secondary sources, which treatise, encyclopedia or journal; for cases, which reporter or court. Use it after content type and jurisdiction, when you already know which publication you want.</li>
 <li><strong>1 to 20 of 1,284 results | Results count.</strong> How many documents matched. A very large number means the search is too loose or the filters are off; zero usually means the search is wrong, not that the law is silent. <a class="xref" href="../ch-9/index.html">Chapter 9</a> takes up both problems.</li>
 <li><strong>Sort: Relevance | Sort order.</strong> Relevance is the platform’s guess at what you want. Switching to date, or to most cited, is often the faster way to find the leading case or the latest word.</li>
 <li><strong>Search within results | Search within results.</strong> Runs a second search inside the current list instead of starting over. Useful for testing a term you are not sure of without losing the list you have.</li>
-<li><strong>Markowitz v. Arizona Parks Board | Result title.</strong> The case name, usually a link to the full document. Read the citation line and the snippet before you open it. Most results do not deserve a click.</li>
+<li><strong>Markowitz v. Arizona Parks Board | Result title.</strong> The case name, usually a link to the full document. Read the citation line and the snippet before you open it; most results do not deserve a click.</li>
 <li><strong>146 Ariz. 352, 706 P.2d 364 (1985) | Citation line.</strong> The address of the document, and the court and year. The court tells you whether the case can bind you before you spend a minute reading it.</li>
 <li><strong>…the state, as possessor of land, is under a duty of care with respect to those it has invited… | Snippet.</strong> A passage with your search terms highlighted. The snippet shows you <em>why</em> the document matched, which is often enough to tell you it is the wrong document.</li>
-<li><strong>Overruled in part | Citator flag.</strong> The citator’s signal, shown beside each result. A red or yellow flag tells you to read the citing decisions for the point you care about. It does not condemn the whole case. <a class="xref" href="../ch-5/index.html">Chapter 5</a> explains why.</li>
+<li><strong>Overruled in part | Citator flag.</strong> The citator’s signal, shown beside each result. A red or yellow flag is a prompt to read the citing decisions for the point you care about. It is not a verdict on the whole case. <a class="xref" href="../ch-5/index.html">Chapter 5</a> explains why.</li>
 <li><strong>Save | Save to folder.</strong> Drops the document into the folder for this matter so you can find it again without re-running the search.</li>
+<li><strong>Why is this relevant? | Summarize this result.</strong> The generative feature: a short, machine-written explanation of how the document relates to your search, or a summary of the document. Useful for triage, never for citation. The opinion is the authority; the summary is a guess about it.</li>
 </ul>
-<p><strong>Document.</strong></p>
+<p><strong>Case.</strong></p>
 <ul>
 <li><strong>Markowitz v. Arizona Parks Board, 146 Ariz. 352 (1985) | Caption.</strong> The case name and citation at the top of the opinion. Read it first: court and year decide whether this is mandatory or persuasive authority for you.</li>
-<li><strong>Caution: later treatment | Citator flag and treatment.</strong> The same flag, now with the treatment spelled out. Open it to see which points of law later courts questioned. The treatment is about a point of law, not the whole opinion.</li>
-<li><strong>The State owed a duty of care to a park visitor it had invited onto public land. | Synopsis and headnotes.</strong> Summaries of the holding and of each point of law, written by the publisher’s editors. They help you find your way around the opinion, but they carry no authority. Quote the opinion, never the headnote.</li>
+<li><strong>Caution: later treatment | Citator flag and treatment.</strong> The same flag, now with the treatment spelled out. Open it to see which points of law later courts questioned. Treatment attaches to points, not to opinions.</li>
+<li><strong>The State owed a duty of care to a park visitor it had invited onto public land. | Synopsis.</strong> An editor’s one-paragraph summary of the case. A map, not the territory. Quote the opinion, never the synopsis.</li>
+<li><strong>A possessor of public land held open to visitors owes them a duty to take reasonable precautions against hazards it should foresee. | Headnote.</strong> One point of law from the opinion, written by an editor, numbered, and tied to the paragraph it summarizes. Headnotes are how you jump to the part of the opinion that answers you, and how the citator attaches treatment to one point rather than the whole case.</li>
+<li><strong>Negligence › Duty › Possessors of public land | Classification link.</strong> The editors file every headnote under a topic in a classification system (West’s key numbers, Lexis’s topics). Select the link and the database lists every other case filed under the same point of law, in any jurisdiction. This is the fastest route from one good case to the rest of the line.</li>
 <li><strong>The first question presented, therefore, is whether the state as a possessor of land is under any duty of care… | The opinion text.</strong> The court’s own words, the only part with authority. <a class="xref" href="../appendices/b.html">Appendix B</a> shows you how to read it for an answer.</li>
 <li><strong>Citing references | Citing references.</strong> Every later document that cites this one. This is the citator’s list, and it is how you find the cases that applied, limited, or questioned the holding.</li>
 <li><strong>History | History.</strong> The procedural history of this case: the decisions below and any later appeal. Different from the research history on the start page, which is yours.</li>
-<li><strong>Outline | Table of contents.</strong> Jumps to sections of a long opinion, or to the subsections of a statute. In a long document, this is how you reach the part that answers your question without reading the rest.</li>
+<li><strong>Outline | Outline.</strong> Jumps to the sections of a long opinion: the syllabus, the majority, any concurrence or dissent. In a long opinion, this is how you reach the part that answers your question without reading the rest.</li>
 <li><strong>Copy with citation | Copy with citation.</strong> Copies the selected passage with its citation and pincite attached, ready for your log or your outline.</li>
 <li><strong>Add to folder | Add to folder.</strong> The same folder as on the results screen, from inside the document.</li>
 <li><strong>Previous · Next | Previous and next result.</strong> Moves through the results list without going back to it.</li>
 <li><strong>Search terms | Search-term navigation.</strong> Jumps from one highlighted search term to the next inside the document. The fastest way to find out whether a long opinion actually discusses your issue or merely mentions your words.</li>
+<li><strong>Summarize | Summarize this document.</strong> The generative feature inside the document: a machine-written summary of the opinion. Read it to decide whether the opinion deserves your time, then read the opinion. Nothing a summary says goes into your log until you have seen it in the court’s words.</li>
+</ul>
+<p><strong>Statute.</strong></p>
+<ul>
+<li><strong>United States Code › Title 42. The Public Health and Welfare › Chapter 126. Equal Opportunity for Individuals with Disabilities › Subchapter III. Public Accommodations | Hierarchy.</strong> Where this section sits in the code. Read it before the text: the chapter and subchapter tell you which definitions section governs the words you are about to read, and which neighbouring sections may carry an exception.
+<ul>
+<li>United States Code</li>
+<li>Title 42. The Public Health and Welfare</li>
+<li>Chapter 126. Equal Opportunity for Individuals with Disabilities</li>
+<li>Subchapter III. Public Accommodations</li>
+</ul></li>
+<li><strong>Effective: January 1, 2009 | Effective date.</strong> The date the text in front of you took effect. If your client’s facts happened before it, you need the earlier version, which is behind History.</li>
+<li><strong>§ 12182. Prohibition of discrimination by public accommodations. (a) No individual shall be discriminated against on the basis of disability in the full and equal enjoyment of the goods, services, facilities, privileges… | Section text.</strong> The statute itself, the only part with the force of law. Read the whole section, its definitions section, and its exceptions before you call any question answered. <a class="xref" href="../ch-6/index.html">Chapter 6</a> shows how.</li>
+<li><strong>Notes of Decisions (138) | Notes of Decisions.</strong> The annotations: short summaries of the decisions that have construed this section, grouped by topic. This is where a statutory question goes once the text is confirmed silent, and it is the publisher’s work, not the law.</li>
+<li><strong>History (2) | History and versions.</strong> Every prior version of the section, with the amending act for each. Select a version to read the text as it stood on a given date. Which version was in force when the events happened is often the first question a statute raises.</li>
+<li><strong>Citing References (108,549) | Citing references.</strong> Every document that cites this section: cases, regulations, secondary sources, briefs. The citator list for a statute, and the way to find pending amendments and challenges.</li>
+<li><strong>Table of Contents | Table of Contents.</strong> The whole chapter in outline, with this section marked. The fastest way to find the definitions section and the exceptions that govern the text you are reading.</li>
+<li><strong>Previous section · Next section | Previous and next section.</strong> Walks the code in order. Reading the neighbours of a section is how you find the exception the drafters put two sections down.</li>
+<li><strong>Outline | Outline.</strong> Jumps within a long section to its subsections, so you can reach (d) without scrolling through (a) to (c).</li>
+<li><strong>Credits: Pub. L. 101-336, title III, § 302, July 26, 1990, 104 Stat. 355; amended Pub. L. 110-325, § 6(a)(1), Sept. 25, 2008, 122 Stat. 3558 | Source note.</strong> The session laws that enacted and amended the section. Each is a lead to legislative history, which <a class="xref" href="../ch-10/index.html">Chapter 10</a> covers.</li>
+<li><strong>Copy with citation | Copy with citation.</strong> Copies the subsection with its citation attached, ready for your log or your outline.</li>
+</ul>
+<p><strong>Regulation.</strong></p>
+<ul>
+<li><strong>Code of Federal Regulations › Title 28. Judicial Administration › Chapter I. Department of Justice › Part 36. Nondiscrimination on the Basis of Disability by Public Accommodations › Subpart C. Specific Requirements | Hierarchy.</strong> Where the section sits in the CFR. A regulation is never read alone: the part’s definitions and the subpart’s scope section govern it, and the hierarchy is how you find them.
+<ul>
+<li>Code of Federal Regulations</li>
+<li>Title 28. Judicial Administration</li>
+<li>Chapter I. Department of Justice</li>
+<li>Part 36. Nondiscrimination on the Basis of Disability by Public Accommodations</li>
+<li>Subpart C. Specific Requirements</li>
+</ul></li>
+<li><strong>Effective: March 15, 2011 | Effective date.</strong> When this text took effect. Regulations change more often than statutes, so confirm the date against the eCFR before you rely on the text.</li>
+<li><strong>§ 36.304 Removal of barriers. (a) General. A public accommodation shall remove architectural barriers in existing facilities… where such removal is readily achievable… | Section text.</strong> The regulation itself. Note the terms it leans on: “readily achievable” is defined elsewhere in the part, and that definition is your next stop.</li>
+<li><strong>Notes of Decisions (41) | Notes of Decisions.</strong> Decisions construing this regulation. Fewer than for the statute, which is itself a finding: most of the case law attaches to the statute, and the regulation is construed in its light.</li>
+<li><strong>History (3) | History and versions.</strong> Every prior version of the section, with the Federal Register citation of the rulemaking that changed it. The preamble to that rulemaking explains why the agency wrote the words it wrote.</li>
+<li><strong>Citing References (2,310) | Citing references.</strong> Every document that cites this section, including the agency’s own guidance and the cases that applied it.</li>
+<li><strong>Table of Contents | Table of Contents.</strong> The whole part in outline. The definitions section for the part and the appendix with the agency’s guidance are both reached from here.</li>
+<li><strong>Previous section · Next section | Previous and next section.</strong> Walks the part in order.</li>
+<li><strong>Outline | Outline.</strong> Jumps within the section to its paragraphs.</li>
+<li><strong>Authority: 42 U.S.C. 12186(b). Source: 56 FR 35592, July 26, 1991; 75 FR 56236, Sept. 15, 2010 | Authority and source note.</strong> The statute that authorizes the regulation and the Federal Register issues that made and amended it. The authority line is the link back to the statute; the source line is the link to the rulemaking record. <a class="xref" href="../ch-7/index.html">Chapter 7</a> reads both.</li>
+<li><strong>Copy with citation | Copy with citation.</strong> Copies the paragraph with its citation attached.</li>
 </ul>
 </div>
 <h2 id="citations-and-finding-known-sources">Citations and Finding Known Sources <a class="anchor" href="#citations-and-finding-known-sources" aria-label="Link to this section">#</a></h2>
 <h3 id="reading-a-legal-citation">Reading a Legal Citation <a class="anchor" href="#reading-a-legal-citation" aria-label="Link to this section">#</a></h3>
 <p>A legal citation tells you three things: what type of source it is, where it was published, and when it was published. A <strong>case citation</strong> typically appears as <em>Party v. Party</em>, Volume Reporter Page (Court Year). The reporter and volume tell you where the opinion is published; the court and year, in the parenthetical, tell you immediately how much authority the case might carry in your jurisdiction.</p>
-<div class="try" id="try-2" data-kind="annotate" data-title="A case citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><strong>A case citation, part by part</strong></p>
-<p><span class="m" data-label="Case name" data-note="The parties. Useful for recognizing the case and nothing else: a database does not index opinions by name alone, and many cases share party names."><em>Robles v. Domino’s Pizza, LLC</em>,</span> <span class="m" data-label="Volume" data-note="The volume of the reporter where the opinion is printed. Volume, reporter, and page together are the address, and the address is what you type to retrieve the case.">913</span> <span class="m" data-label="Reporter" data-note="The Federal Reporter, Third Series, which publishes opinions of the federal courts of appeals. The reporter abbreviation already tells you what level of court you are dealing with.">F.3d</span> <span class="m" data-label="First page" data-note="The page where the opinion begins. A second number after a comma would be a pincite, the exact page of the passage being cited.">898</span> <span class="m" data-label="Court" data-note="The deciding court. Read this before you read the opinion: it tells you whether the case can bind the court you are in or can only persuade it.">(9th Cir.</span> <span class="m" data-label="Year" data-note="The year of decision. An older case is not a weaker one, but the year tells you how much later law you need to check before relying on it.">2019)</span></p>
+<div class="try" id="try-2" data-kind="annotate" data-title="A case citation, part by part" data-layout="cite" data-hint="Select each part of the citation. Then show which parts you type to retrieve it." data-pull="913 F.3d 898"><p class="try-head"><strong>A case citation, part by part</strong></p>
+<p><span class="m" data-label="Case name" data-note="The parties. Useful for recognizing the case and nothing else: a database does not index opinions by name alone, and many cases share party names."><em>Robles v. Domino’s Pizza, LLC</em>,</span> <span class="m" data-pull="yes" data-label="Volume" data-note="The volume of the reporter where the opinion is printed. Volume, reporter, and page together are the address, and the address is what you type to retrieve the case.">913</span> <span class="m" data-pull="yes" data-label="Reporter" data-note="The Federal Reporter, Third Series, which publishes opinions of the federal courts of appeals. The reporter abbreviation already tells you what level of court you are dealing with.">F.3d</span> <span class="m" data-pull="yes" data-label="First page" data-note="The page where the opinion begins. A second number after a comma would be a pincite, the exact page of the passage being cited.">898</span> <span class="m" data-label="Court" data-note="The deciding court. Read this before you read the opinion: it tells you whether the case can bind the court you are in or can only persuade it.">(9th Cir.</span> <span class="m" data-label="Year" data-note="The year of decision. An older case is not a weaker one, but the year tells you how much later law you need to check before relying on it.">2019)</span></p>
 </div>
 <p>A <strong>statute citation</strong> identifies the title and section of the code where the law lives: the title number, the code abbreviation, and the section symbol followed by the section number.</p>
-<div class="try" id="try-3" data-kind="annotate" data-title="A statute citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><strong>A statute citation, part by part</strong></p>
-<p><span class="m" data-label="Title" data-note="The title of the code: its broad subject grouping. Title 42 of the United States Code is The Public Health and Welfare. A title number is a subject, not a volume.">42</span> <span class="m" data-label="Code" data-note="The United States Code, where federal statutes are arranged by subject. A state citation swaps in the state’s code abbreviation, such as A.R.S. for the Arizona Revised Statutes.">U.S.C.</span> <span class="m" data-label="Section" data-note="The section number: the unit you retrieve and read. Title plus section is the address.">§ 12182</span> <span class="m" data-label="Subsection" data-note="The subdivision inside the section. Cite as precisely as the text allows, because (a) and (b) of the same section often do different work.">(a)</span> <span class="m" data-label="Edition year" data-note="The edition of the code cited. It is not the year the statute was enacted, and it is no assurance the text is current. Currency is a separate check.">(2018)</span></p>
+<div class="try" id="try-3" data-kind="annotate" data-title="A statute citation, part by part" data-layout="cite" data-hint="Select each part of the citation. Then show which parts you type to retrieve it." data-pull="42 U.S.C. 12182"><p class="try-head"><strong>A statute citation, part by part</strong></p>
+<p><span class="m" data-pull="yes" data-label="Title" data-note="The title of the code: its broad subject grouping. Title 42 of the United States Code is The Public Health and Welfare. A title number is a subject, not a volume.">42</span> <span class="m" data-pull="yes" data-label="Code" data-note="The United States Code, where federal statutes are arranged by subject. A state citation swaps in the state’s code abbreviation, such as A.R.S. for the Arizona Revised Statutes.">U.S.C.</span> <span class="m" data-pull="yes" data-label="Section" data-note="The section number: the unit you retrieve and read. Title plus section is the address.">§ 12182</span> <span class="m" data-label="Subsection" data-note="The subdivision inside the section. Cite as precisely as the text allows, because (a) and (b) of the same section often do different work.">(a)</span> <span class="m" data-label="Edition year" data-note="The edition of the code cited. It is not the year the statute was enacted, and it is no assurance the text is current. Currency is a separate check.">(2018)</span></p>
 </div>
 <p>A <strong>regulation citation</strong> follows the same logic as a statute but points to the Code of Federal Regulations rather than a statutory code.</p>
-<div class="try" id="try-4" data-kind="annotate" data-title="A regulation citation, part by part" data-layout="cite" data-hint="Select each part of the citation."><p class="try-head"><strong>A regulation citation, part by part</strong></p>
-<p><span class="m" data-label="Title" data-note="The title of the Code of Federal Regulations. Title 28 is Judicial Administration, where the Department of Justice&#39;s rules are published. C.F.R. title numbers do not always match the U.S.C. title of the statute being implemented.">28</span> <span class="m" data-label="Code" data-note="The Code of Federal Regulations: agency rules arranged by subject. The abbreviation is your signal that this is a regulation, written by an agency under authority a statute delegated.">C.F.R.</span> <span class="m" data-label="Section" data-note="Part 36, section 303. The number before the point is the Part, a cluster of related rules that shares one authority note and, usually, one definitions section.">§ 36.303</span> <span class="m" data-label="Subsection" data-note="The subdivision inside the section.">(a)</span> <span class="m" data-label="Edition year" data-note="The annual edition cited. Regulations change more often than statutes, so the edition year is a starting point for the currency check Chapter 7 teaches.">(2023)</span></p>
+<div class="try" id="try-4" data-kind="annotate" data-title="A regulation citation, part by part" data-layout="cite" data-hint="Select each part of the citation. Then show which parts you type to retrieve it." data-pull="28 C.F.R. 36.304"><p class="try-head"><strong>A regulation citation, part by part</strong></p>
+<p><span class="m" data-pull="yes" data-label="Title" data-note="The title of the Code of Federal Regulations. Title 28 is Judicial Administration, where the Department of Justice&#39;s rules are published. C.F.R. title numbers do not always match the U.S.C. title of the statute being implemented.">28</span> <span class="m" data-pull="yes" data-label="Code" data-note="The Code of Federal Regulations: agency rules arranged by subject. The abbreviation is your signal that this is a regulation, written by an agency under authority a statute delegated.">C.F.R.</span> <span class="m" data-pull="yes" data-label="Section" data-note="Part 36, section 303. The number before the point is the Part, a cluster of related rules that shares one authority note and, usually, one definitions section.">§ 36.303</span> <span class="m" data-label="Subsection" data-note="The subdivision inside the section.">(a)</span> <span class="m" data-label="Edition year" data-note="The annual edition cited. Regulations change more often than statutes, so the edition year is a starting point for the currency check Chapter 7 teaches.">(2023)</span></p>
 </div>
 <h3 id="finding-the-cited-source">Finding the Cited Source <a class="anchor" href="#finding-the-cited-source" aria-label="Link to this section">#</a></h3>
 <p>When you already have a citation, you can retrieve the authority in a legal database by entering relevant portions into the search bar. Enter only the location portions of the citation (volume, reporter, page, or title and section), not the party names or the year. The location portions are what the database indexes; the names and year are descriptive and can actually interfere with a clean retrieval.</p>
 <p>Every one of these addresses also works outside the commercial platforms. You need to know which free source publishes which kind of document, and where the free route runs out.</p>
-<div class="try" id="try-5" data-kind="sort" data-title="Where is it published for free?" data-bins="Congress.gov or GovInfo | eCFR or Federal Register | CourtListener or the court’s site | Only in a commercial platform"><p class="try-head"><strong>Where is it published for free?</strong></p>
+<div class="try" id="try-5" data-kind="sort" data-title="Freely available, or a paywalled feature?" data-bins="Congress.gov or GovInfo | eCFR or Federal Register | CourtListener or the court’s site | Only in a commercial platform"><p class="try-head"><strong>Freely available, or a paywalled feature?</strong></p>
+<p>Each item is a document or a feature. Where can you get it without a subscription, and which ones exist only inside a commercial platform?</p>
 <ul>
 <li>The current text of 42 U.S.C. § 12182 <strong>Congress.gov or GovInfo</strong>
 <ul>
 <li>The United States Code is also published by the House Office of the Law Revision Counsel at uscode.house.gov. Same text, no login.</li>
 </ul></li>
-<li>A rule the Department of Justice proposed last Tuesday <strong>eCFR or Federal Register</strong>
+<li>The text of a rule the Department of Justice proposed last Tuesday <strong>eCFR or Federal Register</strong>
 <ul>
 <li>Proposed rules appear in the Federal Register the day they are published, at federalregister.gov and govinfo.gov. The eCFR holds only final, codified text.</li>
 </ul></li>
-<li>A 2019 Ninth Circuit opinion you have the citation for <strong>CourtListener or the court’s site</strong>
+<li>The full text of a 2019 Ninth Circuit opinion you already have the citation for <strong>CourtListener or the court’s site</strong>
 <ul>
-<li>Federal appellate courts post their opinions; CourtListener collects them with a citation lookup. Coverage of older and unpublished opinions is thinner than Westlaw’s.</li>
+<li>Federal appellate courts post their opinions; CourtListener collects them with a citation lookup. Coverage of older and unpublished opinions is thinner than a commercial platform’s.</li>
 </ul></li>
-<li>The headnotes and key numbers on that opinion <strong>Only in a commercial platform</strong>
+<li>The headnotes and key numbers attached to that opinion <strong>Only in a commercial platform</strong>
 <ul>
-<li>Headnotes are West’s editorial summaries. The opinion is public. The summary of it is a product West sells.</li>
+<li>Headnotes are West’s editorial summaries and the key numbers are its classification system. The opinion is public. The summary and the classification are products West sells.</li>
 </ul></li>
-<li>The committee report behind the Americans with Disabilities Act <strong>Congress.gov or GovInfo</strong>
+<li>The official PDF of the committee report behind the Americans with Disabilities Act <strong>Congress.gov or GovInfo</strong>
 <ul>
 <li>GovInfo holds the GPO’s official PDFs of committee reports. <a class="xref" href="../ch-10/index.html">Chapter 10</a> shows how to find the report number.</li>
 </ul></li>
-<li>Whether that opinion has since been overruled <strong>Only in a commercial platform</strong>
+<li>A flag or signal that visually indicates whether that opinion has since been overruled or questioned <strong>Only in a commercial platform</strong>
 <ul>
-<li>Mostly. CourtListener and Google Scholar list the later cases that cite an opinion, and you can read them yourself. No free source yet gives you the red and yellow signals; <a class="xref" href="../ch-5/index.html">Chapter 5</a> says what that costs you.</li>
+<li>CourtListener and Google Scholar list the later cases that cite an opinion, and you can read them yourself. No free source yet gives you the red and yellow signals; <a class="xref" href="../ch-5/index.html">Chapter 5</a> says what that costs you.</li>
 </ul></li>
 </ul>
 </div>

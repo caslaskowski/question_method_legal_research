@@ -110,7 +110,7 @@ def render_try(frag):
 
 
 TOKEN = re.compile(r"(<[^>]+>)")
-REF = re.compile(r"\b(Chapters?) (\d{1,2})\b|\bAppendix ([A-I])\b")
+REF = re.compile(r"\b(Chapter) (\d{1,2})\b|\bAppendix ([A-I])\b")
 
 
 def autolink(frag, depth, page_url):
