@@ -25,7 +25,7 @@ Check your chain against this walkthrough one question at a time.
 
 **Where the researcher’s knowledge starts.** No vocabulary. She knows the words “fired” and “social media” and nothing else legal. So the first move is acquisition: a plain-language search whose only job is to turn up the terms of art. After that, the questions run exploratory, then foundational, then survey, all inside secondary sources.
 
-**Q1. Can an employer fire someone for what they posted on social media?** *(Definitional / orientation, general search)*
+**Q1. Can an employer fire someone for what they posted on social media?** *(Exploratory, no-clue: a plain-language general search, run to acquire vocabulary)*
 
 *Answer:* A plain-language search turns up the governing default and its name: most U.S. employment is “at-will,” meaning either side may end the relationship for almost any reason, including something the employee posted, unless an exception applies. The search also signals that exceptions and “protected activity” exist.
 
@@ -73,7 +73,7 @@ Check your chain against this walkthrough one question at a time.
 
 **Q1. Under our state’s law, does a business owe its customers a duty to protect them from the criminal acts of third parties on its premises?** *(Focusing)*
 
-*Answer:* Locating the leading state appellate decision (through headnotes, a topic-and-key-number search, and a citator) reveals the general rule and its exception: ordinarily there is no duty to protect another from a third party’s criminal conduct, but courts recognize an exception when a special relationship exists, such as business and customer, and the harm was foreseeable. \[Confirm the state’s exact formulation in the leading case.\]
+*Answer:* Locating the leading state appellate decision (a treatise or state encyclopedia will usually hand it to you; a digest topic or a keyword search followed by a citator gets there too) reveals the general rule and its exception: ordinarily there is no duty to protect another from a third party’s criminal conduct, but courts recognize an exception when a special relationship exists, such as business and customer, and the harm was foreseeable. \[Confirm the state’s exact formulation in the leading case.\]
 
 *The duty depends on two requirements the answer just named: a special relationship and foreseeability. The business-customer relationship appears to satisfy the first, so foreseeability is the live question. Dig into it.*
 
@@ -95,7 +95,7 @@ Check your chain against this walkthrough one question at a time.
 
 **\*Precision trap:** A search will turn up cases on an employer’s duty to its employees, or a landlord’s duty to tenants. Those involve a different special relationship and a different line of authority. The precise question, a business owner’s duty to a customer, lets you set them aside rather than chase them.\*
 
-**Closure.** Analytical. The case law establishes the general no-duty rule, the special-relationship exception, the foreseeability test the state follows, and how analogous cases have applied it; the client’s facts are written beside those cases in the outline’s brackets. Every question is answered or identified as genuinely close, all within case law, and you can now state whether a duty likely existed. Whether the store then breached that duty, and questions of causation and damages, are separate elements, but the attorney asked only about duty, so you have reached closure on the assigned question. Flag the remaining elements as out of scope.
+**Closure.** Analytical. The case law establishes the general no-duty rule, the special-relationship exception, the foreseeability test the state follows, and how analogous cases have applied it; the client’s facts are written beside those cases in the outline’s brackets. Every question is answered or identified as genuinely open, all within case law, and you can now state whether a duty likely existed. Whether the store then breached that duty, and questions of causation and damages, are separate elements, but the attorney asked only about duty, so you have reached closure on the assigned question. Flag the remaining elements as out of scope.
 
 **What this drill builds.** Moving from a focusing question to fact-driven application, identifying the dispositive facts in an opinion and comparing them to a client’s facts, distinguishing adverse authority, and using a precisely scoped question to discard the wrong line of cases. These are the named case-law competencies the chapter teaches.
 
@@ -133,7 +133,7 @@ Check your chain against this walkthrough one question at a time.
 
 *Answer:* The penalty provision in the same chapter specifies the consequences of a violation, which research reveals includes the nature of the liability the client would face. \[Read the penalty provision for the exact consequence.\]
 
-**\*Ambiguity, and where it points:** Whether a particular phone interview is a confidential communication, that is, whether the source had a reasonable expectation against recording, is a standard the text does not fully resolve. Under this chapter’s discipline, that ambiguity becomes the next question, and it points outside the statute: how have California courts interpreted confidential communication on facts like these? That is a focusing question for case law and possibly agency guidance, out of scope for this statute-only drill. Record it.\*
+**\*Ambiguity, and where it points:** Whether a particular phone interview is a confidential communication, that is, whether the source had a reasonable expectation against recording, is a standard the text does not fully resolve. Under this chapter’s discipline, that ambiguity becomes the next question, and it points outside the statute: how have California courts applied the confidential-communication definition to phone interviews like this one? That is an application question for case law, out of scope for this statute-only drill. Record it.\*
 
 **\*Currency check:** Before relying on the statute, confirm the version in force using the historical and amendment notes and a citator. Statutory text changes, and the language that governs your client is the language that was in effect for the relevant events.\*
 
@@ -221,7 +221,7 @@ This is the model for the capstone. Check your chain against it one question at 
 
 **Q4. How has the FAA applied Part 107’s operational limits, including when it requires a waiver or authorization, to flights like the client’s planned one?** *(Application: regulation and agency guidance)*
 
-*Answer:* Reading Part 107 together with FAA guidance reveals how the operational limits apply and the process for authorization or a waiver, for example airspace authorization to operate in controlled airspace. A currency check matters here, because the drone rules have evolved, including Remote ID requirements and rules on operations over people, so confirm the current version through the eCFR and FAA guidance. \[Confirm currency, then take a research pause and bracket the application to this client’s planned flights in the outline.\]
+*Answer:* Reading Part 107 together with FAA guidance and its published waiver decisions shows how the agency has applied the operational limits to flights of this kind, and when it has required authorization or a waiver, for example airspace authorization to operate in controlled airspace. A currency check matters here, because the drone rules have evolved, including Remote ID requirements and rules on operations over people, so confirm the current version through the eCFR and FAA guidance. \[Confirm currency, then take a research pause and bracket the application to this client’s planned flights in the outline.\]
 
 *The federal-compliance picture resolves. The remaining thread is the state-law exposure, a lateral move to a different body of law.*
 
