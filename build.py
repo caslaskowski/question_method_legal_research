@@ -101,9 +101,11 @@ def render_try(frag):
         title = title.group(1) if title else ""
         rest = re.sub(r'\s*\b(kind|title)="[^"]*"', "", attrs)
         n[0] += 1
-        return ('<div class="try" id="try-%d" data-kind="%s" data-title="%s"%s>'
-                '<p class="try-head"><strong>%s</strong></p>'
-                % (n[0], kind, title, rest, title))
+        # The strip is a paragraph, not a heading (it must not enter the page outline); the block is a
+        # named group, so a screen reader hears "<label>: <title>, group" on entering it.
+        return ('<div class="try" id="try-%d" role="group" aria-labelledby="try-%d-h" data-kind="%s" data-title="%s"%s>'
+                '<p class="try-head" id="try-%d-h"><strong>%s</strong> <span class="visually-hidden">(%s)</span></p>'
+                % (n[0], n[0], kind, title, rest, n[0], title, TRY_LABEL[kind]))
 
     frag = TRY_RE.sub(sub, frag)
     return frag, n[0]
@@ -207,11 +209,24 @@ def strip_flags(frag):
 def fix_tables(frag):
     # pandoc emits an empty <thead> for tables whose header row was blank
     frag = re.sub(r"<thead>\s*<tr>(?:\s*<th[^>]*>\s*</th>)+\s*</tr>\s*</thead>", "", frag)
+    seen = {}
+
     def wrap(m):
         # name the scrollable region after the nearest heading above the table, so a screen reader
-        # hears "Table, <section name>" instead of "Table" for every table on the page
-        heads = re.findall(r'<h[1-4][^>]*\sid="([^"]+)"', frag[:m.start()])
-        label = ' aria-labelledby="%s"' % heads[-1] if heads else ' aria-label="Table"'
+        # hears "Table, <section name>" instead of "Table" for every table on the page; the second
+        # and later tables under one heading are numbered, so every region has a distinct name
+        heads = re.findall(r'<h[1-4][^>]*\sid="([^"]+)"[^>]*>(.*?)</h[1-4]>', frag[:m.start()], re.S)
+        if not heads:
+            seen[""] = seen.get("", 0) + 1
+            label = ' aria-label="Table%s"' % ("" if seen[""] == 1 else " %d" % seen[""])
+        else:
+            hid, htext = heads[-1]
+            seen[hid] = seen.get(hid, 0) + 1
+            if seen[hid] == 1:
+                label = ' aria-labelledby="%s"' % hid
+            else:
+                htext = html.unescape(re.sub(r"<[^>]+>", "", htext)).replace(" #", "").strip()
+                label = ' aria-label="%s, table %d"' % (esc(htext), seen[hid])
         return '<div class="table-wrap" tabindex="0" role="region"%s><table>' % label
     frag = re.sub(r"<table>", wrap, frag).replace("</table>", "</table></div>")
     return frag
@@ -377,7 +392,7 @@ def shell(title, body, depth, page_url, toc=None, pager=None, wide=False, kicker
   </nav>
 </div></header>
 %(banner)s
-<main id="main" class="wrap %(wide)s">
+<main id="main" class="wrap %(wide)s" tabindex="-1">
 %(toc)s
 <article class="page">
 %(kicker)s
@@ -499,14 +514,15 @@ def build_downloads():
         size = file_size(path)
         extra = ""
         if d.get("preview"):
-            extra = (' <a class="btn ghost" href="%s" aria-label="Preview %s as a PDF, opens in this tab">Preview (PDF)</a>'
+            extra = (' <a class="btn ghost" href="%s">Preview (PDF)<span class="visually-hidden">: %s, opens in this tab</span></a>'
                      % (esc(d["preview"]), esc(d["title"])))
-        # The visible button says only "Download DOCX"; the label tells a screen reader what the
-        # file is, what kind of file it is, and how big it is.
+        # The visible button says only "Download DOCX 20 KB"; a visually hidden span adds what the
+        # file is and what kind of file it is. The visible words stay in the accessible name (an
+        # aria-label would replace them, which fails WCAG 2.5.3 and breaks voice control).
         cards.append(
             '<li class="dl"><div><h2 id="dl-%d">%s</h2><p>%s</p><p class="dl-use"><strong>Use it:</strong> %s</p></div>'
-            '<div class="dl-actions"><a class="btn" href="%s" download aria-label="Download %s, %s, %s">Download %s <small>%s</small></a>%s</div></li>'
-            % (len(cards) + 1, esc(d["title"]), esc(d["desc"]), esc(d["use"]), esc(d["file"]), esc(d["title"]), kind, size, ext, size, extra))
+            '<div class="dl-actions"><a class="btn" href="%s" download>Download %s <small>%s</small><span class="visually-hidden">: %s, %s</span></a>%s</div></li>'
+            % (len(cards) + 1, esc(d["title"]), esc(d["desc"]), esc(d["use"]), esc(d["file"]), ext, size, esc(d["title"]), kind, extra))
     instructors = ""
     if BOOK.get("instructor_email"):
         instructors = ('<p class="lede instructors-note"><strong>For instructors:</strong> an instructor edition exists, with the sample answers held back from students and notes on running the exercises. '
@@ -571,8 +587,8 @@ def build_home():
 <section class="home-cycle">
 <h2>One cycle, run until the questions run out</h2>
 <p class="home-note">Four steps turn, and the fourth is the turning. Two pauses keep you honest: the Quick Check on yourself before each new question, and the Checkpoint on the research whenever it feels off. Select any part.</p>
-<div class="try" id="try-home" data-kind="explore" data-title="The cycle" layout="ring" center="last">
-<p class="try-head"><strong>The cycle</strong></p>
+<div class="try" id="try-home" role="group" aria-labelledby="try-home-h" data-kind="explore" data-title="The cycle" layout="ring" center="last">
+<p class="try-head" id="try-home-h"><strong>The cycle</strong></p>
 <ul>%(items)s</ul>
 </div>
 </section>
@@ -628,7 +644,7 @@ def build_whole_book():
         md = re.sub(r"(?m)^::: \{[^}]*\}\s*$", "", md)
         md = re.sub(r"(?m)^:::\s*$", "", md)
         md = re.sub(r"```\{=html\}.*?```", "", md, flags=re.S)
-        return re.sub(r"(?m)^(#+) ", lambda m: "#" * (len(m.group(1)) + 1) + " ", md)   # chapter title is the H1
+        return md   # the chapter title is the Heading 1; the chapter's own ## sections follow as Heading 2
     for f in BOOK["front"]:
         parts.append("\n# %s\n\n%s" % (f["title"], clean(read("content/front/%s.md" % f["slug"]))))
     for pid in ("I", "II"):
