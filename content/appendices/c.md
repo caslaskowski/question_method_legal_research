@@ -23,7 +23,7 @@ Section 4 of a state statute states a general rule that plainly requires what yo
 - [x] Not yet. Read the chapter's scope section, its definitions, and its exceptions before you conclude § 4 reaches the client.
     - The operative provision is almost never the whole answer. “Except that,” “unless,” and “notwithstanding” carry as much weight as the rule, and a defined term in § 4 may mean something narrower than it appears. Read the section in its context, then log.
 - [ ] Yes, if the section heading describes your client's situation.
-    - Headings are often the codifier's description, and courts treat them as non-binding. The scope and applicability clause is where the statute says whom it reaches.
+    - Headings are often the codifier's description, and courts generally give them little weight. The scope and applicability clause is where the statute says whom it reaches.
 - [ ] No. A statute never answers a question without a case construing it.
     - Statutes often do, when the text is clear and the definitions and exceptions are read with it. The cases come when the text leaves something open.
 :::

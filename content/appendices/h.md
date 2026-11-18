@@ -85,7 +85,7 @@ A passing harvest from a single encyclopedia entry on the grandparents’ questi
 
 ### Exercise 4.3 — The Chapter 4 Drill (Secondary Sources Only): Where Do I Even Start?
 
-The model chain is the first walkthrough in Appendix E. Compare your chain to it one question at a time, using Appendix E’s own test: not whether your questions match word for word, but whether each of yours was earned by the answer before it.
+The model chain is the first walkthrough in Appendix E. Compare your chain to it one question at a time, using Appendix E’s own test. Your questions need not match word for word. Each of yours should follow from the answer before it and stay in the chain you were running down, one element through its sub-issues before you moved sideways.
 
 ## Chapter 5
 
@@ -99,7 +99,7 @@ Three facts survive the test, each with its sentence. The curricular production:
 
 ### Exercise 5.3 — The Chapter 5 Drill (Case Law Only): Did the Store Owe a Duty?
 
-The model chain is in Appendix E. Same comparison discipline: question by question, each one earned by the stated answer before it.
+The model chain is in Appendix E. Same comparison discipline: question by question, each one following from the stated answer before it and staying in its chain.
 
 ## Chapter 6
 
@@ -137,7 +137,7 @@ The corners: statute corner, the Organic Foods Production Act, located through t
 
 ### Exercise 8.2 — Unsettled or Unfound?
 
-The form of a passing pair, content bracketed because it comes from your own drills. The unsettled finding: “The law is genuinely unsettled on \[the point\]: \[the leading authorities\] expressly reserve it, and \[the survey source\] confirms the jurisdictions divide. I searched \[the databases\], with \[the term sets, including alternatives\], through \[date\].” Its defense earns the professional conclusion by showing the search was thorough enough that a supervisor would accept it, and by pointing at authority that says the question is open rather than at silence. The unfound confession: “I have not yet found the answer to \[the point\]. I searched \[one database\] with \[one term set\]; I have not yet tried \[the alternative terms or source types a full sweep would include\].” Its defense is honest about the gap between what was searched and what a closure-grade sweep requires. The two labels cannot trade places, because the defenses are doing different work: one demonstrates exhaustion, the other admits its absence. If yours could swap, neither defense was specific enough yet.
+The form of a passing pair, content bracketed because it comes from your own drills. The unsettled finding: “The law is genuinely unsettled on \[the point\]: \[the leading authorities\] expressly reserve it, and \[the survey source\] confirms the jurisdictions divide. I searched \[the databases\], with \[the term sets, including alternatives\], through \[date\].” Its defense supports the professional conclusion by showing the search was thorough enough that a supervisor would accept it, and by pointing at authority that says the question is open rather than at silence. The unfound confession: “I have not yet found the answer to \[the point\]. I searched \[one database\] with \[one term set\]; I have not yet tried \[the alternative terms or source types a full sweep would include\].” Its defense is honest about the gap between what was searched and what a closure-grade sweep requires. The two labels cannot trade places, because the defenses are doing different work: one demonstrates exhaustion, the other admits its absence. If yours could swap, neither defense was specific enough yet.
 
 ### Exercise 8.3 — The Capstone: The Drone Question
 
@@ -161,7 +161,7 @@ A passing closure record, run on any finished exercise: the final sweep document
 
 ### Exercise 10.1 — The Entry Ticket
 
-Both passing shapes, modeled. The ticket earned: “The statute is ambiguous as to \[the term\]: the text does not define it, the definitions section \[cited\] omits it, the interpreting cases \[cited or ‘none located after the searches listed’\] have not resolved it, and no regulation \[checked where\] supplies content. Documented: text read; definitions checked; case search \[terms, database, date\]; regulatory check \[where\].” The record stays closed: “The term is resolved by \[the definitions section § \_\_ / the controlling decision cited\]; the legislative record stays closed, and the research proceeds in \[that source\].” The failing shape is the one the self-check named: a completed ambiguity sentence above an empty documentation list. An undocumented ambiguity claim is just an unread statute, and courts committed to plain meaning will treat it as exactly that.
+Both passing shapes, modeled. The ticket justified: “The statute is ambiguous as to \[the term\]: the text does not define it, the definitions section \[cited\] omits it, the interpreting cases \[cited or ‘none located after the searches listed’\] have not resolved it, and no regulation \[checked where\] supplies content. Documented: text read; definitions checked; case search \[terms, database, date\]; regulatory check \[where\].” The record stays closed: “The term is resolved by \[the definitions section § \_\_ / the controlling decision cited\]; the legislative record stays closed, and the research proceeds in \[that source\].” The failing shape is the one the self-check named: a completed ambiguity sentence above an empty documentation list. An undocumented ambiguity claim is just an unread statute, and courts committed to plain meaning will treat it as exactly that.
 
 ### Exercise 10.2 — The Credit-Line Drill
 
