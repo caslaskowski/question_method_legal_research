@@ -37,6 +37,14 @@
   }
 })();
 
+/* 3b. the Contents menu closes on Escape (focus returns to its button) and on a click elsewhere */
+(function () {
+  var menu = document.querySelector(".menu");
+  if (!menu) return;
+  menu.addEventListener("keydown", function (e) { if (e.key === "Escape" && menu.open) { menu.open = false; menu.querySelector("summary").focus(); } });
+  document.addEventListener("click", function (e) { if (menu.open && !menu.contains(e.target)) menu.open = false; });
+})();
+
 /* 4. collapse the on-this-page list on narrow screens (it would otherwise push the chapter down a full screen) */
 (function () {
   var box = document.querySelector(".tocbox");
@@ -144,6 +152,23 @@
     set: function (k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
   };
   function live() { return h("div", { "class": "try-out", role: "status", "aria-live": "polite" }); }
+  /* arrow keys walk a row of buttons that works as one control (a segmented switch, a tab strip):
+     Left/Up and Right/Down move to the neighbour and press it, Home and End to the ends */
+  function arrows(group, roving) {
+    group.addEventListener("keydown", function (e) {
+      var bs = Array.prototype.filter.call(group.querySelectorAll("button"), function (b) { return !b.disabled; }), i = bs.indexOf(document.activeElement), j;
+      if (i < 0 || !bs.length) return;
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") j = (i + 1) % bs.length;
+      else if (e.key === "ArrowLeft" || e.key === "ArrowUp") j = (i + bs.length - 1) % bs.length;
+      else if (e.key === "Home") j = 0; else if (e.key === "End") j = bs.length - 1; else return;
+      e.preventDefault(); bs[j].focus(); bs[j].click();
+    });
+    if (roving) group.addEventListener("click", function () {      /* one tab stop: only the pressed button is in the Tab order */
+      Array.prototype.forEach.call(group.querySelectorAll("button"), function (b) { b.setAttribute("tabindex", b.getAttribute("aria-selected") === "true" || b.getAttribute("aria-pressed") === "true" ? "0" : "-1"); });
+    });
+  }
+  /* when the control that had focus is disabled or rebuilt, move focus to a sensible neighbour */
+  function focusFirst(scope) { var b = scope && scope.querySelector("button:not(:disabled), [tabindex='0']"); if (b) b.focus(); return !!b; }
   function strip(s) { return s.replace(/<[^>]+>/g, "").replace(/\s+/g, " ").trim(); }
 
   var KINDS = {};
@@ -199,7 +224,7 @@
     var wrap = h("ol", { "class": "try-sort" + (bins.length > 3 ? " many" : "") });
     function tally() { score.textContent = done + " of " + items.length + " placed" + (done === items.length ? ". All sorted." : ""); }
     shuffled(items.length, idx + 3).forEach(function (k) {
-      var it = items[k], misses = 0, note = h("div", { "class": "try-note" });
+      var it = items[k], misses = 0, note = h("div", { "class": "try-note", role: "status" });
       var row = h("li", {}, [h("div", { "class": "try-item", html: it.html })]);
       var bar = h("div", { "class": "try-bins", role: "group", "aria-label": "Choose a category" });
       bins.forEach(function (b) {
@@ -210,9 +235,13 @@
             row.classList.add("done"); btn.classList.add("ok"); done++;
             Array.prototype.forEach.call(bar.children, function (x) { x.disabled = true; });
             note.innerHTML = '<p class="good"><strong>' + b + ".</strong> " + it.fb + "</p>"; tally();
+            /* the row's buttons are now disabled: carry focus to the next row still to be sorted, or to the tally */
+            var rest = Array.prototype.filter.call(wrap.children, function (r) { return !r.classList.contains("done"); });
+            if (!focusFirst(rest[0])) { score.setAttribute("tabindex", "-1"); score.focus(); }
           } else {
             btn.classList.add("no"); btn.disabled = true; misses++;
             note.innerHTML = '<p class="bad">Not ' + b.toLowerCase() + ". " + (it.miss ? it.miss + " " : (misses > 1 ? "Look at what the item <em>is</em> before what it is about. " : "")) + "Try again.</p>";
+            focusFirst(bar);
           }
         });
         bar.appendChild(btn);
@@ -234,7 +263,10 @@
       cur.forEach(function (it, i) {
         var good = checked && it.pos === i;
         var li = h("li", { "class": checked ? (good ? "ok" : "no") : "" }, [
-          h("span", { "class": "try-move" }, [
+          h("span", { "class": "try-move", onkeydown: function (e) {
+            if (e.key === "ArrowUp" && i > 0) { e.preventDefault(); swap(i, i - 1); }
+            else if (e.key === "ArrowDown" && i < cur.length - 1) { e.preventDefault(); swap(i, i + 1); }
+          } }, [
             h("button", { type: "button", "aria-label": "Move up", disabled: i === 0 ? "" : null, text: "↑", onclick: function () { swap(i, i - 1); } }),
             h("button", { type: "button", "aria-label": "Move down", disabled: i === cur.length - 1 ? "" : null, text: "↓", onclick: function () { swap(i, i + 1); } })
           ]),
@@ -492,12 +524,14 @@
     var byName = { start: startScreen, "start page": startScreen, results: resultsScreen, "case": caseScreen, document: caseScreen, statute: codeScreen, regulation: codeScreen };
     var figs = screens.map(function (sc, i) { return (byName[sc.name.toLowerCase()] || [startScreen, resultsScreen, caseScreen, codeScreen, codeScreen][i] || startScreen)(sc); });
     /* the browser chrome, with one tab per screen */
-    var tabs = h("div", { "class": "db-wintabs", role: "tablist", "aria-label": "Screens of the demonstration database" }), tabBtns = screens.map(function (sc, i) {
-      var b = h("button", { type: "button", role: "tab", "class": "db-wintab", "aria-selected": i ? "false" : "true", text: sc.name });
+    var tid = (root.id || "db") + "-tab-", tabs = h("div", { "class": "db-wintabs", role: "tablist", "aria-label": "Screens of the demonstration database" }), tabBtns = screens.map(function (sc, i) {
+      var b = h("button", { type: "button", role: "tab", id: tid + i, "aria-controls": tid + i + "-panel", "class": "db-wintab", "aria-selected": i ? "false" : "true", tabindex: i ? "-1" : "0", text: sc.name });
       b.addEventListener("click", function () { showScreen(i); });
+      figs[i].id = tid + i + "-panel"; figs[i].setAttribute("role", "tabpanel"); figs[i].setAttribute("aria-labelledby", tid + i);
       return b;
     });
     tabBtns.forEach(function (b) { tabs.appendChild(b); });
+    arrows(tabs, true);
     var bar = h("div", { "class": "db-bar" }, [h("i"), h("i"), h("i"), tabs, h("b", { text: "Demonstration" })]);
     var fig = h("div", { "class": "try-db", role: "group" }, [bar]);
     figs.forEach(function (f, i) { f.hidden = i > 0; fig.appendChild(f); });
@@ -517,7 +551,11 @@
         var skip = h("button", { type: "button", "class": "try-btn small ghost", text: "Skip" }); skip.addEventListener("click", function () { k++; ask(); });
         quiz.appendChild(h("p", { "class": "try-actions" }, [skip]));
         finding = { tried: false, check: function (it) {
-          if (tagOf(it.tag) === tagOf(find[k].tag)) { if (!finding.tried) right++; quiz.appendChild(h("p", { "class": "good", html: "<strong>Found it.</strong> " + it.tag + ". Next one in a moment." })); k++; setTimeout(ask, 1400); }
+          if (tagOf(it.tag) === tagOf(find[k].tag)) {
+            if (!finding.tried) right++; finding = null; k++;
+            var nextBtn = h("button", { type: "button", "class": "try-btn small", text: k < find.length ? "Next one" : "See the score", onclick: ask });
+            quiz.appendChild(h("p", { "class": "good", html: "<strong>Found it.</strong> " + it.tag + ". " })); quiz.appendChild(h("p", { "class": "try-actions" }, [nextBtn])); nextBtn.focus();
+          }
           else { finding.tried = true; var sc = screenOf(find[k].tag); quiz.appendChild(h("p", { "class": "bad", html: "<strong>Not that one.</strong> That is the " + it.tag.toLowerCase() + ". " + (sc ? "Look on the " + sc + " screen." : "Try again.") })); }
         } };
       }
@@ -562,7 +600,7 @@
         b.addEventListener("click", function () { setLens(k); });
         return b;
       });
-      segBtns.forEach(function (b) { seg.appendChild(b); });
+      segBtns.forEach(function (b) { seg.appendChild(b); }); arrows(seg);
       (hints[0] ? lead : head).insertAdjacentElement("afterend", h("p", { "class": "try-actions" }, [h("span", { "class": "try-read", text: "Read it:" }), seg]));
     }
     function setLens(k) {
@@ -580,7 +618,9 @@
       if (!m._seen[lens]) { m._seen[lens] = true; seen[lens]++; }
       m.classList.add("seen");
       if (verdict) m.classList.add("v-" + verdict);
-      panel.innerHTML = (label ? '<p class="try-panel-h">' + label + "</p>" : "") + "<p>" + note + "</p>";
+      /* a verdict colours the mark; the word beside the label carries it for anyone who does not see the colour */
+      var word = { ok: "sound", warn: "caution", bad: "problem" }[verdict];
+      panel.innerHTML = (label || word ? '<p class="try-panel-h">' + (label || "") + (word ? " <small>" + word + "</small>" : "") + "</p>" : "") + "<p>" + note + "</p>";
       tally();
       if (!cite) { if (narrow.matches) (m.closest("p,blockquote,li") || m).insertAdjacentElement("afterend", panel); else side.insertBefore(panel, count); }
     }
@@ -643,7 +683,7 @@
     var hr = kids(root, "hr")[0]; if (!hr) return;
     var key = "qm:" + location.pathname + ":reveal:" + idx, ans = h("div", { "class": "try-answer", hidden: "" }), n;
     while ((n = hr.nextSibling)) ans.appendChild(n);
-    var ta = h("textarea", { rows: "3", "aria-label": "Your answer", placeholder: opt(root, "placeholder") || "Write your answer first. It stays in this browser." });
+    var ta = h("textarea", { rows: "3", "aria-label": "Your answer" + (opt(root, "title") ? ": " + opt(root, "title") : ""), placeholder: opt(root, "placeholder") || "Write your answer first. It stays in this browser." });
     ta.value = store.get(key, ""); ta.addEventListener("input", function () { store.set(key, ta.value); });
     var btn = h("button", { type: "button", "class": "try-btn", "aria-expanded": "false", text: opt(root, "button") || "Compare with a model answer" });
     btn.addEventListener("click", function () { var open = ans.hidden; ans.hidden = !open; btn.setAttribute("aria-expanded", String(open)); btn.textContent = open ? "Hide the model answer" : (opt(root, "button") || "Compare with a model answer"); });
@@ -667,7 +707,7 @@
       if (i < steps.length) steps[i].cands.forEach(function (c, k) {
         bars.appendChild(h("div", { "class": "try-bar" + (k === 0 ? " top" : "") }, [h("span", { text: c.t }), h("i", { style: "width:" + c.p + "%" }), h("b", { text: c.p + "%" })]));
       });
-      out.innerHTML = i > 0 && steps[i - 1].note ? "<p>" + steps[i - 1].note + "</p>" : "";
+      out.innerHTML = i > 0 ? "<p><strong>Predicted:</strong> " + steps[i - 1].cands[0].t + " (" + steps[i - 1].cands[0].p + "%)." + (steps[i - 1].note ? " " + steps[i - 1].note : "") + "</p>" : "";
       next.disabled = i >= steps.length;
       next.textContent = i >= steps.length ? "Done" : "Predict the next piece";
     }
@@ -684,11 +724,12 @@
     Array.prototype.forEach.call(dts, function (dt) { var dd = dt.nextElementSibling; cards.push({ dt: dt, dd: dd, t: dt.innerHTML, d: dd ? dd.innerHTML : "" }); });
     var pool = cards.slice(), i = 0, flipped = false;
     var face = h("button", { type: "button", "class": "try-card", "aria-live": "polite" });
-    var pos = h("span", { "class": "try-score" });
+    var pos = h("span", { "class": "try-score", role: "status" });
+    function flat(x) { return x.replace(/<a\b[^>]*>/g, "").replace(/<\/a>/g, ""); }   /* the full list below keeps the links */
     function draw() {
       if (!pool.length) { face.innerHTML = "<span>No term matches.</span>"; pos.textContent = ""; return; }
       var c = pool[i];
-      face.innerHTML = flipped ? '<small>' + strip(c.t) + "</small><span class=\"def\">" + c.d + "</span>" : "<strong>" + c.t + "</strong><small>Select to see the definition</small>";
+      face.innerHTML = flipped ? '<small>' + strip(c.t) + "</small><span class=\"def\">" + flat(c.d) + "</span>" : "<strong>" + flat(c.t) + "</strong><small>Select to see the definition</small>";
       pos.textContent = (i + 1) + " of " + pool.length;
     }
     face.addEventListener("click", function () { flipped = !flipped; draw(); });
@@ -738,7 +779,7 @@
       });
       sum.textContent = seen.length ? seen.filter(function (x) { return count[x]; }).map(function (x) { return count[x] + " " + x.toLowerCase(); }).join(", ") + "." : "";
     }
-    settings.forEach(function (t, i) { seg.appendChild(h("button", { type: "button", html: t, onclick: function () { pick(i); } })); });
+    settings.forEach(function (t, i) { seg.appendChild(h("button", { type: "button", html: t, onclick: function () { pick(i); } })); }); arrows(seg);
     var wrap = table.closest(".table-wrap") || table;
     wrap.replaceWith(h("div", {}, [h("p", { "class": "try-hint", text: opt(root, "label") || heads[0].textContent }), seg, list, sum]));
     pick(0);
@@ -851,7 +892,7 @@
     var presets = splitBar(opt(root, "queries")), nat = splitBar(opt(root, "natural"));
     var mode = "tc", input = h("input", { type: "text", "class": "try-q", "aria-label": "Your search", spellcheck: "false", autocomplete: "off" });
     var read = h("p", { "class": "try-read" }), stats = h("p", { "class": "try-score", role: "status", "aria-live": "polite" }), res = h("ol", { "class": "try-results" });
-    var modeBar = h("div", { "class": "try-seg", role: "group", "aria-label": "Search mode" });
+    var modeBar = h("div", { "class": "try-seg", role: "group", "aria-label": "Search mode" }); arrows(modeBar);
     var chipBar = h("div", { "class": "try-chips", hidden: "" }), build = h("div", { "class": "try-build", role: "group", "aria-label": "Add a connector to your search" });
     var exBtn = h("button", { type: "button", "class": "try-btn ghost small", "aria-expanded": "false", text: "Show example searches" });
     exBtn.addEventListener("click", function () { var open = chipBar.hidden; chipBar.hidden = !open; exBtn.setAttribute("aria-expanded", String(open)); exBtn.textContent = open ? "Hide example searches" : "Show example searches"; });
@@ -916,7 +957,11 @@
 
   Array.prototype.forEach.call(blocks, function (root, idx) {
     var k = root.getAttribute("data-kind");
-    if (KINDS[k]) { try { KINDS[k](root, idx); root.classList.add("live"); } catch (e) { if (window.console) console.error("interactive failed:", k, e); } }
+    if (!KINDS[k]) return;
+    /* the block as written (answers beside the items) is kept, hidden, so that the page prints as text */
+    var print = h("div", { "class": "try-print", hidden: "" });
+    Array.prototype.forEach.call(root.children, function (c) { if (!c.classList.contains("try-head")) print.appendChild(c.cloneNode(true)); });
+    try { KINDS[k](root, idx); root.classList.add("live"); root.appendChild(print); } catch (e) { if (window.console) console.error("interactive failed:", k, e); }
   });
 })();
 
@@ -927,7 +972,7 @@
   if (!terms.length) return;
   var tip = document.createElement("div"), cur = null, timer = null;
   tip.className = "gloss-tip"; tip.id = "gloss-tip"; tip.setAttribute("role", "tooltip"); tip.hidden = true;
-  document.body.appendChild(tip);
+  (document.querySelector("main") || document.body).appendChild(tip);
   function show(t) {
     clearTimeout(timer); cur = t;
     tip.textContent = t.getAttribute("data-def"); tip.hidden = false;
@@ -941,9 +986,10 @@
   function hide() { if (cur) cur.removeAttribute("aria-describedby"); cur = null; tip.hidden = true; }
   function later() { clearTimeout(timer); timer = setTimeout(hide, 180); }
   Array.prototype.forEach.call(terms, function (t) {
-    t.setAttribute("tabindex", "0");
     t.addEventListener("mouseenter", function () { show(t); });
     t.addEventListener("mouseleave", later);
+    if (t.closest("button, a, [role=button]")) return;      /* a control may not contain another tab stop; the control's own focus still reads the term */
+    t.setAttribute("tabindex", "0");
     t.addEventListener("focus", function () { show(t); });
     t.addEventListener("blur", later);
     t.addEventListener("click", function (e) { e.stopPropagation(); if (cur === t && !tip.hidden) hide(); else show(t); });
