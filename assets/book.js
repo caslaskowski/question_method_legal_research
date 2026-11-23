@@ -556,7 +556,7 @@
             var nextBtn = h("button", { type: "button", "class": "try-btn small", text: k < find.length ? "Next one" : "See the score", onclick: ask });
             quiz.appendChild(h("p", { "class": "good", html: "<strong>Found it.</strong> " + it.tag + ". " })); quiz.appendChild(h("p", { "class": "try-actions" }, [nextBtn])); nextBtn.focus();
           }
-          else { finding.tried = true; var sc = screenOf(find[k].tag); quiz.appendChild(h("p", { "class": "bad", html: "<strong>Not that one.</strong> That is the " + it.tag.toLowerCase() + ". " + (sc ? "Look on the " + sc + " screen." : "Try again.") })); }
+          else { finding.tried = true; var sc = screenOf(find[k].tag); quiz.appendChild(h("p", { "class": "bad", html: "<strong>Not that one.</strong> That is the " + it.tag.toLowerCase().replace(/^the /, "") + ". " + (sc ? "Look on the " + sc + " screen." : "Try again.") })); }
         } };
       }
       startBtn.addEventListener("click", function () { var on = quiz.hidden; quiz.hidden = !on; startBtn.textContent = on ? "Stop the challenge" : "Test yourself: find it on the screen"; if (on) { k = 0; right = 0; ask(); } else finding = null; });

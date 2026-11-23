@@ -325,6 +325,8 @@ h2:hover .anchor,h3:hover .anchor,.anchor:focus{opacity:1;}
 .try-entry p{margin:.2em 0;}
 .try-entry small{font-family:var(--mono);font-size:.68rem;color:var(--spark-deep);text-transform:uppercase;}
 .try .small{font-size:.86rem;color:var(--ink-soft);}
+.try .try-btn.small{color:#fff;}
+.try .try-btn.small.ghost{color:var(--navy);}
 /* tokens */
 .try-line{font-family:var(--serif)!important;font-size:1.15rem!important;background:var(--white);border:1px solid var(--rule-strong);border-radius:6px;padding:10px 14px;min-height:3.4em;}
 .try-line mark{background:var(--spark-tint);padding:0 2px;}
