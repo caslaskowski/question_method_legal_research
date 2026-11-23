@@ -17,6 +17,16 @@ Tick the boxes as you go. Items marked ⚑ also show as yellow flags on the draf
 
 ---
 
+## 0. Round 6 (this pass): Chapter 7 judicial review, and a structure proposal
+
+- **Added.** Chapter 7, Beyond the Basics, a new subsection *Challenging an Agency Action in Court*: the six questions a challenge asks (reviewability, standing, exhaustion, forum and deadline, standard of review, the record), each tied to the source that answers it, as a stack interactive; a sort on which standard of review applies; and a Key Takeaway. Written as research, not doctrine, and it points the doctrine to the admin law course.
+- **Proposed, not built.** `review/06-structure-proposal.md` reads your Pressbooks screenshots and the card-sort video against the engine and recommends, in order: a source card (accordion) at the head of every source chapter; a page-facsimile layout for `annotate` so each source type gets a "how to read it" screen, treatise and Restatement first; a question-first contents page; a dealt mode for `sort`; visible cross-chapter threads.
+- [ ] **[verify] Chapter 7, the challenge stack.** Legal claims written from memory and stated at a first-year level; confirm each before students see it. (1) Final agency action, 5 U.S.C. § 704, and that a proposed rule or warning letter is "usually not final." (2) *Lujan v. Defenders of Wildlife* (1992) for the three standing elements, and the zone-of-interests sentence. (3) Petition for review in a court of appeals "often within sixty days" of Federal Register publication: true of the Hobbs Act and many organic statutes, but the number varies, so the word "often" is doing work. (4) 28 U.S.C. § 2401(a), the six-year limit, and *Corner Post, Inc. v. Board of Governors* (2024) holding that an APA claim accrues when the plaintiff is injured. (5) 5 U.S.C. § 706: arbitrary and capricious for informal action, substantial evidence for formal on-the-record proceedings, and *Motor Vehicle Manufacturers Ass'n v. State Farm* (1983). (6) The record rule and the sentence that an unraised point "may be treated as waived"; issue exhaustion in rulemaking varies by circuit and statute, so the hedge should stay.
+- [ ] **[decide] Chapter 7, the sort's third bin** is labeled "Question of law, decided afresh" rather than "de novo," to keep the term of art out of a first-year page. Rename if you would rather teach the term here; Chapter 11 uses *Loper Bright* without it.
+- [ ] **[decide] Should Chapter 11 cross-reference the new section?** Its *Evaluating Administrative Authority* section ends at the weight of agency materials; a sentence pointing back to Chapter 7's challenge chain would connect them.
+
+---
+
 ## 0. Round 5 (this pass): the textbook's look, fewer and better interactives, `main`
 
 **Counts in the Round 4 section below are out of date.** There are now 43 interactives, not 68.
