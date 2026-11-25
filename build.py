@@ -450,11 +450,94 @@ def pager_for(url):
 STATS = {"embeds": {}, "pages": 0}
 
 
+# --------------------------------------------------------------------------------------
+# Chapter Review: at the end of every chapter, up to four cards (a quiz, one or two drills,
+# the written exercises), in the style of the companion site's practice hub. The quiz and
+# drill list for chapter N is content/review/ch-NN.json; each drill is a Markdown page
+# (content/review/ch-NN/<slug>.md) written in the book's own in-text interactive kinds, so
+# it renders with assets/book.js like everything else. The quiz runs on assets/review.js,
+# which adds the score, the saved answers and the downloadable record.
+# --------------------------------------------------------------------------------------
+def review_data(n):
+    path = os.path.join(ROOT, "content", "review", "ch-%02d.json" % n)
+    if not os.path.exists(path):
+        return None
+    with open(path, encoding="utf-8") as f:
+        return json.load(f)
+
+
+def url_review(n, slug):
+    return "ch-%d/review/%s.html" % (n, slug)
+
+
+def review_cards(n, frag):
+    """The Chapter Review section, inserted before Reviewing Through Practice."""
+    rv = review_data(n)
+    if not rv:
+        return frag
+    cards = []
+    q = rv.get("quiz")
+    if q:
+        t = q["title"].split(":", 1)[1].strip() if ":" in q["title"] else q["title"]
+        cards.append(("k-quiz", "Quiz", t, "%d questions, feedback on every answer, and a record you can download." % len(q["items"]), rel(1, url_review(n, "quiz"))))
+    for d in rv.get("drills", [])[:2]:
+        cards.append(("k-drill", "Drill", d["title"], d.get("blurb", ""), rel(1, url_review(n, d["slug"]))))
+    m = re.search(r'<h2 id="([^"]+)"[^>]*>Reviewing Through Practice', frag)
+    if m:
+        n_ex = len(re.findall(r'<div class="exercise"', frag))
+        cards.append(("k-exercises", "Exercises", "Reviewing Through Practice",
+                      ("%d written exercise%s" % (n_ex, "" if n_ex == 1 else "s") if n_ex else "The written exercises")
+                      + ", each with a deliverable and a self-check. Sample answers are in Appendix H.", "#" + m.group(1)))
+    cards = cards[:4]
+    html_cards = "".join(
+        '<a class="card %s" href="%s"><span class="kicker">%s</span><span class="card-t">%s</span><span class="card-p">%s</span>'
+        '<span class="arrow">%s</span></a>'
+        % (k, esc(href), kick, esc(title), esc(blurb), "Open &rarr;" if not href.startswith("#") else "Go to the exercises &darr;")
+        for k, kick, title, blurb, href in cards)
+    section = ('<section class="chrev" aria-labelledby="chapter-review"><h2 id="chapter-review">Chapter Review'
+               '<a class="anchor" href="#chapter-review" aria-label="Link to this section">#</a></h2>'
+               '<p class="lede-sm">Check what stuck, then practise the skill. The quiz and the drills keep your answers in this browser and let you '
+               'download a record; the exercises are the written assignments.</p>'
+               '<div class="card-grid">%s</div></section>' % html_cards)
+    if m:
+        return frag[:m.start()] + section + frag[m.start():]
+    return frag + section
+
+
+def review_page(n, title, body, kind, head=""):
+    c = CH[n]
+    url = url_review(n, "x")
+    kicker = ('<header class="chead"><p class="num"><a href="%s#chapter-review">Chapter %d review</a> &middot; %s</p><h1>%s</h1></header>'
+              % (rel(2, url_chapter(n)), n, kind, esc(title)))
+    back = '<p class="rv-back"><a href="%s#chapter-review">&larr; Back to Chapter %d, %s</a></p>' % (rel(2, url_chapter(n)), n, esc(c["title"]))
+    return shell(title, kicker + body + back, 2, url, head=head)
+
+
+def build_review(n):
+    rv = review_data(n)
+    if not rv:
+        return
+    c = CH[n]
+    q = rv.get("quiz")
+    if q:
+        data = {"key": "ch%d-quiz" % n, "title": q["title"], "chapter": "Chapter %d: %s" % (n, c["title"]), "items": q["items"], "retry": False}
+        body = ('<p class="lede">%s</p><div id="review"></div><script type="application/json" id="review-data">%s</script>'
+                % (esc(q.get("intro", "")), json.dumps(data, ensure_ascii=False).replace("</", "<\\/")))
+        page = review_page(n, q["title"], body, "Quiz").replace("</body>", '<script src="../../assets/review.js"></script>\n</body>')
+        write(url_review(n, "quiz"), page)
+    for d in rv.get("drills", [])[:2]:
+        md = read("content/review/ch-%02d/%s.md" % (n, d["slug"]))
+        frag, _ne = process(md, 2, url_review(n, d["slug"]), "Chapter %d drill: %s" % (n, d["title"]))
+        write(url_review(n, d["slug"]), review_page(n, d["title"], frag, "Drill"))
+
+
 def build_chapter(n):
     c = CH[n]
     url = url_chapter(n)
     md = read("content/chapters/ch-%02d.md" % n)
     frag, ne = process(md, 1, url, "Chapter %d: %s" % (n, c["title"]))
+    frag = review_cards(n, frag)
+    build_review(n)
     STATS["embeds"][n] = ne
     pid = c["part"]
     kicker = ('<header class="chead"><p class="num">Chapter %d</p><h1>%s</h1></header>' % (n, esc(c["title"])))

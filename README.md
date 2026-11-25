@@ -18,6 +18,7 @@ opens a local page (http://127.0.0.1:8765, this computer only) where you can edi
 |---|---|
 | `index.html`, `ch-N/`, `appendices/`, `front/`, `glossary/`, `downloads/` | The built site. The committed output is the site; no build step runs at deploy time. |
 | `content/` | The editable book: one Markdown file per chapter, appendix, and front-matter piece, plus `glossary.md` (pandoc dialect). The interactives are written here too. **Edit here.** |
+| `content/review/` | The Chapter Review cards at the end of each chapter: `ch-NN.json` holds the chapter's quiz (questions, options, answer, feedback) and its drill list; `ch-NN/<slug>.md` is each drill, written in the in-text interactive kinds below. The build writes them to `ch-N/review/`. Quizzes run on `assets/review.js` (score, saved answers, downloadable record). |
 | `content/_archive/` | Text cut or replaced during import, the import log, and the superseded duplicate sample-answers appendix. Nothing is deleted. |
 | `book.json` | Structure, chapter order, titles, and the downloads list. |
 | `assets/` | `book.css`, `book.js` (page behaviour and the interactive engine), and the self-hosted fonts. |

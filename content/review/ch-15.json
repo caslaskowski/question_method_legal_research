@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 15 Quiz: GenAI and Legal Research",
+  "intro": "Ten questions on how these systems work, where they help, where they fail, and the one step the cycle adds.",
+  "items": [
+   {
+    "q": "Large language models produce citations that look real because they:",
+    "options": [
+     "Look them up in Westlaw",
+     "Predict, word by word, what is most likely to come next; a plausible citation has the same statistical shape as a real one",
+     "Copy them from briefs",
+     "Are trained only on real opinions"
+    ],
+    "answer": 1,
+    "why": "The model cannot tell a true citation from a plausible false one (How Generative AI Works)."
+   },
+   {
+    "q": "The single discipline the cycle adds for generative output is:",
+    "options": [
+     "Use the tool only for drafting",
+     "Nothing enters your record unverified: every case, statute, quotation, and holding is checked against the primary source first",
+     "Ask the tool to confirm its answers",
+     "Run the prompt twice"
+    ],
+    "answer": 1,
+    "why": "If you cannot find and read the source the system named, the answer does not exist (Running the Cycle Through an AI System)."
+   },
+   {
+    "q": "Which question types does the chapter say generative AI handles best today?",
+    "options": [
+     "Application questions about specific cases",
+     "Exploratory and focusing questions: orientation, vocabulary, settled standards",
+     "Fact-finding questions",
+     "None"
+    ],
+    "answer": 1,
+    "why": "Application questions are where it fails most often and most convincingly (Generative AI Tools and the Research Cycle)."
+   },
+   {
+    "q": "Why is a mega-prompt (“research my whole case”) a bad idea?",
+    "options": [
+     "It costs more",
+     "It produces a sprawling answer that is nearly impossible to verify, and errors compound across a long answer",
+     "It is against the rules",
+     "AI cannot handle long prompts"
+    ],
+    "answer": 1,
+    "why": "One question, one checkable answer, one verification, then the next question (Generative AI Tools and the Research Cycle)."
+   },
+   {
+    "q": "In Mata v. Avianca, where did the court locate the fault?",
+    "options": [
+     "In using the tool at all",
+     "In the failure to verify and then in defending the fabrications once challenged",
+     "In the choice of database",
+     "In the Montreal Convention"
+    ],
+    "answer": 1,
+    "why": "The lawyer asked the tool whether the cases were real; it said yes; he never looked (Example: What a fabricated citation costs)."
+   },
+   {
+    "q": "In the demonstration’s third prompt, the tool returned Mahanoy, Papish, and Kennedy v. Bremerton. What went wrong?",
+    "options": [
+     "The cases do not exist",
+     "The system lost sight of the specific question and returned results plausibly related to the general topic rather than responsive to the inquiry",
+     "The prompt was too narrow",
+     "The cases were overruled"
+    ],
+    "answer": 1,
+    "why": "The same false hit a human researcher caught in Chapter 3 (AI in Practice)."
+   },
+   {
+    "q": "The AI research features built into Westlaw, Lexis+, and Bloomberg Law:",
+    "options": [
+     "Are safe to cite unchecked",
+     "Have a lower risk profile because they work within verified databases, but the verification obligation does not change",
+     "Never hallucinate",
+     "Are prohibited by Rule 1.1"
+    ],
+    "answer": 1,
+    "why": "Understanding that distinction is the first step in using AI responsibly (How Generative AI Works; Beyond the Basics)."
+   },
+   {
+    "q": "When you log a verified AI answer, the chapter says to add to Source Consulted:",
+    "options": [
+     "Nothing special",
+     "The system you used and the prompt you ran",
+     "The model’s confidence score",
+     "A screenshot"
+    ],
+    "answer": 1,
+    "why": "And begin Findings with whether the answer was full, partial, or not really (Step 3)."
+   },
+   {
+    "q": "Which is listed as an appropriate use without independent verification?",
+    "options": [
+     "Initial case law research",
+     "Summarizing a case you have already read and verified, or generating search terms and synonyms",
+     "Stating what the current law is",
+     "Predicting case outcomes"
+    ],
+    "answer": 1,
+    "why": "Citing any case, statute, or regulation from the tool requires verification (What Generative AI Can and Cannot Do)."
+   },
+   {
+    "q": "If verifying an AI answer takes as long as finding it yourself would have, the chapter says:",
+    "options": [
+     "Stop verifying",
+     "That is data about the tool, and it belongs in your Notes field",
+     "Switch databases",
+     "Ask a supervisor"
+    ],
+    "answer": 1,
+    "why": "Ask at every checkpoint whether the tool is still earning its place (The verification step; Exercise 15.3)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "right-tool",
+   "title": "Right Tool, Right Question",
+   "blurb": "Eight research tasks. Which instrument fits, and where does verification come in?"
+  },
+  {
+   "kind": "md",
+   "slug": "the-cycle-with-ai",
+   "title": "The Cycle with a Generative Tool",
+   "blurb": "Six moves from a single narrow question to the next one. Put them in the order the chapter runs them."
+  }
+ ],
+ "chapter": 15
+}

@@ -76,6 +76,12 @@ def pages():
         slug = os.path.basename(fn)[:-3]
         out.append(("extra:" + slug, "extra", "Extra: " + slug, "content/extras/%s.md" % slug))
     out.append(("extra:glossary", "extra", "Glossary", "content/glossary.md"))
+    for fn in sorted(glob.glob(os.path.join(ROOT, "content", "review", "ch-*.json"))):
+        n = int(os.path.basename(fn)[3:5])
+        out.append(("review:%d" % n, "review", "Chapter %d quiz (JSON)" % n, "content/review/ch-%02d.json" % n))
+        for dr in sorted(glob.glob(os.path.join(ROOT, "content", "review", "ch-%02d" % n, "*.md"))):
+            slug = os.path.basename(dr)[:-3]
+            out.append(("drill:%d:%s" % (n, slug), "review", "Chapter %d drill: %s" % (n, slug.replace("-", " ")), "content/review/ch-%02d/%s.md" % (n, slug)))
     out.append(("notes", "notes", "EDITING-NOTES.md", "EDITING-NOTES.md"))
     out.append(("readme", "notes", "README.md", "README.md"))
     return out
@@ -163,7 +169,20 @@ def preview_html(pid, md):
     importlib.reload(B)            # pick up book.json changes (draft flag, titles)
     depth = 0 if pid.startswith("part:") else 1
     url = {"part:I": "part-i.html", "part:II": "part-ii.html"}.get(pid, "x/index.html")
-    if pid in ("notes", "readme"):
+    if pid.startswith("review:"):
+        try:
+            d = json.loads(md)
+        except ValueError as e:
+            return "<p style='font-family:sans-serif;color:#8a1c00'>Not valid JSON yet: %s</p>" % html.escape(str(e))
+        q = d.get("quiz", {})
+        rows = "".join("<li><b>%s</b><ol type='A'>%s</ol><p><i>%s</i></p></li>" % (html.escape(it["q"]),
+                       "".join("<li%s>%s</li>" % (" style='font-weight:700;color:#2c7a4b'" if j == it["answer"] else "", html.escape(o)) for j, o in enumerate(it["options"])),
+                       html.escape(it.get("why", ""))) for it in q.get("items", []))
+        drills = "".join("<li><b>%s</b>: %s <small>(content/review/ch-%02d/%s.md)</small></li>" % (html.escape(x.get("title", "")), html.escape(x.get("blurb", "")), int(pid.split(":")[1]), html.escape(x.get("slug", ""))) for x in d.get("drills", []))
+        frag = ("<h2>%s</h2><p>%s</p><ol>%s</ol><h2>Drill cards (the chapter shows at most two)</h2><ul>%s</ul>"
+                "<p>Answer key in bold green. Open the built site to take the quiz itself.</p>" % (html.escape(q.get("title", "")), html.escape(q.get("intro", "")), rows, len(d.get("drills", [])) and drills))
+        base = "/site/"
+    elif pid in ("notes", "readme"):
         frag = B.pandoc_html(md)
         base = "/site/"
     else:
@@ -278,6 +297,11 @@ class Handler(SimpleHTTPRequestHandler):
             full = page_path(body.get("id", ""))
             if not full:
                 return {"error": "unknown page"}
+            if body.get("id", "").startswith("review:"):
+                try:
+                    json.loads(body.get("md", ""))
+                except ValueError as e:
+                    return {"error": "Not valid JSON: %s" % e}
             write_text(full, body.get("md", ""))
             return {"ok": True, "flags": flags_in(body.get("md", ""))}
         if path == "/api/preview":
@@ -438,7 +462,7 @@ window.addEventListener("hashchange", route);
 
 /* ---------- pages ---------- */
 function pagesView() {
-  const kinds = [["front","Front matter"],["part","Part introductions"],["chapter","Chapters"],["appendix","Appendices"],["extra","Extras"],["notes","Working documents"]];
+  const kinds = [["front","Front matter"],["part","Part introductions"],["chapter","Chapters"],["review","Chapter review: quizzes (JSON) and drills (Markdown)"],["appendix","Appendices"],["extra","Extras"],["notes","Working documents"]];
   let h = `<h1>Pages</h1><p class="help">Click a page to edit its text. Counts: words · interactives in the text · draft flags still open.</p>`;
   for (const [k, label] of kinds) {
     const ps = S.pages.filter(p => p.kind === k);
@@ -462,7 +486,7 @@ async function editor(pid) {
   if (!info) { $("#main").innerHTML = "<p>Unknown page.</p>"; return; }
   const data = await api("/api/page?id=" + encodeURIComponent(pid));
   if (data.error) { $("#main").innerHTML = "<p>" + esc(data.error) + "</p>"; return; }
-  const plain = pid === "notes" || pid === "readme";
+  const plain = pid === "notes" || pid === "readme" || pid.startsWith("review:");
   $("#main").innerHTML = `
   <h1>${esc(info.title)} <span class="pill">${esc(info.path)}</span></h1>
   <div class="toolbar">

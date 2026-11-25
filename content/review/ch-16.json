@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 16 Quiz: The NextGen Bar Exam",
+  "intro": "Ten questions on the five named skills, excerpt triage, and the compressed cycle.",
+  "items": [
+   {
+    "q": "Which list is the chapter’s five named research skills?",
+    "options": [
+     "Issue spotting, IRAC, Bluebooking, citation, memo writing",
+     "Ambiguity spotting, intra-jurisdiction source ranking, dispositive fact identification, research gap identification, research sufficiency and closure",
+     "Reading, writing, searching, citing, updating",
+     "Natural language, Boolean, citator, headnotes, key numbers"
+    ],
+    "answer": 1,
+    "why": "The chapter names these five from the NCBE competencies (Five Core Research Skills)."
+   },
+   {
+    "q": "Ambiguity spotting means:",
+    "options": [
+     "Finding typos in the materials",
+     "Reading a legal text and identifying terms, phrases, or provisions whose meaning requires interpretive research",
+     "Choosing the longest answer",
+     "Spotting the hidden statute"
+    ],
+    "answer": 1,
+    "why": "Look for undefined terms, vague standards, terms of art, structural ambiguities, and scope questions (Skill 1)."
+   },
+   {
+    "q": "The chapter’s name for reading every provided source before attempting an answer is:",
+    "options": [
+     "Speed reading",
+     "Excerpt triage",
+     "Issue spotting",
+     "The return pass"
+    ],
+    "answer": 1,
+    "why": "Build a mental map of what each source provides, which binds, which persuades, and where the gaps are (Practice Strategies)."
+   },
+   {
+    "q": "In the convenience-store triage example, the state premises-liability statute that says nothing about third-party crime is:",
+    "options": [
+     "Discarded as irrelevant",
+     "A finding: read for scope, it does not reach the issue, and that is recorded, not discarded",
+     "The controlling authority",
+     "Persuasive only"
+    ],
+    "answer": 1,
+    "why": "Naming what a provided source does not reach is part of the triage (Example: Excerpt triage, run once)."
+   },
+   {
+    "q": "On “which source governs” questions, the chapter says the whole game is:",
+    "options": [
+     "Speed",
+     "The hierarchy of authority",
+     "The number of cases cited",
+     "Reading the dissent"
+    ],
+    "answer": 1,
+    "why": "Misranking a persuasive decision or an off-point statute as controlling is a leading pitfall (Common Pitfalls)."
+   },
+   {
+    "q": "Research sufficiency means the materials answer the question when:",
+    "options": [
+     "You have read them all",
+     "All questions are answered or identified as open, authorities are validated, the framework is consistent, and counterarguments are addressed",
+     "Time runs out",
+     "You feel confident"
+    ],
+    "answer": 1,
+    "why": "The sufficiency call must be committed; “probably enough” is not a call (Skill 5; Exercise 16.1)."
+   },
+   {
+    "q": "Research gap identification distinguishes:",
+    "options": [
+     "Federal from state law",
+     "“The law is genuinely unclear” from “I have not yet found the answer”",
+     "Holding from dictum",
+     "Binding from persuasive"
+    ],
+    "answer": 1,
+    "why": "This is the line Chapters 8 and 9 drilled (Skill 4)."
+   },
+   {
+    "q": "A clear statutory provision versus case law interpreting a different statute:",
+    "options": [
+     "The case law controls",
+     "The statute controls",
+     "Neither applies",
+     "Ask the examiner"
+    ],
+    "answer": 1,
+    "why": "Mandatory authority from the highest source controls; persuasive authority supports (Identifying the strongest authority)."
+   },
+   {
+    "q": "The examinee mistake the chapter lists first is:",
+    "options": [
+     "Reading too slowly",
+     "Starting to write before reading every provided source",
+     "Citing too many cases",
+     "Forgetting the Bluebook"
+    ],
+    "answer": 1,
+    "why": "That is how examinees miss the one authority that controls the answer (Common Pitfalls)."
+   },
+   {
+    "q": "The chapter’s claim about bar preparation is that:",
+    "options": [
+     "A separate research prep course is required",
+     "Consistent practice of the method’s five steps throughout law school is itself bar exam preparation",
+     "Only Part II matters for the exam",
+     "Research is not tested"
+    ],
+    "answer": 1,
+    "why": "Every move in the compressed cycle is one you have already run at full size (Chapter Recap)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "name-the-skill",
+   "title": "Name the Skill",
+   "blurb": "Eight exam moments. Which of the five named skills is each one exercising?"
+  },
+  {
+   "kind": "md",
+   "slug": "excerpt-triage",
+   "title": "Excerpt Triage",
+   "blurb": "The compressed cycle on provided materials, in six steps. Put them in order."
+  }
+ ],
+ "chapter": 16
+}

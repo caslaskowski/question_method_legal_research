@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 17 Quiz: Research for Legal Scholarship",
+  "intro": "Ten questions on finding a topic, preemption checking, and writing the paper one question at a time.",
+  "items": [
+   {
+    "q": "What do all the shapes of a scholarly paper the chapter describes have in common?",
+    "options": [
+     "They all argue a circuit split",
+     "The topic resolves into a question, and the thesis is the answer the paper defends",
+     "They all require empirical data",
+     "They all begin with a case comment"
+    ],
+    "answer": 1,
+    "why": "Unsettled question, live controversy, system that needs fixing, synthesis, response to a new opinion: every version ends the same way (Finding a Topic)."
+   },
+   {
+    "q": "A “question inventory” is:",
+    "options": [
+     "A list of exam questions",
+     "The questions earlier reading left open (issues reserved, points flagged beyond scope, disputes never engaged), collected as you go",
+     "A database of law review titles",
+     "A preemption database"
+    ],
+    "answer": 1,
+    "why": "A well-fed inventory means you may never face the blank page (Finding a Topic)."
+   },
+   {
+    "q": "The four things to ask of a candidate topic are whether it is:",
+    "options": [
+     "Short, famous, federal, and recent",
+     "Supportable, open or fixable, worth answering, and something you can live with for a semester",
+     "Published, cited, taught, and tested",
+     "Novel, long, interdisciplinary, and empirical"
+    ],
+    "answer": 1,
+    "why": "And be realistic about scope: a narrow question answered thoroughly is a contribution (Finding a Topic)."
+   },
+   {
+    "q": "The cursory preemption check should take:",
+    "options": [
+     "A week",
+     "About an hour, searching the claim’s distinctive terms in HeinOnline, Westlaw or Lexis, SSRN, and Google Scholar",
+     "A semester",
+     "Five minutes"
+    ],
+    "answer": 1,
+    "why": "If someone has written your paper, you want to know before the outline exists (Mapping the Scholarly Landscape)."
+   },
+   {
+    "q": "In scholarship, “preemption” means:",
+    "options": [
+     "Federal law overriding state law",
+     "Checking whether your argument has already been made",
+     "Submitting before a competitor",
+     "Citing the leading article first"
+    ],
+    "answer": 1,
+    "why": "A different use of the word from Chapters 1 and 6 (Conducting preemption research)."
+   },
+   {
+    "q": "An article in the same area as yours is:",
+    "options": [
+     "Preemption",
+     "Not preemption; an article making your argument is",
+     "A reason to abandon the topic",
+     "Irrelevant"
+    ],
+    "answer": 1,
+    "why": "Read for the thesis, not the topic; then differentiate or pivot (the protocol, Step 2)."
+   },
+   {
+    "q": "The chapter says most scholarly papers answer a short sequence of questions:",
+    "options": [
+     "Who, what, when, where",
+     "What is the framework; what problem has emerged; why the framework fails; what should be done; and what the strongest objection is",
+     "Facts, issue, holding, reasoning",
+     "Thesis, antithesis, synthesis"
+    ],
+    "answer": 1,
+    "why": "Each section exists to answer one big question, which breaks into research questions (Writing the Paper One Question at a Time)."
+   },
+   {
+    "q": "The chapter recommends drafting the outline as:",
+    "options": [
+     "Topics",
+     "Questions, because a question can be answered and answered means done",
+     "Case names",
+     "Section numbers only"
+    ],
+    "answer": 1,
+    "why": "Not “III. The DMCA framework” but “III. What does the DMCA’s takedown process actually require?” (Writing the Paper One Question at a Time)."
+   },
+   {
+    "q": "The caution about SSRN working papers is that they:",
+    "options": [
+     "Are not citable",
+     "Have not been peer-reviewed and may change before publication, so rely on them with that caveat",
+     "Are always preempting",
+     "Are only for economists"
+    ],
+    "answer": 1,
+    "why": "SSRN puts you at the front of the conversation (SSRN and Working Papers; Common Pitfalls)."
+   },
+   {
+    "q": "“AI and copyright” is, in the chapter’s terms:",
+    "options": [
+     "A paper",
+     "A shelf: a subject area to browse, not a question a paper can answer",
+     "A thesis",
+     "An inventory entry"
+    ],
+    "answer": 1,
+    "why": "A subject area is a shelf to browse, not a paper to write (Common Pitfalls; Exercise 17.1)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "shelf-or-question",
+   "title": "Shelf or Question?",
+   "blurb": "Eight candidates. A subject area to browse, a question a paper could answer, or an entry someone else’s text left open?"
+  },
+  {
+   "kind": "md",
+   "slug": "the-scholarship-sequence",
+   "title": "The Scholarship Sequence",
+   "blurb": "From the question inventory to the final preemption sweep. Put the stages of a paper in order."
+  }
+ ],
+ "chapter": 17
+}

@@ -1,0 +1,155 @@
+{
+ "quiz": {
+  "title": "Chapter 3 Quiz: The Question Method",
+  "intro": "Twelve questions on the cycle, the question types, the three tools, and closure. This is the chapter the rest of the book runs on.",
+  "items": [
+   {
+    "q": "The five steps of the cycle, in order, are:",
+    "options": [
+     "Search, read, cite, write, repeat",
+     "Write your research question; research to answer it; write down what you found; identify your next question; repeat",
+     "Identify the issue; find a secondary source; find a case; find a statute; write",
+     "Clarify, review, reflect, prepare, search"
+    ],
+    "answer": 1,
+    "why": "Five steps and intermittent checkpoints: the steps keep you moving, the checkpoints keep you thinking (The Five Steps and Intermittent Checkpoints)."
+   },
+   {
+    "q": "The legal issue, the macro question, and a research question differ how?",
+    "options": [
+     "They are three names for the same thing",
+     "The legal issue is the problem; the macro question is that issue framed as the one big question your document answers; a research question is a micro question you answer along the way",
+     "The macro question is always a statute; research questions are always cases",
+     "Research questions are written only at the planning stage"
+    ],
+    "answer": 1,
+    "why": "When this book says research question it always means the micro question; the macro question is the destination and research questions are the steps (Introduction; The Role of Questions)."
+   },
+   {
+    "q": "“What is the federal definition of ‘organic’?” is which type of question?",
+    "options": [
+     "Exploratory (no-clue)",
+     "Definitional",
+     "Application (fact-finding)",
+     "Focusing"
+    ],
+    "answer": 1,
+    "why": "It asks what a term means. The statute hands definitional authority to the USDA, so the next question becomes what the USDA’s definition is (Definitional Questions)."
+   },
+   {
+    "q": "Which is a focusing question?",
+    "options": [
+     "I have a contract dispute; where do I even start?",
+     "What are the elements of promissory estoppel?",
+     "What is the standard for reasonable accommodation under the ADA?",
+     "Have courts found a school newspaper to be a public forum on facts like mine?"
+    ],
+    "answer": 2,
+    "why": "Focusing questions ask for the specific rule, standard, or test and usually cross from secondary to primary authority. (The first is no-clue exploratory, the second foundational exploratory, the last application.)"
+   },
+   {
+    "q": "The three kinds of exploratory question are:",
+    "options": [
+     "Definitional, focusing, and application",
+     "No-clue, foundational, and survey",
+     "Fact-finding, constructive, and survey",
+     "Primary, secondary, and tertiary"
+    ],
+    "answer": 1,
+    "why": "No-clue questions come first in an unfamiliar area; foundational questions seek the structure of the law; survey questions ask how multiple jurisdictions handled an issue (Exploratory Questions)."
+   },
+   {
+    "q": "The Research Log has seven fields. Which list is correct?",
+    "options": [
+     "Research Question, Question Type, Method, Findings, Source Consulted, Next Question, Notes",
+     "Issue, Rule, Explanation, Application, Conclusion, Citation, Notes",
+     "Question, Search String, Results, Answer, Next Steps, Date, Notes",
+     "Macro Question, Micro Question, Source, Holding, Dictum, Next Question, Notes"
+    ],
+    "answer": 0,
+    "why": "Seven fields, and the macro question written once at the top (The Research Log)."
+   },
+   {
+    "q": "Of the three tools, which holds the questions still to be answered?",
+    "options": [
+     "The research log",
+     "The annotated outline",
+     "The research map",
+     "The search log"
+    ],
+    "answer": 2,
+    "why": "The map tells you where you are going, the log where you have been, and the outline what you know. The map holds questions; the outline holds answers (Three Tools, One Process)."
+   },
+   {
+    "q": "“Is our newspaper school-sponsored?” is, according to the chapter:",
+    "options": [
+     "A research question you should run next",
+     "Not a research question at all: no database can answer it, so it is a writing step captured in a bracketed note on the outline",
+     "A definitional question",
+     "A survey question"
+    ],
+    "answer": 1,
+    "why": "An application question in research asks how courts applied a rule to facts; applying the rule to your own facts is writing, done during a research pause (A Research Pause)."
+   },
+   {
+    "q": "A paragraph in a finished opinion supports one point of law with a string of citations. That usually signals:",
+    "options": [
+     "A settled point nobody is fighting about",
+     "A survey question answered by looking across many cases",
+     "A definitional question",
+     "An error by the court"
+    ],
+    "answer": 1,
+    "why": "Settled points usually rest on a single citation; a string of citations usually means a survey across scenarios (Reverse Engineering the Question)."
+   },
+   {
+    "q": "Analytical closure means:",
+    "options": [
+     "You have run out of time",
+     "You have run out of new sources",
+     "The research is substantively complete: the governing rule is identified, applied to your facts, counterarguments addressed, and more research would change only your wording",
+     "Your supervisor told you to stop"
+    ],
+    "answer": 2,
+    "why": "Running out of sources is not closure. Practical closure, by contrast, is an external constraint forcing a stop, which you document (When Is Your Research Done?)."
+   },
+   {
+    "q": "The Nix v. Hedden tomato case is used to show:",
+    "options": [
+     "That tomatoes are legally fruit",
+     "How the question types trade places: a definitional question comes back empty, a focusing question supplies the reading rule, and an application question closes it",
+     "That dictionaries control statutory meaning",
+     "That tariff law is common law"
+    ],
+    "answer": 1,
+    "why": "The Tariff Act defined neither word, the Court held ordinary meaning governs, and then asked whether a tomato is a vegetable in common speech (The Types in Motion)."
+   },
+   {
+    "q": "“What is the Tinker standard, and does it apply to school publications?” should be:",
+    "options": [
+     "Run as written; it is one question",
+     "Split into two questions, each with its own answer, source, and log entry",
+     "Skipped because Tinker is old",
+     "Answered from a dictionary"
+    ],
+    "answer": 1,
+    "why": "One question per question mark. A compound question is two cycles (Q1: Explore the Legal Landscape)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "name-the-type",
+   "title": "Name the Type",
+   "blurb": "Eight research questions. Sort each by type, and read the tell in its wording."
+  },
+  {
+   "kind": "md",
+   "slug": "map-log-or-outline",
+   "title": "Map, Log, or Outline?",
+   "blurb": "Nine things a researcher writes down. Which of the three tools does each belong in?"
+  }
+ ],
+ "chapter": 3
+}

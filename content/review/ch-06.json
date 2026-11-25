@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 6 Quiz: Statutes",
+  "intro": "Ten questions on finding a statute, reading it in context, and using the annotated code as the research hub.",
+  "items": [
+   {
+    "q": "Session laws and codes differ how?",
+    "options": [
+     "Session laws are by subject; codes are chronological",
+     "Session laws are published chronologically as enacted; codes reorganize them by subject",
+     "They are the same publication",
+     "Codes are unofficial; session laws are official"
+    ],
+    "answer": 1,
+    "why": "The Statutes at Large are session laws; the United States Code is the code (Session Laws vs. Codes)."
+   },
+   {
+    "q": "Why does the chapter say statutory research happens in the annotated code rather than the bare text?",
+    "options": [
+     "Because the bare text is copyrighted",
+     "Because the annotated code stacks the cases construing the provision, cross-references, amendment history, secondary sources, and citator links under the text",
+     "Because the bare text is never current",
+     "Because annotated codes are free"
+    ],
+    "answer": 1,
+    "why": "One page holds the law and every pathway out of it (Answering Questions with Statutes)."
+   },
+   {
+    "q": "You know a law is called the “Americans with Disabilities Act” but not where it is codified. The fastest finding aid is:",
+    "options": [
+     "A keyword search",
+     "The Popular Name Table",
+     "The Notes of Decisions",
+     "A citator"
+    ],
+    "answer": 1,
+    "why": "The Popular Name Table locates statutes by their common names (Searching for Statutes)."
+   },
+   {
+    "q": "Reading a statute to answer a focusing question means reading:",
+    "options": [
+     "Only the operative subsection",
+     "The operative provision plus the definitions section, the exceptions, and the cross-referenced sections",
+     "The whole title",
+     "Only the annotations"
+    ],
+    "answer": 1,
+    "why": "Reading a subsection in isolation is the most damaging statutory error (Statutes and the Research Cycle; Common Pitfalls)."
+   },
+   {
+    "q": "A statute uses the word “employer” without defining it in the section you are reading. The chapter says this:",
+    "options": [
+     "Is a dead end",
+     "Is your next question: how does this statute define employer? (then case law, legislative history, or agency interpretation)",
+     "Means the statute does not apply",
+     "Should be answered from a dictionary"
+    ],
+    "answer": 1,
+    "why": "Every undefined term, vague standard, exception, and cross-reference is a potential next cycle (Statutes and the Research Cycle)."
+   },
+   {
+    "q": "When does a statute answer an application question by itself?",
+    "options": [
+     "Never",
+     "When it draws a bright line (a numeric threshold, an enumerated list, a deeming provision) and your facts map onto it without inference",
+     "Whenever it has a definitions section",
+     "Whenever a court has cited it"
+    ],
+    "answer": 1,
+    "why": "A limitations period is precise, but whether the clock started is usually a case-law question (Statutes and the Research Cycle)."
+   },
+   {
+    "q": "Expressio unius is the canon that says:",
+    "options": [
+     "Unambiguous text is applied as written",
+     "When a statute lists some things, it probably meant to exclude the ones it left out",
+     "Criminal statutes are read for the defendant",
+     "Later statutes repeal earlier ones"
+    ],
+    "answer": 1,
+    "why": "Treat the canons as generators of next questions; Appendix C carries the working list (Canons of Statutory Construction)."
+   },
+   {
+    "q": "The “citing the wrong version” pitfall refers to:",
+    "options": [
+     "Citing the session law instead of the code",
+     "Citing today’s text when the language in force at the time of your client’s events was different",
+     "Citing an unofficial code",
+     "Citing a repealed statute"
+    ],
+    "answer": 1,
+    "why": "Statutes are amended; the historical notes keep you honest (Common Pitfalls)."
+   },
+   {
+    "q": "The annotated code’s “Implementing Regulations” note is your pathway to:",
+    "options": [
+     "Legislative history",
+     "The Code of Federal Regulations",
+     "The Popular Name Table",
+     "Law review articles"
+    ],
+    "answer": 1,
+    "why": "The full picture usually emerges only when you read the statute alongside its implementing regulations (Relationship Between Statutes and Regulations)."
+   },
+   {
+    "q": "Before you can argue that legislative history resolves an ambiguity, you must first:",
+    "options": [
+     "Find a committee report",
+     "Show that the text is genuinely ambiguous",
+     "Run a citator check",
+     "Find a circuit split"
+    ],
+    "answer": 1,
+    "why": "A court committed to plain meaning will never reach the legislative history (Ambiguous Statutes and Legislative History)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "which-finding-aid",
+   "title": "Which Finding Aid?",
+   "blurb": "What you already know about a law decides how you reach it. Match each starting point to the tool."
+  },
+  {
+   "kind": "md",
+   "slug": "where-does-the-answer-live",
+   "title": "Where Does the Answer Live?",
+   "blurb": "Seven questions that come up while reading one statute. Which part of the annotated code answers each?"
+  }
+ ],
+ "chapter": 6
+}

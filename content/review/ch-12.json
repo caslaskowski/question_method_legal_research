@@ -1,0 +1,127 @@
+{
+ "quiz": {
+  "title": "Chapter 12 Quiz: Ethics and Professional Responsibility",
+  "intro": "Ten questions on the rules behind the research, the consequences of getting it wrong, and the method steps that keep you safe.",
+  "items": [
+   {
+    "q": "Model Rule 1.1 requires competent representation, which includes:",
+    "options": [
+     "Winning the case",
+     "The legal knowledge, skill, thoroughness, and preparation reasonably necessary for the representation, including keeping abreast of relevant technology",
+     "Billing accurately",
+     "Citing at least three cases"
+    ],
+    "answer": 1,
+    "why": "Comment 8 speaks directly to technology (The Duty of Competence)."
+   },
+   {
+    "q": "The ST Engineering Marine decision is used to show:",
+    "options": [
+     "That AI citations are fabricated",
+     "The core competence failure: relying on older authority without checking whether the law had moved",
+     "That malpractice never follows research errors",
+     "That citators are optional"
+    ],
+    "answer": 1,
+    "why": "The closing-out protocol’s citator update is designed to prevent exactly this (The Duty of Competence)."
+   },
+   {
+    "q": "Rule 3.3 creates an affirmative research obligation because it:",
+    "options": [
+     "Requires you to cite every case",
+     "Requires disclosure of directly adverse controlling authority the other side has not cited, so you must search for adverse authority",
+     "Forbids secondary sources",
+     "Requires AI disclosure"
+    ],
+    "answer": 1,
+    "why": "Hence the adverse-authority search in the closing-out protocol (The Duty of Candor)."
+   },
+   {
+    "q": "Rules 5.1 and 5.3 make the Research Log matter because:",
+    "options": [
+     "The log is filed with the court",
+     "Supervisors must review delegated research, and the log is the reviewable record of what was searched, found, and why the research was judged complete",
+     "The log replaces a citator",
+     "The rules require eight fields"
+    ],
+    "answer": 1,
+    "why": "If your supervisor questions your work, the log gives a complete, defensible record (The Duty to Supervise)."
+   },
+   {
+    "q": "Shields v. Town of Perrysville illustrates which consequence?",
+    "options": [
+     "Monetary sanctions",
+     "Waiver: contentions with no citation to legal authority are waived",
+     "Disbarment",
+     "Malpractice damages"
+    ],
+    "answer": 1,
+    "why": "Inadequate research can forfeit an argument entirely (Consequences of Inadequate Legal Research)."
+   },
+   {
+    "q": "In re Martin (Bankr. N.D. Ill. 2025) says:",
+    "options": [
+     "Lawyers may not use generative AI",
+     "No lawyer should use a generative AI product to perform research without verifying the results",
+     "AI citations are presumptively valid",
+     "Verification is optional for experienced lawyers"
+    ],
+    "answer": 1,
+    "why": "The duty of competence requires verification of all research, whatever its source (AI and Emerging Technology Considerations)."
+   },
+   {
+    "q": "A fabricated citation that came from a chatbot is:",
+    "options": [
+     "Excused because the lawyer did not write it",
+     "A Rule 3.3 problem exactly as if it came from anywhere else",
+     "Only a Rule 1.1 problem",
+     "A problem only if opposing counsel notices"
+    ],
+    "answer": 1,
+    "why": "Whether you found it through Westlaw or a chatbot is irrelevant (Common Pitfalls)."
+   },
+   {
+    "q": "The chapter’s verification workflow includes:",
+    "options": [
+     "Running every case through a citator and checking every statute’s current text before finalizing a document",
+     "Asking the AI to verify its own citations",
+     "Checking only the cases you quote",
+     "Verifying only in litigation"
+    ],
+    "answer": 0,
+    "why": "These are the closing steps of the Question Method, performed with the rules in view (Build Verification Into Your Research Workflow)."
+   },
+   {
+    "q": "Which method step does the chapter pair with Rule 3.3?",
+    "options": [
+     "The research pause",
+     "The adverse-authority search in the closing-out protocol’s final sweep",
+     "Naming the question type",
+     "The return pass"
+    ],
+    "answer": 1,
+    "why": "Rule 1.1 pairs with the citator update and read-before-you-cite check; Rules 5.1 and 5.3 with the Research Log (The chapter in one glance)."
+   },
+   {
+    "q": "Royal Oak Entertainment v. City of Royal Oak shows courts may respond to inadequate research with:",
+    "options": [
+     "A warning letter",
+     "Fee awards: counsel and client held liable for the fees the other side incurred because of the research failure",
+     "Dismissal with prejudice only",
+     "Nothing"
+    ],
+    "answer": 1,
+    "why": "Sanctions include monetary penalties, fee awards, adverse rulings, and public reprimands (Consequences of Inadequate Legal Research)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "which-rule",
+   "title": "Which Rule?",
+   "blurb": "Eight research failures. Which Model Rule does each one break, and which method step would have caught it?"
+  }
+ ],
+ "chapter": 12
+}

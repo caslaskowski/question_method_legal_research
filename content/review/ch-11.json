@@ -1,0 +1,127 @@
+{
+ "quiz": {
+  "title": "Chapter 11 Quiz: Advanced Administrative Research",
+  "intro": "Ten questions on guidance, adjudication, deference after Loper Bright, and recording an authority level for everything you find.",
+  "items": [
+   {
+    "q": "A question about what a vague regulatory term (“adequate ventilation”) requires in operation points to:",
+    "options": [
+     "The Federal Register preamble only",
+     "Interpretive guidance, compliance manuals, and opinion letters",
+     "Administrative adjudication decisions",
+     "Enforcement statistics"
+    ],
+    "answer": 1,
+    "why": "A question about how the agency applied the rule to facts points to adjudication; a question about priorities points to enforcement guidelines (Advanced Administrative Materials and the Research Cycle)."
+   },
+   {
+    "q": "This chapter asks you to add one thing to every Research Log finding. What is it?",
+    "options": [
+     "A docket number",
+     "The authority level, stated at the start of the Findings field: binding regulation, persuasive guidance, or advisory",
+     "The agency’s phone number",
+     "A Westlaw headnote"
+    ],
+    "answer": 1,
+    "why": "Skipping it is how a persuasive gloss migrates into your outline dressed as the rule (Advanced Administrative Materials and the Research Cycle)."
+   },
+   {
+    "q": "Skidmore v. Swift & Co. stands for:",
+    "options": [
+     "Courts must defer to agency guidance",
+     "Courts may give guidance persuasive weight in proportion to the agency’s expertise and the thoroughness of its reasoning",
+     "Guidance documents have the force of law",
+     "Agencies cannot issue guidance"
+    ],
+    "answer": 1,
+    "why": "Guidance is influential but not binding (Guidance Documents: Influential but Not Binding)."
+   },
+   {
+    "q": "After Loper Bright Enterprises v. Raimondo (2024):",
+    "options": [
+     "Courts defer to an agency’s reasonable reading of an ambiguous statute",
+     "Courts independently determine the best interpretation of ambiguous statutes rather than accepting the agency’s view",
+     "Agencies can no longer issue regulations",
+     "Skidmore was overruled"
+    ],
+    "answer": 1,
+    "why": "Chevron was overruled; Skidmore weight for informal guidance remains (Post-Loper Bright)."
+   },
+   {
+    "q": "Administrative adjudication decisions are valuable because they:",
+    "options": [
+     "Have the force of a statute",
+     "Apply the regulation to specific fact patterns, the application analysis a bare regulation cannot give you",
+     "Are always published in the CFR",
+     "Bind every federal court"
+    ],
+    "answer": 1,
+    "why": "They may function as precedent within the agency, subject to judicial review (Administrative Adjudication)."
+   },
+   {
+    "q": "Which is the best place to find a federal agency’s guidance documents?",
+    "options": [
+     "The Statutes at Large",
+     "The agency’s own website or electronic reading room, with Regulations.gov and the Federal Register as supplements",
+     "Google Scholar",
+     "PACER"
+    ],
+    "answer": 1,
+    "why": "Commercial databases carry selected guidance, but coverage is not comprehensive (Searching for Advanced Administrative Materials)."
+   },
+   {
+    "q": "FOIA is a poor tool when:",
+    "options": [
+     "The agency is federal",
+     "The clock is running, since responses can take months or years",
+     "You want internal documents",
+     "You are doing scholarly research"
+    ],
+    "answer": 1,
+    "why": "FOIA is valuable for thorough compliance or scholarly research, not urgent matters (FOIA as a Research Tool)."
+   },
+   {
+    "q": "Representing a guidance document as binding law is:",
+    "options": [
+     "Standard practice",
+     "A professional error, and after Loper Bright an increasingly consequential one",
+     "Acceptable if the agency enforces it",
+     "Required by Rule 3.3"
+    ],
+    "answer": 1,
+    "why": "“Legally required” versus “the agency’s preference” is the line a client pays you to draw (Evaluating Administrative Authority)."
+   },
+   {
+    "q": "Your question is “has the FTC taken enforcement action against this type of marketing claim?” That is:",
+    "options": [
+     "A definitional question answered by the CFR",
+     "An application question answered by enforcement actions and adjudication, past the CFR text",
+     "A survey question for an ALR",
+     "A question for legislative history"
+    ],
+    "answer": 1,
+    "why": "These questions push past the regulation to the full range of materials agencies produce (Questions This Source Answers)."
+   },
+   {
+    "q": "The chapter links Chapter 10 and this one with what common question?",
+    "options": [
+     "Which database is cheapest",
+     "How much weight a court should give an account of a statute’s meaning that the court did not write and the enacted text does not contain",
+     "Whether agencies are part of Congress",
+     "Whether the CFR is binding"
+    ],
+    "answer": 1,
+    "why": "After Loper Bright, an agency’s reading, like legislative history, is something a court may find persuasive, not something it must accept (Post-Loper Bright)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "authority-level",
+   "title": "Authority Level",
+   "blurb": "Eight agency documents. State the authority level you would open each Findings entry with."
+  }
+ ],
+ "chapter": 11
+}

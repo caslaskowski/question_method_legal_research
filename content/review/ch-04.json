@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 4 Quiz: Secondary Sources",
+  "intro": "Ten questions on matching a secondary source to the question you are holding, and on using one without mistaking it for the law.",
+  "items": [
+   {
+    "q": "A no-clue exploratory question should send you first to:",
+    "options": [
+     "A treatise",
+     "A legal encyclopedia such as Am. Jur. 2d or C.J.S.",
+     "An ALR annotation",
+     "A practice guide"
+    ],
+    "answer": 1,
+    "why": "Encyclopedias give breadth and vocabulary, not depth; use one to learn the language and framework, then move on (Legal Encyclopedias; Matching Source Type to Question Type)."
+   },
+   {
+    "q": "A survey question (how have multiple jurisdictions handled this?) is best answered by:",
+    "options": [
+     "Black’s Law Dictionary",
+     "A hornbook",
+     "An ALR annotation, a Restatement, a 50-state survey, or a CRS report",
+     "A blawg"
+    ],
+    "answer": 2,
+    "why": "ALR annotations focus on a narrow issue with case citations from many jurisdictions, exactly what a survey question demands (American Law Reports; the mapping table)."
+   },
+   {
+    "q": "Words & Phrases differs from an ordinary legal dictionary because it:",
+    "options": [
+     "Is published by the ALI",
+     "Collects judicial definitions of terms from published opinions",
+     "Covers only federal law",
+     "Is a treatise"
+    ],
+    "answer": 1,
+    "why": "That makes it more powerful when the precise judicial meaning of a term matters to your argument (Legal Dictionaries and Words & Phrases)."
+   },
+   {
+    "q": "Restatements are:",
+    "options": [
+     "Binding in every state",
+     "Published by the American Law Institute; persuasive, not binding, though some adopted sections carry strong weight",
+     "Compilations of statutes",
+     "Student study aids"
+    ],
+    "answer": 1,
+    "why": "Courts cite Restatements frequently, and a section a court has adopted may earn a cite in a brief (Restatements of the Law)."
+   },
+   {
+    "q": "What does the chapter call the most valuable part of a secondary source for a researcher?",
+    "options": [
+     "The preface",
+     "The table of contents",
+     "The footnotes, because they are the bridge to primary authority",
+     "The index"
+    ],
+    "answer": 2,
+    "why": "Each primary authority a secondary source hands you is a candidate answer to a question on your map (Secondary Sources and the Research Cycle)."
+   },
+   {
+    "q": "When should you stop reading a secondary source?",
+    "options": [
+     "Never; read it cover to cover",
+     "When the section ends",
+     "The moment your current question is answered, logging the rest as later questions",
+     "After an hour"
+    ],
+    "answer": 2,
+    "why": "Navigate by table of contents and index, stop when the question is answered, mine the footnotes (Secondary Sources and the Research Cycle)."
+   },
+   {
+    "q": "Which evaluation questions does the chapter say to ask of any secondary source?",
+    "options": [
+     "How long is it and who published it",
+     "Who wrote it, what their expertise is, the venue, when it was last updated, and the intended audience",
+     "Whether it is on Westlaw",
+     "Whether it cites your jurisdiction’s supreme court"
+    ],
+    "answer": 1,
+    "why": "Reliability determines how much weight the source deserves and how hard to verify it (How Secondary Sources Are Made)."
+   },
+   {
+    "q": "In most court filings, secondary sources are:",
+    "options": [
+     "Cited as often as cases",
+     "Not cited as authority, with narrow exceptions like an adopted Restatement section or a leading treatise on an unsettled point",
+     "Required for every proposition",
+     "Forbidden entirely"
+    ],
+    "answer": 1,
+    "why": "Know your context: what is out of place in a brief may be exactly what a law review article needs (Citing Secondary Sources in Legal Writing)."
+   },
+   {
+    "q": "A CRS report is:",
+    "options": [
+     "A commercial treatise",
+     "A nonpartisan Library of Congress report explaining a policy or legal issue, free online",
+     "A state encyclopedia",
+     "An agency regulation"
+    ],
+    "answer": 1,
+    "why": "Congressional Research Service reports are free at crsreports.congress.gov (Congressional Research Service Reports)."
+   },
+   {
+    "q": "The chapter’s “currency problem” means:",
+    "options": [
+     "Secondary sources are expensive",
+     "A secondary source can quietly fall out of date, so check the edition date and pocket part before trusting it",
+     "Only online sources are current",
+     "Treatises are never updated"
+    ],
+    "answer": 1,
+    "why": "A major treatise published five years ago may be badly out of date in a fast-moving area (Common Pitfalls)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "which-secondary-source",
+   "title": "Which Secondary Source?",
+   "blurb": "Seven research situations. Reach for the source type that fits the question you are holding."
+  },
+  {
+   "kind": "md",
+   "slug": "one-source-in-order",
+   "title": "One Secondary Source, in the Method’s Order",
+   "blurb": "Seven moves a researcher makes with a treatise section. Put them in the order the method prescribes."
+  }
+ ],
+ "chapter": 4
+}

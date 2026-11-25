@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 5 Quiz: Case Law",
+  "intro": "Ten questions on reading a case for the question you hold, the editorial apparatus, and what a citator actually tracks.",
+  "items": [
+   {
+    "q": "A case is binding authority only when it comes from:",
+    "options": [
+     "Any court in the United States",
+     "A higher court in the same jurisdiction",
+     "Any appellate court",
+     "A court that published the opinion"
+    ],
+    "answer": 1,
+    "why": "A case from another jurisdiction, a court at the same level, or a lower court is persuasive (The Hierarchy of Case Law Authority)."
+   },
+   {
+    "q": "A headnote is:",
+    "options": [
+     "Part of the opinion and citable",
+     "An editor-written summary of a point in the case, useful for navigation but carrying no authority",
+     "The court’s holding",
+     "A citator signal"
+    ],
+    "answer": 1,
+    "why": "Never cite a headnote; only the opinion text carries precedential weight (Headnotes; Common Pitfalls)."
+   },
+   {
+    "q": "What does a citator such as KeyCite or Shepard’s actually track?",
+    "options": [
+     "The case as a whole",
+     "Points of law: later treatment attaches to specific propositions, which is why the analysis is tied to particular headnotes",
+     "Only overrulings",
+     "Only the cases the opinion cites"
+    ],
+    "answer": 1,
+    "why": "A case overruled on one point can remain solid authority on another; Plessy is the canonical example (Citators)."
+   },
+   {
+    "q": "A red or yellow citator signal means:",
+    "options": [
+     "The case cannot be cited",
+     "The case was reversed on appeal",
+     "Read the citing opinions; the signal is a reminder, not a verdict",
+     "The case is binding"
+    ],
+    "answer": 2,
+    "why": "Learn the color codes, then read far enough to learn which points of law any negative treatment reaches (Citators)."
+   },
+   {
+    "q": "Which is the chapter’s test for distinguishing holding from dictum?",
+    "options": [
+     "Whether the statement appears in the majority opinion",
+     "Whether the statement was necessary to resolve the dispute before the court",
+     "Whether the statement is quoted in a headnote",
+     "Whether the statement is more than one sentence"
+    ],
+    "answer": 1,
+    "why": "If the court could have left it out and reached the same result, it is dictum (Holding vs. Dictum)."
+   },
+   {
+    "q": "Dispositive facts are:",
+    "options": [
+     "All the facts the court recites",
+     "The facts the decision actually turned on, which predict how the rule applies to new facts",
+     "The procedural history",
+     "The facts in the headnotes"
+    ],
+    "answer": 1,
+    "why": "Dispositive fact identification is the key skill for applying a case to your client’s facts (Case Law and the Research Cycle; Appendix B)."
+   },
+   {
+    "q": "The five-move protocol for running the cycle through a case begins with:",
+    "options": [
+     "Reading the whole opinion carefully",
+     "Bringing the question to the case and keeping the question, not the case, in the foreground",
+     "Checking the citator",
+     "Reading the dissent"
+    ],
+    "answer": 1,
+    "why": "Then read for the answer, synthesize, log the collateral questions, and choose the next question (Running the Cycle Through a Case)."
+   },
+   {
+    "q": "Olmstead v. United States is used to illustrate:",
+    "options": [
+     "That wiretapping is always a search",
+     "That a dissent can later become the law, so spotting that trajectory early lets you argue for where the law is heading",
+     "That concurrences are binding",
+     "That the Fourth Amendment protects only property"
+    ],
+    "answer": 1,
+    "why": "Brandeis’s dissent on privacy later became the majority view (Opinions, Concurrences, and Dissents)."
+   },
+   {
+    "q": "An unpublished opinion you found in a database:",
+    "options": [
+     "Is binding because it is in the database",
+     "Can always be cited",
+     "May or may not be citable depending on your jurisdiction’s rules, which you must check before citing",
+     "Is never persuasive"
+    ],
+    "answer": 2,
+    "why": "Check whether it is published, what your court’s rules say, and what weight it carries (Published vs. Unpublished Opinions)."
+   },
+   {
+    "q": "The pullquote about the foster mother shows which kind of application question?",
+    "options": [
+     "A fact-finding question squarely answered by a case",
+     "A constructive question: the rule’s own exception has to be built from several sources by analogy",
+     "A definitional question",
+     "A survey question"
+    ],
+    "answer": 1,
+    "why": "Where no decision squarely answers the application, the work is analogical, synthesizing decided applications and arguing which side of the line your facts fall on (Answering Questions with Case Law)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "what-weight-does-it-carry",
+   "title": "What Weight Does It Carry?",
+   "blurb": "Eight things you meet inside a case-law database. Binding, persuasive, or not authority at all?"
+  },
+  {
+   "kind": "md",
+   "slug": "the-five-moves",
+   "title": "The Five Moves",
+   "blurb": "The middle of the cycle, run through one case. Put the moves in order."
+  }
+ ],
+ "chapter": 5
+}

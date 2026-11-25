@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 2 Quiz: Legal Research Platforms",
+  "intro": "Ten questions on reading citations, retrieving known sources, and the mechanics of searching.",
+  "items": [
+   {
+    "q": "Before running any search, the chapter says the single most time-saving step is to:",
+    "options": [
+     "Choose natural language over Boolean",
+     "Set the jurisdiction and source-type filters",
+     "Brainstorm synonyms",
+     "Run a citator check"
+    ],
+    "answer": 1,
+    "why": "A search for “reasonable accommodation” across all jurisdictions and source types buries you; filters keep irrelevant results out of the way (Understanding the Common Features)."
+   },
+   {
+    "q": "In the citation Robles v. Domino’s Pizza, LLC, 913 F.3d 898 (9th Cir. 2019), what do “913” and “F.3d” tell you?",
+    "options": [
+     "The docket number and the court",
+     "The volume and the reporter where the opinion is published",
+     "The page and the year",
+     "The circuit and the panel"
+    ],
+    "answer": 1,
+    "why": "A case citation reads Party v. Party, Volume Reporter Page (Court Year). The court and year in the parenthetical tell you how much authority the case may carry (Reading a Legal Citation)."
+   },
+   {
+    "q": "You already have the citation 42 U.S.C. § 12182. The chapter says you should:",
+    "options": [
+     "Search the party names to find it",
+     "Enter only the location parts (title and section) into the search bar and retrieve it",
+     "Run a natural language search describing the ADA",
+     "Search for the year of enactment"
+    ],
+    "answer": 1,
+    "why": "Retrieve, don’t search. The location portions are what the database indexes; names and years can interfere with a clean retrieval (Finding the Cited Source)."
+   },
+   {
+    "q": "Natural language searching is the better starting point when:",
+    "options": [
+     "You need to be sure you find every relevant document",
+     "You know the exact legal terminology",
+     "You are still exploring and do not yet know the precise terms of art",
+     "You are updating a case"
+    ],
+    "answer": 2,
+    "why": "Natural language tolerates ordinary language and ranks by closeness; Boolean is the tool once you know what you are after (Searching for Authorities)."
+   },
+   {
+    "q": "Which search requires both a separation concept and a disability concept to appear in the document?",
+    "options": [
+     "fired OR terminated OR disab!",
+     "(fired OR terminated OR discharged) AND (disab! OR “medical condition”)",
+     "fired NOT disab!",
+     "“fired terminated discharged”"
+    ],
+    "answer": 1,
+    "why": "OR gathers the variants of one concept; AND requires distinct concepts to co-occur (Practical Search Strategy)."
+   },
+   {
+    "q": "The root expander bit! would retrieve which of the following?",
+    "options": [
+     "Only bite and bites",
+     "bite, bitten, biting, and also bitter and bitcoin",
+     "Only words that end in “bit”",
+     "Nothing; the expander needs at least four letters"
+    ],
+    "answer": 1,
+    "why": "A short root drags in words you did not intend. Reach for the longest, most distinctive root that still captures the variants you need (Expansion Operators; Common Pitfalls)."
+   },
+   {
+    "q": "The single-character wildcard wom*n is useful because it:",
+    "options": [
+     "Retrieves every word beginning with wom",
+     "Fills exactly one character position, catching woman and women",
+     "Excludes the word women",
+     "Works only in Lexis"
+    ],
+    "answer": 1,
+    "why": "The asterisk fills one position; the root expander (!) handles variable endings (Expansion Operators)."
+   },
+   {
+    "q": "The chapter’s caution about NOT is that it:",
+    "options": [
+     "Is unavailable on most platforms",
+     "Can quietly delete good results when the excluded word sometimes travels with the authority you want",
+     "Must always be used with proximity connectors",
+     "Only works in natural language mode"
+    ],
+    "answer": 1,
+    "why": "Excluding a word is a blunt instrument; use it with restraint (Common Pitfalls)."
+   },
+   {
+    "q": "As your questions move from exploratory to focusing to application, your searches should:",
+    "options": [
+     "Stay as broad as possible to avoid missing anything",
+     "Narrow to match, adding precision tools like proximity connectors and ATLEAST",
+     "Switch from Boolean to natural language",
+     "Drop the jurisdiction filter"
+    ],
+    "answer": 1,
+    "why": "The progression of your searches should track the progression of your questions; Chapter 9 supplies the precision toolkit (Practical Search Strategy)."
+   },
+   {
+    "q": "Which features does the chapter say are common across platforms and stable over time?",
+    "options": [
+     "A central search box, jurisdiction and source-type filters, a citator, and a topical classification system",
+     "Identical button placement on every platform",
+     "Free access to all primary sources",
+     "Generative AI summaries"
+    ],
+    "answer": 0,
+    "why": "Learn the underlying concepts rather than the location of a button and your skills survive the next redesign (Understanding the Common Features)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "retrieve-or-search",
+   "title": "Retrieve or Search?",
+   "blurb": "Eight research moments. Do you already hold an address, or do you need to go looking?"
+  },
+  {
+   "kind": "md",
+   "slug": "which-connector",
+   "title": "Which Connector?",
+   "blurb": "Match each search need to the operator that does the job: AND, OR, NOT, or the root expander."
+  }
+ ],
+ "chapter": 2
+}

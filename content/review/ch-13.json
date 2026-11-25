@@ -1,0 +1,127 @@
+{
+ "quiz": {
+  "title": "Chapter 13 Quiz: Dockets and Court Documents",
+  "intro": "Ten questions on what a docket holds, when to open one, and why a brief is a lead rather than an answer.",
+  "items": [
+   {
+    "q": "The first discipline of this chapter is:",
+    "options": [
+     "Always pull the complaint first",
+     "Court documents are research tools, not a source of authority",
+     "PACER is free",
+     "Briefs are binding"
+    ],
+    "answer": 1,
+    "why": "A brief tells you what one party argued, not what the law is (chapter opening; Court Documents and the Research Cycle)."
+   },
+   {
+    "q": "Why does the method send you to dockets only after your question has narrowed?",
+    "options": [
+     "Because PACER opens late",
+     "Because early exploratory questions are answered by secondary sources; a brief becomes a shortcut only once a focusing or application question is in front of you",
+     "Because dockets contain no citations",
+     "Because court documents are secondary sources"
+    ],
+    "answer": 1,
+    "why": "Reaching for PACER before you know the governing standard wastes money and time (Court Documents and the Research Cycle)."
+   },
+   {
+    "q": "A docket find should be reframed as:",
+    "options": [
+     "An answer for the outline",
+     "A new research question: does the authority this brief cites actually say what the brief claims?",
+     "A citation to copy",
+     "A reason to stop researching"
+    ],
+    "answer": 1,
+    "why": "Running that verification is the cycle continuing, not concluding (Court Documents and the Research Cycle)."
+   },
+   {
+    "q": "Which documents does the chapter say are most worth locating on a docket?",
+    "options": [
+     "Every exhibit",
+     "The complaint, the dispositive motions with their briefs, and the court’s orders resolving those motions",
+     "The notice of appearance",
+     "The summons"
+    ],
+    "answer": 1,
+    "why": "Do not confuse docket entries with the documents themselves; you have to open each entry (Understanding a Docket)."
+   },
+   {
+    "q": "CourtListener is notable because it:",
+    "options": [
+     "Charges per page",
+     "Is free and hosts the RECAP archive of PACER documents uploaded by users",
+     "Covers only state courts",
+     "Is a commercial product"
+    ],
+    "answer": 1,
+    "why": "PACER is comprehensive but metered, with a quarterly waiver threshold (Finding a Docket)."
+   },
+   {
+    "q": "What does the Mata v. Avianca docket hold that the published decision does not?",
+    "options": [
+     "The holding",
+     "How the failure unfolded: the order to show cause, the affidavit, the hearing transcript, and the letters the court required",
+     "The judge’s biography",
+     "The fabricated cases themselves as real law"
+    ],
+    "answer": 1,
+    "why": "That is the part that answers “how do I keep this from happening in my office?” (Example: What only the docket holds)."
+   },
+   {
+    "q": "Complaints are most useful for answering:",
+    "options": [
+     "What the full range of arguments on an issue is",
+     "How lawyers have framed similar legal theories",
+     "What perspectives non-parties bring",
+     "How the court reasoned through procedural issues"
+    ],
+    "answer": 1,
+    "why": "Briefs answer the range of arguments, amicus briefs the non-party perspectives, orders the court’s procedural reasoning (Answering Questions with Court Documents)."
+   },
+   {
+    "q": "The court rules hierarchy to work through before filing is:",
+    "options": [
+     "Local rules only",
+     "Federal Rules, then local court rules, then judge-specific standing orders",
+     "Standing orders only",
+     "Advisory Committee Notes only"
+    ],
+    "answer": 1,
+    "why": "A perfectly researched motion filed in violation of a local formatting rule can still be rejected (Court Rules Research)."
+   },
+   {
+    "q": "Advisory Committee Notes function as:",
+    "options": [
+     "Binding rules",
+     "Legislative history for procedural rules",
+     "Local rules",
+     "Judicial opinions"
+    ],
+    "answer": 1,
+    "why": "They explain why a rule was written as it was (Court Rules Research)."
+   },
+   {
+    "q": "Searching dockets for pending cases on your issue can reveal:",
+    "options": [
+     "Nothing a citator would not",
+     "That the law is about to change, sometimes before any citator flag appears",
+     "Only closed cases",
+     "Only state cases"
+    ],
+    "answer": 1,
+    "why": "Always check whether a leading case has been granted certiorari or is on appeal (Pending Cases)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "pull-the-right-paper",
+   "title": "Pull the Right Paper",
+   "blurb": "Eight research needs. Which court document answers each, and which need the docket cannot meet at all?"
+  }
+ ],
+ "chapter": 13
+}

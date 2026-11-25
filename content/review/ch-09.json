@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 9 Quiz: Narrowing and Closing Out",
+  "intro": "Ten questions on precision connectors, translating a question into a search, and documenting that you are done.",
+  "items": [
+   {
+    "q": "landlord /5 heat retrieves documents where:",
+    "options": [
+     "“landlord” appears before “heat”",
+     "the two terms appear within five words of each other in either order",
+     "both terms appear anywhere in the document",
+     "“heat” appears at least five times"
+    ],
+    "answer": 1,
+    "why": "/n is a proximity connector; pre/n adds order; ATLEAST adds frequency (The Full Connector Set)."
+   },
+   {
+    "q": "ATLEAST3(preemption) is useful because it:",
+    "options": [
+     "Excludes documents that mention preemption",
+     "Returns only documents that discuss preemption substantively, at least three times, rather than in passing",
+     "Finds documents published after 2003",
+     "Finds three cases"
+    ],
+    "answer": 1,
+    "why": "Frequency connectors find documents where a concept is a major focus (The Full Connector Set)."
+   },
+   {
+    "q": "The chapter says a well-drafted research question is:",
+    "options": [
+     "Too long to search",
+     "In effect a Boolean search waiting to be formatted: key terms become search terms and their relationships become connectors",
+     "Always a natural language search",
+     "Independent of the search"
+    ],
+    "answer": 1,
+    "why": "This is the most direct link between the method and the mechanics (Translating Your Research Question into a Precision Search)."
+   },
+   {
+    "q": "What is wrong with ADA AND accommodation AND remote AND anxiety for the remote-work question?",
+    "options": [
+     "It uses too many connectors",
+     "Every concept is welded to a single word (so telecommuting cases vanish) and nothing requires the concepts to appear near each other",
+     "It lacks a jurisdiction filter only",
+     "It is too narrow because of proximity connectors"
+    ],
+    "answer": 1,
+    "why": "Gather synonyms with OR, require co-occurrence with AND, and use proximity for the relationship that matters (The Bad Translation)."
+   },
+   {
+    "q": "Westlaw, Lexis+, and Bloomberg Law connector syntax is:",
+    "options": [
+     "Identical",
+     "Similar but not identical (e.g., Bloomberg uses W/n), and a misread connector can silently exclude the authority you need",
+     "Only available in Westlaw",
+     "Standardized by the ABA"
+    ],
+    "answer": 1,
+    "why": "Check the database’s documentation before you trust a precision search (Database-Specific Connector Syntax; Common Pitfalls)."
+   },
+   {
+    "q": "A search log records:",
+    "options": [
+     "Your research questions and answers",
+     "Each search string, the database, the number of results, and whether the search was productive",
+     "Only the cases you plan to cite",
+     "Your supervisor’s comments"
+    ],
+    "answer": 1,
+    "why": "It works alongside the Research Log and supports your closure documentation (Building a Search Log)."
+   },
+   {
+    "q": "The closing-out protocol’s final sweep requires at least one search with different terms and at least one search aimed at:",
+    "options": [
+     "The same terms in another database",
+     "Authority that cuts against your position",
+     "Secondary sources only",
+     "Unpublished opinions"
+    ],
+    "answer": 1,
+    "why": "Even when it turns up nothing new, that search creates a documented record and answers to Rule 3.3 (The Closing-Out Protocol)."
+   },
+   {
+    "q": "The protocol’s update step covers:",
+    "options": [
+     "Cases only",
+     "Cases via a citator, statutes for pending amendments and session laws, and regulations via the eCFR date and the LSA",
+     "Secondary sources only",
+     "Only authorities you plan to quote"
+    ],
+    "answer": 1,
+    "why": "The next step, Confirm your propositions, then has you read each authority for the specific proposition you cite it for (The Closing-Out Protocol)."
+   },
+   {
+    "q": "A search returns no results. The chapter says this means:",
+    "options": [
+     "The law is silent",
+     "Either there is no authority or your search was too narrow, and only after exhausting alternatives is a “no law” conclusion defensible",
+     "You should stop",
+     "You searched the wrong database"
+    ],
+    "answer": 1,
+    "why": "“I could not find it” and “it does not exist” are very different claims (The Difference Between No Results and No Law)."
+   },
+   {
+    "q": "Why document the closure decision?",
+    "options": [
+     "Because the database requires it",
+     "Because it protects you professionally: you can show exactly what you searched and why you concluded it was enough",
+     "Because the client reads the log",
+     "Because the citator needs it"
+    ],
+    "answer": 1,
+    "why": "The protocol’s last step names the kind of closure, analytical or practical, and records what you searched and why you stopped (The Closing-Out Protocol; Chapter Recap)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "which-precision-tool",
+   "title": "Which Precision Tool?",
+   "blurb": "Seven search needs. Reach for the connector from Chapter 9’s full set."
+  },
+  {
+   "kind": "md",
+   "slug": "diagnose-the-search",
+   "title": "Diagnose the Search",
+   "blurb": "Six symptoms a researcher hits. Name the fix before you search harder."
+  }
+ ],
+ "chapter": 9
+}

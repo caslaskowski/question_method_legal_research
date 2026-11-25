@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 7 Quiz: Regulations and Administrative Research",
+  "intro": "Ten questions on how a rule is made, which publication holds which answer, and how to confirm a regulation is current.",
+  "items": [
+   {
+    "q": "Regulations carry the force of law when:",
+    "options": [
+     "An agency posts them on its website",
+     "They are properly adopted under authority a statute delegated, typically through APA notice-and-comment",
+     "A court cites them",
+     "They appear in a guidance document"
+    ],
+    "answer": 1,
+    "why": "A regulation is valid only if it falls within the scope of its authorizing statute (How Regulations Are Made)."
+   },
+   {
+    "q": "Which publication is the daily record of proposed rules, final rules, and notices?",
+    "options": [
+     "The Code of Federal Regulations",
+     "The Federal Register",
+     "The Statutes at Large",
+     "The eCFR"
+    ],
+    "answer": 1,
+    "why": "The CFR is the annual codification of effective rules; the Federal Register records the rulemaking (Organization of Federal Regulatory Publications)."
+   },
+   {
+    "q": "The chapter calls the final rule’s preamble:",
+    "options": [
+     "Non-binding and therefore ignorable",
+     "Often your single best interpretive resource, the regulatory equivalent of legislative history",
+     "Part of the CFR text",
+     "A guidance document"
+    ],
+    "answer": 1,
+    "why": "Stopping at the CFR text without the preamble is the most common regulatory research error (How Regulations Are Made; Common Pitfalls)."
+   },
+   {
+    "q": "The authority note at the start of a CFR part tells you:",
+    "options": [
+     "When the part was last amended",
+     "Which statute empowers the agency to issue the part",
+     "Which court has interpreted it",
+     "The agency’s enforcement priorities"
+    ],
+    "answer": 1,
+    "why": "The source note, by contrast, cites the Federal Register document that created or last amended the part (Organization of Federal Regulatory Publications)."
+   },
+   {
+    "q": "The most current freely available version of a regulation is in:",
+    "options": [
+     "The annual CFR volume",
+     "The eCFR, updated daily",
+     "The Federal Register index",
+     "Westlaw only"
+    ],
+    "answer": 1,
+    "why": "Each eCFR title carries a note showing the date through which it is updated (Answering Questions with Regulations and Updating for Currency)."
+   },
+   {
+    "q": "The List of CFR Sections Affected (LSA) is used to:",
+    "options": [
+     "Find a regulation by popular name",
+     "Catch intervening amendments when working from the annual CFR edition",
+     "Locate the enabling statute",
+     "Find agency guidance"
+    ],
+    "answer": 1,
+    "why": "Agencies revise regulations far more often than legislatures amend statutes, so currency matters even more here (Updating for Currency)."
+   },
+   {
+    "q": "Which question is a regulation the primary tool for?",
+    "options": [
+     "I have a workplace safety problem; where do I start?",
+     "What specific requirements must a food manufacturer meet to label a product organic?",
+     "Who was the first EPA administrator?",
+     "How do I draft a complaint?"
+    ],
+    "answer": 1,
+    "why": "Regulations answer focusing questions about how a statutory mandate operates and definitional questions about terms delegated to agencies (Questions This Source Answers)."
+   },
+   {
+    "q": "If you already hold a CFR citation, the chapter says to:",
+    "options": [
+     "Keyword search for it",
+     "Retrieve it directly in the eCFR and skip the search",
+     "Start with a secondary source",
+     "Read the Federal Register first"
+    ],
+    "answer": 1,
+    "why": "Retrieve, don’t search, the same rule as Chapter 2 (Searching for Regulations)."
+   },
+   {
+    "q": "A guidance document that has not gone through notice-and-comment:",
+    "options": [
+     "Has the force of law",
+     "Lacks the force of law but is highly influential as a statement of how the agency interprets and enforces its rules",
+     "Is binding on courts",
+     "Cannot be cited"
+    ],
+    "answer": 1,
+    "why": "Treating guidance as a binding regulation can lead you to tell a client something is required when it is only the agency’s preference (Guidance Documents; Common Pitfalls)."
+   },
+   {
+    "q": "For state regulations, the research process:",
+    "options": [
+     "Has no equivalent to the federal model",
+     "Mirrors the federal model: locate the authorizing statute, find the implementing regulation, check for updates",
+     "Always starts in the Federal Register",
+     "Requires a FOIA request"
+    ],
+    "answer": 1,
+    "why": "State registers publish proposed and final rules; state codes compile them by subject (State Administrative Materials)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "which-publication",
+   "title": "Which Publication?",
+   "blurb": "Federal regulations move through a fixed set of publications. Match each need to the one that answers it."
+  },
+  {
+   "kind": "md",
+   "slug": "life-of-a-rule",
+   "title": "The Life of a Rule",
+   "blurb": "From the statute that authorized it to the day you check it is still current. Put the stages in order."
+  }
+ ],
+ "chapter": 7
+}

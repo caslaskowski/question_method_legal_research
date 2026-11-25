@@ -1,0 +1,133 @@
+{
+ "quiz": {
+  "title": "Chapter 8 Quiz: Researching Across Sources",
+  "intro": "Ten questions on moving between sources, reading primary authority directly, and building confidence on a sprawling project.",
+  "items": [
+   {
+    "q": "In multi-source research, what mechanism tells you when to switch sources?",
+    "options": [
+     "The jurisdiction filter",
+     "The Next Question field of your Research Log: each answer generates a question that may live in a different source",
+     "The citator",
+     "The table of contents of the treatise"
+    ],
+    "answer": 1,
+    "why": "The question in front of you picks the source (Researching Across Sources and the Research Cycle)."
+   },
+   {
+    "q": "In the statute-regulation-case law triangle:",
+    "options": [
+     "The statute supplies all the detail",
+     "The statute sets the framework, regulations implement it with detail, and case law interprets both",
+     "Case law comes first",
+     "Regulations override the statute"
+    ],
+    "answer": 1,
+    "why": "Missing any one of the three leaves a gap (The Statute-Regulation-Case Law Triangle)."
+   },
+   {
+    "q": "Why does the chapter insist you open a load-bearing statute in the code rather than rely on a case’s quotation of it?",
+    "options": [
+     "Because cases misquote statutes on purpose",
+     "Because the quotation gives you only the language that mattered to that dispute, not the definitions, exceptions, or cross-references",
+     "Because courts cannot cite statutes",
+     "Because the code is shorter"
+    ],
+    "answer": 1,
+    "why": "An excerpt is not the law, and a paraphrase is someone’s interpretation of it (Go to the Source)."
+   },
+   {
+    "q": "Five consecutive case-law entries in your log on a common-law negligence question is:",
+    "options": [
+     "The single-source trap",
+     "Quite possibly the research working as designed, since the cases are where the rule lives",
+     "A coverage failure",
+     "A reason to switch to regulations"
+    ],
+    "answer": 1,
+    "why": "The trap is a coverage failure, not a streak of same-type entries (The Single-Source Trap)."
+   },
+   {
+    "q": "The subtler form of the single-source trap is:",
+    "options": [
+     "Reading too many secondary sources",
+     "An authority type that appears in your log only secondhand, through another source’s characterization, with the primary text never opened",
+     "Searching only one database",
+     "Citing dicta"
+    ],
+    "answer": 1,
+    "why": "Every statutory point arriving through a case, every regulatory point through guidance (The Single-Source Trap)."
+   },
+   {
+    "q": "In the ADA website example, why does the statute alone not settle the question?",
+    "options": [
+     "It was repealed",
+     "It was enacted in 1990 and never mentions websites, so the regulation and case law carry the rest",
+     "It applies only to employment",
+     "It is preempted"
+    ],
+    "answer": 1,
+    "why": "One question, three source types, each answering what only it can (Answering Questions Across Multiple Sources)."
+   },
+   {
+    "q": "The “return pass” is:",
+    "options": [
+     "Running your first search again",
+     "Rereading the secondary source that opened the project at the end, with everything you have learned, to catch unpulled threads",
+     "Shepardizing every case twice",
+     "Asking a colleague to redo the research"
+    ],
+    "answer": 1,
+    "why": "It turns “nothing new” into documented evidence of coverage (Confidence on a Complex Project)."
+   },
+   {
+    "q": "When a federal statute and a state common-law rule seem to cover the same conduct, ask first:",
+    "options": [
+     "Which is older",
+     "Whether the federal statute preempts state law expressly or impliedly",
+     "Which has more cases",
+     "Whether the state rule is in a Restatement"
+    ],
+    "answer": 1,
+    "why": "If it does not preempt, both may apply and your analysis addresses each (When Sources Conflict)."
+   },
+   {
+    "q": "Two habits make the Research Log do coverage work on a multi-source project. One is noting the authority type of each entry. Why?",
+    "options": [
+     "So you can count your entries",
+     "So you can audit the log against the map, authority type by authority type, and see what was never reached",
+     "So your supervisor can grade it",
+     "So the citator can read it"
+    ],
+    "answer": 1,
+    "why": "The research map identifies every authority type in play and becomes the coverage checklist (Managing the Research Log Across Multiple Sources)."
+   },
+   {
+    "q": "“The law is unsettled” versus “I have not finished looking” is, in the chapter’s words, the difference between:",
+    "options": [
+     "A statute and a case",
+     "A finding and a confession",
+     "Analytical and practical closure",
+     "Primary and secondary authority"
+    ],
+    "answer": 1,
+    "why": "Research gap identification is a critical professional skill, and the bar exam tests it too (Chapter Recap)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "the-triangle",
+   "title": "The Triangle",
+   "blurb": "Nine propositions from one regulated area. Which corner of the statute-regulation-case law triangle supplies each?"
+  },
+  {
+   "kind": "md",
+   "slug": "trap-or-not",
+   "title": "Trap or Not?",
+   "blurb": "Seven research logs. Which ones show the single-source trap, and which show the research working as designed?"
+  }
+ ],
+ "chapter": 8
+}

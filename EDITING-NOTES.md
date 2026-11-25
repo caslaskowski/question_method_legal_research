@@ -1,5 +1,45 @@
 # Editing notes: first-pass interactive edition
 
+## Round 7: Chapter Review cards (quizzes, drills, exercises)
+
+Every chapter now ends with a **Chapter Review** section, placed just before Reviewing Through Practice: up to four cards in the style of the companion site's practice hub. **Quiz** (one per chapter), **Drill** (one or two), **Exercises** (the chapter's existing Reviewing Through Practice, which the card jumps to). Nothing was embedded from anywhere: the quizzes and drills are this edition's own pages, under `ch-N/review/`, each with a back link to the chapter.
+
+**Quizzes.** `content/review/ch-NN.json`, 17 quizzes, 172 questions (10 a chapter, 12 for Chapter 3), multiple choice with one-sentence feedback that names the section to reread. They run on `assets/review.js`: answers in any order, feedback as you go, saved in the browser, a downloadable plain-text record with a reflection prompt, Start over. The score and record are what the book's `choice` kind does not do, which is why the quiz has its own small engine. **I wrote every question; none has been reviewed by you.** The editor shows each quiz with the answer key highlighted (Pages, then "Chapter N quiz"). I re-checked them against this branch's text after the team review (the six-item closing-out protocol, the Quick Check, the application-question rewording in Chapters 3, 9, 14 and 16) and adjusted four items; please read the rest.
+
+**Drills.** `content/review/ch-NN/<slug>.md`, 30 drills, written in the book's own in-text kinds (`sort` and `order`, one `choice`-shaped trap inside a sort) so they render with `book.js`, read as text in print and in the DOCX, and open in the editor like any page. Each is one screen: six to nine items. Chapters 11, 12, 13 and 14 have one drill; the rest have two.
+
+| Ch. | Drill 1 | Drill 2 |
+|---|---|---|
+| 1 | Rank the Stack (order) | Binding or Persuasive? (sort) |
+| 2 | Retrieve or Search? (sort) | Which Connector? (sort) |
+| 3 | Name the Type (sort) | Map, Log, or Outline? (sort) |
+| 4 | Which Secondary Source? (sort) | One Secondary Source, in the Method's Order (order) |
+| 5 | What Weight Does It Carry? (sort) | The Five Moves (order) |
+| 6 | Which Finding Aid? (sort) | Where Does the Answer Live? (sort) |
+| 7 | Which Publication? (sort) | The Life of a Rule (order) |
+| 8 | The Triangle (sort) | Trap or Not? (sort) |
+| 9 | Which Precision Tool? (sort) | Diagnose the Search (sort) |
+| 10 | Rank the Record (order) | Open the Record? (sort) |
+| 11 | Authority Level (sort) | |
+| 12 | Which Rule? (sort) | |
+| 13 | Pull the Right Paper (sort) | |
+| 14 | Which Posture? (sort) | |
+| 15 | Right Tool, Right Question (sort) | The Cycle with a Generative Tool (order) |
+| 16 | Name the Skill (sort) | Excerpt Triage (order) |
+| 17 | Shelf or Question? (sort) | The Scholarship Sequence (order) |
+
+**Card limit.** Four per chapter, enforced in `build.py` (`review_cards()` takes at most two drills and truncates to four).
+
+**To check**
+
+- [ ] **Read the quizzes** (ten minutes a chapter). Where the feedback names a section the chapter no longer has in those words, fix the item or the heading.
+- [ ] **Read the drills' feedback lines.** Three sorts carry a deliberate trap item with a second feedback line for the wrong bin (Chapter 3's "Is our newspaper school-sponsored?", Chapter 4's blawg item, Chapter 7's comments item). If you would rather have no traps, delete those items.
+- [ ] **The order drills' top-to-bottom ranking** (Chapter 1's stack, Chapter 10's record) commit to a single order where the book sometimes says "variable." Chapter 10's feedback explains why each sits where it does; decide whether the floor statement belongs above or below the hearing testimony.
+- [ ] **Dealt mode.** The structure proposal (review/06) suggests a one-at-a-time mode for `sort`; the drills would gain most from it on a phone. Not built.
+- [ ] **Quiz retries.** Quizzes lock each answer once given; drills let you try again. Say if you want quizzes to allow a second attempt.
+- [ ] The review reports in `review/` and the chapter review pages in `ch-N/review/` share a word but not a folder; nothing collides.
+
+
 Working document for Cas. It lists everything I found that needs a decision, a fix, or a fact-check before students see this version. Part II gets the most detail, as requested.
 
 **How to read it.** Each item has a priority and a type.

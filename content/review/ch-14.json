@@ -1,0 +1,127 @@
+{
+ "quiz": {
+  "title": "Chapter 14 Quiz: Practice-Specific Research",
+  "intro": "Ten questions on the three parameters that change with the practice context, and the closure criterion for each.",
+  "items": [
+   {
+    "q": "According to the chapter, what changes from one practice context to the next?",
+    "options": [
+     "The five steps of the cycle",
+     "The parameters the cycle runs with: default question type, first source, and closure criterion",
+     "The need for a Research Log",
+     "The hierarchy of authority"
+    ],
+    "answer": 1,
+    "why": "The cycle is context-neutral; only the parameters move (Practice-Specific Research and the Research Cycle)."
+   },
+   {
+    "q": "Litigation research runs heavily on which question type?",
+    "options": [
+     "Definitional",
+     "Application: how have the controlling cases applied the rule to facts like these?",
+     "Survey",
+     "No-clue exploratory"
+    ],
+    "answer": 1,
+    "why": "Transactional work runs on focusing questions about requirements and risks; regulatory work spans all four (Practice-Specific Research and the Research Cycle)."
+   },
+   {
+    "q": "The first source for transactional research is usually:",
+    "options": [
+     "Case law",
+     "Statutes and standardized forms",
+     "Dockets",
+     "Legislative history"
+    ],
+    "answer": 1,
+    "why": "Litigation starts in case law; regulatory work in the CFR and agency guidance (Practice-Specific Research and the Research Cycle)."
+   },
+   {
+    "q": "Which closure criterion belongs to litigation?",
+    "options": [
+     "All applicable requirements and risks identified",
+     "Controlling authority for each issue; adverse authority identified and addressed; procedural requirements confirmed; authorities updated",
+     "All compliance obligations mapped",
+     "All forms reviewed"
+    ],
+    "answer": 1,
+    "why": "Closing out by the wrong criterion is a close relative of importing one context’s habits into another (Litigation Research; Common Pitfalls)."
+   },
+   {
+    "q": "SEC EDGAR is named as essential for:",
+    "options": [
+     "Docket research",
+     "Federal securities research: public company filings, prospectuses, and precedent transaction documents",
+     "Legislative history",
+     "Judicial analytics"
+    ],
+    "answer": 1,
+    "why": "It is free (Transactional Research)."
+   },
+   {
+    "q": "The meta-question the chapter wants you to ask in any unfamiliar context is:",
+    "options": [
+     "Which database has the best interface?",
+     "In this context, what is my default question type, where do I start, and what will tell me I’m done?",
+     "Who is the opposing counsel?",
+     "How many cases should I cite?"
+    ],
+    "answer": 1,
+    "why": "A lawyer who has internalized the cycle can walk into an unfamiliar area and ask it immediately (Practice-Specific Research and the Research Cycle)."
+   },
+   {
+    "q": "In regulatory and compliance research, closure also requires:",
+    "options": [
+     "A jury verdict",
+     "Checking pending rulemaking for upcoming changes and reviewing recent enforcement actions",
+     "A signed engagement letter",
+     "Only the CFR text"
+    ],
+    "answer": 1,
+    "why": "Map every obligation, consult guidance, review enforcement priorities (Regulatory and Compliance Research)."
+   },
+   {
+    "q": "The Research Log changes function across contexts. In transactional practice it:",
+    "options": [
+     "Documents the authority behind each argument",
+     "Tracks requirements and risk factors",
+     "Maps compliance obligations",
+     "Is not used"
+    ],
+    "answer": 1,
+    "why": "In litigation it documents authority; in regulatory practice it maps obligations (Practice-Specific Research and the Research Cycle)."
+   },
+   {
+    "q": "Why does the chapter say a new lawyer’s reflex for a familiar source type ripens into the single-source trap in a new practice area?",
+    "options": [
+     "Because new lawyers are careless",
+     "Because the authority types that govern the new context are exactly the ones old habits never taught you to open",
+     "Because case law is always wrong in transactions",
+     "Because forms are secondary sources"
+    ],
+    "answer": 1,
+    "why": "See Chapter 8 for the trap’s two forms (Common Pitfalls)."
+   },
+   {
+    "q": "The Kiss Pharm excerpt shows a court:",
+    "options": [
+     "Rewarding creative research",
+     "Chastising counsel whose motion ignored a settled body of case law",
+     "Approving a transactional checklist",
+     "Overruling itself"
+    ],
+    "answer": 1,
+    "why": "In litigation, the arguments you make must be supported by judicial authority (Litigation Research)."
+   }
+  ]
+ },
+ "drills": [
+  {
+   "kind": "md",
+   "slug": "which-posture",
+   "title": "Which Posture?",
+   "blurb": "Nine statements about a research project. Which practice context is speaking?"
+  }
+ ],
+ "chapter": 14
+}
